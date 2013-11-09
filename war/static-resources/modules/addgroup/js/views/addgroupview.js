@@ -2,8 +2,8 @@ define(function(require) {
 
 	require('jquery');
 	var Sandbox = require('sandbox');
-	var FBAPI = require('fbapi');
-	var GoogleAPi = require('googleapi');
+	var FBAPI = require('fbapioauth');
+	var GoogleAPi = require('googleapioauth');
 	var login = require('components/login/login');
 	var FormValidator = require("./../validator/addgroupvalidator");
 	var FEMFriendManager = require('modules/friendmanager/friendmanager');

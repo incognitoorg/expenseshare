@@ -18,8 +18,8 @@ var require = {
 			debugmode : 'libraries/debugmode/debugmode',
 			errorlogger : 'libraries/errorlogger/errorlogger',
 			persistence : 'libraries/lawnchair/lawnchair',
-			fbapi : 'components/fbapi/fbapi-web',
-			googleapi : 'components/googleapi/googleapi-web',
+			fbapioauth : 'components/fbapi/fbapi-web',
+			googleapioauth : 'components/googleapi/googleapi-web',
 			animate : 'plugins/jquery/animate-enhanced/jquery.animate-enhanced.min'
 		},
 		shim : {
