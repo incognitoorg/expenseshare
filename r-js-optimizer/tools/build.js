@@ -76,7 +76,9 @@
 		debugmode : 'libraries/debugmode/debugmode',
 		errorlogger : 'libraries/errorlogger/errorlogger',
 		persistence : 'libraries/lawnchair/lawnchair',
-		fbgraphinitializer : 'components/fbgraph-initializer/fbgraph-initializer'
+		fbapioauth : 'components/fbapi/fbapi-web',
+		googleapioauth : 'components/googleapi/googleapi-web',
+		animate : 'plugins/jquery/animate-enhanced/jquery.animate-enhanced.min'
 		
 		
 		/*,backbone : 'libraries/backbone/backbone',
