@@ -1,15 +1,24 @@
 package com.fem.google.cloud.endpoints;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityNotFoundException;
 
 import com.google.api.server.spi.config.Api;
@@ -290,6 +299,30 @@ public class UserEndpoint {
 		user = getOrInsertUser(user);
 		user.setLastLoggedInAt(new Date());
 		user.setAccessToken(UUID.randomUUID().toString());
+		
+		Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress("admin@expenseshare.com", "Expense Share"));
+            msg.addRecipient(Message.RecipientType.TO,
+                             new InternetAddress(user.getEmail(), "Mr. " + user.getFirstName()));
+            msg.setSubject("Greetings...");
+            msg.setText("Welcome to Expense Share...!!!");
+            Transport.send(msg);
+
+        } catch (AddressException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        } catch (MessagingException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return user;
 		
 	}

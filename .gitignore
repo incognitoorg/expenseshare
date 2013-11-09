@@ -1,0 +1,5 @@
+*.class
+/endpoint-libs
+/.settings
+/bin
+/gen
