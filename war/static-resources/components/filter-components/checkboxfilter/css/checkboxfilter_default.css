@@ -1,0 +1,5 @@
+.js-theme-uncheck {
+  background: url("/public/resources/components/decidepagehandler/images/ibe_filter_checkbox_unchecked.png") no-repeat; }
+
+.js-theme-check {
+  background: url("/public/resources/components/decidepagehandler/images/ibe_filter_checkbox_checked.png") no-repeat; }

@@ -1,0 +1,23 @@
+<li class=js-expense-li>
+<div class="row expense" >
+	<div class="small-11 columns js-expense" data-expense-id={{expenseEntityId}}>
+		<div class="row amount-row">
+			<div class="small-12 columns">
+				<span class=amount>{{userExpenseAmount}}</span><span
+					class="for sentense-fillers">for</span><span class=expense-name>{{name}}</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-12 columns">
+				<span class="sentense-fillers on">{{day}}</span> 
+				<span class="sentense-fillers group">{{group.groupName}}</span>
+				
+			</div>
+		</div>
+	</div>
+	<div class="small-1 column delete-expense" data-expense-id={{expenseEntityId}} title="Delete expense..">X
+	</div>
+</div>
+<div class="js-expense-detail-container" style=display:none;>
+</div>
+</li>

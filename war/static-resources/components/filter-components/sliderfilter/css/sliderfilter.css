@@ -1,0 +1,71 @@
+/*
+Syntax error: Undefined variable: "$filter_slider_icon".
+        on line 18 of /home/srikanth/workspace/alphaV2_final/public/resources/components/filter-components/sliderfilter/css/sliderfilter.scss
+
+13: 	height: 1.5em;
+14: 	cursor: pointer;
+15: }
+16: 
+17: .genericSlider .ui-state-default {
+18: 	background: url($filter_slider_icon) no-repeat;
+19: 	background-position: center;
+20: 	border: none;
+21: }
+22: 
+23: .genericSlider .ui-widget-content {
+
+Backtrace:
+/home/srikanth/workspace/alphaV2_final/public/resources/components/filter-components/sliderfilter/css/sliderfilter.scss:18
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/variable.rb:49:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/funcall.rb:76:in `block in _perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/funcall.rb:76:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/funcall.rb:76:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/list.rb:70:in `block in _perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/list.rb:70:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/list.rb:70:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:216:in `visit_prop'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:37:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:18:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:53:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:27:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:39:in `with_environment'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:26:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:238:in `visit_rule'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:37:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:18:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:53:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:27:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:39:in `with_environment'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:26:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:47:in `visit_root'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/base.rb:37:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:18:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/tree/root_node.rb:20:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/engine.rb:300:in `_render'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/engine.rb:247:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/plugin/compiler.rb:340:in `update_stylesheet'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/plugin/compiler.rb:202:in `block in update_stylesheets'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/plugin/compiler.rb:200:in `each'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/plugin/compiler.rb:200:in `update_stylesheets'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/lib/sass/plugin/compiler.rb:298:in `block in watch'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/vendor/listen/lib/listen/multi_listener.rb:86:in `call'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/vendor/listen/lib/listen/multi_listener.rb:86:in `on_change'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/vendor/listen/lib/listen/multi_listener.rb:95:in `block in initialize_adapter'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/vendor/listen/lib/listen/adapters/polling.rb:55:in `call'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/vendor/listen/lib/listen/adapters/polling.rb:55:in `poll'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.1.20/vendor/listen/lib/listen/adapters/polling.rb:31:in `block in start'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined variable: \"$filter_slider_icon\".\A         on line 18 of /home/srikanth/workspace/alphaV2_final/public/resources/components/filter-components/sliderfilter/css/sliderfilter.scss\A \A 13: 	height: 1.5em;\A 14: 	cursor: pointer;\A 15: }\A 16: \A 17: .genericSlider .ui-state-default {\A 18: 	background: url($filter_slider_icon) no-repeat;\A 19: 	background-position: center;\A 20: 	border: none;\A 21: }\A 22: \A 23: .genericSlider .ui-widget-content {"; }

@@ -1,0 +1,19 @@
+/* -------------Layout Classes-------------- */
+div.searchResultsSorter span.js-theme-sorter {
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+  cursor: pointer; }
+
+/* -------------Theme Classes-------------- */
+.js-theme-sorter.js-theme-upward {
+  background: url("/public/resources/components/decidepagehandler/images/sorter/sorter-up.png") no-repeat; }
+
+.js-theme-sorter.js-theme-upward.js-theme-selected {
+  background: url("/public/resources/components/decidepagehandler/images/sorter/sorter-up-glow.png") no-repeat; }
+
+.js-theme-sorter.js-theme-downward {
+  background: url("/public/resources/components/decidepagehandler/images/sorter/sorter-down.png") no-repeat; }
+
+.js-theme-sorter.js-theme-downward.js-theme-selected {
+  background: url("/public/resources/components/decidepagehandler/images/sorter/sorter-down-glow.png") no-repeat; }

@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="small-12 js-filters-container">
+		<h5 class=js-filter-headind>Filters</h5>
+		<div class="js-filters">
+			<div>Date range:</div>
+			<div class='js-date-range-filter'><input type=date class='js-from-date'><input type=date class="to-date"></div>
+			<div>Group</div>
+			<div class='js-groups-filter'>
+				<select class="js-group-filter-select"></select>
+			</div>
+			<div>User</div>
+			<div class='js-user-filter'>
+				<select class="js-user-filter-select"></select>
+			</div>
+			<div>Expense type</div>
+			<div class='js-expense-type-filter'>
+				<select class="js-type-filter-select" name="expensetype">
+					<option value="other" selected="">Other</option>
+					<option value="food">Food</option>
+					<option value="loan">Loan</option>
+					<option value="movies">Movies</option>
+					<option value="outing">Outing</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<ul class="js-expenses-container cards">
+	</ul>
+</div>

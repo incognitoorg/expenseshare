@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="small-12 columns">
+		<span class="js-amount">{{userExpenseAmount}}</span><span class="label-for"> for </span><span class="js-expense-name">{{name}}</span>
+	</div>
+	<div class="small-12 columns">
+		<span class="expense-date">{{day}}</span>
+	</div>
+	<div class="small-12 columns">
+		<span class="expense-date">{{type}}</span>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 columns">
+		<h4>Payers :</h4>
+		<div class="small-12 columns js-participants">
+		 {{#each listPayersInfo}}
+		  <div>{{userInfo.fullName}}</div>
+		  <div>{{amount}}</div>
+		  {{/each}}
+		  </div>
+	</div>
+	<div class="small-12 columns js-payers">
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 columns">
+		<h4>Participants share :</h4>
+		<div class="small-12 columns js-participants">
+		
+		 	{{#each listIncludeMemberInfo}}
+			  <div>{{userInfo.fullName}}</div>
+			  <div>{{amount}}</div>
+			  {{/each}}
+		</div>
+	</div>
+</div>
+

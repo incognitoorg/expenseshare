@@ -1,0 +1,64 @@
+<div class="row top-bar hide-for-small">
+	<div class="small-12 columns select-group">
+		<h4>Group Details</h4>
+	</div>
+</div>
+<form class="js-add-group-form add-group-form">
+	<div class="row">
+		<div class="small-12 large-4 columns">Group Name :</div>
+		<div class="small-12 large-6 columns" style="float: left;">
+			<input type=text class='js-group-name' name=groupname>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 large-4 columns">Add friends from facebook</div>
+		<div class="small-12 large-6 columns js-facebook-login">
+			 <fieldset>
+		     	<a class="zocial facebook">Sign in <span class=hide-for-small>with Facebook</span> to add Friends</a>
+		   	 </fieldset>
+		</div>
+		<div class="small-12 large-6 columns js-facebook-autocomplete">
+			<input type=text class="js-facebook-friend-selector" placeholder="Type to select friends from facebook">
+		</div>
+		<div class="small-12 large-2 columns"></div>
+
+	</div>
+	<div class="row">
+		<div class="small-12 large-4 columns">Add friends from Google</div>
+		<div class="small-12 large-6 columns js-google-autocomplete">
+			<input type=text class="js-google-friend-selector" placeholder="Type to select friends from Google">
+		</div>
+		<div class="small-12 large-6 columns js-google-login">
+		     <fieldset>
+		        <a class="zocial google">Sign in <span class=hide-for-small>with Google</span> to add friends</a>
+		    </fieldset>
+		</div>
+		
+		<div class="small-12 large-2 columns"></div>
+
+	</div>
+	<!-- <div class="row">
+		<div class="small-12 large-4 columns">Invite Friends :</div>
+		<div class="small-10 large-6 columns">
+			<input type=email class="js-invite-friend-mail">
+		</div>
+		<div class="small-2 large-2 columns">
+			<span class="js-invite-friend" style="cursor: pointer;">Invite</span>
+		</div>
+	</div> --><!-- Commenting till we implement username password -->
+	<div class="row">
+		<div class="small-12 large-4 columns">Selected Friends</div>
+		<div class="small-12 large-6 columns js-selected-friends-list">
+		</div>
+		<div class="small-12 large-2 columns"></div>
+
+	</div>
+	<div class="row">
+		<div class="small-6 large-4 small-centered large-centered columns"
+			style="margin-top: 2%;">
+			<span class="js-save-group button" style="cursor: pointer;">Save</span>
+		</div>
+	</div>
+</form>
+<div class=js-success-message style="display:none;">Group added. Now you can <a href="#newexpense"><span class="new-expense-button">add expense.</span></a> to same.
+</div>

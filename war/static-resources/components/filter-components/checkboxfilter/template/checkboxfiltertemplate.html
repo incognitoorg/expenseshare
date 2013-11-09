@@ -1,0 +1,37 @@
+<div class="row-fluid">					
+	<div class="span12">
+		<div class="tk-bebas-neue theme-filterTitel">{{header}}</div>
+		<div class="tk-myriad-pro theme-filterSubTitel layout-currentFilterText">{{instruction}}</div>
+	</div>
+</div>
+
+<div class="row-fluid" >
+	{{#each checkboxes}}
+		<div class="span3 layout-single-airline">
+			<div class="row-fluid">
+				<div class="span3"><span data-label='{{this.label}}' data-checkbox='{{this.value}}' class="js-cb {{this.filterState}} {{this.value}} layout-checkBoxImage"></span></div>
+				{{#if this.image}}
+					<div class="span3 layout-show-airline-name-tooltip" style="margin-left: 4%;"><img src='{{this.image}}' class="layout-airline-image"/></div>
+					<div class="span4" style="float: left;margin-left: 5%;padding-top: 4%;"><span class="tk-bebas-neue theme-airline-id-text">{{this.label}}</span></div>
+				{{else}}
+					<div class="span9" style="float: left;"><span class="tk-bebas-neue theme-airline-id-text">{{this.label}}</span></div>
+				{{/if}}
+			</div>
+			{{#if this.tooltip}}
+				<span class="theme-airlineName-tooltip layout-airline-tooltip" style="margin-top: 0.3%">
+					{{this.tooltip}}
+					<span class="theme-airlineName-tooltip-nub"></span>
+				</span>
+			{{/if}}
+		</div>
+	{{/each}}
+</div>
+
+<div class="row-fluid" style="padding-top:5%;">
+	<div class=span1>
+		<span class="js-select-all js-theme-check layout-checkBoxImage" data-label='{{this.selectalllabel}}'></span>
+	</div>
+	<div class="span11"><span class="tk-bebas-neue theme-airline-id-text js-select-all-txt">Clear All</span></div>
+</div>
+
+

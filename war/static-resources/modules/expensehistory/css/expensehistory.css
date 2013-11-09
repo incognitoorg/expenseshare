@@ -1,0 +1,53 @@
+.expense {
+	line-height: 2em;
+	cursor: pointer;
+	background: rgb(213, 213, 213);
+	margin: 7px!important;
+}
+.expense:hover{
+	background-color: gray;
+}
+div.expense:nth-child(2n){
+	/* background-color: #CCC; */
+}
+
+.expense{
+	border-bottom : 1px solid gray;
+}
+
+.expense:last-child{
+	border-bottom : 0px solid gray;
+}
+
+.sentense-fillers{
+	padding-left:5px;
+	padding-right:5px;
+	font-size: 0.9em;
+}
+.on.sentense-fillers{
+	padding-left:0;
+	font-style:italic;
+}
+.amount,.expense-name{
+	font-size: 2em;
+}
+
+.group.sentense-fillers{
+	font-size : 1em;
+}
+
+.amount-row{
+	height: 35px;
+	overflow: hidden;
+}
+
+.js-expenses-container{
+	position: relative;
+	/* width: 230px;
+	height: 480px; */
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	list-style: none;
+	-webkit-perspective: 400px;}

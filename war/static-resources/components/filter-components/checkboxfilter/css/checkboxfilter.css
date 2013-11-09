@@ -1,0 +1,69 @@
+/*
+Syntax error: Undefined variable: "$checkbox_unchecked".
+        on line 2 of /home/virbhadrasinh/V4/workspace/VE.BOOK/workspace/alphaV2_Final/public/resources/components/filter-components/checkboxfilter/css/checkboxfilter.scss
+
+1: .js-theme-uncheck {
+2: 	background: url($checkbox_unchecked) no-repeat;
+3: }
+4: 
+5: .js-theme-check {
+6: 	background: url($checkbox_checked) no-repeat;
+7: }
+
+Backtrace:
+/home/virbhadrasinh/V4/workspace/VE.BOOK/workspace/alphaV2_Final/public/resources/components/filter-components/checkboxfilter/css/checkboxfilter.scss:2
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/variable.rb:49:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/funcall.rb:93:in `block in _perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/funcall.rb:93:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/funcall.rb:93:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/list.rb:70:in `block in _perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/list.rb:70:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/list.rb:70:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:296:in `visit_prop'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:107:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:119:in `with_environment'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:106:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:318:in `visit_rule'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:107:in `block in visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:119:in `with_environment'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:106:in `visit_children'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:126:in `visit_root'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/base.rb:37:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:98:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/tree/root_node.rb:20:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/engine.rb:315:in `_render'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/engine.rb:262:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/plugin/compiler.rb:341:in `update_stylesheet'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/plugin/compiler.rb:201:in `each'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/plugin/compiler.rb:235:in `watch'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/plugin.rb:107:in `method_missing'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/exec.rb:444:in `watch_or_update'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/exec.rb:307:in `process_result'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/exec.rb:41:in `parse'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/lib/sass/exec.rb:21:in `parse!'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.3/bin/sass:8:in `<top (required)>'
+/usr/local/bin/sass:23:in `load'
+/usr/local/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined variable: \"$checkbox_unchecked\".\A         on line 2 of /home/virbhadrasinh/V4/workspace/VE.BOOK/workspace/alphaV2_Final/public/resources/components/filter-components/checkboxfilter/css/checkboxfilter.scss\A \A 1: .js-theme-uncheck {\A 2: 	background: url($checkbox_unchecked) no-repeat;\A 3: }\A 4: \A 5: .js-theme-check {\A 6: 	background: url($checkbox_checked) no-repeat;\A 7: }"; }

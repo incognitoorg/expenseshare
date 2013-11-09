@@ -1,0 +1,54 @@
+/*!
+ * stroll.js 1.2 - CSS scroll effects
+ * http://lab.hakim.se/scroll-effects
+ * MIT licensed
+ * 
+ * Copyright (C) 2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+/**
+ * Shrink styles
+ */
+.cards {
+	/* -webkit-perspective: 300px; */
+	   -moz-perspective: 300px;
+	    -ms-perspective: 300px;
+	     -o-perspective: 300px;
+	        perspective: 300px;
+
+	/* -webkit-perspective-origin: 50% 50%; */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	     -o-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+	.cards li {
+		/* -webkit-transition: all 600ms ease; */
+		   -moz-transition: all 600ms ease;
+		    -ms-transition: all 600ms ease;
+		     -o-transition: all 600ms ease;
+		        transition: all 600ms ease;
+
+		/* -webkit-transform-origin: 100% 50%; */
+		   -moz-transform-origin: 100% 50%;
+		    -ms-transform-origin: 100% 50%;
+		     -o-transform-origin: 100% 50%;
+		        transform-origin: 100% 50%;
+	}
+		.cards li.past {
+			/* -webkit-transform: translate3d( 0, -100px, -100px ) rotateX( -90deg ); */
+			   -moz-transform: translate3d( 0, -100px, -100px ) rotateX( -90deg );
+			    -ms-transform: translate3d( 0, -100px, -100px ) rotateX( -90deg );
+			     -o-transform: translate3d( 0, -100px, -100px ) rotateX( -90deg );
+			        transform: translate3d( 0, -100px, -100px ) rotateX( -90deg );
+		}
+		.cards li.future {
+			/* -webkit-transform: translate3d( 0, 100px, -100px ) rotateX( 90deg ); */
+			   -moz-transform: translate3d( 0, 100px, -100px ) rotateX( 90deg );
+			    -ms-transform: translate3d( 0, 100px, -100px ) rotateX( 90deg );
+			     -o-transform: translate3d( 0, 100px, -100px ) rotateX( 90deg );
+			        transform: translate3d( 0, 100px, -100px ) rotateX( 90deg );
+		}
+

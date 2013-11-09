@@ -1,0 +1,24 @@
+.genericSlider .ui-widget {
+  font-size: 10px !important; }
+
+.genericSlider .ui-slider-horizontal {
+  height: 0.5em !important; }
+
+.genericSlider .ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 1.2em;
+  height: 1.5em;
+  cursor: pointer; }
+
+.genericSlider .ui-state-default {
+  background: url("/public/resources/components/decidepagehandler/images/filterpanel/slider_icon.png") no-repeat;
+  background-position: center;
+  border: none; }
+
+.genericSlider .ui-widget-content {
+  border: 1px solid #DDD;
+  background: #e4e1e1; }
+
+.genericSlider .ui-widget-header {
+  background: #666464; }

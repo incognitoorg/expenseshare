@@ -1,0 +1,72 @@
+body {
+	height: 100%;
+	background: url("images/main-bg.png") repeat;
+	overflow-x: hidden;
+}
+
+.section.js-show-menu{
+	background: rgb(153, 153, 153);
+	height: 30px;
+}
+
+
+.section-container section .title a {
+	font-size: 14px !important;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color : white!important;
+}
+
+.section-container {
+	margin-bottom: 0 !important;
+}
+
+.js-right-panel>div>div {
+	height: 100%;
+}
+
+.js-right-panel{
+	background: #F6F2E3;
+	opacity: 0.7;
+}
+
+.js-fixed-section {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+
+.js-left-side-menu{
+	padding:0!important;
+}
+.js-show-hide-section{
+	cursor : pointer;
+	box-shadow: 0 0 1em;
+}
+.menu-icon{
+	background: url("/static-resources/images/icons/icons.jpg") -103px -149px;
+	display: inline-block;
+	height: 30px;
+	width: 58px;
+	background-position-x: 183;
+	display: inline-block;
+	float:right;
+}
+.js-currently-showing{
+	display: inline-block;
+	padding-top: 8px;
+}
+
+.js-menu p{
+	background-color: transparent!important;
+}
+.js-left-side-menu>.section-container{
+	border : none;
+}
+#appcontainer,.bootloader,.js-fem-container,.js-fem-container>.row,.js-fem-container>.row>.columns{
+	height : inherit;
+}
+.app-container{
+	background : url('images/background.png') repeat;
+	padding:3px 30px 3px 30px!important;
+}
