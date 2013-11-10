@@ -1,4 +1,4 @@
-fem
+Expense Share 
 ===
 
-Main project repository.
+Share you expenses along you people
