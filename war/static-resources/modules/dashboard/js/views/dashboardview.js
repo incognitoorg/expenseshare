@@ -28,7 +28,8 @@ define(function(require) {
 				callback : function(response){
 					self.renderDashboard.call(self, response);
 				},
-				loaderContainer : this.$('.js-owers,.js-payers')
+				loaderContainer : this.$('.js-owers,.js-payers'),
+				cached : true
 			});
 		},
 		renderDashboard : function(response){
