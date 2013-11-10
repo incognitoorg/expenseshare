@@ -28,10 +28,10 @@ define(function(require) {
 		},
 		reInitialize : function(){
 			this.$('.js-select-group').show();
-			this.$('.js-new-expense-form').hide();
-			this.$('.js-success-message').hide();
+			this.$('.js-edit-group-form').hide();
+			this.$('.js-select-group').show();
+
 			this.objSelectGroup.reInitialize();
-			
 		},
 		start : function(){
 			if(this.objSelectGroup){
@@ -41,8 +41,9 @@ define(function(require) {
 			}
 			
 			this.$('.js-select-group').show();
-			this.$('.js-new-expense-form').hide();
-			this.$('.js-success-message').hide();
+			this.$('.js-edit-group-form').hide();
+			this.$('.js-select-group').show();
+			
 			this.objSelectGroup.initialize({el:this.$('.js-select-group'), 'owner':'EDIT-GROUP'});
 		},
 		registerSubscribers : function(){
@@ -55,7 +56,7 @@ define(function(require) {
 			
 			
 			var editGroup = EditGroupFactory.getInstance();
-			editGroup.initialize({el : this.$('.js-edit-group-form')});
+			editGroup.initialize({el : this.$('.js-edit-group-form'), group : group});
 		}
 	});
 	

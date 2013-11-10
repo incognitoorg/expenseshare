@@ -14,16 +14,16 @@ define(function(require) {
 
 	var FEMAddGroupView = Sandbox.View.extend({
 		initialize : function(options){
-			this.start();
+			this.start(options);
 		},
-		start : function(){
-			this.render(userInfo);
+		start : function(options){
+			this.initializeSubComponents();
+			this.render(userInfo, options.group);
 			this.pluginInitializer();
 			this.registerValidator();
-			this.initializeSubComponents();
 		},
 		template : Handlebars.compile(require('text!./../../templates/addgrouptemplate.html')),
-		render : function(userInfo){
+		render : function(userInfo, group){
 			console.log('userInfo',userInfo);
 			
 			$(this.el).html(this.template());
@@ -41,6 +41,18 @@ define(function(require) {
 			this.$('.js-google-autocomplete').css('display', userInfo.google?'':'none' );
 			this.$('.js-google-login').css('display',  !userInfo.google?'':'none');
 			
+			if(group){
+				this.renderGroupData(group);
+			}
+			
+		},
+		renderGroupData : function(group){
+			this.$('.js-group-name').val(group.groupName);
+			for(var i=0; i<group.members.length;i++){
+				var member = group.members[i];
+				member.name = member.fullName;
+				this.addFriendToGroup(member);
+			}
 		},
 		pluginInitializer : function(){
 			var self=this;
