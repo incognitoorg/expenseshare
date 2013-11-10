@@ -20,7 +20,9 @@ define(function(require) {
 			$(this.el).html(this.template(data));
 		},
 		events : {
-			'click .js-group-entry' : 'groupClicked'
+			'click .js-group-entry' : 'groupClicked',
+			'click .js-delete-group' : 'deleteGroup'
+			
 		},
 		getGroups : function(){
 			var data = {
@@ -56,7 +58,18 @@ define(function(require) {
 		},
 		groupClicked : function(event){
 			Sandbox.publish('GROUP:SELECTED:'+this.options.owner || 'ALL', this.groupsMap[$(event.currentTarget).data('groupId')]);
+		},
+		deleteGroup : function(event){
+			var group = this.groupsMap[$(event.currentTarget).data('groupId')];
+			var confirmation = confirm('Are you sure you want to delete this group, ' + group.groupName + ' ?');
+			
+			if(!confirmation){
+				return;
+			}
+			//TODO : Delete group here.
+			
 		}
+		
 	});
 
 	return SelectGroupView;
