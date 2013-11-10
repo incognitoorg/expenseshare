@@ -33,7 +33,7 @@ import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
 @Api(name = "userendpoint")
 public class UserEndpoint {
-
+	private static final Logger log = Logger.getLogger(UserEndpoint.class.getName());
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.
@@ -307,12 +307,12 @@ public class UserEndpoint {
 		Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
-        /*try {
+        try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("admin@expenseshare.com", "Expense Share"));
             
             
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), "Mr. " + user.getFirstName()));
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress("vishwanatharondekar@gmail.com", "Mr. Vishwanath"));
             msg.setSubject("Greetings...");
             msg.setText("Welcome to Expense Share...!!!");
             Transport.send(msg);
@@ -326,7 +326,7 @@ public class UserEndpoint {
         } catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		return user;
 		
@@ -351,14 +351,21 @@ public class UserEndpoint {
 		
 		
 		
-		if(StringUtils.isEmpty(email)){
+		if(!StringUtils.isEmpty(email)){
 			q.setFilter("email == emailParam");
 			q.declareParameters("String emailParam");
 			execute = (List<User>)q.execute(email);
+			
+			
+			if(execute.size()>1){
+				//TODO : User have got  multiple accounts. How can we merge this shit.
+			}
+			
 			if(execute.size()>0){
 				user = execute.get(0);
 				return user;
 			}
+			
 		}
 
 		
@@ -393,6 +400,9 @@ public class UserEndpoint {
 			execute = (List<User>)q.execute(apiId);
 			if(execute.size()>0){
 				user = execute.get(0);
+				if(StringUtils.isEmpty(user.getEmail())){
+					pm.makePersistent(user);
+				}
 			} else {
 				user = this.insertUser(user);
 			}
