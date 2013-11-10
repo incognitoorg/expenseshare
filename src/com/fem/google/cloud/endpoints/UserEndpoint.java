@@ -317,6 +317,7 @@ public class UserEndpoint {
             msg.setText("Welcome to Expense Share...!!!");
             Transport.send(msg);
 
+            log.info("Mail sent successfully");
         } catch (AddressException e) {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
