@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
@@ -20,6 +21,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityNotFoundException;
+
+import org.datanucleus.util.Log4JLogger;
+import org.datanucleus.util.StringUtils;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -303,11 +307,12 @@ public class UserEndpoint {
 		Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
-        try {
+        /*try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("admin@expenseshare.com", "Expense Share"));
-            msg.addRecipient(Message.RecipientType.TO,
-                             new InternetAddress(user.getEmail(), "Mr. " + user.getFirstName()));
+            
+            
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), "Mr. " + user.getFirstName()));
             msg.setSubject("Greetings...");
             msg.setText("Welcome to Expense Share...!!!");
             Transport.send(msg);
@@ -321,7 +326,7 @@ public class UserEndpoint {
         } catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		return user;
 		
@@ -335,12 +340,30 @@ public class UserEndpoint {
 		String apiId = null;
 		
 		long start = new Date().getTime();
-		
+		List<User> execute = null;
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		Query q = pm.newQuery(User.class);
+		
+		String email = user.getEmail();
 
+		
+		
+		
+		if(StringUtils.isEmpty(email)){
+			q.setFilter("email == emailParam");
+			q.declareParameters("String emailParam");
+			execute = (List<User>)q.execute(email);
+			if(execute.size()>0){
+				user = execute.get(0);
+				return user;
+			}
+		}
+
+		
+		
+		
 		if("google".equalsIgnoreCase(user.getLoginType())) {
 			apiId = user.getGoogleId();
 			q.setFilter("googleId == googleIdParam");
@@ -350,19 +373,19 @@ public class UserEndpoint {
 			q.setFilter("facebookId == facebookIdParam");
 			q.declareParameters("String facebookIdParam");
 		} else {
-			apiId = user.getEmail();
+			/*apiId = user.getEmail();
 			q.setFilter("email == emailIdParam");
-			q.declareParameters("String emailIdParam");
+			q.declareParameters("String emailIdParam");*/
 			
 			//TODO : In google contacts, you may get entity which might have only phone
 			//This presents opportunity to present user to login with phone.
-			String phone = user.getPhone();
+			/*String phone = user.getPhone();
 			q.setFilter("phone == phoneParam");
-			q.declareParameters("String phoneParam");
+			q.declareParameters("String phoneParam");*/
 			
 		}
 		
-		List<User> execute = null;
+	
 		
 		if(apiId==null){
 			user = this.insertUser(user);
