@@ -150,7 +150,7 @@ define(function(require) {
 			Sandbox.subscribe('GROUP:SELECTED:NEW-EXPENSE', this.showNewExpenseForm, this);
 			                   
 		},
-		showNewExpenseForm : function(group){
+		showNewExpenseForm : function(group, expense){
 			this.group = group;
 			
 		    var self = this;
@@ -182,6 +182,31 @@ define(function(require) {
 			});
 			
 			this.registerValidator();
+			
+			
+			if(expense){
+				this.populateExpenseData(expense);
+			}
+			
+		},
+		populateExpenseData : function(expense){
+			var payersSection = this.$('.js-payers');
+			var includedMembersSection = this.$('.js-included-members');
+			
+			var listPayersInfo = expense.listPayersInfo;
+			for(var i=0; i<listPayersInfo.length; i++){
+				payersSection.find('.' + listPayersInfo[i].userId).val(listPayersInfo[i].amount);
+			}
+			var listIncludeMemberInfo = expense.listIncludeMemberInfo;
+			for(var i=0; i<listIncludeMemberInfo.length; i++){
+				includedMembersSection.find('.' + listIncludeMemberInfo[i].userId).val( listIncludeMemberInfo[i].amount);
+			}
+			
+			
+			this.$('.js-expense-name').val(expense.name);
+			this.$('.js-expense-date').val(expense.date);
+			this.$('.js-expense-type').val(expense.type);
+			
 		},
 		createPayersSection : function(groupMembers){
 			var payersContainer = this.$('.js-payers').html('');

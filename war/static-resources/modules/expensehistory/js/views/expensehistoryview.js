@@ -3,6 +3,7 @@ define(function(require) {
 	var user = require('components/login/login');
 	var expenseTemplate = Handlebars.compile(require('text!./../../templates/expense.html'));
 	var expenseDeatailTemplate = Handlebars.compile(require('text!./../../templates/detailexpenseview.html'));
+	var NewExpenseFactory = require('modules/newexpense/newexpense');
 	
 //	var strolljs = require('plugins/jquery/stroll/js/stroll.min');
 //	var strollcss = require('css!plugins/jquery/stroll/css/stroll-stripped.css');
@@ -158,11 +159,14 @@ define(function(require) {
 		events : {
 			'click .js-expense' : 'showExpenseDetail',
 			'click .delete-expense' : 'deleteExpense',
+			'click .js-edit-expense' : 'editExpense',
 			'change .js-type-filter-select' :  'showFilteredExpenses',
 			'change .js-user-filter-select' :  'showFilteredExpenses',
 			'change .js-group-filter-select' :  'showFilteredExpenses'
 		},
 		getExpenses : function(){
+			this.$('.js-expense-history-container').show();
+			this.$('.js-edit-expense-form-container').hide();
 			var data = {
 				url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/expenses',
 				callback : this.showExpenseHistory,
@@ -325,6 +329,14 @@ define(function(require) {
 			});
 			
 			/*Sandbox.publish('FEM:NAVIGATE', '#expensedetail');*/
+		},
+		editExpense : function(){
+			var newExpense = NewExpenseFactory.getInstance();
+			newExpense.initialize({ el : this.$('.js-edit-expense-form-container').show()});
+			var expense = this.expenseHitoryMap[$(event.target).data('expense-id')];
+			var group = this.groupMap[expense.groupId];
+			this.$('.js-expense-history-container').hide();
+			newExpense.view.showNewExpenseForm(group, expense);
 		}
 	});
 
