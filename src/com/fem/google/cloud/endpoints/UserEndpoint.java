@@ -307,27 +307,33 @@ public class UserEndpoint {
 		Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
-        try {
-            Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("admin@expenseshare.com", "Expense Share"));
-            
-            
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress("vishwanatharondekar@gmail.com", "Mr. Vishwanath"));
-            msg.setSubject("Greetings...");
-            msg.setText("Welcome to Expense Share...!!!");
-            Transport.send(msg);
-
-            log.info("Mail sent successfully");
-        } catch (AddressException e) {
-        	// TODO Auto-generated catch block
-        	e.printStackTrace();
-        } catch (MessagingException e) {
-        	// TODO Auto-generated catch block
-        	e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        if(!StringUtils.isEmpty(user.getEmail())){
+        	
+        	try {
+        		
+        		Message msg = new MimeMessage(session);
+        		msg.setFrom(new InternetAddress("incognitoorg1@gmail.com", "Expense Share"));
+        		
+        		log.info("User email " + user.getEmail());
+        		
+        		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), user.getFullName()));
+        		//msg.addRecipient(Message.RecipientType.TO, new InternetAddress("vishwanatharondekar@gmail.com", "Vishwanath"));
+        		msg.setSubject("Greetings...");
+        		msg.setText("Welcome to Expense Share...!!!");
+        		Transport.send(msg);
+        		
+        		log.info("Mail sent successfully");
+        	} catch (AddressException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	} catch (MessagingException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	} catch (UnsupportedEncodingException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+        }
 		
 		return user;
 		
