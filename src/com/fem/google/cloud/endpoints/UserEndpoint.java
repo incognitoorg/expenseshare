@@ -224,12 +224,6 @@ public class UserEndpoint {
 			alGroups.add(new GroupEndpoint().getGroup(groupMemberMapping.getGroupId()));
 			
 		}
-		
-		
-		
-		
-		
-		
 		return alGroups;
 	}
 	
@@ -324,13 +318,10 @@ public class UserEndpoint {
         		
         		log.info("Mail sent successfully");
         	} catch (AddressException e) {
-        		// TODO Auto-generated catch block
         		e.printStackTrace();
         	} catch (MessagingException e) {
-        		// TODO Auto-generated catch block
         		e.printStackTrace();
         	} catch (UnsupportedEncodingException e) {
-        		// TODO Auto-generated catch block
         		e.printStackTrace();
         	}
         }
@@ -343,7 +334,6 @@ public class UserEndpoint {
 	@SuppressWarnings("unchecked")
 	@ApiMethod(path="userendpoint/user/getorinsertuser")
 	public User getOrInsertUser(User user){
-		//TODO : Add support for app register and login
 		String apiId = null;
 		
 		long start = new Date().getTime();
