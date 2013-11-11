@@ -112,13 +112,25 @@ define(function(require) {
 					//self.$('.js-friend-selector').val(ui.item.label);
 					self.$('.js-facebook-friend-selector').val('').focus();
 					var friendInfo = ui.item.value;
-					var normalizedFriendInfo = {
-						'fullName' : friendInfo.name,
-						'name' : friendInfo.name,
-						facebookId : friendInfo.id,
-						loginType : 'facebook'
-					};
-					self.addFriendToGroup(normalizedFriendInfo);
+					$.ajax({
+						url: 'https://graph.facebook.com/' + friendInfo.id +'?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
+						dataType: "jsonp",
+						success : function(response){
+							var normalizedFriendInfo = {
+									'fullName' : friendInfo.name,
+									'name' : friendInfo.name,
+									facebookId : friendInfo.id,
+									loginType : 'facebook',
+									facebookEmail : response.username + "@facebook.com",
+									firstName : response.first_name,
+									lastName : response.last_name
+								};
+								self.addFriendToGroup(normalizedFriendInfo);
+						}
+					})
+					
+					
+					
 					return false;
 				},
 				minLength:1
@@ -230,14 +242,10 @@ define(function(require) {
 			this.$('.js-selected-friends-list').append(this.friendManager.friendTemplate(friendModel));
 		},
 		addFriendToGroup : function(friendInfo){
-			
-			
 			console.log('friendInfo',friendInfo);
 			
-			var info = {'fullName':friendInfo.fullName, 'name' :friendInfo.name,  facebookId : friendInfo.facebookId, loginType : friendInfo.loginType, email : friendInfo.email};
-			
 			this.$('.js-selected-friends').show();
-			this.friendModel = new this.friendManager.friendModel(info);
+			this.friendModel = new this.friendManager.friendModel(friendInfo);
 			this.friendCollection.add(this.friendModel);
 			this.renderSelectedFriends(this.friendModel);
 		},

@@ -32,6 +32,7 @@ public class User implements Serializable {
 	private Date lastLoggedInAt;
 	private String accessToken;
 	private String phone;
+	private String facebookEmail;
 
 	
 	
@@ -118,6 +119,12 @@ public class User implements Serializable {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getFacebookEmail() {
+		return facebookEmail;
+	}
+	public void setFacebookEmail(String facebookEmail) {
+		this.facebookEmail = facebookEmail;
 	}
 	
 	
