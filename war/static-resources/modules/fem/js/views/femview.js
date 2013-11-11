@@ -11,7 +11,7 @@ define(function(require){
 	//Module path mapper for requiring module dynamically
 	var componentPathMapper = {
 		'js-create-group'		:		'modules/addgroup/addgroup',
-		'js-edit-group'			:		'modules/editgroup/editgroup', //TODO : Edit group implementation pending
+		'js-edit-group'			:		'modules/editgroup/editgroup', 
 		'js-new-expense'		:		'modules/newexpense/newexpense',
 		'js-expense-history'	:		'modules/expensehistory/expensehistory',
 		'js-dashboard'			:		'modules/dashboard/dashboard',
@@ -87,6 +87,7 @@ define(function(require){
 		start : function(userdata){
 			var redirectURL = location.href.substr(location.href.indexOf('#'));
 			if(!appstarted){
+				$('.js-fem-container').show();
 				this.render();
 				appstarted = true;
 			}
