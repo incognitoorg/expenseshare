@@ -234,7 +234,7 @@ define(function(require) {
 			
 			console.log('friendInfo',friendInfo);
 			
-			var info = {'fullName':friendInfo.fullName, 'name' :friendInfo.name,  facebookId : friendInfo.facebookId, loginType : friendInfo.loginType};
+			var info = {'fullName':friendInfo.fullName, 'name' :friendInfo.name,  facebookId : friendInfo.facebookId, loginType : friendInfo.loginType, email : friendInfo.email};
 			
 			this.$('.js-selected-friends').show();
 			this.friendModel = new this.friendManager.friendModel(info);
