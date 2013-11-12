@@ -41,6 +41,11 @@ define(function(require) {
 			this.$('.js-google-autocomplete').css('display', userInfo.google?'':'none' );
 			this.$('.js-google-login').css('display',  !userInfo.google?'':'none');
 			
+			
+			this.friendModel = new this.friendManager.friendModel(userInfo);
+			this.friendCollection.add(this.friendModel);
+			this.renderSelectedFriends(this.friendModel);
+			
 			if(group){
 				this.renderGroupData(group);
 			}
@@ -243,6 +248,14 @@ define(function(require) {
 		},
 		addFriendToGroup : function(friendInfo){
 			console.log('friendInfo',friendInfo);
+			var isDuplicate = _.find(this.friendCollection.models, function(friend){
+				return (friendInfo.loginType=="facebook" && friendInfo.facebookId==friend.attributes.facebookId )||(friendInfo.loginType=="google" && friendInfo.email==friend.attributes.email);
+			});
+			
+			if(isDuplicate){
+				alert('This member is already in the list.')
+				return;
+			}
 			
 			this.$('.js-selected-friends').show();
 			this.friendModel = new this.friendManager.friendModel(friendInfo);
@@ -275,7 +288,6 @@ define(function(require) {
 				    _.each(self.friendCollection.models, function(el){
 				    	membersArray.push(el.attributes); 
 				    });
-				    membersArray.push(userInfo);
 				    return membersArray;
 				})(),
 				'ownerId' : userInfo.userId
