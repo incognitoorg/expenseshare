@@ -360,19 +360,20 @@ public class UserEndpoint {
 			
 			if(execute.size()>0){
 				user = execute.get(0);
-				return user;
+			} else {
+				user = this.insertUser(user);
 			}
-			
+			return user;
 		}
 
 		
 		
 		
-		if("google".equalsIgnoreCase(user.getLoginType())) {
+		/*if("google".equalsIgnoreCase(user.getLoginType())) {
 			apiId = user.getGoogleId();
 			q.setFilter("googleId == googleIdParam");
 			q.declareParameters("String googleIdParam");
-		} else if("facebook".equalsIgnoreCase(user.getLoginType())) {
+		} else */if("facebook".equalsIgnoreCase(user.getLoginType())) {
 			apiId = user.getFacebookId();
 			q.setFilter("facebookId == facebookIdParam");
 			q.declareParameters("String facebookIdParam");
