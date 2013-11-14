@@ -9,7 +9,7 @@ define(function(require) {
 					this.view = new FEMAddGroupView(options);
 				},
 				reInitialize : function(){
-					this.view.start();
+					this.view.start({});
 				} 
 			};
 		}

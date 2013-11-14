@@ -198,7 +198,7 @@ define(function (require) {
 						  var splits = splits.splice(2);
 						  
 						  var endPointType = splits[0];
-						  var dataToSend = JSON.parse(data.data);
+						  var dataToSend = data.data;
 						  var userId = dataToSend.ownerId;
 						  
 						  if(storedAllUserData){
