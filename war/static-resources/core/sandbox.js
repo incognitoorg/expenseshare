@@ -45,7 +45,7 @@ define(function (require) {
 		  'type': type, 
 		  'contentType':contentType,
 		  'dataType': dataType,
-		  'data' : data,
+		  'data' : JSON.stringify(data),
 		  'beforeSend' : function(){
 			  loader && loader.addClass('js-loader');
 		  },
@@ -188,7 +188,7 @@ define(function (require) {
 					dataType: 'json',
 					contentType: 'application/json',
 					type : 'POST',
-					data : JSON.stringify(data.data),
+					data : data.data,
 					callback : function(response){
 						  var URL = data.url;
 						  var endPointURL = URL.substr(URL.indexOf('endpoint'));

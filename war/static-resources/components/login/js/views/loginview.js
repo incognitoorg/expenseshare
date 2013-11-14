@@ -86,7 +86,7 @@ define(function(require){
 				dataType: 'json',
 				contentType: 'application/json',
 				type : 'POST',
-				data : JSON.stringify(data)
+				data : data
 				
 			};
 			Sandbox.doPost(ajaxOptions);

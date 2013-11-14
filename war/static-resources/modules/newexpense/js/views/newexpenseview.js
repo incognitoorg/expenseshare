@@ -435,7 +435,7 @@ define(function(require) {
 				callback : function(response){
 					self.expenseSaved(objExpenseModel);
 				},
-				data : JSON.stringify(objExpenseModel.attributes),
+				data : objExpenseModel.attributes,
 				contex : self
 			});
 			
