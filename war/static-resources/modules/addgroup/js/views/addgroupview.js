@@ -11,7 +11,7 @@ define(function(require) {
 	require('css!libraries/jquery-ui/css/themes/base/jquery.ui.autocomplete.css');
 	require('css!../../css/addgroup.css');
 	var userInfo = login.getInfo();
-
+	
 	var FEMAddGroupView = Sandbox.View.extend({
 		initialize : function(options){
 			this.start(options);
@@ -27,27 +27,22 @@ define(function(require) {
 			console.log('userInfo',userInfo);
 			
 			$(this.el).html(this.template());
-			
-			
-			
 			var loginType = userInfo.loginType;
-			
 			var userInfo = login.getInfo();
-			
-			
 			
 			this.$('.js-facebook-autocomplete').css('display', userInfo.facebook?'':'none');
 			this.$('.js-facebook-login').css('display', !userInfo.facebook?'':'none');
 			this.$('.js-google-autocomplete').css('display', userInfo.google?'':'none' );
 			this.$('.js-google-login').css('display',  !userInfo.google?'':'none');
 			
-			
-			this.friendModel = new this.friendManager.friendModel(userInfo);
-			this.friendCollection.add(this.friendModel);
-			this.renderSelectedFriends(this.friendModel);
-			
 			if(group){
 				this.renderGroupData(group);
+				this.group = group;
+				this.mode = 'edit';
+			} else {
+				this.addFriendToGroup(userInfo);
+				this.mode = 'add';
+				this.group = {};
 			}
 			
 		},
@@ -253,7 +248,7 @@ define(function(require) {
 			});
 			
 			if(isDuplicate){
-				alert('This member is already in the list.')
+				alert('This member is already in the list.');
 				return;
 			}
 			
@@ -281,27 +276,41 @@ define(function(require) {
 			if(!$('.js-add-group-form').valid()){
 				return;
 			}
-			this.model = new self.friendManager.friendModel({
-				'groupName' 		: 	this.$('.js-group-name').val(),
-				'members'	:	(function(){
-				    var membersArray = [];
-				    _.each(self.friendCollection.models, function(el){
-				    	membersArray.push(el.attributes); 
-				    });
-				    return membersArray;
-				})(),
-				'ownerId' : userInfo.userId
-			});
+			
+			var groupData = null;
+			/*if(this.mode==='add'){*/
+				groupData = {
+						'members'	:	(function(){
+							var membersArray = [];
+							_.each(self.friendCollection.models, function(el){
+								membersArray.push(el.attributes); 
+							});
+							return membersArray;
+						})(),
+						'ownerId' : userInfo.userId
+				};
+				_.extend(this.group, groupData);
+			/*}*/ /*else {
+				groupData = 
+			}*/
+			
+			_.extend(this.group, {'groupName' : this.$('.js-group-name').val()});
+			
+			
 			console.log('this.collection',this.collection);
 			var addAjaxOptions = {
 				url : '_ah/api/groupendpoint/v1/group',
 				callback : this.groupAddedSuccessFully, 
 				errorCallback : this.somethingBadHappend,
 				context : this,
-				data : this.model.attributes
+				data : this.group
 			};
 			showMask('Creating group...');
-			Sandbox.doAdd(addAjaxOptions);
+			if(this.mode=='edit'){
+				Sandbox.doUpdate(addAjaxOptions);
+			} else {
+				Sandbox.doAdd(addAjaxOptions);
+			}
 		},
 		groupAddedSuccessFully : function(data){
 			this.$('.js-success-message').show();

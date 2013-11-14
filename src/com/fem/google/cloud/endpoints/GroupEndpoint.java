@@ -193,8 +193,51 @@ public class GroupEndpoint {
 			if (!containsGroup(group)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
+			
+			Group earlierGroup = mgr.getObjectById(Group.class, group.getGroupId());
+			ArrayList<User> alMembersFromClient = group.getMembers();
+			ArrayList<User> alTotalMembers = new ArrayList<User>();
+			UserEndpoint userEndpoint = new UserEndpoint();
+			for (Iterator<User> iterator = alMembersFromClient.iterator(); iterator.hasNext();) {
+				User user = (User) iterator.next();
+				if(user.getUserId()==null){
+					//TODO : To put this in transaction
+					user = userEndpoint.getOrInsertUser(user);
+				}
+				alTotalMembers.add(user);
+			}
+			
+			
+			ArrayList<String> alMembersIdList = new ArrayList<String>();
+			group.setMembers(null);
+			for (Iterator<User> iterator = alTotalMembers.iterator(); iterator.hasNext();) {
+				User user = (User) iterator.next();
+				alMembersIdList.add(user.getUserId());
+			}
+			group.setMembersIdList(alMembersIdList);
+
+			ArrayList<String> mewlyAddedMembersIdList = (ArrayList<String>)alMembersIdList.clone();
+			
+			mewlyAddedMembersIdList.removeAll(earlierGroup.getMembersIdList());
+			//Pushing to databse since needs group id
+			//group = mgr.makePersistent(group);
+			
+			for (Iterator<String> iterator = mewlyAddedMembersIdList.iterator(); iterator.hasNext();) {
+				String userId = (String) iterator.next();
+				GroupMemberMapping objGroupMemberMapping = new GroupMemberMapping();
+				objGroupMemberMapping.setGroupId(group.getGroupId());
+				objGroupMemberMapping.setUserId(userId);
+				mgr.makePersistent(objGroupMemberMapping);
+			}
+			
+			
 			group.setMembers(null);//Removing members as they are not embedded.
 			
+			ArrayList<IOU> alAddedIOU =  this.addIOU(earlierGroup.getMembersIdList(), mewlyAddedMembersIdList, group);
+			ArrayList<IOU> iouList = group.getIouList();
+			iouList.addAll(alAddedIOU);
+			
+			group.setIouList(iouList);
 			mgr.makePersistent(group);
 		} finally {
 			mgr.close();
@@ -202,6 +245,37 @@ public class GroupEndpoint {
 		return group;
 	}
 
+	
+	private ArrayList<IOU> addIOU(ArrayList<String> oldMembersIdList,
+			ArrayList<String> mewlyAddedMembersIdList, Group group) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<IOU> alIOU = new ArrayList<IOU>();
+		
+		for (int i = 0; i < mewlyAddedMembersIdList.size(); i++) {
+
+			String fromUserId = mewlyAddedMembersIdList.get(i);
+			
+			for (int j = 0; j < oldMembersIdList.size(); j++) {
+				String toUserId = oldMembersIdList.get(j);
+				
+				IOU objIOU = new IOU();
+				objIOU.setGroupId(group.getGroupId());
+				objIOU.setFromUserId(fromUserId);
+				objIOU.setToUserId(toUserId);
+				objIOU.setAmount(0);
+				alIOU.add(objIOU);
+				//pm.makePersistent(objIOU);
+			}
+			oldMembersIdList.add(fromUserId);
+		}
+		
+		
+		return alIOU;
+	}
+
+	
+	
 	/**
 	 * This method removes the entity with primary key id.
 	 * It uses HTTP DELETE method.
