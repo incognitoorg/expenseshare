@@ -54,9 +54,11 @@ define(function(require) {
 			this.$('.js-select-group').hide();
 			this.$('.js-edit-group-form').show();
 			
-			
-			var editGroup = EditGroupFactory.getInstance();
-			editGroup.initialize({el : this.$('.js-edit-group-form'), group : group});
+			if(this.editGroup){
+				Sandbox.destroy(this.editGroup);
+			}
+			this.editGroup = EditGroupFactory.getInstance();
+			this.editGroup.initialize({el : this.$('.js-edit-group-form'), group : group});
 		}
 	});
 	
