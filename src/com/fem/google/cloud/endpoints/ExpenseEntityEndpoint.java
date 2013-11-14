@@ -118,8 +118,8 @@ public class ExpenseEntityEndpoint {
 			
 			mgr.makePersistent(expenseentity);
 			
-			//TODO : Use transaction
-			new GroupEndpoint().updateGroup(objGroup);
+			objGroup.setMembers(null);//Removing members as they are not embedded.
+			mgr.makePersistent(objGroup);
 			
 		} finally {
 			mgr.close();
