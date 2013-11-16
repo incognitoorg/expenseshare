@@ -27,7 +27,8 @@ body {
 
 .js-right-panel{
 	background: #F6F2E3;
-	opacity: 0.7;
+	opacity: 0.8;
+	min-height: 100%;
 }
 
 .js-fixed-section {
