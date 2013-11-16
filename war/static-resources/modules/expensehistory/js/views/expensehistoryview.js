@@ -4,6 +4,7 @@ define(function(require) {
 	var expenseTemplate = Handlebars.compile(require('text!./../../templates/expense.html'));
 	var expenseDeatailTemplate = Handlebars.compile(require('text!./../../templates/detailexpenseview.html'));
 	var NewExpenseFactory = require('modules/newexpense/newexpense');
+	var ExpenseUtility = require('modules/expenseutiliy/expenseutility');
 	
 //	var strolljs = require('plugins/jquery/stroll/js/stroll.min');
 //	var strollcss = require('css!plugins/jquery/stroll/css/stroll-stripped.css');
@@ -34,9 +35,8 @@ define(function(require) {
 		expense.group = expense.groupId && groupMap[expense.groupId];
 		return expense;
 	}
-	
-	//TODO : Following function is common with add expense view. Can be merged into separate utilities.
-	//Only difference is swapping of gainer and loser array.
+
+	//TODO : This function has been moved to ExpenseUtility
 	function updatedIOUForDelete(expenseModel, group){
 		
 		var calculatedIOU = {};
@@ -310,7 +310,8 @@ define(function(require) {
 			}
 			
 			
-			var updatedGroup = updatedIOUForDelete(expense, this.groupMap[expense.groupId]);
+			//var updatedGroup = updatedIOUForDelete(expense, this.groupMap[expense.groupId]);
+			var updatedGroup = ExpenseUtility.updateIOU(expense, this.groupMap[expense.groupId], 'delete');
 			
 			console.log(JSON.stringify(updatedGroup));
 			
@@ -336,6 +337,7 @@ define(function(require) {
 			var expense = this.expenseHitoryMap[$(event.target).data('expense-id')];
 			var group = this.groupMap[expense.groupId];
 			this.$('.js-expense-history-container').hide();
+			newExpense.view.mode='edit';
 			newExpense.view.showNewExpenseForm(group, expense);
 		}
 	});

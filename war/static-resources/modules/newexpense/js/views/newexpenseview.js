@@ -9,9 +9,11 @@ define(function(require) {
 	var ExpenseModel = require('./../models/expensemodel');
 	var FormValidator = require("./../validator/newexpensevalidator");
 	var user = require('components/login/login');
+	var ExpenseUtility = require('modules/expenseutiliy/expenseutility');
+
 
 	var expenseInputCounter = 0;
-	
+	//TODO : This function has been moved to ExpenseUtility
 	function updatedIOU(expenseModel, group){
 		
 		var calculatedIOU = {};
@@ -157,6 +159,8 @@ define(function(require) {
 		},
 		showNewExpenseForm : function(group, expense){
 			
+			
+			
 			var data = {
 				url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/group/' + group.groupId,
 				callback : this.dataRefresh,
@@ -201,6 +205,7 @@ define(function(require) {
 			
 			if(expense){
 				this.populateExpenseData(expense);
+				this.oldObjExpenseModel = new ExpenseModel(expense);
 			}
 			
 		},
@@ -447,7 +452,14 @@ define(function(require) {
 				type : this.$('.js-expense-type').val()
 			});
 			
-			updatedIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
+			if(this.mode && this.mode=='edit'){
+				ExpenseUtility.updateIOU(this.oldObjExpenseModel.attributes, objExpenseModel.attributes.group, 'delete');
+			}
+			ExpenseUtility.updateIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
+			//updatedIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
+			
+			
+			
 			showMask('Adding expense...');
 			Sandbox.doPost({
 				url :'_ah/api/expenseentityendpoint/v1/expenseentity',
