@@ -8,6 +8,7 @@ define(function(require) {
 	var memberExpenseTemplate = require('text!./../../templates/member-expense.html');
 	var ExpenseModel = require('./../models/expensemodel');
 	var FormValidator = require("./../validator/newexpensevalidator");
+	var user = require('components/login/login');
 
 	var expenseInputCounter = 0;
 	
@@ -150,7 +151,21 @@ define(function(require) {
 			Sandbox.subscribe('GROUP:SELECTED:NEW-EXPENSE', this.showNewExpenseForm, this);
 			                   
 		},
+		dataRefresh : function(response){
+			this.group = response;
+			this.dataRefreshed = true;
+		},
 		showNewExpenseForm : function(group, expense){
+			
+			var data = {
+				url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/group/' + group.groupId,
+				callback : this.dataRefresh,
+				context : this,
+				dataType: 'json',
+				loaderContainer : this.$('.groups-container')
+			};
+			Sandbox.doGet(data);
+			
 			this.group = group;
 			
 		    var self = this;
@@ -398,6 +413,10 @@ define(function(require) {
 			if(!this.$('.js-add-expense-form').valid()){
 				return;
 			}
+			if(!this.dataRefreshed){
+				alert('Latest data is not available, please save after few seconds');
+				return;
+			}
 			
 			var self = this;
 			var payersInfo = [];
@@ -441,21 +460,6 @@ define(function(require) {
 			
 			
 			
-		},
-		//TODO : Following todo is done, need to remove this old method keep for sake of returning back if something bad happens 13-08-2013. If too many days passed. Just remove this method.
-		expenseSavedOld : function(response, objExpenseModel){
-			var self = this;
-			//TODO : Use one request to keep integrity of the data
-			updatedIOU(objExpenseModel.attributes, this.group);
-			Sandbox.doUpdate({
-				url :'_ah/api/groupendpoint/v1/group/',
-				callback : function(response){
-					self.groupSaved(objExpenseModel);
-				},
-				context : self,
-				data : JSON.stringify(this.group)
-			});
-			self.groupSaved(objExpenseModel);
 		},
 		expenseSaved : function(objExpenseModel){
 			this.groupSaved(objExpenseModel);
