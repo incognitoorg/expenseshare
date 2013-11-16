@@ -141,7 +141,25 @@ public class ExpenseEntityEndpoint {
 			if (!containsExpenseEntity(expenseentity)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
+			Group objGroup = expenseentity.getGroup();
+			expenseentity.setGroup(null);
+			
+			for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
+				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
+				objExpenseInfo.setExpenseId(expenseentity.getExpenseEntityId());
+			}
+			
+			for (Iterator iterator = expenseentity.getListPayersInfo().iterator(); iterator.hasNext();) {
+				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
+				objExpenseInfo.setExpenseId(expenseentity.getExpenseEntityId());
+			}
+			
 			mgr.makePersistent(expenseentity);
+			
+			
+			
+			objGroup.setMembers(null);//Removing members as they are not embedded.
+			mgr.makePersistent(objGroup);
 		} finally {
 			mgr.close();
 		}
