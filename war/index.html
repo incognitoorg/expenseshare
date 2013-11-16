@@ -50,7 +50,17 @@ div.full{
 	background-position: 50% 43%;
 	background-color: white;
 	opacity: 0.7;
+}
 
+header{
+	height: 48px;
+	background: rgb(15, 15, 15);
+	font-size : 40px;
+	color: wheat;
+	font-family: 'Damion', cursive;
+	font-weight : bold;
+	
+}
 </style>
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/css/foundation.min.css">
@@ -59,6 +69,7 @@ div.full{
 	
 <link rel=stylesheet
 	href="static-resources/components/login/css/login.css">
+	<link href='http://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
 </head>
 <!-- Commenting for local development -->
 <!-- <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
@@ -66,9 +77,8 @@ div.full{
 
 <body style="overflow-y: auto;font-family: 'Libre Baskerville', serif;">
 	<div class="mask" id="mask"><span>Initializing App...</span>
-	
-	
 	</div>
+	<header class="hide-for-small">Xpense Share</header>
 	<div id="appcontainer">
 		<div class="bootloader">
 			<div class="js-fem-container" style="display:none;"></div>
@@ -164,5 +174,6 @@ div.full{
 			support_tab_name : 'Report Problem'
 		} ]);
 	</script>
+	
 </body>
 </html>

@@ -154,7 +154,8 @@ define(function(require){
 			if(is_mobile){
 				this.$('.js-show-menu').removeClass('js-show-menu').addClass('js-hide-menu');
 				self.$('.app-container').animate({
-					left: $(window).width(),
+					/*left: $(window).width(),*/
+					left: $('.js-left-side-menu').width(),
 				}, 300, function() {
 					window.scrollTo(0,0);
 					// Animation complete.
