@@ -449,7 +449,8 @@ define(function(require) {
 				listIncludeMemberInfo : includeMemberInfo,
 				groupId : this.group.groupId,
 				group : this.group,
-				type : this.$('.js-expense-type').val()
+				type : this.$('.js-expense-type').val(),
+				expenseEntityId : this.oldObjExpenseModel && this.oldObjExpenseModel.get('expenseEntityId')
 			});
 			
 			if(this.mode && this.mode=='edit'){
@@ -461,14 +462,21 @@ define(function(require) {
 			
 			
 			showMask('Adding expense...');
-			Sandbox.doPost({
+			
+			var ajaxData = {
 				url :'_ah/api/expenseentityendpoint/v1/expenseentity',
 				callback : function(response){
 					self.expenseSaved(objExpenseModel);
 				},
 				data : objExpenseModel.attributes,
 				contex : self
-			});
+			};
+			
+			if(this.mode=='edit'){
+				Sandbox.doUpdate(ajaxData);
+			} else {
+				Sandbox.doPost(ajaxData);
+			}
 			
 			
 			
