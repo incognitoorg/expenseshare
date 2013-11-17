@@ -11,7 +11,7 @@ define( function(require){
 			
 		},
 		messages: {
-            groupname: { required: 'Its better if you put group name here, will be good for you when you come back again' },
+            groupname: { required: 'Please enter group name.' },
         },
 		initialize : function(options){
 			options.rules = this.rules;//TODO Need to find better way of this
