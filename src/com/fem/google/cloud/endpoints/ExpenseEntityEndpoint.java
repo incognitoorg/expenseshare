@@ -188,20 +188,17 @@ public class ExpenseEntityEndpoint {
 			//Attaching to JDO
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
 			
-			/*ExpenseInfoEndpoint objExpenseInfoEndPoint = new ExpenseInfoEndpoint();*/
-			
 			//Removing related expenseinfo
-			/*for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
+			for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
 				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
-				objExpenseInfoEndPoint.removeExpenseInfo(objExpenseInfo.getExpenseInfoId());
+				mgr.deletePersistent(objExpenseInfo);
+				
 			}
 			
 			for (Iterator iterator = expenseentity.getListPayersInfo().iterator(); iterator.hasNext();) {
 				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
-				objExpenseInfoEndPoint.removeExpenseInfo(objExpenseInfo.getExpenseInfoId());
-			}*/
-			
-			
+				mgr.deletePersistent(objExpenseInfo);
+			}
 			
 			objGroup.setMembers(null);//Removing members as they are not embedded.
 			mgr.makePersistent(objGroup);

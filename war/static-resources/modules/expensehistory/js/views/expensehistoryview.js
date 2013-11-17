@@ -255,10 +255,13 @@ define(function(require) {
 				var toPush = true;
 				//TODO : Travel backward in time kill past yourself for this coding redundancy. Can be designed better with filter functions
 				var expense = expenses[i];
-				if(expense.type!==typeFilter){
-					toPush = false;
-					continue;
-				} 
+				
+				if(typeFilter!=="select"){
+					if(expense.type!==typeFilter){
+						toPush = false;
+						continue;
+					} 
+				}
 				if(groupFilter!=="select"){
 					if(expense.groupId!==groupFilter){
 						toPush = false;
@@ -266,24 +269,22 @@ define(function(require) {
 					} 
 				}
 				if(userFilter!=="select"){
-					
-					var listIncludeMemberInfo = expense.listIncludeMemberInfo;
-					var pushed = false;
-					for(var j=0; j<listIncludeMemberInfo.length; j++){
-						if(listIncludeMemberInfo.userId!==userFilter){
-							pushed = true;
-							continue;
-						}
-					}
-					if(!pushed){
-						var listPayersInfo = expense.listPayersInfo;
-						for(var j=0; j<listPayersInfo.length; j++){
-							if(listPayersInfo.userId===userFilter){
-								pushed = true;
-								continue;
+					toPush = (function(){
+						var listIncludeMemberInfo = expense.listIncludeMemberInfo;
+						var pushed = false;
+						for(var j=0; j<listIncludeMemberInfo.length; j++){
+							if(listIncludeMemberInfo[j].userId===userFilter){
+								return true;
 							}
 						}
-					}
+						var listPayersInfo = expense.listPayersInfo;
+						for(var j=0; j<listPayersInfo.length; j++){
+							if(listPayersInfo[j].userId===userFilter){
+								return true;
+							}
+						}
+					}());
+					
 				}
 				
 				toPush && filteredExpenses.push(expense);
@@ -317,12 +318,14 @@ define(function(require) {
 			
 			Sandbox.doDelete({
 				url : '_ah/api/expenseentityendpoint/v1/expenseentity/deleteandupdateiou', 
-				data : JSON.stringify(expense),
+				data : expense,
 				type : 'POST',
 				dataType: 'json',
 				contentType: 'application/json',
 				callback : function(response){
-					console.log('Successfully deleted', response);
+					$('.li-' + expense.expenseEntityId).slideUp('slow', function(){
+						this.remove();
+					});
 				}, 
 				errorCallback : function(err){
 					console.log('error occured');
