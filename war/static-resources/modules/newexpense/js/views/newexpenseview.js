@@ -120,8 +120,8 @@ define(function(require) {
 			$(this.el).html(this.template(data));
 		},
 		events : {
-			'blur input.js-pay-input' : 'divideExpense',
-			'blur input.js-contribution-input' : 'adjustExpenses',
+			'keyup input.js-pay-input' : 'divideExpense',
+			'keyup input.js-contribution-input' : 'adjustExpenses',
 			'click .js-lock-button' : 'eventLockExpense',
 			'click .js-select-expense' : 'toggleExpense',
 			'click .js-save-expense' : 'eventSaveExpense',
@@ -388,12 +388,18 @@ define(function(require) {
 				
 				return;
 			}
+			this.$(event.currentTarget).parent('.js-expense-div').
+			addClass('locked').
+			find('input').
+			addClass('locked');
+			
 		},
 		eventLockExpense : function(event){
-			this.$(event.currentTarget).parent().
+			this.$(event.currentTarget).parent('.js-expense-div').
 			toggleClass('locked').
 			find('input').
 			toggleClass('locked');
+			this.divideExpense();
 		},
 		toggleExpense : function(event){
 			if(!$(event.currentTarget).is(':checked')){
