@@ -227,7 +227,7 @@ define(function(require) {
 			
 			this.renderExpenses(expenses);
 			
-			this.$('.js-expenses-container').height($(window).height()-$('.js-show-hide-section').height());
+			//this.$('.js-expenses-container').height($(window).height());
 			//stroll.bind( this.$( '.js-expenses-container'));
 		},
 		renderExpenses : function(expenses){
