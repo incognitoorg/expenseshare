@@ -42,7 +42,6 @@ define(function(require) {
 				}, "Enter valid amount...");
 
 
-
 				jQuery.validator.addMethod("customDate-pastDate",function(value, element) {
 					var today = new Date();
 					today.setHours(0);

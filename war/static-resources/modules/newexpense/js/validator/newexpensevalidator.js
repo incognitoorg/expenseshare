@@ -4,6 +4,13 @@ define( function(require){
 	var FormValidator = require("plugins/jquery/formvalidation/formvalidation");
 
 	return {
+		/*rules : {
+			expenseInput :{
+				"expenseInputValidator":true,
+				"require_from_group" : [1, '.js-pay-input'],
+				"required" : true
+			}
+		},*/
 		initialize : function(options){
 			
 			
