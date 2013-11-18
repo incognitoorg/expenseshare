@@ -295,14 +295,16 @@ define(function(require) {
 		},
 		//TODO : Remove all code of separate detail expense.
 		showExpenseDetail : function(event){
+			var self = this;
 			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
 			var detailHTML = expenseDeatailTemplate(expense);
 			//this.$('.js-detail-expnese-container').html(detailHTML);
 			//TODO : Convert expense entity in a view.
 			this.$(event.currentTarget).parents('li').find('.js-expense-detail-container').html(detailHTML);
-			this.$(event.currentTarget).parents('li').find('.js-expense-detail-container').toggle('slide');
-			//TODO : Review this interaction. User might not like their divs swinging like that 
-			this.$('.js-expenses-container').animate({scrollTop:event.currentTarget.offsetTop}, '500', 'swing', function() {});
+			this.$(event.currentTarget).parents('li').find('.js-expense-detail-container').toggle('slide', function(){
+				//TODO : Review this interaction. User might not like their divs swinging like that 
+				self.$('.js-expenses-container').animate({scrollTop:event.currentTarget.offsetTop}, '500', 'swing', function() {});
+			});
 		},
 		deleteExpense : function(event){
 			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
