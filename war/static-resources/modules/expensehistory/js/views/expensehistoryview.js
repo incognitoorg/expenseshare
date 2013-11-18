@@ -301,6 +301,8 @@ define(function(require) {
 			//TODO : Convert expense entity in a view.
 			this.$(event.currentTarget).parents('li').find('.js-expense-detail-container').html(detailHTML);
 			this.$(event.currentTarget).parents('li').find('.js-expense-detail-container').toggle('slide');
+			//TODO : Review this interaction. User might not like their divs swinging like that
+			this.$('.js-expenses-container').animate({scrollTop:event.currentTarget.offsetTop}, '500', 'swing', function() {});
 		},
 		deleteExpense : function(event){
 			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
