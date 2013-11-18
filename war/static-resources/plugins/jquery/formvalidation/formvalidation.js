@@ -3,6 +3,7 @@ define(function(require) {
 	var jquery = require('jquery');
 	var jqueryValidateOverride = require('./js/jquery.validate');
 	var jqueryValidateOverride = require('./js/jquery.validate-override');
+	var jqueryValidateOverride = require('./js/jquery.validate.additional.methods.custom');
 
 	require('css!./css/formvalidation.css');
 	

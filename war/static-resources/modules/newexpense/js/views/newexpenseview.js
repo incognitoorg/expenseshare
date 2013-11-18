@@ -319,6 +319,20 @@ define(function(require) {
 			
 		},
 		divideExpense : function(){
+			var self = this;
+			//TODO : Setting height dynamically. Put this in common function
+			self.$('.carousel').each(function(index, carouselEl){
+				var totalHeight = 0;
+				$(carouselEl).height(function(){
+					$($(carouselEl).find('.item')[0]).children().each(function(index, el){
+						totalHeight += $(el).height();
+					});
+					return totalHeight;
+				});
+			});
+			if(!self.$('.js-add-expense-form').valid()){
+				return;
+			}
 			
 			
 			
@@ -343,25 +357,24 @@ define(function(require) {
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
 			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
 			
-			var self = this;
 			
-			if(!self.$('.js-add-expense-form').valid()){
-				//TODO : Setting height dynamically, Put this in common function 
-				self.$('.carousel').each(function(index, carouselEl){
-					var totalHeight = 0;
-					$(carouselEl).height(function(){
-						$($(carouselEl).find('.item')[0]).children().each(function(index, el){
-							totalHeight += $(el).height();
-						});
-						return totalHeight;
-					});
-				});
-				return;
-			}
+			
 		},
 		adjustExpenses : function(event){
 			
 			var self = this;
+			
+			
+			//TODO : Setting height dynamically. Put this in common function
+			self.$('.carousel').each(function(index, carouselEl){
+				var totalHeight = 0;
+				$(carouselEl).height(function(){
+					$($(carouselEl).find('.item')[0]).children().each(function(index, el){
+						totalHeight += $(el).height();
+					});
+					return totalHeight;
+				});
+			});
 			
 			var contributionInputs = this.$('.js-included-members').find('input.js-contribution-input:not(.locked)').not(event.currentTarget);
 			var lockedInputs = this.$('.js-included-members').find('input.js-contribution-input.locked').not(event.currentTarget);
@@ -419,11 +432,23 @@ define(function(require) {
 			this.divideExpense();
 		},
 		eventSaveExpense : function(){
-			
-			
-			if(!this.$('.js-add-expense-form').valid()){
+			var self = this;
+			if(!self.$('.js-add-expense-form').valid()){
+				//TODO : Setting height dynamically, Put this in common function 
+				self.$('.carousel').each(function(index, carouselEl){
+					var totalHeight = 0;
+					$(carouselEl).height(function(){
+						$($(carouselEl).find('.item')[0]).children().each(function(index, el){
+							totalHeight += $(el).height();
+						});
+						return totalHeight;
+					});
+				});
+				
 				return;
 			}
+			
+			
 			if(!this.dataRefreshed){
 				alert('Latest data is not available, please save after few seconds');
 				return;
