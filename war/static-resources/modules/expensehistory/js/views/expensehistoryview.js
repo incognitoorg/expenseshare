@@ -318,8 +318,6 @@ define(function(require) {
 			//var updatedGroup = updatedIOUForDelete(expense, this.groupMap[expense.groupId]);
 			var updatedGroup = ExpenseUtility.updateIOU(expense, this.groupMap[expense.groupId], 'delete');
 			
-			console.log(JSON.stringify(updatedGroup));
-			
 			Sandbox.doDelete({
 				url : '_ah/api/expenseentityendpoint/v1/expenseentity/deleteandupdateiou', 
 				data : expense,

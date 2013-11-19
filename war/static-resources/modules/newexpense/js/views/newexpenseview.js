@@ -180,8 +180,6 @@ define(function(require) {
 			var dateStr = 1900+today.getYear() + '-' + ((today.getMonth()+1)>=10?today.getMonth()+1 : '0' +(today.getMonth()+1)) +'-' + (today.getDate()>=10?today.getDate() : '0' +today.getDate());
 			this.$('.js-expense-date').attr('max', dateStr).val(dateStr);
 			
-			
-			
 			function normalize(data){
 				for ( var i = 0; i < data.members.length; i++) {
 					var d = data.members[i];
@@ -224,7 +222,12 @@ define(function(require) {
 			
 			
 			this.$('.js-expense-name').val(expense.name);
-			this.$('.js-expense-date').val(expense.date);
+			var expenseDate = new Date(expense.date);
+			var year = expenseDate.getYear()+1900;
+			var month = expenseDate.getMonth()+1>9?expenseDate.getMonth()+1 : "0" + (expenseDate.getMonth()+1);
+			var day =  expenseDate.getDate()>9?expenseDate.getDate() : "0" + (expenseDate.getDate());
+			var date = year +"-" + month +"-" + day; 
+			this.$('.js-expense-date').val(date);
 			this.$('.js-expense-type').val(expense.type);
 			
 		},
