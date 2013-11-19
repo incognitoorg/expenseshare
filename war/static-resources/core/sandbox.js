@@ -129,7 +129,7 @@ define(function (require) {
 					  if(splits[1]){
 						  var thisEndPoint = typeOfEndPointObject[splits[1]] = typeOfEndPointObject[splits[1]] || {};
 					  }*/
-					  if(splits[2]){
+					  if(splits[2] && response.items){
 						  thisEndPoint[splits[2]] = response;
 					  }
 					  localStorage.setItem(endPointType, JSON.stringify(typeOfEndPointObject));
