@@ -38,7 +38,7 @@ define(function(require) {
 				}, "Only Numbers & +,-,(,) Allowed.");
 				
 				jQuery.validator.addMethod("expenseInputValidator", function(value, element) {
-					return this.optional(element) || value == value.match(/^\d+\.?\d*$/) && value.length<15;
+					return this.optional(element) || value.trim() == value.trim().match(/^\d+\.?\d*$/) && value.trim().length<15;
 				}, "Enter valid amount...");
 
 
