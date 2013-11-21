@@ -335,8 +335,9 @@ public class UserEndpoint {
 	@ApiMethod(path="userendpoint/user/getorinsertuser")
 	public User getOrInsertUser(User user){
 		String apiId = null;
-		
-		long start = new Date().getTime();
+		String loginType = user.getLoginType();
+		String googleId = user.getGoogleId();
+		String facebookId = user.getFacebookId();
 		List<User> execute = null;
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -363,6 +364,9 @@ public class UserEndpoint {
 			} else {
 				user = this.insertUser(user);
 			}
+			user.setLoginType(loginType);
+			user.setGoogleId(googleId);
+			user.setFacebookId(facebookId);
 			return user;
 		}
 
@@ -373,7 +377,8 @@ public class UserEndpoint {
 			apiId = user.getGoogleId();
 			q.setFilter("googleId == googleIdParam");
 			q.declareParameters("String googleIdParam");
-		} else */if("facebook".equalsIgnoreCase(user.getLoginType())) {
+		} else */
+		if("facebook".equalsIgnoreCase(loginType)) {
 			apiId = user.getFacebookId();
 			q.setFilter("facebookId == facebookIdParam");
 			q.declareParameters("String facebookIdParam");
@@ -406,10 +411,12 @@ public class UserEndpoint {
 			}
 		}
 		
-		long end = new Date().getTime();
 		
-		System.out.println("Time taken to login: ");
-		System.out.println(end - start/1000*1000 + " Milliseconds");
+		System.out.println("Logged in successfully");
+		
+		user.setLoginType(loginType);
+		user.setGoogleId(googleId);
+		user.setFacebookId(facebookId);
 		
 		return user;
 	}

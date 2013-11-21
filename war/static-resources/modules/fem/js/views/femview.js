@@ -97,6 +97,15 @@ define(function(require){
 		        is_mobile = true;      
 		    }
 			
+			document.getElementById("js-user-link").setAttribute('style', 'display:"";');
+			document.getElementById("js-user-link").innerHTML = userdata.data.fullName;
+			document.getElementById("js-login-link").setAttribute('style', 'display:none;');
+			
+			var imageURL = userdata.data.loginType=="facebook"?'http://graph.facebook.com/' + userdata.data.facebookId + '/picture' : 'https://plus.google.com/s2/photos/profile/' + userdata.data.googleId + "?sz=45";  
+			$('#js-user-link').append($('<img>').attr('src', imageURL));
+			
+			
+			
 			menuHeight = this.$('.js-fixed-section').height();
 			menuWidth = this.$('.js-fixed-section').width();
 			
