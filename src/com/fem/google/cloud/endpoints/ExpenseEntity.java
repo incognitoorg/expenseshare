@@ -17,6 +17,10 @@ public class ExpenseEntity {
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
     private String expenseEntityId;
+	private String createdBy;
+	private String editedBy;
+	private Date createdAt;
+	private Date editedAt;
 	
 	private String name; 
 	private Date date;
@@ -80,5 +84,29 @@ public class ExpenseEntity {
 	}
 	public void setGroup(Group objGroup) {
 		this.objGroup = objGroup;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public String getEditedBy() {
+		return editedBy;
+	}
+	public void setEditedBy(String editedBy) {
+		this.editedBy = editedBy;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getEditedAt() {
+		return editedAt;
+	}
+	public void setEditedAt(Date editedAt) {
+		this.editedAt = editedAt;
 	}
 }

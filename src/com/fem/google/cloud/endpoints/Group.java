@@ -1,8 +1,8 @@
 package com.fem.google.cloud.endpoints;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
-import javax.jdo.annotations.Embedded;
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -18,7 +18,12 @@ public class Group {
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
     private String groupId;
-
+	private String createdBy;
+	private String editedBy;
+	private Date createdAt;
+	private Date editedAt;
+	private boolean isActive;
+	
 	
 	private String groupName;
 	private String groupType;
@@ -26,6 +31,7 @@ public class Group {
 	
 	private ArrayList<User> members;
 	private ArrayList<String> membersIdList;
+	
 	
 	@Persistent
 	private ArrayList<IOU> iouList;
@@ -73,6 +79,36 @@ public class Group {
 	}
 	public void setIouList(ArrayList<IOU> iouList) {
 		this.iouList = iouList;
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public String getEditedBy() {
+		return editedBy;
+	}
+	public void setEditedBy(String editedBy) {
+		this.editedBy = editedBy;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getEditedAt() {
+		return editedAt;
+	}
+	public void setEditedAt(Date editedAt) {
+		this.editedAt = editedAt;
 	}
 	
 	
