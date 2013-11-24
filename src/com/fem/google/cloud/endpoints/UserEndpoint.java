@@ -22,7 +22,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityNotFoundException;
 
-import org.datanucleus.util.Log4JLogger;
 import org.datanucleus.util.StringUtils;
 
 import com.google.api.server.spi.config.Api;
@@ -295,25 +294,80 @@ public class UserEndpoint {
 	)
 	public User doLogin(User user) {
 		user = getOrInsertUser(user);
+		
+		boolean isNewUser = false;
+		
+		if(!StringUtils.isEmpty(user.getLastLoggedInAt() + "")) {
+			isNewUser = true;
+		}
+		
 		user.setLastLoggedInAt(new Date());
 		user.setAccessToken(UUID.randomUUID().toString());
 		
 		Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
-        if(!StringUtils.isEmpty(user.getEmail())){
+        if(isNewUser && !StringUtils.isEmpty(user.getEmail())){
         	
         	try {
         		
-        		Message msg = new MimeMessage(session);
+        		MimeMessage msg = new MimeMessage(session);
         		msg.setFrom(new InternetAddress("incognitoorg1@gmail.com", "Expense Share"));
         		
         		log.info("User email " + user.getEmail());
         		
+        		String msgContent = "<table width='700px' border='0px' cellspacing='0px' cellpadding='0px' align='center'>"
+        				+ "<tbody><tr>"
+        				+ "<td width='700px' height='12px'>"
+        				+ "<img src='http://www.infibeam.com/assets/skins/common/images/email/top.jpg' width='700px' height='12px' align='center' border='0px'>"
+        				+ "</td>"
+        				+ "</tr>"
+        				+ "<tr>"
+        				+ "<td width='700px' height='100px' style='border-left:1px;border-right:1px;border-style:solid;border-color:#cccccc' align='center'>"
+        				+ "<a href='http://www.infibeam.com/' target='_blank'>"
+        				+ "<img src='http://www.hollywoodreporter.com/sites/default/files/2012/01/incognito_buck_logo_a_l.jpg' alt='xpenseshare.in' border='0px' align='center'>"
+        				+ "</a>"
+        				+ "</td>"
+        				+ "</tr>"
+        				+ "<tr>"
+        				+ "<td style='padding-left:15px;padding-right:15px;padding-top:none;letter-spacing:normal;border-right-style:solid;padding-bottom:15px;line-height:18px;border-left-color:#cccccc;border-left-style:solid;border-right-color:#cccccc;font-size:13px;border-right-width:1px;font-family:verdana,arial,helvetica,sans-serif;border-left-width:1px'>"
+        				+ "Hi " + user.getFirstName() + " " + user.getLastName() + ","
+        				+ "<br><br>"
+        				+ "<b>"
+        				+ "Welcome to <span class='il'>XpenseShare</span>.com - its good to have you on board!"
+        				+ "</b>"
+        				+ "<br>"
+        				+ "<p>"
+        				+ "Streamline your expense tracking & settlement and forget keeping mental notes."
+        				+ "</p>"
+        				+ "<p>"
+        				+ "If you wish to update your profile, you may do so <a href='http://fem.expenseshare.in/#profile' target='_blank'>here</a>."
+        				+ "</p>"
+        				+ "<p>"
+        				+ "You can start your xpense sharing experience right <a href='http://www.expenseshare.in/' target='_blank'>now</a>."
+        				+ "</p>"
+        				+ "<p>"
+        				+ "We hope to see you soon!"
+        				+ "</p>"
+        				+ "<br><br>"
+        				+ "<b>Thank You For Choosing <span class='il'>XpenseShare</span>.com!</b>"
+        				+ "<br>"
+        				+ "</td>"
+        				+ "</tr>"
+        				+ "<tr>"
+        				+ "<td background='http://www.infibeam.com/assets/skins/common/images/email/btm_bg.jpg' height='37px' width='700px' style='font-size:11px;font-family:verdana,arial,helvetica,sans-serif;color:#fff;padding:0px 10px' valign='middle'>"
+        				+ "<b>Follow Us On</b> &nbsp;"
+        				+ "<img src='http://www.infibeam.com/assets/skins/common/images/email/social_icon.png' alt='Facebook / Twitter / Blog' width='48px' height='21px' border='0px' align='absmiddle' usemap='#1404dc1a58831188_Map2'>"
+        				+ "</span>"
+        				+ "Copyright © 2013 <span class='il'>XpenseShare</span>.com and Affiliates"
+        				+ "</td>"
+        				+ "</tr>"
+        				+ "</tbody></table>";
+        		
         		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), user.getFullName()));
-        		//msg.addRecipient(Message.RecipientType.TO, new InternetAddress("vishwanatharondekar@gmail.com", "Vishwanath"));
+//        		msg.addRecipient(Message.RecipientType.TO, new InternetAddress("rahulkulapkar@gmail.com", "Rahul"));
         		msg.setSubject("Greetings...");
-        		msg.setText("Welcome to Expense Share...!!!");
+        		msg.setText(msgContent, "utf-8", "html");
         		Transport.send(msg);
         		
         		log.info("Mail sent successfully");
