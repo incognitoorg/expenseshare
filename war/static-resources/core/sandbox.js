@@ -142,7 +142,7 @@ define(function (require) {
 			var promise = this.doAjax(extendedData);
 			if(options.cached){
 				var cachedData = thisEndPoint[splits[2]];
-				//cachedData && callback.call(options.context, cachedData);// && options.loaderContainer && options.loaderContainer.removeClass('global-loader');;
+				cachedData && callback.call(options.context, cachedData);// && options.loaderContainer && options.loaderContainer.removeClass('global-loader');;
 			}
 			return promise;
 		}
