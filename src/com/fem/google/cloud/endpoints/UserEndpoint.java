@@ -390,7 +390,10 @@ public class UserEndpoint {
 	//TODO : I will kill myself in past for writing this bad code.
 	@SuppressWarnings("unchecked")
 	@ApiMethod(path="userendpoint/user/getorinsertuser")
-	public User getOrInsertUser(User user, Date lastLoggedIn, String accessToken){
+	public User getOrInsertUser(User user, 
+			@Nullable @Named("lastLoggedIn") Date lastLoggedIn, 
+			@Nullable @Named("authToken") String authToken){
+		
 		String apiId = null;
 		String loginType = user.getLoginType();
 		String googleId = user.getGoogleId();
@@ -424,7 +427,7 @@ public class UserEndpoint {
 			
 			if(lastLoggedIn!= null){
 				user.setLastLoggedInAt(lastLoggedIn);
-				user.setAccessToken(accessToken);
+				user.setAccessToken(authToken);
 				pm.makePersistent(user);
 			}
 			user.setLoginType(loginType);
@@ -484,7 +487,7 @@ public class UserEndpoint {
 		
 		if(lastLoggedIn!= null){
 			user.setLastLoggedInAt(lastLoggedIn);
-			user.setAccessToken(accessToken);
+			user.setAccessToken(authToken);
 			pm.makePersistent(user);
 		}
 		
