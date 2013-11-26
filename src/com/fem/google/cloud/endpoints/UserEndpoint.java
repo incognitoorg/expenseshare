@@ -293,7 +293,7 @@ public class UserEndpoint {
 			path="user/doLogin"
 	)
 	public User doLogin(User user) {
-		user = getOrInsertUser(user);
+		user = getOrInsertUser(user, new Date(), UUID.randomUUID().toString());
 		
 		boolean isNewUser = false;
 		
@@ -301,8 +301,9 @@ public class UserEndpoint {
 			isNewUser = true;
 		}
 		
-		user.setLastLoggedInAt(new Date());
-		user.setAccessToken(UUID.randomUUID().toString());
+		
+		
+		
 		
 		Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
@@ -312,8 +313,10 @@ public class UserEndpoint {
         	try {
         		
         		MimeMessage msg = new MimeMessage(session);
-        		msg.setFrom(new InternetAddress("incognitoorg1@gmail.com", "Expense Share"));
-        		
+        		String SENDER_EMAIL_ADDRESS = "incognitoorg1@gmail.com"; //TODO : This should come from properties file.
+				String SENDER_NAME = "Expense Share";
+				msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
+				
         		log.info("User email " + user.getEmail());
         		
         		String msgContent = "<table width='700px' border='0px' cellspacing='0px' cellpadding='0px' align='center'>"
@@ -384,10 +387,10 @@ public class UserEndpoint {
 		
 	}
 	
-	
+	//TODO : I will kill myself in past for writing this bad code.
 	@SuppressWarnings("unchecked")
 	@ApiMethod(path="userendpoint/user/getorinsertuser")
-	public User getOrInsertUser(User user){
+	public User getOrInsertUser(User user, Date lastLoggedIn, String accessToken){
 		String apiId = null;
 		String loginType = user.getLoginType();
 		String googleId = user.getGoogleId();
@@ -417,6 +420,12 @@ public class UserEndpoint {
 				user = execute.get(0);
 			} else {
 				user = this.insertUser(user);
+			}
+			
+			if(lastLoggedIn!= null){
+				user.setLastLoggedInAt(lastLoggedIn);
+				user.setAccessToken(accessToken);
+				pm.makePersistent(user);
 			}
 			user.setLoginType(loginType);
 			user.setGoogleId(googleId);
@@ -471,6 +480,13 @@ public class UserEndpoint {
 		user.setLoginType(loginType);
 		user.setGoogleId(googleId);
 		user.setFacebookId(facebookId);
+		
+		
+		if(lastLoggedIn!= null){
+			user.setLastLoggedInAt(lastLoggedIn);
+			user.setAccessToken(accessToken);
+			pm.makePersistent(user);
+		}
 		
 		return user;
 	}
