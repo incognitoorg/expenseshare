@@ -293,6 +293,7 @@ public class UserEndpoint {
 			path="user/doLogin"
 	)
 	public User doLogin(User user) {
+		
 		user = getOrInsertUser(user, new Date(), UUID.randomUUID().toString());
 		
 		boolean isNewUser = false;
