@@ -109,8 +109,10 @@ define(function(require){
 		startApp : function(){
 			Sandbox.publish('LOGIN:SUCCESS', {data : this.userInfo});
 		},
-		somethingBadHappend : function(){
-			console.log('Something bad happened, find out who did that and kill them');
+		somethingBadHappend : function(xhr, ajaxOptions, thrownError){
+			//console.log('Something bad happened, find out who did that and kill them' + error.errorText);
+			console.log(xhr.status);
+	        console.log(thrownError);
 		},
 		hide : function(){
 			$(this.el).hide();
