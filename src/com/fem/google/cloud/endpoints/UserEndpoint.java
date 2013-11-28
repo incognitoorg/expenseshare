@@ -297,13 +297,9 @@ public class UserEndpoint {
 		
 		boolean isNewUser = false;
 		
-		if(!StringUtils.isEmpty(user.getLastLoggedInAt() + "")) {
+		if(StringUtils.isEmpty(user.getLastLoggedInAt() + "")) {
 			isNewUser = true;
 		}
-		
-		
-		
-		
 		
 		Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
