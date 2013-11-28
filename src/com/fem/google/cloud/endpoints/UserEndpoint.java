@@ -327,7 +327,7 @@ public class UserEndpoint {
         				+ "</tr>"
         				+ "<tr>"
         				+ "<td width='700px' height='100px' style='border-left:1px;border-right:1px;border-style:solid;border-color:#cccccc' align='center'>"
-        				+ "<a href='http://www.infibeam.com/' target='_blank'>"
+        				+ "<a href='http://www.expenseshare.in/' target='_blank'>"
         				+ "<img src='http://www.hollywoodreporter.com/sites/default/files/2012/01/incognito_buck_logo_a_l.jpg' alt='xpenseshare.in' border='0px' align='center'>"
         				+ "</a>"
         				+ "</td>"
