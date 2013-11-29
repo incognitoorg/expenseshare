@@ -79,7 +79,7 @@ header{
  -->
 
 <body style="overflow-y: auto;font-family: 'Libre Baskerville', serif;">
-	<div class="mask" id="mask"><span>Initializing App...</span>
+	<div class="mask" id="mask" style="height:100%;"><span>Initializing App...</span>
 	</div>
 	<header class="hide-for-small">Xpense Share
 	
@@ -139,7 +139,7 @@ header{
 	}
 	
 	
-	document.getElementById('mask').style['line-height'] = screen.height/2+'px';
+	//document.getElementById('mask').style['line-height'] = screen.height/2+'px';
 	var heightForLoader = document.getElementById('login').offsetHeight;
 	var userInfo = localStorage.getItem('loggedInUser');
 	if(userInfo && JSON.parse(userInfo)){
