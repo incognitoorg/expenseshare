@@ -199,10 +199,17 @@ define(function(require) {
 		},
 		showExpenseHistory : function(response){
 
-			this.$('.js-detail-expnese-container').hide();
-			this.$('.js-expenses-container').show();
+			
 
+			if(!response.items || response.items.length==0){
+				this.$('.error').show();
+				this.$('.js-expenses-container').hide();
+				return;
+			}
+			this.$('.js-expenses-container').show();
 			var expenses = response.items;
+			
+			
 			this.expenses = expenses;
 			var userInfo = user.getInfo();
 			var groups = userInfo.group.items;
