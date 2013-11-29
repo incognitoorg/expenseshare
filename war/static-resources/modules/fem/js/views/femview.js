@@ -8,6 +8,7 @@ define(function(require){
 	var Backbone = require('backbone');
 	var AppRouter = require('./../router/femrouter');
 	var Sandbox = require('sandbox');
+	var JqueryTouch = require('libraries/jquery-mobile/jquery.mobile.touch.min');
 	
 	//Module path mapper for requiring module dynamically
 	var componentPathMapper = {
@@ -87,10 +88,20 @@ define(function(require){
 		},
 		start : function(userdata){
 			var redirectURL = location.href.substr(location.href.indexOf('#'));
+			var self = this;
 			if(!appstarted){
 				$('.js-fem-container').show();
 				this.render();
 				appstarted = true;
+				
+				$(this.el)
+				.swipeleft(function(event){
+					self.hideMenu(event);
+				})
+				.swiperight(function(event){
+					self.showMenu(event);
+				});
+				
 			}
 			
 			//TODO : Put this in some common place

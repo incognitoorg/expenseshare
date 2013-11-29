@@ -259,18 +259,18 @@ define(function(require) {
 			
 			var pages = payersContainer.find('.item');
 			if(pages.length>1){
-				var navigator = $('<div class="row">');
+				var navigator = $('<div class="row js-navigator">');
 				navigator.append($('<div class="small-12 columns next text-right">Next</div>'));
 				$(pages[0]).append(navigator);
 				
 				pages.filter(function(index){return index !=0 && index!=pages.size()-1;}).each(function(index, el){
-					var navigator = $('<div class="row">');
+					var navigator = $('<div class="row js-navigator">');
 					navigator.append($('<div class="small-6 columns previous">Previous</div>'));
 					navigator.append($('<div class="small-6 columns next text-right">Next</div>'));
 					$(el).append(navigator);
 				});
 				
-				var navigator = $('<div class="row">');
+				var navigator = $('<div class="row js-navigator">');
 				navigator.append($('<div class="small-12 columns previous">Previous</div>'));
 				$(pages[pages.size()-1]).append(navigator);
 				
@@ -301,18 +301,18 @@ define(function(require) {
 			
 			var pages = payersContainer.find('.item');
 			if(pages.length>1){
-				var navigator = $('<div class="row">');
+				var navigator = $('<div class="row js-navigator">');
 				navigator.append($('<div class="small-12 columns next text-right">Next</div>'));
 				$(pages[0]).append(navigator);
 				
 				pages.filter(function(index){return index !=0 && index!=pages.size()-1;}).each(function(index, el){
-					var navigator = $('<div class="row">');
+					var navigator = $('<div class="row js-navigator">');
 					navigator.append($('<div class="small-6 columns previous">Previous</div>'));
 					navigator.append($('<div class="small-6 columns next text-right">Next</div>'));
 					$(el).append(navigator);
 				});
 				
-				var navigator = $('<div class="row ">');
+				var navigator = $('<div class="row js-navigator">');
 				navigator.append($('<div class="small-12 columns previous">Previous</div>'));
 				$(pages[pages.size()-1]).append(navigator);
 				
@@ -360,19 +360,21 @@ define(function(require) {
 			
 			
 			$(element).find('.item')
-			.swipeleft(function(){
+			.swipeleft(function(event){
 				var pageIndex = $.makeArray($(element).children()).indexOf(this);
 				pageIndex=pageIndex+1!=$(element).children().size()?pageIndex+1:pageIndex;
 				$(element).children().each(function(index, el){
 				     $(el).animate({'margin-left':$(el).width()*index - pageIndex*$(el).width()});
 				});
+				event.stopPropagation();
 			})
-			.swiperight(function(){
+			.swiperight(function(event){
 				var pageIndex = $.makeArray($(element).children()).indexOf(this);
 				pageIndex =pageIndex!=0?pageIndex-1:pageIndex;
 				$(element).children().each(function(index, el){
 				     $(el).animate({'margin-left':$(el).width()*index - pageIndex*$(el).width()});
 				});
+				event.stopPropagation();
 			});
 			
 		},
@@ -566,9 +568,6 @@ define(function(require) {
 			} else {
 				Sandbox.doPost(ajaxData);
 			}
-			
-			
-			
 		},
 		expenseSaved : function(objExpenseModel){
 			this.groupSaved(objExpenseModel);
