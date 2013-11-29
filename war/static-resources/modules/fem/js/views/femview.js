@@ -1,3 +1,4 @@
+var AppRouterInstance = null;
 define(function(require){
 	
 	require('css!libraries/foundation/css/normalize.css');
@@ -117,7 +118,7 @@ define(function(require){
 			//Trying to make height responsive. Experimental. May need to throw this away.
 			//this.makeResponsive();
 			if(!this.router){
-				this.router = new AppRouter({view : this});
+				this.router = AppRouterInstance = new AppRouter({view : this});
 				Backbone.history.start();
 			}
 			this.router.navigate('#menu');
@@ -156,7 +157,6 @@ define(function(require){
 			componentMapper[data.name]=null;
 		},
 		showMenu : function(event){
-			
 			var self = this;
 			if(is_mobile){
 				this.$('.js-show-menu').removeClass('js-show-menu').addClass('js-hide-menu');
@@ -167,8 +167,6 @@ define(function(require){
 					window.scrollTo(0,0);
 					// Animation complete.
 				});
-				
-				
 			}
 		},
 		hideMenu : function(event){
@@ -181,7 +179,6 @@ define(function(require){
 				}, 300, function() {
 					// Animation complete.
 				});
-				
 			}
 		}
 	});

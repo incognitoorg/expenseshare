@@ -12,6 +12,7 @@ define(function(require){
 				"menu" : "showMenu",
 			    "dashboard": "showDashboard",    
 			    "newexpense": "showNewExpense",  
+			    "newexpenseform": "showNewExpenseForm",  
 			    "creategroup": "showCreateGroup"   ,
 			    "expensehistory": "showExpenseHistory",    
 			    "editgroup": "showEditGroup",  
@@ -25,6 +26,9 @@ define(function(require){
 		  },
 		  showNewExpense: function(query, page) {
 			  this.options.view.eventShowView('js-new-expense'); 
+		  },
+		  showNewExpenseForm: function(query, page) {
+			  //this.options.view.eventShowView('js-new-expense'); 
 		  },
 		  showCreateGroup: function(query, page) {
 			  this.options.view.eventShowView('js-create-group');

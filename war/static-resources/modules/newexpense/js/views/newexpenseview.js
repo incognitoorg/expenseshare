@@ -158,7 +158,8 @@ define(function(require) {
 			this.dataRefreshed = true;
 		},
 		showNewExpenseForm : function(group, expense){
-			
+			//TODO : Global variables from femview.js. If you are reading this go and kill vishwanath.
+			AppRouterInstance.navigate('#newexpenseform');
 			
 			
 			var data = {
