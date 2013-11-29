@@ -241,6 +241,13 @@ define(function(require) {
 					itemContainer = $('<div class=item>');
 					payersContainer.append(itemContainer);
 				}
+				if(i%5==4){
+					itemContainer.append($('<div class="row navigator">'));
+					itemContainer.append($('<div class="small-6 columns previous">Previous</div>'));
+					itemContainer.append($('<div class="small-6 columns next">Next</div>'));
+				}
+				
+				
 				var groupMember = groupMembers[i];
 				groupMember.inputNumber = expenseInputCounter++;
 				
