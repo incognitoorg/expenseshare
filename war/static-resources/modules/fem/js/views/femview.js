@@ -122,9 +122,9 @@ define(function(require){
 			}
 			this.router.navigate('#menu');
 
-			if(redirectURL.length>1){
+			/*if(redirectURL.length>1){
 				this.router.navigate(redirectURL);
-			} else {
+			} else */{
 				this.eventShowView('js-dashboard');
 			}
 			
