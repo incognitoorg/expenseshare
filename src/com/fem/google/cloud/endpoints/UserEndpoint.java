@@ -15,7 +15,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.datanucleus.util.StringUtils;
 
-import com.fem.util.MailUtil;
+//import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.CollectionResponse;
@@ -349,7 +349,7 @@ public class UserEndpoint {
 			HashMap<String, String> hmEmailIds = new HashMap<String, String>();
 			hmEmailIds.put(user.getEmail(), user.getFullName());
 
-			new MailUtil().sendMail("Greetings...", msgContent, hmEmailIds);
+			//new MailUtil().sendMail("Greetings...", msgContent, hmEmailIds);
 		}
 
 		return user;
