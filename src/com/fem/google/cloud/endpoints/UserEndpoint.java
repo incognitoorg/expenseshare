@@ -286,11 +286,13 @@ public class UserEndpoint {
 			)
 	public User doLogin(User user) {
 
-		user = getOrInsertUser(user, new Date(), UUID.randomUUID().toString());
+		Date loginDate = new Date();
+		
+		user = getOrInsertUser(user, loginDate, UUID.randomUUID().toString());
 
 		boolean isNewUser = false;
 
-		if(StringUtils.isEmpty(user.getLastLoggedInAt() + "")) {
+		if(!loginDate.after(user.getLastLoggedInAt())) {
 			isNewUser = true;
 		}
 
