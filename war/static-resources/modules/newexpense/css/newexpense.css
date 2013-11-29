@@ -75,7 +75,7 @@ input::-webkit-inner-spin-button {
 }
 .js-lock-button{
 	float: left;
-	background: url("http://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/lock-48.png");
+	background: url("http://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/lock-48.png") no-repeat;
 	background-size: 35px;
 	background-position-x: 50%;
 	background-position-y: -75%;

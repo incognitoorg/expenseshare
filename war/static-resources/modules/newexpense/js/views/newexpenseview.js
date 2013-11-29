@@ -242,17 +242,38 @@ define(function(require) {
 					itemContainer = $('<div class=item>');
 					payersContainer.append(itemContainer);
 				}
-				if(i%5==4){
-					itemContainer.append($('<div class="row navigator">'));
-					itemContainer.append($('<div class="small-6 columns previous">Previous</div>'));
-					itemContainer.append($('<div class="small-6 columns next">Next</div>'));
-				}
 				
 				
 				var groupMember = groupMembers[i];
 				groupMember.inputNumber = expenseInputCounter++;
 				
 				itemContainer.append(payerContentTemplate(groupMember));
+
+				/*//TODO : This can be done better out of the for loop.
+				if(i%5==4){
+					itemContainer.append($('<div class="row navigator">'));
+					itemContainer.append($('<div class="small-6 columns previous">Previous</div>'));
+					itemContainer.append($('<div class="small-6 columns next">Next</div>'));
+				}*/
+			}
+			
+			var pages = payersContainer.find('.item');
+			if(pages.length>1){
+				var navigator = $('<div class="row">');
+				navigator.append($('<div class="small-12 columns next text-right">Next</div>'));
+				$(pages[0]).append(navigator);
+				
+				pages.filter(function(index){return index !=0 && index!=pages.size()-1;}).each(function(index, el){
+					var navigator = $('<div class="row">');
+					navigator.append($('<div class="small-6 columns previous">Previous</div>'));
+					navigator.append($('<div class="small-6 columns next text-right">Next</div>'));
+					$(el).append(navigator);
+				});
+				
+				var navigator = $('<div class="row">');
+				navigator.append($('<div class="small-12 columns previous">Previous</div>'));
+				$(pages[pages.size()-1]).append(navigator);
+				
 			}
 		},
 		createMembersSection : function(groupMembers){
@@ -269,6 +290,32 @@ define(function(require) {
 				groupMember.inputNumber = expenseInputCounter++;
 				
 				itemContainer.append(payerContentTemplate(groupMember));
+				
+				//TODO : This can be done better out of the for loop.
+				/*if(i%5==4){
+					itemContainer.append($('<div class="row navigator">'));
+					itemContainer.append($('<div class="small-6 columns previous">Previous</div>'));
+					itemContainer.append($('<div class="small-6 columns next">Next</div>'));
+				}*/
+			}
+			
+			var pages = payersContainer.find('.item');
+			if(pages.length>1){
+				var navigator = $('<div class="row">');
+				navigator.append($('<div class="small-12 columns next text-right">Next</div>'));
+				$(pages[0]).append(navigator);
+				
+				pages.filter(function(index){return index !=0 && index!=pages.size()-1;}).each(function(index, el){
+					var navigator = $('<div class="row">');
+					navigator.append($('<div class="small-6 columns previous">Previous</div>'));
+					navigator.append($('<div class="small-6 columns next text-right">Next</div>'));
+					$(el).append(navigator);
+				});
+				
+				var navigator = $('<div class="row ">');
+				navigator.append($('<div class="small-12 columns previous">Previous</div>'));
+				$(pages[pages.size()-1]).append(navigator);
+				
 			}
 		},
 		//TODO : To put this in jquery plugin or component
