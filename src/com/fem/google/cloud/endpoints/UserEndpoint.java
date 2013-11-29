@@ -1,11 +1,9 @@
 package com.fem.google.cloud.endpoints;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -13,17 +11,11 @@ import javax.annotation.Nullable;
 import javax.inject.Named;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityNotFoundException;
 
 import org.datanucleus.util.StringUtils;
 
+import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.CollectionResponse;
@@ -87,7 +79,7 @@ public class UserEndpoint {
 	 * @return The entity with primary key id.
 	 */
 	public User getUser(@Named("id") String id) {
-		
+
 		PersistenceManager mgr = getPersistenceManager();
 		User user = null;
 		try {
@@ -96,7 +88,7 @@ public class UserEndpoint {
 			mgr.close();
 		}
 		return user;
-		
+
 	}
 
 	/**
@@ -176,56 +168,56 @@ public class UserEndpoint {
 	private static PersistenceManager getPersistenceManager() {
 		return PMF.get().getPersistenceManager();
 	}
-	
-	
+
+
 	/***************** Automatic code generation end  ***************/
-	
-	
+
+
 	/***************** Custom endpoint methods start ****************/
-	
-	
+
+
 	/**
 	 * This method is supposed to retrieve all the groups of a user with id.
 	 * @param id UserId of the user whose groups to be fetched
 	 * */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(
- 			httpMethod = "GET", 
- 			name = "user.groups",
+			httpMethod = "GET", 
+			name = "user.groups",
 			path="user/{id}/group"
 			)
 	public List<Group> getGroups(@Named("id") String id) {
-		
+
 		List<Group> alGroups = new ArrayList<Group>();
 		GroupMemberMapping groupMemberMapping = null;
 		int iCounter = 0;
-		
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		
+
 		Query q = pm.newQuery(GroupMemberMapping.class);
 
 		q.setFilter("userId == userIdParam");
 		q.declareParameters("String userIdParam");
-		
+
 		List<GroupMemberMapping> execute = null;
-		
+
 		execute = (List<GroupMemberMapping>)q.execute(id);
-		
+
 		while(iCounter < execute.size()){
 			groupMemberMapping = execute.get(iCounter++);
-			
+
 			q = pm.newQuery(Group.class);
-			
+
 			q.setFilter("groupId == groupIdParam");
 			q.declareParameters("String groupIdParam");
 			//alGroups.addAll((List<Group>) q.execute(groupMemberMapping.getGroupId()));
 			//TODO : Doing too many queries here, Need to put in transaction and optimize using single query
 			alGroups.add(new GroupEndpoint().getGroup(groupMemberMapping.getGroupId()));
-			
+
 		}
 		return alGroups;
 	}
-	
+
 	/**
 	 * This method is supposed to retrieve group information of specific group.
 	 * @param userId UserId of the user whose groups to be fetched
@@ -233,45 +225,45 @@ public class UserEndpoint {
 	 * */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(
- 			httpMethod = "GET", 
- 			name = "user.groups.group",
+			httpMethod = "GET", 
+			name = "user.groups.group",
 			path="user/{userId}/group/{groupId}"
 			)
 	public Group getGroup(@Named("userId") String userId, @Named("groupId") String groupId) {
 		Group objGroup = new Group();
-		
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		
+
 		Query q = pm.newQuery(Group.class);
-		
+
 		q.setFilter("groupId == groupIdParam");
 		q.declareParameters("String groupIdParam");
-		
+
 		List<Group> groups = (List<Group>) q.execute(groupId);
-		
+
 		objGroup = groups.get(0);
-		
+
 		return objGroup;
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Test method which shows what will be protocol for implementing search method
 	 * */
 	@ApiMethod(
-		      httpMethod = "GET", 
-		      name = "user.search",
-		      path = "user/search/{queryString}")
-		  public List<User> search(@Named("queryString") String queryString) 
-		      throws Exception {
-		   /* if (guser == null) {
+			httpMethod = "GET", 
+			name = "user.search",
+			path = "user/search/{queryString}")
+	public List<User> search(@Named("queryString") String queryString) 
+			throws Exception {
+		/* if (guser == null) {
 		      throw new UnauthorizedException(CustomErrors.MUST_LOG_IN.toString());
 		    }
-		    */
-		    List<User> returnList = new ArrayList<User>();
-		    /*Results<ScoredDocument> searchResults = INDEX.search(queryString);
+		 */
+		List<User> returnList = new ArrayList<User>();
+		/*Results<ScoredDocument> searchResults = INDEX.search(queryString);
 
 		    for (ScoredDocument scoredDoc : searchResults) {
 		      Field fieldId = scoredDoc.getOnlyField("id");
@@ -284,147 +276,123 @@ public class UserEndpoint {
 		        returnList.add(p);
 		      }
 		    }*/
-		    return returnList;
-		  }
-	
+		return returnList;
+	}
+
 	@ApiMethod(
- 			httpMethod = "POST", 
- 			name = "user.login",
+			httpMethod = "POST", 
+			name = "user.login",
 			path="user/doLogin"
-	)
+			)
 	public User doLogin(User user) {
+
 		user = getOrInsertUser(user, new Date(), UUID.randomUUID().toString());
-		
+
 		boolean isNewUser = false;
-		
-		if(!StringUtils.isEmpty(user.getLastLoggedInAt() + "")) {
+
+		if(StringUtils.isEmpty(user.getLastLoggedInAt() + "")) {
 			isNewUser = true;
 		}
-		
-		
-		
-		
-		
-		Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
 
-        if(isNewUser && !StringUtils.isEmpty(user.getEmail())){
-        	
-        	try {
-        		
-        		MimeMessage msg = new MimeMessage(session);
-        		String SENDER_EMAIL_ADDRESS = "incognitoorg1@gmail.com"; //TODO : This should come from properties file.
-				String SENDER_NAME = "Expense Share";
-				msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
-				
-        		log.info("User email " + user.getEmail());
-        		
-        		String msgContent = "<table width='700px' border='0px' cellspacing='0px' cellpadding='0px' align='center'>"
-        				+ "<tbody><tr>"
-        				+ "<td width='700px' height='12px'>"
-        				+ "<img src='http://www.infibeam.com/assets/skins/common/images/email/top.jpg' width='700px' height='12px' align='center' border='0px'>"
-        				+ "</td>"
-        				+ "</tr>"
-        				+ "<tr>"
-        				+ "<td width='700px' height='100px' style='border-left:1px;border-right:1px;border-style:solid;border-color:#cccccc' align='center'>"
-        				+ "<a href='http://www.expenseshare.in/' target='_blank'>"
-        				+ "<img src='http://www.hollywoodreporter.com/sites/default/files/2012/01/incognito_buck_logo_a_l.jpg' alt='xpenseshare.in' border='0px' align='center'>"
-        				+ "</a>"
-        				+ "</td>"
-        				+ "</tr>"
-        				+ "<tr>"
-        				+ "<td style='padding-left:15px;padding-right:15px;padding-top:none;letter-spacing:normal;border-right-style:solid;padding-bottom:15px;line-height:18px;border-left-color:#cccccc;border-left-style:solid;border-right-color:#cccccc;font-size:13px;border-right-width:1px;font-family:verdana,arial,helvetica,sans-serif;border-left-width:1px'>"
-        				+ "Hi " + user.getFirstName() + " " + user.getLastName() + ","
-        				+ "<br><br>"
-        				+ "<b>"
-        				+ "Welcome to <span class='il'>XpenseShare</span>.com - its good to have you on board!"
-        				+ "</b>"
-        				+ "<br>"
-        				+ "<p>"
-        				+ "Streamline your expense tracking & settlement and forget keeping mental notes."
-        				+ "</p>"
-        				+ "<p>"
-        				+ "If you wish to update your profile, you may do so <a href='http://fem.expenseshare.in/#profile' target='_blank'>here</a>."
-        				+ "</p>"
-        				+ "<p>"
-        				+ "You can start your xpense sharing experience right <a href='http://www.expenseshare.in/' target='_blank'>now</a>."
-        				+ "</p>"
-        				+ "<p>"
-        				+ "We hope to see you soon!"
-        				+ "</p>"
-        				+ "<br><br>"
-        				+ "<b>Thank You For Choosing <span class='il'>XpenseShare</span>.com!</b>"
-        				+ "<br>"
-        				+ "</td>"
-        				+ "</tr>"
-        				+ "<tr>"
-        				+ "<td background='http://www.infibeam.com/assets/skins/common/images/email/btm_bg.jpg' height='37px' width='700px' style='font-size:11px;font-family:verdana,arial,helvetica,sans-serif;color:#fff;padding:0px 10px' valign='middle'>"
-        				+ "<b>Follow Us On</b> &nbsp;"
-        				+ "<img src='http://www.infibeam.com/assets/skins/common/images/email/social_icon.png' alt='Facebook / Twitter / Blog' width='48px' height='21px' border='0px' align='absmiddle' usemap='#1404dc1a58831188_Map2'>"
-        				+ "</span>"
-        				+ "Copyright © 2013 <span class='il'>XpenseShare</span>.com and Affiliates"
-        				+ "</td>"
-        				+ "</tr>"
-        				+ "</tbody></table>";
-        		
-        		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), user.getFullName()));
-//        		msg.addRecipient(Message.RecipientType.TO, new InternetAddress("rahulkulapkar@gmail.com", "Rahul"));
-        		msg.setSubject("Greetings...");
-        		msg.setText(msgContent, "utf-8", "html");
-        		Transport.send(msg);
-        		
-        		log.info("Mail sent successfully");
-        	} catch (AddressException e) {
-        		e.printStackTrace();
-        	} catch (MessagingException e) {
-        		e.printStackTrace();
-        	} catch (UnsupportedEncodingException e) {
-        		e.printStackTrace();
-        	}
-        }
-		
+
+		if(isNewUser && !StringUtils.isEmpty(user.getEmail())){
+
+			log.info("User email " + user.getEmail());
+
+			String msgContent = "<table width='700px' border='0px' cellspacing='0px' cellpadding='0px' align='center'>"
+					+ "<tbody><tr>"
+					+ "<td width='700px' height='12px'>"
+					+ "<img src='http://www.infibeam.com/assets/skins/common/images/email/top.jpg' width='700px' height='12px' align='center' border='0px'>"
+					+ "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td width='700px' height='100px' style='border-left:1px;border-right:1px;border-style:solid;border-color:#cccccc' align='center'>"
+					+ "<a href='http://www.infibeam.com/' target='_blank'>"
+					+ "<img src='http://www.hollywoodreporter.com/sites/default/files/2012/01/incognito_buck_logo_a_l.jpg' alt='xpenseshare.in' border='0px' align='center'>"
+					+ "</a>"
+					+ "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td style='padding-left:15px;padding-right:15px;padding-top:none;letter-spacing:normal;border-right-style:solid;padding-bottom:15px;line-height:18px;border-left-color:#cccccc;border-left-style:solid;border-right-color:#cccccc;font-size:13px;border-right-width:1px;font-family:verdana,arial,helvetica,sans-serif;border-left-width:1px'>"
+					+ "Hi " + user.getFirstName() + " " + user.getLastName() + ","
+					+ "<br><br>"
+					+ "<b>"
+					+ "Welcome to <span class='il'>XpenseShare</span>.com - its good to have you on board!"
+					+ "</b>"
+					+ "<br>"
+					+ "<p>"
+					+ "Streamline your expense tracking & settlement and forget keeping mental notes."
+					+ "</p>"
+					+ "<p>"
+					+ "If you wish to update your profile, you may do so <a href='http://fem.expenseshare.in/#profile' target='_blank'>here</a>."
+					+ "</p>"
+					+ "<p>"
+					+ "You can start your xpense sharing experience right <a href='http://www.expenseshare.in/' target='_blank'>now</a>."
+					+ "</p>"
+					+ "<p>"
+					+ "We hope to see you soon!"
+					+ "</p>"
+					+ "<br><br>"
+					+ "<b>Thank You For Choosing <span class='il'>XpenseShare</span>.com!</b>"
+					+ "<br>"
+					+ "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td background='http://www.infibeam.com/assets/skins/common/images/email/btm_bg.jpg' height='37px' width='700px' style='font-size:11px;font-family:verdana,arial,helvetica,sans-serif;color:#fff;padding:0px 10px' valign='middle'>"
+					+ "<b>Follow Us On</b> &nbsp;"
+					+ "<img src='http://www.infibeam.com/assets/skins/common/images/email/social_icon.png' alt='Facebook / Twitter / Blog' width='48px' height='21px' border='0px' align='absmiddle' usemap='#1404dc1a58831188_Map2'>"
+					+ "</span>"
+					+ "Copyright © 2013 <span class='il'>XpenseShare</span>.com and Affiliates"
+					+ "</td>"
+					+ "</tr>"
+					+ "</tbody></table>";
+			HashMap<String, String> hmEmailIds = new HashMap<String, String>();
+			hmEmailIds.put(user.getEmail(), user.getFullName());
+
+			new MailUtil().sendMail("Greetings...", msgContent, hmEmailIds);
+		}
+
 		return user;
-		
 	}
-	
+
 	//TODO : I will kill myself in past for writing this bad code.
 	@SuppressWarnings("unchecked")
 	@ApiMethod(path="userendpoint/user/getorinsertuser")
 	public User getOrInsertUser(User user, 
 			@Nullable @Named("lastLoggedIn") Date lastLoggedIn, 
 			@Nullable @Named("authToken") String authToken){
-		
+
 		String apiId = null;
 		String loginType = user.getLoginType();
 		String googleId = user.getGoogleId();
 		String facebookId = user.getFacebookId();
 		List<User> execute = null;
-		
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		
+
 		Query q = pm.newQuery(User.class);
-		
+
 		String email = user.getEmail();
 
-		
-		
-		
+
+
+
 		if(!StringUtils.isEmpty(email)){
 			q.setFilter("email == emailParam");
 			q.declareParameters("String emailParam");
 			execute = (List<User>)q.execute(email);
-			
-			
+
+
 			if(execute.size()>1){
 				//TODO : User have got  multiple accounts. How can we merge this shit.
 			}
-			
+
 			if(execute.size()>0){
 				user = execute.get(0);
 			} else {
 				user = this.insertUser(user);
 			}
-			
+
 			if(lastLoggedIn!= null){
 				user.setLastLoggedInAt(lastLoggedIn);
 				user.setAccessToken(authToken);
@@ -436,9 +404,9 @@ public class UserEndpoint {
 			return user;
 		}
 
-		
-		
-		
+
+
+
 		/*if("google".equalsIgnoreCase(user.getLoginType())) {
 			apiId = user.getGoogleId();
 			q.setFilter("googleId == googleIdParam");
@@ -452,17 +420,17 @@ public class UserEndpoint {
 			/*apiId = user.getEmail();
 			q.setFilter("email == emailIdParam");
 			q.declareParameters("String emailIdParam");*/
-			
+
 			//TODO : In google contacts, you may get entity which might have only phone
 			//This presents opportunity to present user to login with phone.
 			/*String phone = user.getPhone();
 			q.setFilter("phone == phoneParam");
 			q.declareParameters("String phoneParam");*/
-			
+
 		}
-		
-	
-		
+
+
+
 		if(apiId==null){
 			user = this.insertUser(user);
 		} else {
@@ -476,121 +444,119 @@ public class UserEndpoint {
 				user = this.insertUser(user);
 			}
 		}
-		
-		
+
+
 		System.out.println("Logged in successfully");
-		
+
 		user.setLoginType(loginType);
 		user.setGoogleId(googleId);
 		user.setFacebookId(facebookId);
-		
-		
+
+
 		if(lastLoggedIn!= null){
 			user.setLastLoggedInAt(lastLoggedIn);
 			user.setAccessToken(authToken);
 			pm.makePersistent(user);
 		}
-		
+
 		return user;
 	}
 
-	
+
 	/**
 	 * This method is supposed to retrieve all the expenses of a user with id.
 	 * @param id UserId of the user whose expenses to be fetched
 	 * */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(
- 			httpMethod = "GET", 
- 			name = "user.expenses",
+			httpMethod = "GET", 
+			name = "user.expenses",
 			path="user/{id}/expenses"
 			)
 	public List<ExpenseEntity> getExpenses(@Named("id") String id) {
-		
+
 		List<ExpenseEntity> alExpenses = null;
-		
+
 		HashMap<String, ExpenseEntity> hmExpenses = new HashMap<String, ExpenseEntity>();
-		
+
 		ExpenseInfo objExpenseInfo = null;
 		int iCounter = 0;
-		
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		
+
 		Query q = pm.newQuery(ExpenseInfo.class);
 
 		q.setFilter("userId == userIdParam");
 		q.declareParameters("String userIdParam");
-		
+
 		List<ExpenseInfo> execute = null;
-		
+
 		execute = (List<ExpenseInfo>)q.execute(id);
-		
+
 		while(iCounter < execute.size()){
 			objExpenseInfo = execute.get(iCounter++);
-			
+
 			q = pm.newQuery(ExpenseEntity.class);
-			
+
 			q.setFilter("expenseEntityId == expenseIdParam");
 			q.declareParameters("String expenseIdParam");
-			
+
 			List<ExpenseEntity> listExpenseResult = (List<ExpenseEntity>)q.execute(objExpenseInfo.getExpenseId());
 			hmExpenses.put(listExpenseResult.get(0).getExpenseEntityId(), listExpenseResult.get(0));
 		}
-		
+
 		alExpenses = new ArrayList<ExpenseEntity>(hmExpenses.values());
-		
+
 		return alExpenses;
 	}
-	
-	
+
+
 	/**
 	 * This method is supposed to retrieve all the expenses of a user with id.
 	 * @param id UserId of the user whose expenses to be fetched
 	 * */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(
- 			httpMethod = "GET", 
- 			name = "user.iou",
+			httpMethod = "GET", 
+			name = "user.iou",
 			path="user/{id}/iou"
 			)
 	public List<IOU> getIOU(@Named("id") String id) {
-		
-/*		List<IOU> alIOU = null;
-		
+
+		/*		List<IOU> alIOU = null;
+
 		HashMap<String, ExpenseEntity> hmExpenses = new HashMap<String, ExpenseEntity>();*/
-		
-		
+
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		
+
 		Query q = pm.newQuery(IOU.class);
 
 		q.setFilter("fromUserId == userIdParam");
 		q.setFilter("toUserId == userIdParam");
 		q.declareParameters("String userIdParam");
 		q.declareParameters("String userIdParam");
-		
+
 		List<IOU> execute = null;
 		execute = (List<IOU>)q.execute(id);
-		
+
 		/*while(iCounter < execute.size()){
 			objIOU = execute.get(iCounter++);
-			
+
 			q = pm.newQuery(ExpenseEntity.class);
-			
+
 			q.setFilter("expenseEntityId == expenseIdParam");
 			q.declareParameters("String expenseIdParam");
-			
+
 			List<ExpenseEntity> listExpenseResult = (List<ExpenseEntity>)q.execute(objExpenseInfo.getExpenseId());
 			hmExpenses.put(listExpenseResult.get(0).getExpenseEntityId(), listExpenseResult.get(0));
 		}
-		
+
 		alExpenses = new ArrayList<ExpenseEntity>(hmExpenses.values());
-		*/
+		 */
 		return execute;
 	}
-	
-	
-	
+
 }
 
 
