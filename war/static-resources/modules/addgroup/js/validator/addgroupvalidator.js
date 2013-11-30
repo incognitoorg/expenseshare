@@ -7,11 +7,16 @@ define( function(require){
 		rules : {
 			groupname :{
 				"required":true,
+			},
+			min2members : {
+				required : true
+				/*min2mebersrequired : true*/
 			}
 			
 		},
 		messages: {
             groupname: { required: 'Please enter group name.' },
+            min2members : { required: 'Please select at least two members......' }
         },
 		initialize : function(options){
 			options.rules = this.rules;//TODO Need to find better way of this

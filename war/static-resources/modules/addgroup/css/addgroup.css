@@ -25,4 +25,9 @@
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
 }
-  
+
+.min2members{
+	height : 0px;
+	border : 0px;
+	padding : 0px;
+}  

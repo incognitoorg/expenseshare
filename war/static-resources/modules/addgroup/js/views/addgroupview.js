@@ -24,7 +24,6 @@ define(function(require) {
 		},
 		template : Handlebars.compile(require('text!./../../templates/addgrouptemplate.html')),
 		render : function(userInfo, group){
-			console.log('userInfo',userInfo);
 			
 			$(this.el).html(this.template());
 			var loginType = userInfo.loginType;
@@ -124,8 +123,9 @@ define(function(require) {
 									lastName : response.last_name
 								};
 								self.addFriendToGroup(normalizedFriendInfo);
+								self.$('.js-add-group-form').valid();
 						}
-					})
+					});
 					
 					
 					
@@ -216,6 +216,7 @@ define(function(require) {
 					};
 					
 					self.addFriendToGroup(normalizedFriendInfo);
+					self.$('.js-add-group-form').valid();
 					return false;
 				},
 				minLength:1,
@@ -248,7 +249,6 @@ define(function(require) {
 			this.$('.js-selected-friends-list').append(this.friendManager.friendTemplate(friendModel));
 		},
 		addFriendToGroup : function(friendInfo){
-			console.log('friendInfo',friendInfo);
 			var isDuplicate = _.find(this.friendCollection.models, function(friend){
 				return (friendInfo.loginType=="facebook" && friendInfo.facebookId==friend.attributes.facebookId )||(friendInfo.loginType=="google" && friendInfo.email==friend.attributes.email);
 			});
@@ -262,6 +262,13 @@ define(function(require) {
 			this.friendModel = new this.friendManager.friendModel(friendInfo);
 			this.friendCollection.add(this.friendModel);
 			this.renderSelectedFriends(this.friendModel);
+			
+			if(this.friendCollection.size()>1){
+				this.$('.min2members').val('OK');
+			} else {
+				this.$('.min2members').val('');
+			}
+			
 		},
 		eventInviteFriend : function(event){
 			this.addFriendToGroup(this.$('.js-invite-friend-mail').val());
