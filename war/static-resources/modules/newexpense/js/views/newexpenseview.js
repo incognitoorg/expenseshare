@@ -298,9 +298,10 @@ define(function(require) {
 					return totalHeight;
 				});
 			});
-			if(!self.$('.js-add-expense-form').valid()){
+			//Commenting realtime validation as it hampers performance.
+			/*if(!self.$('.js-add-expense-form').valid()){
 				return;
-			}
+			}*/
 			
 			
 			
@@ -326,10 +327,8 @@ define(function(require) {
 			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
 			
 			
-			
 		},
 		adjustExpenses : function(event){
-			
 			var self = this;
 			
 			
@@ -343,7 +342,6 @@ define(function(require) {
 					return totalHeight;
 				});
 			});
-			
 			var contributionInputs = this.$('.js-included-members').find('input.js-contribution-input:not(.locked)').not(event.currentTarget);
 			var lockedInputs = this.$('.js-included-members').find('input.js-contribution-input.locked').not(event.currentTarget);
 			var lockedExpense = 0;
@@ -352,9 +350,12 @@ define(function(require) {
 			});
 			var expenseToDivide = this.totalExpense - lockedExpense - $(event.currentTarget).val();
 			
+			
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
 			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
 			
+			//Commenting realtime validation as it hampers performance.
+			/*var valid= true;//;
 			if(!self.$('.js-add-expense-form').valid()){
 				//TODO : Setting height dynamically, Put this in common function 
 				self.$('.carousel').each(function(index, carouselEl){
@@ -368,12 +369,11 @@ define(function(require) {
 				});
 				
 				return;
-			}
+			}*/
 			this.$(event.currentTarget).parent('.js-expense-div').
 			addClass('locked').
 			find('input').
 			addClass('locked');
-			
 		},
 		eventLockExpense : function(event){
 			this.$(event.currentTarget).parent('.js-expense-div').

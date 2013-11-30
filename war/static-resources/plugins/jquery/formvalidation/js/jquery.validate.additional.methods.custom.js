@@ -1,4 +1,4 @@
-require(['jquery'], function(jQuery){
+require(['jquery', 'plugins/jquery/formvalidation/js/jquery.validate'], function(jQuery){
 	jQuery.validator.addMethod("require_from_group", function(value, element, options) {
 		var selector = options[1];
 		var validOrNot = $(selector, element.form).filter(function() {
