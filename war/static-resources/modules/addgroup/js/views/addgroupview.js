@@ -68,8 +68,6 @@ define(function(require) {
 						function filterData(data, query){
 							var formatted = [];
 							for(var i = 0; i< data.length; i++) {
-								console.log(data[i]);
-								console.log(data[i].name);
 								if (data[i].name.toLowerCase().indexOf($(element).val().toLowerCase()) >= 0){
 									formatted.push({
 										label: data[i].name,
@@ -133,7 +131,11 @@ define(function(require) {
 					
 					return false;
 				},
-				minLength:1
+				minLength:1,
+				focus : function(event, ui){
+					this.value = ui.item.label;
+					event.preventDefault();
+				}
 			});
 			
 			
@@ -216,7 +218,11 @@ define(function(require) {
 					self.addFriendToGroup(normalizedFriendInfo);
 					return false;
 				},
-				minLength:1
+				minLength:1,
+				focus : function(event, ui){
+					this.value = ui.item.label;
+					event.preventDefault();
+				}
 			});
 			this.$('span.ui-helper-hidden-accessible').hide();
 		},
