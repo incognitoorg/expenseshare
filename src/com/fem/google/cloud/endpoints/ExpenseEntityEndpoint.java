@@ -144,6 +144,21 @@ public class ExpenseEntityEndpoint {
 			Group objGroup = expenseentity.getGroup();
 			expenseentity.setGroup(null);
 			
+			ExpenseEntity oldExpenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
+			//Removing related expenseinfo
+			for (Iterator iterator = oldExpenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
+				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
+				mgr.deletePersistent(objExpenseInfo);
+				
+			}
+			
+			for (Iterator iterator = oldExpenseentity.getListPayersInfo().iterator(); iterator.hasNext();) {
+				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
+				mgr.deletePersistent(objExpenseInfo);
+			}
+			
+			
+			//Updating new expenseInfo
 			for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
 				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
 				objExpenseInfo.setExpenseId(expenseentity.getExpenseEntityId());
