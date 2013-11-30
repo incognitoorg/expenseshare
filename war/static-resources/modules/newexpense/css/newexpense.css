@@ -22,8 +22,8 @@ div.carousel>div {
 .js-member-name {
 	font-size: 17px;
 	height: 17px;
-	text-overflow: ellipsis;
-	overflow: hidden;
+	/* text-overflow: ellipsis; */
+	/* overflow: hidden; */
 	margin-top: 14px;
 	/*TODO :Dont know why but styles from  foundation are not getting overridden with this for some reason*/
 	/*padding : 0!important;*/
