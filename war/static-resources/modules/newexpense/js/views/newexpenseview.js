@@ -348,6 +348,15 @@ define(function(require) {
 			lockedInputs.each(function(index, el){
 				lockedExpense += Math.abs($(el).val());
 			});
+			
+			var totalPayment = 0;
+			
+			var payInputs =  this.$('.js-payers').find('input.js-pay-input');
+			payInputs.each(function(index, el){
+				totalPayment += Math.abs($(el).val());
+			});
+			this.totalExpense = totalPayment;
+			
 			var expenseToDivide = this.totalExpense - lockedExpense - $(event.currentTarget).val();
 			
 			
