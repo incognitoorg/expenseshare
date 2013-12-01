@@ -62,17 +62,16 @@ define(function(require){
 			var clickedMenu = (event.currentTarget && $(event.currentTarget).data('menu')) ||event;
 			this.$('.js-view-item').hide();
 			self.$('.' + clickedMenu).fadeIn(1500);
-			/*this.$('.js-left-side-menu').addClass('hide-for-small');
-			this.$('.js-right-panel').removeClass('hide-for-small');*/
 			var navLink = clickedMenu.toLowerCase().split('-').join('');
 			this.router.navigate("#"+navLink.substring(2,navLink.length));
 
+			var argumentsProvided = Array.prototype.slice.call(arguments, 0).splice(1);
 			var componentElement = this.$('.'+clickedMenu);
 			var dataToPublish = {
 					'clickedMenu' : clickedMenu,
 					'element' : componentElement
 			};
-			
+			argumentsProvided.length>0?dataToPublish['argumentsProvided']=argumentsProvided : ''; 
 			Sandbox.publish('FEM:MENU:CLICK',dataToPublish);
 		},
 		eventShowMenu : function(){
@@ -159,12 +158,16 @@ define(function(require){
 				require([componentPathMapper[publishedData.clickedMenu]],function(FEMComponent){
 					componentMapper[publishedData.clickedMenu]=componentMapper[publishedData.clickedMenu];
 					componentMapper[publishedData.clickedMenu].module =FEMComponent.getInstance();
-					componentMapper[publishedData.clickedMenu].module.initialize({'moduleName':publishedData.clickedMenu,'el':publishedData['element']});
+					
+					var constructorArguments = {'moduleName':publishedData.clickedMenu,'el':publishedData['element']};
+					constructorArguments['argumentsProvided'] = publishedData.argumentsProvided
+					componentMapper[publishedData.clickedMenu].module.initialize(constructorArguments);
 				});
 			}else {
 				$(publishedData['element']).show();
 				if(componentMapper[publishedData.clickedMenu].module.reInitialize){
-					componentMapper[publishedData.clickedMenu].module.reInitialize.apply(componentMapper[publishedData.clickedMenu].module);
+					var argumenstsProvided = publishedData.argumentsProvided;
+					componentMapper[publishedData.clickedMenu].module.reInitialize.call(componentMapper[publishedData.clickedMenu].module, argumenstsProvided);
 				}
 			}
 			this.hideMenu();

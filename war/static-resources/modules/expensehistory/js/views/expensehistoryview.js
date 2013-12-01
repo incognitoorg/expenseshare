@@ -146,10 +146,10 @@ define(function(require) {
 			this.expenses=[];
 			this.expenseHitoryMap = {};
 			this.render();
-			this.getExpenses();
+			this.getExpenses(options.argumentsProvided);
 		},
-		reInitialize : function(){
-			this.getExpenses();
+		reInitialize : function(argumentsProvided){
+			this.getExpenses(argumentsProvided);
 		},
 		template : Handlebars
 				.compile(require('text!./../../templates/expensehistory.html')),
@@ -164,12 +164,15 @@ define(function(require) {
 			'change .js-user-filter-select' :  'showFilteredExpenses',
 			'change .js-group-filter-select' :  'showFilteredExpenses'
 		},
-		getExpenses : function(){
+		getExpenses : function(argumentsProvided){
+			var self = this;
 			this.$('.js-expense-history-container').show();
 			this.$('.js-edit-expense-form-container').hide();
 			var data = {
 				url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/expenses',
-				callback : this.showExpenseHistory,
+				callback : function(response){
+					this.showExpenseHistory.call(self, response, argumentsProvided);
+				},
 				context : this,
 				cached : true,
 				loaderContainer : this.$('.js-expenses-container')
@@ -197,12 +200,9 @@ define(function(require) {
 				typeSelect.append($('<option>').val(allMembers[index].userId).text(allMembers[index].fullName));
 			}*/
 		},
-		showExpenseHistory : function(response){
-
-			
-
+		showExpenseHistory : function(response, extraParams){
 			if(!response.items || response.items.length==0){
-				this.$('.error').show();
+				this.$('.js-no-expense-error').show();
 				this.$('.js-expenses-container').hide();
 				return;
 			}
@@ -232,10 +232,15 @@ define(function(require) {
 				 return a.date<b.date?1:a.date>b.date?-1:0;
 			});
 			
-			this.renderExpenses(expenses);
-			
-			//this.$('.js-expenses-container').height($(window).height());
-			//stroll.bind( this.$( '.js-expenses-container'));
+			if(extraParams){
+				var key = extraParams[0];
+				var value = extraParams[1];
+				var filterOptions = {};
+				filterOptions[key] = value;
+				this.showFilteredExpenses(filterOptions);
+			} else {
+				this.renderExpenses(expenses);
+			}
 		},
 		renderExpenses : function(expenses){
 			expenses = expenses || this.expenses;
@@ -250,10 +255,10 @@ define(function(require) {
 				
 			}
 		},
-		showFilteredExpenses : function(){
-			var typeFilter = $('.js-type-filter-select').val();
-			var userFilter = $('.js-user-filter-select').val();
-			var groupFilter = $('.js-group-filter-select').val();
+		showFilteredExpenses : function(options){
+			var typeFilter = options.type || $('.js-type-filter-select').val();
+			var userFilter = options.user || $('.js-user-filter-select').val();
+			var groupFilter = options.group || $('.js-group-filter-select').val();
 			
 			var filteredExpenses = [];
 			var expenses = this.expenses;
@@ -263,7 +268,7 @@ define(function(require) {
 				//TODO : Travel backward in time kill past yourself for this coding redundancy. Can be designed better with filter functions
 				var expense = expenses[i];
 				
-				if(typeFilter!=="select"){
+				/*if(typeFilter!=="select"){
 					if(expense.type!==typeFilter){
 						toPush = false;
 						continue;
@@ -274,8 +279,9 @@ define(function(require) {
 						toPush = false;
 						continue;
 					} 
-				}
-				if(userFilter!=="select"){
+				}*/
+/*				if(userFilter!=="select"){*/
+				if(true){
 					toPush = (function(){
 						var listIncludeMemberInfo = expense.listIncludeMemberInfo;
 						var pushed = false;

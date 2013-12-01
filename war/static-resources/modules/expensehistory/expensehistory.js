@@ -7,8 +7,8 @@ define(function(require) {
 				initialize : function(options) {
 					this.view = new ExpenseHistoryView(options);
 				},
-				reInitialize : function(){
-					this.view.reInitialize();
+				reInitialize : function(options){
+					this.view.reInitialize(options);
 				}
 			};
 		}

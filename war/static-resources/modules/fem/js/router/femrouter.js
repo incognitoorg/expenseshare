@@ -14,7 +14,7 @@ define(function(require){
 			    "newexpense": "showNewExpense",  
 			    "newexpenseform": "showNewExpenseForm",  
 			    "creategroup": "showCreateGroup"   ,
-			    "expensehistory": "showExpenseHistory",    
+			    "expensehistory/:type/:id": "showExpenseHistory",    
 			    "editgroup": "showEditGroup",  
 			    "profile": "showProfile"   
 		  },
@@ -33,8 +33,8 @@ define(function(require){
 		  showCreateGroup: function(query, page) {
 			  this.options.view.eventShowView('js-create-group');
 		  },
-		  showExpenseHistory: function(query, page) {
-			  this.options.view.eventShowView('js-expense-history');
+		  showExpenseHistory: function(type, id) {
+			  this.options.view.eventShowView('js-expense-history', type, id);
 		  },
 		  showEditGroup: function(query, page) {
 			  this.options.view.eventShowView('js-edit-group');
