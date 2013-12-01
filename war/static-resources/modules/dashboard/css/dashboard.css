@@ -4,3 +4,20 @@
 .owes-to-me{
 	background: rgb(190, 190, 190);
 }
+.dashboard-payment-button{
+	float : right;
+	padding-right: 10px;
+}
+.dashboard-row{
+	height : 30px;
+}
+.dashboard-row:nth-of-type(odd){
+	background: rgba(209, 223, 220, 0.97);
+}
+.dashboard-row:nth-of-type(even){
+	background: rgba(181, 185, 150, 0.75);
+}
+.dashboard-user-name{
+	text-decoration: underline;
+	cursor: pointer;
+}
