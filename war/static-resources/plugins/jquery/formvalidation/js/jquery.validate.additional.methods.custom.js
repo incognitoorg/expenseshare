@@ -12,5 +12,5 @@ require(['jquery', 'plugins/jquery/formvalidation/js/jquery.validate'], function
 			fields.data('being_validated', false);
 		}
 		return validOrNot;
-	}, jQuery.format("Please fill at least {0} of these fields."));
+	}, jQuery.format("Please enter amount to be paid."));
 });
