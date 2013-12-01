@@ -32,9 +32,12 @@ define(function(require) {
 		events : {
 			'keyup input.js-pay-input' : 'divideExpense',
 			'keyup input.js-contribution-input' : 'adjustExpenses',
+			'keyup input.js-current-user-pay-input' : 'divideExpenseCurrentUser',
+			'click .js-more-payers' : 'eventShowMorePayers',
 			'click .js-lock-button' : 'eventLockExpense',
 			'click .js-select-expense' : 'toggleExpense',
 			'click .js-save-expense' : 'eventSaveExpense',
+			'change .js-division-type' : 'eventShowMembersToDivide',
 			'click .js-allmembers' : 'toggleAllMembers'
 		},
 		registerValidator : function(){
@@ -68,7 +71,7 @@ define(function(require) {
 			this.dataRefreshed = true;
 		},
 		showNewExpenseForm : function(group, expense){
-			//TODO : Global variables from femview.js. If you are reading this go and kill Vishwanath.
+			//TODO : Global variable from femview.js. If you are reading this go and kill Vishwanath.
 			AppRouterInstance.navigate('#newexpenseform');
 			
 			
@@ -86,6 +89,7 @@ define(function(require) {
 		    var self = this;
 			this.$('.js-select-group').hide();
 			this.$('.js-new-expense-form').show();
+			
 			
 			var today = new Date();
 			var dateStr = 1900+today.getYear() + '-' + ((today.getMonth()+1)>=10?today.getMonth()+1 : '0' +(today.getMonth()+1)) +'-' + (today.getDate()>=10?today.getDate() : '0' +today.getDate());
@@ -105,12 +109,16 @@ define(function(require) {
 			group.members = _.sortBy(group.members, function(member){ return member.fullName.toLowerCase(); });
 			var userList = $.grep(group.members , function(member){
 				return member.userId == user.getInfo().userId;
-			})
+			});
 			var userIndex = group.members.indexOf(userList[0]);
 			group.members.splice(userIndex, 1);
 			group.members.splice(0, 0, userList[0]);
 				
-				
+
+			
+			this.$('.js-all-payers').show();
+			this.$('.js-included-members').show();
+
 			this.createPayersSection(group.members);
 			this.createMembersSection(group.members);
 			
@@ -118,6 +126,9 @@ define(function(require) {
 			this.$('.carousel').each(function(index, el){
 				self.setCarousel(self.$(el));
 			});
+			
+			this.$('.js-all-payers').hide();
+			this.$('.js-included-members').hide();
 			
 			this.registerValidator();
 			
@@ -234,7 +245,7 @@ define(function(require) {
 		        isMobile = true;      
 		    }
 			
-			var parts = !isMobile?3:1;
+			var parts = !isMobile?2:1;
 			$(element).children().width(($(element).width()/parts)-20);
 			$(element).children().each(function(index, el){
 			     $(el).css({'margin-left':$(el).width()*index});
@@ -286,18 +297,15 @@ define(function(require) {
 			});
 			
 		},
+		divideExpenseCurrentUser : function(event){
+			this.$('.js-payers').find('input').first().val($(event.currentTarget).val());
+			this.divideExpense();
+		},
 		divideExpense : function(){
 			var self = this;
 			//TODO : Setting height dynamically. Put this in common function
-			self.$('.carousel').each(function(index, carouselEl){
-				var totalHeight = 0;
-				$(carouselEl).height(function(){
-					$($(carouselEl).find('.item')[0]).children().each(function(index, el){
-						totalHeight += $(el).height();
-					});
-					return totalHeight;
-				});
-			});
+			this.setDynamicHeight();
+			
 			//Commenting realtime validation as it hampers performance.
 			/*if(!self.$('.js-add-expense-form').valid()){
 				return;
@@ -333,15 +341,8 @@ define(function(require) {
 			
 			
 			//TODO : Setting height dynamically. Put this in common function
-			self.$('.carousel').each(function(index, carouselEl){
-				var totalHeight = 0;
-				$(carouselEl).height(function(){
-					$($(carouselEl).find('.item')[0]).children().each(function(index, el){
-						totalHeight += $(el).height();
-					});
-					return totalHeight;
-				});
-			});
+			this.setDynamicHeight();
+			
 			var contributionInputs = this.$('.js-included-members').find('input.js-contribution-input:not(.locked)').not(event.currentTarget);
 			var lockedInputs = this.$('.js-included-members').find('input.js-contribution-input.locked').not(event.currentTarget);
 			var lockedExpense = 0;
@@ -366,17 +367,8 @@ define(function(require) {
 			//Commenting realtime validation as it hampers performance.
 			/*var valid= true;//;
 			if(!self.$('.js-add-expense-form').valid()){
-				//TODO : Setting height dynamically, Put this in common function 
-				self.$('.carousel').each(function(index, carouselEl){
-					var totalHeight = 0;
-					$(carouselEl).height(function(){
-						$($(carouselEl).find('.item')[0]).children().each(function(index, el){
-							totalHeight += $(el).height();
-						});
-						return totalHeight;
-					});
-				});
-				
+				//TODO : Setting height dynamically, Put this in common function
+				this.setDynamicHeight();
 				return;
 			}*/
 			this.$(event.currentTarget).parent('.js-expense-div').
@@ -408,20 +400,30 @@ define(function(require) {
 			}
 			this.divideExpense();
 		},
+		setDynamicHeight : function(){
+			var self = this;
+			var payersState = this.$('.js-all-payers').is(":visible");
+			var incMemberState = this.$('.js-included-members').is(":visible");
+			
+			this.$('.js-all-payers').show();
+			this.$('.js-included-members').show();
+			self.$('.carousel').each(function(index, carouselEl){
+				var totalHeight = 0;
+				$(carouselEl).height(function(){
+					$($(carouselEl).find('.item')[0]).children().each(function(index, el){
+						totalHeight += $(el).height();
+					});
+					return totalHeight;
+				});
+			});
+			payersState?this.$('.js-all-payers').show() : this.$('.js-all-payers').hide();
+			incMemberState?this.$('.js-included-members').show():this.$('.js-included-members').hide();
+		},
 		eventSaveExpense : function(){
 			var self = this;
 			if(!self.$('.js-add-expense-form').valid()){
-				//TODO : Setting height dynamically, Put this in common function 
-				self.$('.carousel').each(function(index, carouselEl){
-					var totalHeight = 0;
-					$(carouselEl).height(function(){
-						$($(carouselEl).find('.item')[0]).children().each(function(index, el){
-							totalHeight += $(el).height();
-						});
-						return totalHeight;
-					});
-				});
-				
+				//TODO : Setting height dynamically, Put this in common function
+				this.setDynamicHeight();
 				return;
 			}
 			
@@ -435,7 +437,7 @@ define(function(require) {
 			var payersInfo = [];
 			var includeMemberInfo = [];
 			
-			var payersInputs = this.$('.js-pay-input');
+			var payersInputs = this.$('.js-payers .js-pay-input');
 			
 			payersInputs.each(function(index, el){
 				if(parseFloat($(el).val())>0){
@@ -469,7 +471,7 @@ define(function(require) {
 			
 			
 			
-			showMask('Adding expense...');
+			showMask('Saving expense...');
 			
 			var ajaxData = {
 				url :'_ah/api/expenseentityendpoint/v1/expenseentity',
@@ -498,7 +500,19 @@ define(function(require) {
 			var selectAll = $(event.currentTarget).is(':checked');
 			this.$('.js-select-expense').prop('checked', !selectAll).click();
 			this.divideExpense();
+		},
+		eventShowMorePayers : function(event){
+			this.$('.js-all-payers').toggle('slow');
+		},
+		eventShowMembersToDivide : function(event){
+			var type = $(event.currentTarget).val();
+			if(type=="selected"){
+				this.$('.js-included-members').show('slow');
+			} else {
+				this.$('.js-included-members').hide('slow');
+			}
 		}
+		
 	});
 	
 	return NewExpenseView;
