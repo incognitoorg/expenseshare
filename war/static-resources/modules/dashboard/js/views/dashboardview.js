@@ -3,6 +3,7 @@ define(function(require) {
 
 	var login = require('components/login/login');
 	var css = require('css!./../../css/dashboard.css');
+	var RowTemplate = Handlebars.compile(require('text!./../../templates/dashboardrow.html'))
 	var user = login.getInfo();
 	
 	var DashboardView = Sandbox.View.extend({
@@ -125,18 +126,14 @@ define(function(require) {
 				for(owerIndex in credit){
 					var ower = credit[owerIndex];
 					var memberInfo = allMembers[owerIndex];
-					
-					
-					var input = $('<input type=button>').val(parseInt(ower.amount));
-					this.$('.js-owers').append($('<div>').html(memberInfo.fullName + " : ").append(input));
+					this.$('.js-owers').append(RowTemplate({fullName : memberInfo.fullName, amount : Math.abs(parseInt(ower.amount)), userId : memberInfo.userId}));
 				}
 				
 				this.$('.js-payers').html('');
 				for(payerIndex in debt){
 					var payer = debt[payerIndex];
 					var memberInfo = allMembers[payerIndex];
-					var input = $('<input type=button>').val(parseInt(payer.amount));
-					this.$('.js-payers').append($('<div>').html(memberInfo.fullName).append(input));
+					this.$('.js-payers').append(RowTemplate({fullName : memberInfo.fullName, amount : parseInt(ower.amount), userId : memberInfo.userId}));
 				}
 				
 				var $selectForUsers = $('<select class="user-selector">');
@@ -150,9 +147,7 @@ define(function(require) {
 					var option = $('<option>').text(member.fullName).val(member.userId);
 					$selectForUsers.append(option);
 				}
-				
 				self.allMembers = allMembers;
-				
 			}
 			if(this.$('.js-owers').html().trim()===''){
 				this.$('.js-owers').html('Nobody owes you.');
