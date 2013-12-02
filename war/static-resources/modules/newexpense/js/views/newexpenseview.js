@@ -302,6 +302,7 @@ define(function(require) {
 			this.divideExpense();
 		},
 		divideExpense : function(){
+			console.time('divideExpense');
 			var self = this;
 			//TODO : Setting height dynamically. Put this in common function
 			this.setDynamicHeight();
@@ -322,7 +323,8 @@ define(function(require) {
 			this.totalExpense = totalPayment;
 			
 			
-			var lockedInputs = this.$('.js-included-members').find('input.js-contribution-input.locked');
+			var $includedMembers=this.$('.js-included-members');
+			var lockedInputs = $includedMembers.find('input.js-contribution-input.locked');
 			var lockedExpense = 0;
 			
 			lockedInputs.each(function(index, el){
@@ -330,21 +332,23 @@ define(function(require) {
 			});
 			
 			var expenseToDivide = totalPayment - lockedExpense;
-			var contributionInputs = this.$('.js-included-members').find('input.js-contribution-input:not(.locked)');
+			var contributionInputs = $includedMembers.find('input.js-contribution-input:not(.locked)');
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
 			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
 			
-			
+			console.timeEnd('divideExpense');
 		},
 		adjustExpenses : function(event){
+			console.time('adjustExpenses');
 			var self = this;
 			
 			
 			//TODO : Setting height dynamically. Put this in common function
 			this.setDynamicHeight();
 			
-			var contributionInputs = this.$('.js-included-members').find('input.js-contribution-input:not(.locked)').not(event.currentTarget);
-			var lockedInputs = this.$('.js-included-members').find('input.js-contribution-input.locked').not(event.currentTarget);
+			var $includedMembers=this.$('.js-included-members');
+			var contributionInputs = $includedMembers.find('input.js-contribution-input:not(.locked)').not(event.currentTarget);
+			var lockedInputs = $includedMembers.find('input.js-contribution-input.locked').not(event.currentTarget);
 			var lockedExpense = 0;
 			lockedInputs.each(function(index, el){
 				lockedExpense += Math.abs($(el).val());
@@ -375,6 +379,7 @@ define(function(require) {
 			addClass('locked').
 			find('input').
 			addClass('locked');
+			console.timeEnd('adjustExpenses');
 		},
 		eventLockExpense : function(event){
 			this.$(event.currentTarget).parent('.js-expense-div').
@@ -401,12 +406,15 @@ define(function(require) {
 			this.divideExpense();
 		},
 		setDynamicHeight : function(){
+			console.time('setDynamicHeight');
 			var self = this;
-			var payersState = this.$('.js-all-payers').is(":visible");
-			var incMemberState = this.$('.js-included-members').is(":visible");
+			var $allPayers=this.$('.js-all-payers');
+			var payersState = $allPayers.is(":visible");
+			var $includedMembers=this.$('.js-included-members');
+			var incMemberState = $includedMembers.is(":visible");
 			
-			this.$('.js-all-payers').show();
-			this.$('.js-included-members').show();
+			$allPayers.show();
+			$includedMembers.show();
 			self.$('.carousel').each(function(index, carouselEl){
 				var totalHeight = 0;
 				$(carouselEl).height(function(){
@@ -416,8 +424,9 @@ define(function(require) {
 					return totalHeight;
 				});
 			});
-			payersState?this.$('.js-all-payers').show() : this.$('.js-all-payers').hide();
-			incMemberState?this.$('.js-included-members').show():this.$('.js-included-members').hide();
+			payersState?$allPayers.show() : $allPayers.hide();
+			incMemberState?$includedMembers.show():$includedMembers.hide();
+			console.timeEnd('setDynamicHeight');
 		},
 		eventSaveExpense : function(){
 			var self = this;
