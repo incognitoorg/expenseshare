@@ -64,6 +64,8 @@ public class UserEndpoint {
 			// for lazy fetch.
 			for (User obj : execute)
 				;
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -84,6 +86,8 @@ public class UserEndpoint {
 		User user = null;
 		try {
 			user = mgr.getObjectById(User.class, id);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -106,6 +110,8 @@ public class UserEndpoint {
 				throw new EntityExistsException("Object already exists");
 			}*/
 			mgr.makePersistent(user);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -127,6 +133,8 @@ public class UserEndpoint {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.makePersistent(user);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -146,6 +154,8 @@ public class UserEndpoint {
 		try {
 			user = mgr.getObjectById(User.class, id);
 			mgr.deletePersistent(user);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -158,6 +168,7 @@ public class UserEndpoint {
 		try {
 			mgr.getObjectById(User.class, user.getUserId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
+			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
 			contains = false;
 		} finally {
 			mgr.close();

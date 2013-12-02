@@ -11,6 +11,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
 
+import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
@@ -58,6 +59,8 @@ public class GroupEndpoint {
 			// for lazy fetch.
 			for (Group obj : execute)
 				;
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -93,6 +96,8 @@ public class GroupEndpoint {
 			for(IOU objIOU : group.getIouList()){
 				objIOU.getFromUserId();//Cause The datastore does not support joins and therefore cannot honor requests to place related objects in the default fetch group. 
 			}
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -149,6 +154,8 @@ public class GroupEndpoint {
 			group = mgr.makePersistent(group);
 			group.setMembersIdList(alMembersIdList);
 			
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -239,6 +246,8 @@ public class GroupEndpoint {
 			
 			group.setIouList(iouList);
 			mgr.makePersistent(group);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -289,6 +298,8 @@ public class GroupEndpoint {
 		try {
 			group = mgr.getObjectById(Group.class, id);
 			mgr.deletePersistent(group);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -301,6 +312,7 @@ public class GroupEndpoint {
 		try {
 			mgr.getObjectById(Group.class, group.getGroupId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
+			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
 			contains = false;
 		} finally {
 			mgr.close();

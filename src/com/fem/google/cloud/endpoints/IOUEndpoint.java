@@ -9,6 +9,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
 
+import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
@@ -56,6 +57,8 @@ public class IOUEndpoint {
 			// for lazy fetch.
 			for (IOU obj : execute)
 				;
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -75,6 +78,8 @@ public class IOUEndpoint {
 		IOU iou = null;
 		try {
 			iou = mgr.getObjectById(IOU.class, id);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -96,6 +101,8 @@ public class IOUEndpoint {
 				throw new EntityExistsException("Object already exists");
 			}*/
 			mgr.makePersistent(iou);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -117,6 +124,8 @@ public class IOUEndpoint {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.makePersistent(iou);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -136,6 +145,8 @@ public class IOUEndpoint {
 		try {
 			iou = mgr.getObjectById(IOU.class, id);
 			mgr.deletePersistent(iou);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -148,6 +159,7 @@ public class IOUEndpoint {
 		try {
 			mgr.getObjectById(IOU.class, iou.getGroupId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
+			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
 			contains = false;
 		} finally {
 			mgr.close();

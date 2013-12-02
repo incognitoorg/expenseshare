@@ -10,6 +10,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
 
+import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.CollectionResponse;
@@ -59,6 +60,8 @@ public class ExpenseEntityEndpoint {
 			// for lazy fetch.
 			for (ExpenseEntity obj : execute)
 				;
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -78,6 +81,8 @@ public class ExpenseEntityEndpoint {
 		ExpenseEntity expenseentity = null;
 		try {
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, id);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -121,6 +126,8 @@ public class ExpenseEntityEndpoint {
 			objGroup.setMembers(null);//Removing members as they are not embedded.
 			mgr.makePersistent(objGroup);
 			
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -175,6 +182,8 @@ public class ExpenseEntityEndpoint {
 			
 			objGroup.setMembers(null);//Removing members as they are not embedded.
 			mgr.makePersistent(objGroup);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -220,6 +229,8 @@ public class ExpenseEntityEndpoint {
 			
 			
 			mgr.deletePersistent(expenseentity);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -241,6 +252,8 @@ public class ExpenseEntityEndpoint {
 		try {
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, id);
 			mgr.deletePersistent(expenseentity);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -254,6 +267,7 @@ public class ExpenseEntityEndpoint {
 			mgr.getObjectById(ExpenseEntity.class,
 					expenseentity.getExpenseEntityId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
+			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
 			contains = false;
 		} finally {
 			mgr.close();
