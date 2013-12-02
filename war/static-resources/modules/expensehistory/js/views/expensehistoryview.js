@@ -313,11 +313,14 @@ define(function(require) {
 			var detailHTML = expenseDeatailTemplate(expense);
 			//this.$('.js-detail-expnese-container').html(detailHTML);
 			//TODO : Convert expense entity in a view.
-			this.$(event.currentTarget).parents('li').find('.js-expense-detail-container').html(detailHTML);
-			this.$(event.currentTarget).parents('li').find('.js-expense-detail-container').toggle('slide', function(){
+			var $detailContainer=this.$(event.currentTarget).parents('li').find('.js-expense-detail-container');
+			$detailContainer.html(detailHTML);
+			/*$detailContainer.slideToggle(function(){
 				//TODO : Review this interaction. User might not like their divs swinging like that 
 				self.$('.js-expenses-container').animate({scrollTop:event.currentTarget.offsetTop}, '500', 'swing', function() {});
-			});
+			});*/
+			$detailContainer.toggle();//.animate({height : $detailContainer.height()});
+			
 		},
 		deleteExpense : function(event){
 			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
