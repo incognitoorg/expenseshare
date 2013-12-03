@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <datastore-indexes
   autoGenerate="true">
-    <datastore-index kind="ExpenseEntity" ancestor="false">
-        <property name="expenseEntityId" direction="asc" />
-    </datastore-index>
     <datastore-index kind="ExpenseInfo" ancestor="false">
         <property name="expenseId" direction="asc" />
         <property name="userId" direction="asc" />
     </datastore-index>
-    
 </datastore-indexes>
