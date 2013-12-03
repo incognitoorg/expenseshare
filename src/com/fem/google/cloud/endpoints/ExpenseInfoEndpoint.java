@@ -1,7 +1,7 @@
 package com.fem.google.cloud.endpoints;
 
 import com.fem.google.cloud.endpoints.PMF;
-
+import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
@@ -60,6 +60,8 @@ public class ExpenseInfoEndpoint {
 			// for lazy fetch.
 			for (ExpenseInfo obj : execute)
 				;
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -79,6 +81,8 @@ public class ExpenseInfoEndpoint {
 		ExpenseInfo expenseinfo = null;
 		try {
 			expenseinfo = mgr.getObjectById(ExpenseInfo.class, id);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -100,6 +104,8 @@ public class ExpenseInfoEndpoint {
 				throw new EntityExistsException("Object already exists");
 			}
 			mgr.makePersistent(expenseinfo);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -121,6 +127,8 @@ public class ExpenseInfoEndpoint {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.makePersistent(expenseinfo);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -140,6 +148,8 @@ public class ExpenseInfoEndpoint {
 		try {
 			expenseinfo = mgr.getObjectById(ExpenseInfo.class, id);
 			mgr.deletePersistent(expenseinfo);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -152,6 +162,7 @@ public class ExpenseInfoEndpoint {
 		try {
 			mgr.getObjectById(ExpenseInfo.class, expenseinfo.getExpenseInfoId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
+			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
 			contains = false;
 		} finally {
 			mgr.close();

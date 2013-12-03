@@ -9,6 +9,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
 
+import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
@@ -56,6 +57,8 @@ public class GroupMemberMappingEndpoint {
 			// for lazy fetch.
 			for (GroupMemberMapping obj : execute)
 				;
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -76,6 +79,8 @@ public class GroupMemberMappingEndpoint {
 		try {
 			groupmembermapping = mgr
 					.getObjectById(GroupMemberMapping.class, id);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -98,6 +103,8 @@ public class GroupMemberMappingEndpoint {
 				throw new EntityExistsException("Object already exists");
 			}*/
 			mgr.makePersistent(groupmembermapping);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -120,6 +127,8 @@ public class GroupMemberMappingEndpoint {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.makePersistent(groupmembermapping);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -140,6 +149,8 @@ public class GroupMemberMappingEndpoint {
 			groupmembermapping = mgr
 					.getObjectById(GroupMemberMapping.class, id);
 			mgr.deletePersistent(groupmembermapping);
+		} catch(Exception e) {
+			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -154,6 +165,7 @@ public class GroupMemberMappingEndpoint {
 			mgr.getObjectById(GroupMemberMapping.class,
 					groupmembermapping.getMappingId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
+			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
 			contains = false;
 		} finally {
 			mgr.close();

@@ -133,7 +133,7 @@ define(function(require) {
 				for(payerIndex in debt){
 					var payer = debt[payerIndex];
 					var memberInfo = allMembers[payerIndex];
-					this.$('.js-payers').append(RowTemplate({fullName : memberInfo.fullName, amount : parseInt(ower.amount), userId : memberInfo.userId}));
+					this.$('.js-payers').append(RowTemplate({fullName : memberInfo.fullName, amount : parseInt(payer.amount), userId : memberInfo.userId}));
 				}
 				
 				var $selectForUsers = $('<select class="user-selector">');
