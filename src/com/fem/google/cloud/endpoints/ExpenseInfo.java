@@ -17,6 +17,8 @@ public class ExpenseInfo {
 	
 	private String userId;
 	private String expenseId;
+	
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private double amount;
 	
 	
