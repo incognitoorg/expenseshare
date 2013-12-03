@@ -33,7 +33,7 @@ public class ExpenseEntity {
 	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String name; 
 	
-	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
+	/*@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")*/
 	private Date date;
 	
 	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")

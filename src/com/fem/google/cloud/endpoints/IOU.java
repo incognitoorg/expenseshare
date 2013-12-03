@@ -15,11 +15,17 @@ public class IOU{
 	private String iouId;
 	
 	@Persistent
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String groupId;
+	
 	@Persistent
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String fromUserId;
+	
 	@Persistent
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String toUserId;
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	@Persistent
 	private double amount; 
 
