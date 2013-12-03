@@ -126,6 +126,9 @@ header{
 	<div class="hide-for-large is-desktop">
 	</div>
 	<script>
+	if( $('.is-mobile').css('display') == 'none' ) {
+        is_mobile = true;      
+    }
 	function showMask(textToShow){
 		var mask = document.getElementById('mask')
 		mask.style['z-index'] = 32767;
@@ -159,33 +162,34 @@ header{
 		
 <!-- UserVoice JavaScript SDK (only needed once on a page) -->
 	<script>
-		(function() {
-			var uv = document.createElement('script');
-			uv.type = 'text/javascript';
-			uv.async = true;
-			uv.src = '//widget.uservoice.com/rz5HGCoDAl7zdZIqgV15Rg.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(uv, s)
-		})()
+		if(!is_mobile){
+			(function() {
+				var uv = document.createElement('script');
+				uv.type = 'text/javascript';
+				uv.async = true;
+				uv.src = '//widget.uservoice.com/rz5HGCoDAl7zdZIqgV15Rg.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(uv, s)
+			})()
+			
+		
+			UserVoice = window.UserVoice || [];
+			UserVoice.push([ 'showTab', 'classic_widget', {
+				mode : 'full',
+				primary_color : '#cc6d00',
+				link_color : '#007dbf',
+				default_mode : 'support',
+				forum_id : 230513,
+				tab_label : 'Report problems & Feedback',
+				tab_color : '#cc6d00',
+				tab_position : 'middle-right',
+				tab_inverted : false,
+				feedback_tab_name : 'Suggestions',
+				support_tab_name : 'Report Problem'
+			} ]);
+		}
 	</script>
-
-	<!-- A tab to launch the Classic Widget -->
-	<script>
-		UserVoice = window.UserVoice || [];
-		UserVoice.push([ 'showTab', 'classic_widget', {
-			mode : 'full',
-			primary_color : '#cc6d00',
-			link_color : '#007dbf',
-			default_mode : 'support',
-			forum_id : 230513,
-			tab_label : 'Report problems & Feedback',
-			tab_color : '#cc6d00',
-			tab_position : 'middle-right',
-			tab_inverted : false,
-			feedback_tab_name : 'Suggestions',
-			support_tab_name : 'Report Problem'
-		} ]);
-	</script>
+	
 	
 </body>
 </html>
