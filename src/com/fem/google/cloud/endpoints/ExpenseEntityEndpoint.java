@@ -1,5 +1,6 @@
 package com.fem.google.cloud.endpoints;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +15,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
 @Api(name = "expenseentityendpoint")
@@ -102,18 +104,18 @@ public class ExpenseEntityEndpoint {
 			Group objGroup = expenseentity.getGroup();
 			expenseentity.setGroup(null);
 			
-			
-			mgr.makePersistent(expenseentity);
+			String expenseEntityId = KeyFactory.createKeyString("ExpenseEntity", new Date().getTime());
+			expenseentity.setExpenseEntityId(expenseEntityId);
 			
 			
 			for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
 				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
-				objExpenseInfo.setExpenseId(expenseentity.getExpenseEntityId());
+				objExpenseInfo.setExpenseId(expenseEntityId);
 			}
 			
 			for (Iterator iterator = expenseentity.getListPayersInfo().iterator(); iterator.hasNext();) {
 				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
-				objExpenseInfo.setExpenseId(expenseentity.getExpenseEntityId());
+				objExpenseInfo.setExpenseId(expenseEntityId);
 			}
 			
 			mgr.makePersistent(expenseentity);
