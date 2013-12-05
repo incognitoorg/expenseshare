@@ -7,7 +7,7 @@ define(function(require) {
 	var login = require('components/login/login');
 	var FormValidator = require("./../validator/addgroupvalidator");
 	var FEMFriendManager = require('modules/friendmanager/friendmanager');
-	require('http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js');
+	require('autocomplete');
 	require('css!libraries/jquery-ui/css/themes/base/jquery.ui.autocomplete.css');
 	require('css!../../css/addgroup.css');
 	var userInfo = login.getInfo();
