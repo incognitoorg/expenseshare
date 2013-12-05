@@ -6,8 +6,8 @@
 	border-bottom : 1px solid black;
 	border-left : 1px solid black;
 	border-right : 1px solid black;
-	padding-top : 5px;
-	padding-bottom : 5px;
+	/* padding-top : 5px;
+	padding-bottom : 5px; */
 	
 }
 .ui-menu-item>a{
@@ -24,6 +24,7 @@
     overflow-y: auto;
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
+    padding-left: 0px;
 }
 
 .min2members{
@@ -31,3 +32,20 @@
 	border : 0px;
 	padding : 0px;
 }  
+
+.ui-menu-item{
+	width : 100%;
+}
+
+.ui-menu-item .ui-corner-all{
+	width : 100%;
+	margin-top : 5px;
+	margin-bottom : 5px;
+	display: inline-block;
+}
+.ui-state-focus{
+	background: gray;
+	display: inline-block;
+	width : 100%;
+}
+
