@@ -1,7 +1,7 @@
 var AppRouterInstance = null;
 define(function(require){
 	
-	require('css!libraries/foundation/css/normalize.css');
+	require('css!libraries/foundation/5.0.2/css/normalize.css');
 	require('css!./../../css/fem.css');
 	require('css!./../../css/fonts/fonts.css');
 	require('animate');

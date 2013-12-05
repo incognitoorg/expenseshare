@@ -1,5 +1,5 @@
 define(function(require){
-	var Normalize = require('css!libraries/foundation/css/normalize.css');
+	var Normalize = require('css!libraries/foundation/5.0.2/css/normalize.css');
 	
 	var Sandbox = require('sandbox');
 	
