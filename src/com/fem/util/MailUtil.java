@@ -34,6 +34,7 @@ public class MailUtil {
 			if(hmEmailIds == null) {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("rahulkulapkar@gmail.com", "Rahul"));
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("vishwanatharondekar@gmail.com", "Vishwanath"));
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
 			} else {
 				for (Map.Entry<String, String> entry : hmEmailIds.entrySet()) { 
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()));
@@ -47,11 +48,9 @@ public class MailUtil {
 			log.info("Mail sent successfully");
 
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.log(Level.SEVERE, e.getStackTrace().toString());
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.log(Level.SEVERE, e.getStackTrace().toString());
 		}
