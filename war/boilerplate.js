@@ -20,6 +20,12 @@ var require = {
 			persistence : 'libraries/lawnchair/lawnchair',
 			fbapioauth : 'components/fbapi/fbapi-web',
 			googleapioauth : 'components/googleapi/googleapi-web',
+			formvalidationwrapper : 'plugins/jquery/formvalidation/formvalidation',
+			autocomplete : 'libraries/jquery-ui/js/ui/minified/jquery.ui.autocomplete.min',
+			uicore : 'libraries/jquery-ui/js/ui/minified/jquery.ui.core.min',
+			uiwidget : 'libraries/jquery-ui/js/ui/minified/jquery.ui.widget.min',
+			uimenu : 'libraries/jquery-ui/js/ui/minified/jquery.ui.menu.min',
+			uiposition : 'libraries/jquery-ui/js/ui/minified/jquery.ui.position.min',
 			animate : 'plugins/jquery/animate-enhanced/jquery.animate-enhanced.min'
 		},
 		shim : {
@@ -35,7 +41,13 @@ var require = {
 			},
 			'animate' : {
 				deps : [ 'jquery' ],
-			}
+			},
+			'autocomplete' : {
+				deps : [ 'jquery', 'uicore' , 'uiwidget', 'uimenu', 'uiposition'],
+			},
+			'uimenu' : {
+				deps : [ 'uiwidget'],
+			},
 		},
 		waitSeconds : 60,
 		/* urlArgs: "v=0.25",  */
