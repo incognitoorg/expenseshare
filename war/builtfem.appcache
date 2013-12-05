@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-#version 1.0.1.1.1.1 4-23-2013
+#version 1.0.1.1 4-23-2013
 CACHE:
 
 #images
@@ -16,7 +16,7 @@ built-static-resources/modules/fem/css/fonts/aller_rg-webfont.woff
 
 #style sheets
 built-static-resources/components/login/css/login.css
-built-static-resources/libraries/foundation/css/foundation.min.css
+built-static-resources/libraries/foundation/5.0.2/css/foundation.min.css
 
 #style sheet images
 built-static-resources/components/login/css/images/loader.gif
