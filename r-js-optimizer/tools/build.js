@@ -58,7 +58,7 @@
         loggingLevel: 'WARNING'
     },
     skipModuleInsertion: false,
-    paths : {
+	paths : {
 		backbone : 'libraries/backbone/backbone.min',// ['http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min', 'libraries/backbone/backbone'],
 		jquery : 'libraries/jquery/jquery-2.0.0.min',//['http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min', 'libraries/jquery/jquery'],
 		underscore : 'libraries/underscore/underscore.min',//['http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min','libraries/underscore/underscore'],
@@ -78,31 +78,12 @@
 		persistence : 'libraries/lawnchair/lawnchair',
 		fbapioauth : 'components/fbapi/fbapi-web',
 		googleapioauth : 'components/googleapi/googleapi-web',
+		autocomplete : 'libraries/jquery-ui/js/ui/minified/jquery.ui.autocomplete.min',
+		uicore : 'libraries/jquery-ui/js/ui/minified/jquery.ui.core.min',
+		uiwidget : 'libraries/jquery-ui/js/ui/minified/jquery.ui.widget.min',
+		uimenu : 'libraries/jquery-ui/js/ui/minified/jquery.ui.menu.min',
+		uiposition : 'libraries/jquery-ui/js/ui/minified/jquery.ui.position.min',
 		animate : 'plugins/jquery/animate-enhanced/jquery.animate-enhanced.min'
-		
-		
-		/*,backbone : 'libraries/backbone/backbone',
-		jquery : 'libraries/jquery/jquery',
-		underscore : 'libraries/underscore/underscore',
-		handlebars : 'libraries/handlebars/handlebarshelpers',
-		handlebarshelpers : 'libraries/handlebars/handlebars',
-		css : 'libraries/require/css',
-		normalize : 'libraries/require/normalize',
-		async : 'libraries/require/async',
-		text : 'libraries/require/text',
-		facade : 'core/facade',
-		envvariables : 'core/envvariables',
-		sandbox : 'core/sandbox',
-		locallayer : 'core/locallayer',
-		mediator : 'core/mediator',
-		debugmode : 'libraries/debugmode/debugmode',
-		errorlogger : 'libraries/errorlogger/errorlogger',
-		persistence : 'libraries/lawnchair/lawnchair',
-		fbgraphinitializer : 'components/fbgraph-initializer/fbgraph-initializer'*/
-
-			
-			
-			
 	},
 	shim : {
 		'backbone' : {
@@ -114,7 +95,16 @@
 		},
 		'persistence' : {
 			exports : 'Lawnchair'
-		}
+		},
+		'animate' : {
+			deps : [ 'jquery' ],
+		},
+		'autocomplete' : {
+			deps : [ 'jquery', 'uicore' , 'uiwidget', 'uimenu', 'uiposition'],
+		},
+		'uimenu' : {
+			deps : [ 'uiwidget'],
+		},
 	},
 	 //Inlines the text for any text! dependencies, to avoid the separate
     //async XMLHttpRequest calls to load those dependencies.
@@ -175,6 +165,11 @@
         	exclude: []
         },
         {
+        	name :'plugins/jquery/formvalidation/formvalidation',
+        	include: ['plugins/jquery/formvalidation/formvalidation'],
+        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader']
+        },
+        {
         	name :'components/login/login',
             include: ['components/login/login'],
         	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader']
@@ -187,7 +182,7 @@
         {
         	name :'modules/addgroup/addgroup',
             include: ['modules/addgroup/addgroup'],
-        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem']
+        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem', 'plugins/jquery/formvalidation/formvalidation']
         },
         {
         	name :'modules/selectgroup/selectgroup',
@@ -197,9 +192,8 @@
         {
         	name :'modules/newexpense/newexpense',
             include: ['modules/newexpense/newexpense'],
-        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup']
-        }
-        ,
+        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'plugins/jquery/formvalidation/formvalidation']
+        },
         {
         	name :'modules/expensehistory/expensehistory',
             include: ['modules/expensehistory/expensehistory'],
@@ -215,10 +209,5 @@
             include: ['modules/profile/profile'],
         	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'modules/newexpense/newexpense', 'modules/expensehistory/expensehistory','modules/dashboard/dashboard']
         }
-
-
-       
-       
-        
     ]
 }
