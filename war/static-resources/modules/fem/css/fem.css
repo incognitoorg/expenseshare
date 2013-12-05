@@ -4,9 +4,10 @@ body {
 	overflow-x: hidden;
 }
 
-.section.js-show-menu{
-	background: rgb(153, 153, 153);
+.section.top-bar{
 	height: 40px;
+	cursor: pointer;
+	background: rgba(139, 99, 28, 0.6);
 }
 
 
