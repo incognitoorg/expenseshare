@@ -10,7 +10,7 @@ label.error {
 	font-weight: bold;
 	color: red;
 	padding: 2px 8px;
-	margin-top: -1em; /*Compensation for global margin on input elements*/
+	/* margin-top: -1em; Compensation for global margin on input elements */
 }
 
 label.not-valid {
