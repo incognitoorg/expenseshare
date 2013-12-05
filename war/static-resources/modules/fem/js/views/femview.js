@@ -104,7 +104,7 @@ define(function(require){
 			}
 			
 			//TODO : Put this in some common place
-			if( $('.is-mobile').css('display') == 'none' ) {
+			if(!($('.is-mobile').css('display') !== 'none')) {
 		        is_mobile = true;      
 		        $(document).on('focus', 'input', function(event){
 		        	$("body").animate({ scrollTop: $(event.currentTarget)[0].getBoundingClientRect().top+document.body.scrollTop }, "slow");
@@ -125,7 +125,7 @@ define(function(require){
 			menuWidth = this.$('.js-fixed-section').width();
 			
 			if(is_mobile){
-				this.$('.js-left-side-menu').css({ left:-$(window).width()});
+				this.$('.js-left-side-menu').css({ left:- this.$('.js-left-side-menu').width()});
 			}
 			
 			
@@ -139,9 +139,9 @@ define(function(require){
 			}
 			this.router.navigate('#menu');
 
-			/*if(redirectURL.length>1){
+			if(redirectURL.length>1){
 				this.router.navigate(redirectURL);
-			} else */{
+			} else {
 				this.eventShowView('js-dashboard');
 			}
 			
