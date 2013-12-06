@@ -87,7 +87,7 @@ public class UserEndpoint {
 		try {
 			user = mgr.getObjectById(User.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured while getting user data", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured while getting user data", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
