@@ -60,7 +60,7 @@ public class GroupEndpoint {
 			for (Group obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -155,7 +155,7 @@ public class GroupEndpoint {
 			group.setMembersIdList(alMembersIdList);
 			
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -247,7 +247,7 @@ public class GroupEndpoint {
 			group.setIouList(iouList);
 			mgr.makePersistent(group);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -299,7 +299,7 @@ public class GroupEndpoint {
 			group = mgr.getObjectById(Group.class, id);
 			mgr.deletePersistent(group);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}

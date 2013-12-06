@@ -61,7 +61,7 @@ public class ExpenseInfoEndpoint {
 			for (ExpenseInfo obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -82,7 +82,7 @@ public class ExpenseInfoEndpoint {
 		try {
 			expenseinfo = mgr.getObjectById(ExpenseInfo.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -105,7 +105,7 @@ public class ExpenseInfoEndpoint {
 			}
 			mgr.makePersistent(expenseinfo);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -128,7 +128,7 @@ public class ExpenseInfoEndpoint {
 			}
 			mgr.makePersistent(expenseinfo);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -149,7 +149,7 @@ public class ExpenseInfoEndpoint {
 			expenseinfo = mgr.getObjectById(ExpenseInfo.class, id);
 			mgr.deletePersistent(expenseinfo);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}

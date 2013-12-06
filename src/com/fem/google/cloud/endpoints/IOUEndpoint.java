@@ -58,7 +58,7 @@ public class IOUEndpoint {
 			for (IOU obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -79,7 +79,7 @@ public class IOUEndpoint {
 		try {
 			iou = mgr.getObjectById(IOU.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -102,7 +102,7 @@ public class IOUEndpoint {
 			}*/
 			mgr.makePersistent(iou);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -125,7 +125,7 @@ public class IOUEndpoint {
 			}
 			mgr.makePersistent(iou);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -146,7 +146,7 @@ public class IOUEndpoint {
 			iou = mgr.getObjectById(IOU.class, id);
 			mgr.deletePersistent(iou);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}

@@ -65,7 +65,7 @@ public class UserEndpoint {
 			for (User obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -87,7 +87,7 @@ public class UserEndpoint {
 		try {
 			user = mgr.getObjectById(User.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured while getting user data", e.getStackTrace().toString(), null);
 		} finally {
 			mgr.close();
 		}
@@ -111,7 +111,7 @@ public class UserEndpoint {
 			}*/
 			mgr.makePersistent(user);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -134,7 +134,7 @@ public class UserEndpoint {
 			}
 			mgr.makePersistent(user);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -155,7 +155,7 @@ public class UserEndpoint {
 			user = mgr.getObjectById(User.class, id);
 			mgr.deletePersistent(user);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -198,7 +198,7 @@ public class UserEndpoint {
 			path="user/{id}/group"
 			)
 	public List<Group> getGroups(@Named("id") String id) {
-
+		
 		List<Group> alGroups = new ArrayList<Group>();
 		GroupMemberMapping groupMemberMapping = null;
 		int iCounter = 0;

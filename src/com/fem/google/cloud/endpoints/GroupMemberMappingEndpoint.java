@@ -58,7 +58,7 @@ public class GroupMemberMappingEndpoint {
 			for (GroupMemberMapping obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -80,7 +80,7 @@ public class GroupMemberMappingEndpoint {
 			groupmembermapping = mgr
 					.getObjectById(GroupMemberMapping.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -104,7 +104,7 @@ public class GroupMemberMappingEndpoint {
 			}*/
 			mgr.makePersistent(groupmembermapping);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -128,7 +128,7 @@ public class GroupMemberMappingEndpoint {
 			}
 			mgr.makePersistent(groupmembermapping);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
@@ -150,7 +150,7 @@ public class GroupMemberMappingEndpoint {
 					.getObjectById(GroupMemberMapping.class, id);
 			mgr.deletePersistent(groupmembermapping);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
