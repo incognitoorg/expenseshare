@@ -74,6 +74,15 @@ public class UserEndpoint {
 				.setNextPageToken(cursorString).build();
 	}
 
+	
+	private String getStackTrace (StackTraceElement[] stackTrace){
+		String sStackTrace = "";
+		for (StackTraceElement ste : stackTrace) {
+			sStackTrace += ste +"\n" ;
+		}
+		return sStackTrace;
+	}
+	
 	/**
 	 * This method gets the entity having primary key id. It uses HTTP GET method.
 	 *
@@ -87,7 +96,7 @@ public class UserEndpoint {
 		try {
 			user = mgr.getObjectById(User.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured while getting user data", e.getMessage() + "\n\n\n"+ e.getStackTrace() , null);
+			new MailUtil().sendMail("Exception occured while getting user data", e.getMessage() + "\n\n\n"+ this.getStackTrace(e.getStackTrace()) , null);
 		} finally {
 			mgr.close();
 		}
