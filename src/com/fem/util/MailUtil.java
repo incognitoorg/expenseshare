@@ -32,8 +32,6 @@ public class MailUtil {
 			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
 
 			if(hmEmailIds == null) {
-				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("rahulkulapkar@gmail.com", "Rahul"));
-				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("vishwanatharondekar@gmail.com", "Vishwanath"));
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
 			} else {
 				for (Map.Entry<String, String> entry : hmEmailIds.entrySet()) { 
