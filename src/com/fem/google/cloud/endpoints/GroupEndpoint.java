@@ -97,7 +97,7 @@ public class GroupEndpoint {
 				objIOU.getFromUserId();//Cause The datastore does not support joins and therefore cannot honor requests to place related objects in the default fetch group. 
 			}
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception", e.getStackTrace().toString(), null);
+			new MailUtil().sendMail("Exception occured while getting group information : " + id, e.getMessage(), null);
 		} finally {
 			mgr.close();
 		}
