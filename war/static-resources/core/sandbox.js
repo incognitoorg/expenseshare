@@ -7,6 +7,14 @@ define(function (require) {
 	locallayer = require('locallayer');
 	
 	
+	
+	$(document).on('click', '.modal-close', function(event){
+		$(event.currentTarget).parents('.semantic-content').removeClass('show-modal');
+	});
+	$(document).on('click', '#contact_us', function(event){
+		$(event.currentTarget).parents('.semantic-content').removeClass('show-modal');
+	});
+	
 	var isOffline = false;
 	
 	var Sandbox = {};
@@ -60,6 +68,8 @@ define(function (require) {
 				  errorFallback.call(response, data);
 			  }
 			  loader && loader.removeClass('js-loader');
+			  $('#modal-text').addClass('show-modal');
+			  
 			  
 		  }
 		});
