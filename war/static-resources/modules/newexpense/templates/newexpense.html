@@ -24,15 +24,56 @@
 		<div class="row">
 			<div class="small-12 large-4 columns  hide-for-small">Type :</div>
 			<div class="small-12 large-6 columns" style="float: left;">
-				<select  class='js-expense-type' name=expensetype>
-					<option value="other" selected>Other</option>
-					<option value="food">Food</option>
-					<option value="loan">Loan</option>
-					<option value="movies">Movies</option>
-					<option value="outing">Outing</option>
-				</select>
-			</div>
+					<select class="js-expense-type valid" name="expensetype">
+						<optgroup label="Entertainment">
+							<option value="Games">Games</option>
+							<option value="Movies">Movies</option>
+							<option value="Music">Music</option>
+							<option value="EntertainmentOther">Other</option>
+							<option value="Sports">Sports</option>
+						</optgroup>
+						<optgroup label="Food and drink">
+							<option value="Dining out">Dining out</option>
+							<option value="Groceries">Groceries</option>
+							<option value="Food and drinkOther">Other</option>
+						</optgroup>
+						<optgroup label="Home">
+							<option value="Furniture">Furniture</option>
+							<option value="Household supplies">Household supplies</option>
+							<option value="Maintenance">Maintenance</option>
+							<option value="Mortgage">Mortgage</option>
+							<option value="HomeOther">Other</option>
+							<option value="Pets">Pets</option>
+							<option value="Rent">Rent</option>
+							<option value="Services">Services</option>
+						</optgroup>
+						<optgroup label="Transportation">
+							<option value="Bus/train">Bus/train</option>
+							<option value="Car">Car</option>
+							<option value="Gas/fuel">Gas/fuel</option>
+							<option value="TransportationOther">Other</option>
+							<option value="Parking">Parking</option>
+							<option value="Plane">Plane</option>
+							<option value="Taxi">Taxi</option>
+						</optgroup>
+						<optgroup label="Uncategorized">
+							<option value="General">General</option>
+						</optgroup>
+						<optgroup label="Utilities">
+							<option value="Electricity">Electricity</option>
+							<option value="Heat/gas">Heat/gas</option>
+							<option value="Insurance">Insurance</option>
+							<option value="UtilitiesOther">Other</option>
+							<option value="Trash">Trash</option>
+							<option value="TV/Phone/Internet">TV/Phone/Internet</option>
+							<option value="Water">Water</option>
+						</optgroup>
+					</select>
+				</div>
 		</div>
+		
+    
+      
 		
 		<div class=row>
 			<div class="small-12 columns">
