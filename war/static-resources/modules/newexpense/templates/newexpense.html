@@ -24,7 +24,7 @@
 		<div class="row">
 			<div class="small-12 large-4 columns  hide-for-small">Type :</div>
 			<div class="small-12 large-6 columns" style="float: left;">
-					<select class="js-expense-type valid" name="expensetype">
+					<select class="js-expense-type valid" name="expensetype" style="margin-bottom: 16px;">
 						<optgroup label="Entertainment">
 							<option value="Games">Games</option>
 							<option value="Movies">Movies</option>
@@ -57,7 +57,7 @@
 							<option value="Taxi">Taxi</option>
 						</optgroup>
 						<optgroup label="Uncategorized">
-							<option value="General">General</option>
+							<option value="General" selected>General</option>
 						</optgroup>
 						<optgroup label="Utilities">
 							<option value="Electricity">Electricity</option>
@@ -73,9 +73,14 @@
 		</div>
 		
     
-      
-		
-		<div class=row>
+      <div class="row">
+			<div class="small-12 large-4 columns  hide-for-small">Amount Paid :</div>
+			<div class="small-12 large-6 columns" style="float: left;">
+				<input class="js-pay-input js-current-user-pay-input" type=tel style="height:45px;" placeholder="Amount paid by you" name="expenseInput-user">
+			</div>
+		</div>
+		<div class="large-10  small-12 columns js-more-payers text-right" style="text-decoration: underline;cursor: pointer;">Other payers</div>
+		<!-- <div class=row>
 			<div class="small-12 columns">
 				<h4>Amount Paid</h4>
 			</div>
@@ -85,7 +90,7 @@
 				<input class="js-pay-input js-current-user-pay-input" type=tel style="height:45px;" placeholder="Amount paid by you" name="expenseInput-user">
 			</div>
 			<div class="large-6  small-12 columns js-more-payers" style="text-decoration: underline;cursor: pointer;">Other payers</div>
-		</div>
+		</div> -->
 		<div class="row js-all-payers" >
 			<div class="js-payers carousel small-12 columns" >
 			</div>
@@ -93,7 +98,7 @@
 		
 		<div class=row>
 			<div class="small-12 columns text-center">
-				<span style="height: 44px;font-size: 22px;padding:0px;width:100px;" >Divide</span>
+				<span style="height: 44px;font-size: 22px;padding:0px;width:100px;" >Share</span>
 				<select class="js-division-type" style="height: 44px;font-size: 22px;background: transparent;border: 0;width: 144px;margin: 0;padding: 0;">
 					<option value="all">Equally</option>
 					<option value="selected">Unequally</option>
