@@ -18,6 +18,15 @@ public class MailUtil {
 
 	private static final Logger log = Logger.getLogger(MailUtil.class.getName());
 
+	public static String getStackTrace (StackTraceElement[] stackTrace){
+		String sStackTrace = "";
+		for (StackTraceElement ste : stackTrace) {
+			sStackTrace += ste +"<br>" ;
+		}
+		return sStackTrace;
+	}
+	
+	
 	public void sendMail(String subject, String msgContent, HashMap<String, String> hmEmailIds) {
 
 		log.info("In sendMail() of MailUtil...."); 

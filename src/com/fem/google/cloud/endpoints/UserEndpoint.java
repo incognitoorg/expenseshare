@@ -201,6 +201,7 @@ public class UserEndpoint {
 	/**
 	 * This method is supposed to retrieve all the groups of a user with id.
 	 * @param id UserId of the user whose groups to be fetched
+	 * @throws Exception 
 	 * */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(
@@ -208,34 +209,38 @@ public class UserEndpoint {
 			name = "user.groups",
 			path="user/{id}/group"
 			)
-	public List<Group> getGroups(@Named("id") String id) {
-		
+	public List<Group> getGroups(@Named("id") String id) throws Exception {
 		List<Group> alGroups = new ArrayList<Group>();
-		GroupMemberMapping groupMemberMapping = null;
-		int iCounter = 0;
-
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		Query q = pm.newQuery(GroupMemberMapping.class);
-
-		q.setFilter("userId == userIdParam");
-		q.declareParameters("String userIdParam");
-
-		List<GroupMemberMapping> execute = null;
-
-		execute = (List<GroupMemberMapping>)q.execute(id);
-
-		while(iCounter < execute.size()){
-			groupMemberMapping = execute.get(iCounter++);
-
-			q = pm.newQuery(Group.class);
-
-			q.setFilter("groupId == groupIdParam");
-			q.declareParameters("String groupIdParam");
-			//alGroups.addAll((List<Group>) q.execute(groupMemberMapping.getGroupId()));
-			//TODO : Doing too many queries here, Need to put in transaction and optimize using single query
-			alGroups.add(new GroupEndpoint().getGroup(groupMemberMapping.getGroupId()));
-
+		try {
+			GroupMemberMapping groupMemberMapping = null;
+			int iCounter = 0;
+	
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+	
+			Query q = pm.newQuery(GroupMemberMapping.class);
+	
+			q.setFilter("userId == userIdParam");
+			q.declareParameters("String userIdParam");
+	
+			List<GroupMemberMapping> execute = null;
+	
+			execute = (List<GroupMemberMapping>)q.execute(id);
+	
+			while(iCounter < execute.size()){
+				groupMemberMapping = execute.get(iCounter++);
+	
+				q = pm.newQuery(Group.class);
+	
+				q.setFilter("groupId == groupIdParam");
+				q.declareParameters("String groupIdParam");
+				//alGroups.addAll((List<Group>) q.execute(groupMemberMapping.getGroupId()));
+				//TODO : Doing too many queries here, Need to put in transaction and optimize using single query
+				alGroups.add(new GroupEndpoint().getGroup(groupMemberMapping.getGroupId()));
+	
+			}
+		} catch (Exception e) {
+			new MailUtil().sendMail("Exception occured while getting groups of user, userId :" + id , e.getMessage() + "<br><br><br>"+ this.getStackTrace(e.getStackTrace()) , null);
+			throw e;
 		}
 		return alGroups;
 	}

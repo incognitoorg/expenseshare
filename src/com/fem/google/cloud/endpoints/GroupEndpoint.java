@@ -74,8 +74,9 @@ public class GroupEndpoint {
 	 *
 	 * @param id the primary key of the java bean.
 	 * @return The entity with primary key id.
+	 * @throws Exception 
 	 */
-	public Group getGroup(@Named("id") String id) {
+	public Group getGroup(@Named("id") String id) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		Group group = null;
 		ArrayList<User> alMembers = null;
@@ -97,7 +98,8 @@ public class GroupEndpoint {
 				objIOU.getFromUserId();//Cause The datastore does not support joins and therefore cannot honor requests to place related objects in the default fetch group. 
 			}
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured while getting group information : " + id, e.getMessage(), null);
+			new MailUtil().sendMail("Exception occured while getting group data, group Id :" + id , e.getMessage() + "<br><br><br>"+ MailUtil.getStackTrace(e.getStackTrace()) , null);
+			throw e;
 		} finally {
 			mgr.close();
 		}
