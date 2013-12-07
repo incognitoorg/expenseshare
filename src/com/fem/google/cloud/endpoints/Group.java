@@ -32,7 +32,7 @@ public class Group {
 	private Date editedAt;
 	
 	
-	private boolean isActive;
+	private boolean isActive=true;
 	
 	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String groupName;
