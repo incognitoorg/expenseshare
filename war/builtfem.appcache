@@ -43,8 +43,8 @@ built-static-resources/modules/selectgroup/selectgroup.js
 built-static-resources/plugins/jquery/formvalidation/formvalidation.js
 built-static-resources/modules/addgroup/addgroup.js
 built-static-resources/modules/expensehistory/expensehistory.js
+built-static-resources/modules/expenseutiliy/expenseutility.js
 built-static-resources/modules/editgroup/editgroup.js
-built-static-resources/modules/editgroup/js/views/editgroupview.js
 built-static-resources/modules/profile/profile.js
 boilerplate.js
 built-static-resources/libraries/require/require.min.js
