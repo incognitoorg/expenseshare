@@ -70,6 +70,8 @@ header{
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/4.0/css/foundation-icons.css">
+<link rel=stylesheet
+	href="static-resources/plugins/cssmodal/modal.css">
 	
 <link rel=stylesheet
 	href="static-resources/components/login/css/login.css">
@@ -161,7 +163,6 @@ header{
 <!-- UserVoice JavaScript SDK (only needed once on a page) -->
 	<script>
 	var widowWidth = window.innerWidth || document.body.clientWidth;
-		if(widowWidth > 767){
 			(function() {
 				var uv = document.createElement('script');
 				uv.type = 'text/javascript';
@@ -170,6 +171,7 @@ header{
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(uv, s)
 			})()
+		if(widowWidth > 767){
 			
 		
 			UserVoice = window.UserVoice || [];
@@ -187,8 +189,23 @@ header{
 				support_tab_name : 'Report Problem'
 			} ]);
 		}
+		UserVoice.push(['addTrigger', '#contact_us', {
+						mode: 'contact',
+						trigger_position: 'none',
+						trigger_color: 'white',
+						trigger_background_color: 'transparent'
+					} ]);
 	</script>
-	
+	<section class="semantic-content" id="modal-text"
+				tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+
+			<div class="modal-inner" style="height:200px;">
+				Oops, some error occured at server. Be assured that we have already noted the eror down and looking into it. You can 
+				<a style="text-decoration: underline;" id="contact_us" data-uv-trigger>Send report</a>
+			</div>
+			<a class="modal-close" title="Close this modal"
+					data-dismiss="modal">&times;</a>
+		</section>
 	
 </body>
 </html>
