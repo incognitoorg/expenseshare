@@ -16,6 +16,7 @@ built-static-resources/libraries/foundation/4.0/css/foundation-icons.css
 built-static-resources/libraries/foundation/5.0.2/css/foundation.min.css
 http://fonts.googleapis.com/css?family=Damion
 http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700
+built-static-resources/plugins/cssmodal/modal.css
 
 #style sheet images
 http://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/lock-48.png
