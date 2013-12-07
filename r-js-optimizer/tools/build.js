@@ -200,7 +200,7 @@
         	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'modules/newexpense/newexpense']
         },
         {
-        	name :' modules/editgroup/editgroup',
+        	name :'modules/editgroup/editgroup',
             include: ['modules/expensehistory/expensehistory'],
         	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'modules/newexpense/newexpense']
         },
