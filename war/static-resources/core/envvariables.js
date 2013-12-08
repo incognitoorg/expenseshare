@@ -2,7 +2,16 @@ define(function(require) {
 	
 	var mode='local';
 	
-	if(mode==='dev'){
+	if(mode=="production"){
+		return {
+			API_URL : "https://xpenseshareapp.appspot.com/",
+			FB_APP_ID : '295620837229600', 
+			GOOGLE_CLIENT_ID : '684896938909.apps.googleusercontent.com',
+			GOOGLE_API_KEY : 'AIzaSyDlmVOo6XaTWCvcLRVgHUVeEkN05BpD99I',
+			GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
+				                                                      
+		};
+	} else if(mode==='dev'){
 		return {
 			API_URL : "https://fem-dev.appspot.com/",
 			FB_APP_ID : '605170889512500', 
