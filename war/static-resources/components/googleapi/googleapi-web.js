@@ -2,7 +2,7 @@ define(function(require){
 
 	var googleClient = require('https://apis.google.com/js/client.js'), 
 
-	EnvVariables = require('envvariables');
+	EnvVariables = EnvVariablesGlobal || require('envvariables');
 
 	
 	
