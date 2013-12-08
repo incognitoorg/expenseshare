@@ -3,7 +3,7 @@ define(function (require) {
 
 	var mediator = require('mediator'), 
 	//Mz = require('http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js'),
-	EnvVariables = require('envvariables'),
+	EnvVariables = EnvVariablesGlobal || require('envvariables'),
 	locallayer = require('locallayer');
 	
 	
