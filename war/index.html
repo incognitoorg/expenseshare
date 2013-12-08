@@ -552,6 +552,10 @@ header{
 Top bar css end
 **/
 
+#appcontainer{
+	background: -webkit-radial-gradient(50% 50%, ellipse farthest-corner, rgb(165, 172, 196) 0%, rgb(49, 40, 40) 100%);
+}
+
 </style>
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
@@ -591,9 +595,6 @@ Top bar css end
 						<li><a href="#profile">Account Settings</a></li>
 						<li><a href="#" onclick="javascript:localStorage.removeItem('loggedInUser');location.reload();">Logout</a></li>
 					</ul></li>
-				<li class="divider"></li>
-				<li class="divider"></li>
-				<li class="divider"></li>
 			</ul>
 		</section>
 	</nav>
@@ -603,15 +604,23 @@ Top bar css end
 			<div class="js-login-container" style="display:none;">
 				<div class="row" id='logincontainer'>
 					<div class="large-3 columns">&nbsp;</div>
-					<form id="login" class="small-12 large-6 columns" id=loginform>
-						<h1>Log In</h1>
-						<fieldset id="facebookfieldset">
-							<a class="zocial facebook">Sign in with Facebook</a>
-						</fieldset>
-
-						<fieldset id="googlefieldset">
-							<a class="zocial google">Sign in with Google</a>
-						</fieldset>
+					<form id="" class="small-12 large-12 columns" id=loginform>
+						<div style="color: white;font-size:100px;text-align: center;margin-bottom: 30px;" >XpenseShare</div>
+						<hr>
+						<div class="row">
+							<div class="small-12 large-6 columns push-3">
+							<div id="facebookfieldset">
+								<a class="zocial facebook" style="line-height: 50px;font-size: 24px;">Sign in with Facebook</a>
+							</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 large-6 columns push-3">
+							<div id="googlefieldset">
+								<a class="zocial google" style="line-height: 50px;font-size: 24px;">Sign in with Google</a>
+							</div>
+							</div>
+						</div>
 					</form>
 					<div class="large-3 columns" >&nbsp;</div>
 				</div>
