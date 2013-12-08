@@ -202,7 +202,7 @@
         {
         	name :'modules/editgroup/editgroup',
             include: ['modules/expensehistory/expensehistory'],
-        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'modules/newexpense/newexpense']
+        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'modules/newexpense/newexpense', 'modules/expensehistory/expensehistory']
         },
         {
         	name :'modules/dashboard/dashboard',
