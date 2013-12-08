@@ -113,12 +113,13 @@ define(function(require){
 			
 			
 			
-			/*var imageURL = userdata.data.loginType=="facebook"?'http://graph.facebook.com/' + userdata.data.facebookId + '/picture?' : 'https://plus.google.com/s2/photos/profile/' + userdata.data.googleId + "?sz=45";  
+			var imageURL = userdata.data.loginType=="facebook"?'http://graph.facebook.com/' + userdata.data.facebookId + '/picture?width=43&height=43' : 'https://plus.google.com/s2/photos/profile/' + userdata.data.googleId + "?sz=45";  
 			document.getElementById("js-user-link").innerHTML = userdata.data.fullName;
 			$('#js-user-link').append($('<img>').attr('src', imageURL));
 			
 			document.getElementById("js-user-link").setAttribute('style', 'display:"";');
-			document.getElementById("js-login-link").setAttribute('style', 'display:none;');*/
+			document.getElementById("login-dropdown-menu").setAttribute('style', 'display:"";');
+			document.getElementById("js-login-link").setAttribute('style', 'display:none;');
 			
 			
 			menuHeight = this.$('.js-fixed-section').height();
