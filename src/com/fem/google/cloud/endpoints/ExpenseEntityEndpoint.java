@@ -28,11 +28,12 @@ public class ExpenseEntityEndpoint {
 	 *
 	 * @return A CollectionResponse class containing the list of all entities
 	 * persisted and a cursor to the next page.
+	 * @throws Exception 
 	 */
 	@SuppressWarnings({ "unchecked", "unused" })
 	public CollectionResponse<ExpenseEntity> listExpenseEntity(
 			@Nullable @Named("cursor") String cursorString,
-			@Nullable @Named("limit") Integer limit) {
+			@Nullable @Named("limit") Integer limit) throws Exception {
 
 		
 		PersistenceManager mgr = null;
@@ -64,6 +65,7 @@ public class ExpenseEntityEndpoint {
 				;
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -77,14 +79,16 @@ public class ExpenseEntityEndpoint {
 	 *
 	 * @param id the primary key of the java bean.
 	 * @return The entity with primary key id.
+	 * @throws Exception 
 	 */
-	public ExpenseEntity getExpenseEntity(@Named("id") String id) {
+	public ExpenseEntity getExpenseEntity(@Named("id") String id) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		ExpenseEntity expenseentity = null;
 		try {
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, id);
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -98,8 +102,9 @@ public class ExpenseEntityEndpoint {
 	 *
 	 * @param expenseentity the entity to be inserted.
 	 * @return The inserted entity.
+	 * @throws Exception 
 	 */
-	public ExpenseEntity insertExpenseEntity(ExpenseEntity expenseentity) {
+	public ExpenseEntity insertExpenseEntity(ExpenseEntity expenseentity) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 /*			if (containsExpenseEntity(expenseentity)) {
@@ -130,6 +135,7 @@ public class ExpenseEntityEndpoint {
 			
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -143,8 +149,9 @@ public class ExpenseEntityEndpoint {
 	 *
 	 * @param expenseentity the entity to be updated.
 	 * @return The updated entity.
+	 * @throws Exception 
 	 */
-	public ExpenseEntity updateExpenseEntity(ExpenseEntity expenseentity) {
+	public ExpenseEntity updateExpenseEntity(ExpenseEntity expenseentity) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			if (!containsExpenseEntity(expenseentity)) {
@@ -186,6 +193,7 @@ public class ExpenseEntityEndpoint {
 			mgr.makePersistent(objGroup);
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -200,7 +208,7 @@ public class ExpenseEntityEndpoint {
  			name = "expense.deleteupdateiou",
 			path="expenseentity/deleteandupdateiou"
 			)
-	public ExpenseEntity deleteupdateiou(ExpenseEntity expenseentity) {
+	public ExpenseEntity deleteupdateiou(ExpenseEntity expenseentity) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			if (!containsExpenseEntity(expenseentity)) {
@@ -233,6 +241,7 @@ public class ExpenseEntityEndpoint {
 			mgr.deletePersistent(expenseentity);
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -247,8 +256,9 @@ public class ExpenseEntityEndpoint {
 	 *
 	 * @param id the primary key of the entity to be deleted.
 	 * @return The deleted entity.
+	 * @throws Exception 
 	 */
-	public ExpenseEntity removeExpenseEntity(@Named("id") String id) {
+	public ExpenseEntity removeExpenseEntity(@Named("id") String id) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		ExpenseEntity expenseentity = null;
 		try {
@@ -256,6 +266,7 @@ public class ExpenseEntityEndpoint {
 			mgr.deletePersistent(expenseentity);
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -271,6 +282,7 @@ public class ExpenseEntityEndpoint {
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
 			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
 			contains = false;
+			throw ex;
 		} finally {
 			mgr.close();
 		}
