@@ -68,10 +68,9 @@ define(function(require) {
 		},
 		dataRefresh : function(response){
 			this.group = response;
-			this.dataRefreshed = true;
 		},
 		showNewExpenseForm : function(group, expense){
-			//TODO : Global variable from femview.js. If you are reading this go and kill Vishwanath.
+			//TODO : Global variable from femview.js. If you are reading this. Go kill Vishwanath.
 			AppRouterInstance.navigate('#newexpenseform');
 			
 			
@@ -82,7 +81,7 @@ define(function(require) {
 				dataType: 'json',
 				loaderContainer : this.$('.groups-container')
 			};
-			Sandbox.doGet(data);
+			this.groupDataObtained = Sandbox.doGet(data);
 			
 			this.group = group;
 			
@@ -304,7 +303,6 @@ define(function(require) {
 		divideExpense : function(){
 			console.time('divideExpense');
 			var self = this;
-			//TODO : Setting height dynamically. Put this in common function
 			this.setDynamicHeight();
 			
 			//Commenting realtime validation as it hampers performance.
@@ -343,7 +341,6 @@ define(function(require) {
 			var self = this;
 			
 			
-			//TODO : Setting height dynamically. Put this in common function
 			this.setDynamicHeight();
 			
 			var $includedMembers=this.$('.js-included-members');
@@ -371,7 +368,6 @@ define(function(require) {
 			//Commenting realtime validation as it hampers performance.
 			/*var valid= true;//;
 			if(!self.$('.js-add-expense-form').valid()){
-				//TODO : Setting height dynamically, Put this in common function
 				this.setDynamicHeight();
 				return;
 			}*/
@@ -431,71 +427,77 @@ define(function(require) {
 		eventSaveExpense : function(){
 			var self = this;
 			if(!self.$('.js-add-expense-form').valid()){
-				//TODO : Setting height dynamically, Put this in common function
 				this.setDynamicHeight();
 				return;
 			}
 			
-			
-			if(!this.dataRefreshed){
-				alert('Latest data is not available, please save after few seconds');
-				return;
-			}
-			
 			var self = this;
-			var payersInfo = [];
-			var includeMemberInfo = [];
-			
-			var payersInputs = this.$('.js-payers .js-pay-input');
-			
-			payersInputs.each(function(index, el){
-				if(parseFloat($(el).val())>0){
-					payersInfo.push({userId : $(el).data('userd'), amount:parseFloat($(el).val())});
-				}
-			});
-			
-			var includedMembersInputs = this.$('.js-contribution-input[disabled!="disabled"]');
-			includedMembersInputs.each(function(index, el){
-				if(parseFloat($(el).val())>0){
-					includeMemberInfo.push({userId : $(el).data('userd'), amount:parseFloat($(el).val())});
-				}
-			});
-			
-			var objExpenseModel = new ExpenseModel({
-				name : this.$('.js-expense-name').val()!=""?this.$('.js-expense-name').val() : "Untitled",
-				date : this.$('.js-expense-date').val(),
-				listPayersInfo : payersInfo,
-				listIncludeMemberInfo : includeMemberInfo,
-				groupId : this.group.groupId,
-				group : this.group,
-				type : this.$('.js-expense-type').val(),
-				expenseEntityId : this.oldObjExpenseModel && this.oldObjExpenseModel.get('expenseEntityId')
-			});
-			
-			if(this.mode && this.mode=='edit'){
-				ExpenseUtility.updateIOU(this.oldObjExpenseModel.attributes, objExpenseModel.attributes.group, 'delete');
+			/*
+			if(!this.dataRefreshed){
+			alert('Latest data is not available, please save after few seconds');
+			return;
 			}
-			ExpenseUtility.updateIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
-			//updatedIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
-			
-			
-			
+			 */			
 			showMask('Saving expense...');
 			
-			var ajaxData = {
-				url :'_ah/api/expenseentityendpoint/v1/expenseentity',
-				callback : function(response){
-					self.expenseSaved(objExpenseModel);
-				},
-				data : objExpenseModel.attributes,
-				contex : self
-			};
 			
-			if(this.mode=='edit'){
-				Sandbox.doUpdate(ajaxData);
-			} else {
-				Sandbox.doPost(ajaxData);
-			}
+			$.when(self.groupDataObtained).then(function(){
+				var payersInfo = [];
+				var includeMemberInfo = [];
+				
+				var payersInputs = self.$('.js-payers .js-pay-input');
+				
+				payersInputs.each(function(index, el){
+					if(parseFloat($(el).val())>0){
+						payersInfo.push({userId : $(el).data('userd'), amount:parseFloat($(el).val())});
+					}
+				});
+				
+				var includedMembersInputs = self.$('.js-contribution-input[disabled!="disabled"]');
+				includedMembersInputs.each(function(index, el){
+					if(parseFloat($(el).val())>0){
+						includeMemberInfo.push({userId : $(el).data('userd'), amount:parseFloat($(el).val())});
+					}
+				});
+				
+				var objExpenseModel = new ExpenseModel({
+					name : self.$('.js-expense-name').val()!=""?self.$('.js-expense-name').val() : "Untitled",
+					date : self.$('.js-expense-date').val(),
+					listPayersInfo : payersInfo,
+					listIncludeMemberInfo : includeMemberInfo,
+					groupId : self.group.groupId,
+					group : self.group,
+					type : self.$('.js-expense-type').val(),
+					expenseEntityId : self.oldObjExpenseModel && self.oldObjExpenseModel.get('expenseEntityId')
+				});
+				
+				if(self.mode && self.mode=='edit'){
+					ExpenseUtility.updateIOU(self.oldObjExpenseModel.attributes, objExpenseModel.attributes.group, 'delete');
+				}
+				ExpenseUtility.updateIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
+				//updatedIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
+				
+				
+				
+				
+				var ajaxData = {
+					url :'_ah/api/expenseentityendpoint/v1/expenseentity',
+					callback : function(response){
+						self.expenseSaved(objExpenseModel);
+					},
+					data : objExpenseModel.attributes,
+					contex : self
+				};
+				
+				if(self.mode=='edit'){
+					Sandbox.doUpdate(ajaxData);
+				} else {
+					Sandbox.doPost(ajaxData);
+				}
+			});
+			
+
+			
 		},
 		expenseSaved : function(objExpenseModel){
 			this.groupSaved(objExpenseModel);

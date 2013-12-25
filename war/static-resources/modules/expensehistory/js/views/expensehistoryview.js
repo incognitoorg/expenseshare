@@ -322,17 +322,11 @@ define(function(require) {
 			$detailContainer.toggle();//.animate({height : $detailContainer.height()});
 			
 		},
-		deleteExpense : function(event){
-			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
-			var confirmation = confirm('Are you sure you want to delete this expense, ' + expense.name + ' ?');
+		groupDataObtained : function(response, expense){
+			var group = response;
+			var updatedGroup = ExpenseUtility.updateIOU(expense, group, 'delete');
 			
-			if(!confirmation){
-				return;
-			}
-			
-			
-			//var updatedGroup = updatedIOUForDelete(expense, this.groupMap[expense.groupId]);
-			var updatedGroup = ExpenseUtility.updateIOU(expense, this.groupMap[expense.groupId], 'delete');
+			expense.group = updatedGroup;
 			
 			Sandbox.doDelete({
 				url : '_ah/api/expenseentityendpoint/v1/expenseentity/deleteandupdateiou', 
@@ -349,6 +343,31 @@ define(function(require) {
 					console.log('error occured');
 				}
 			});
+		},
+		deleteExpense : function(event){
+			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
+			var confirmation = confirm('Are you sure you want to delete this expense, ' + expense.name + ' ?');
+			
+			if(!confirmation){
+				return;
+			}
+			
+			
+			var group = this.groupMap[expense.groupId];
+			
+			var data = {
+				url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/group/' + group.groupId,
+				context : this,
+				callback : function(response){
+					this.groupDataObtained(response, expense);
+				},
+				dataType: 'json',
+				loaderContainer : this.$('.groups-container')
+			};
+			Sandbox.doGet(data);
+			
+				
+			
 			
 			/*Sandbox.publish('FEM:NAVIGATE', '#expensedetail');*/
 		},
