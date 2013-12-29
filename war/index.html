@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" manifest='fem.appcache' style="overflow-x: hidden;">
+<html class="no-js" manifest='fem.appcache' style="overflow-x: hidden;overflow-y: hidden;">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
@@ -18,12 +18,13 @@
 <style type="text/css">
 html,body {
 	min-height: 100%;
-	height: 100%;
+	height: 100%; 
+	overflow-y:hidden;
 }
 
 div.full {
 	min-height: 100%;
-	height: auto;
+	max-height: 100%;
 }
 
 ::selection {
@@ -413,6 +414,12 @@ max-height
 .js-generated {
 	display: block;
 }
+#top-nav-bar{
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	width: 100%;
+}
 
 @media only screen and (min-width:40.063em) {
 	.top-bar {
@@ -626,7 +633,7 @@ background
 /*
 Top bar css end
 **/
-#appcontainer {
+#appcontainer, #landing-page {
 	background: #757575; /* Old browsers */
 	background: -moz-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
 	/* FF3.6+ */
@@ -685,7 +692,6 @@ header .row {
 }
 
 .landing-page-container {
-	background-color: #000000;
 	color: #feffff;
 }
 
@@ -717,6 +723,10 @@ header .row {
 	padding-top: 1%;
 	font-weight: 600;
 	margin-top: 8%;
+	text-decoration: underline;
+	cursor: pointer;
+	display: inline-block;
+	padding: 14px;
 }
 
 .product-features-container {
@@ -733,10 +743,17 @@ header .row {
 	text-align: center;
 }
 
-/*
-Landing page CSS end
+.product-message{
+	font-family: danielregular;
+}
+.devices-image{
+	background: url("landingpage-devices.png") no-repeat;
+	height: 400px;
+	width: 425px;
+	display: inline-block;
+}
 
-*/
+/*   Landing page CSS end    */
 </style>
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
@@ -748,13 +765,16 @@ Landing page CSS end
 	href="static-resources/components/login/css/login.css">
 <link href='http://fonts.googleapis.com/css?family=Damion'
 	rel='stylesheet' type='text/css'>
+<link href='static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css' rel='stylesheet'  type='text/css'>
 </head>
 <!-- Commenting for local development -->
 <!-- <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
  -->
 
-<body style="font-family: 'Libre Baskerville', serif;">
-	<nav class="top-bar hide-for-small" data-topbar="" >
+<body style="font-family:allerregular">
+	<div style="height:45px">
+
+	<nav class="top-bar hide-for-small" data-topbar="" id="top-nav-bar" >
 		<ul class="title-area">
 			<li class="name">
 				<h1>
@@ -779,13 +799,14 @@ Landing page CSS end
 			</ul>
 		</section>
 	</nav>
-	<div class="large-12 small-12 columns landing-page-container" id="landing-page" style="display: none;">
+		</div>
+	<div class="large-12 small-12 columns landing-page-container full" id="landing-page" style="display: none;">
 		<div class="row">
 			<div class="small-12 large-12 columns message-container">
 				<div class="row">
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 					<div class="small-12 large-10 columns">
-						<span class="product-message">Streamline your expense
+						<span class="product-message" >Streamline your expense
 							tracking & settlement</span>
 					</div>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
@@ -803,20 +824,21 @@ Landing page CSS end
 			<div class="small-12 large-12 columns image-tagline-container">
 				<div class="row">
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
-					<div class="small-12 large-5 columns devices-image-container">
-						<span class="devices-image">image</span>
+					<div class="small-12 large-6 columns devices-image-container">
+						<span class="devices-image"></span>
 					</div>
 					<div class="small-12 large-5 columns product-tagline-container">
 						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered">Use It...</span>
+							<span class="large-6 small-8 small-centered product-message">Use It...</span>
 						</div>
 						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered">Settle with
+							<span class="large-6 small-8 small-centered product-message">Settle with
 								ease</span>
 						</div>
 						<div class="row">
-							<div class="large-8 small-8 sign-up-link-container">
-								<span class="sign-up-link">SIGN UP FOR FREE</span>
+							<div class="large-10 small-12 ">
+								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link">SIGN IN FOR FREE</button>
+								<span style="font-size: 20px;display: block;margin-top:10px;">No signup required.</span>
 							</div>
 						</div>
 					</div>
@@ -867,11 +889,12 @@ Landing page CSS end
 		if(!localStorage.loggedInUser){
 			document.getElementById('landing-page').style.display="";
 		}
-		
-		document.getElementById('js-login-anchor').onclick = function(){
+		function showLogin(){
 			document.getElementById('landing-page').style.display="none";
 			document.getElementById('appcontainer').style.display="";
 		} 
+		document.getElementById('js-sign-up-link').onclick = showLogin;
+		document.getElementById('js-login-anchor').onclick = showLogin;
 		
 	</script>
 
@@ -1047,6 +1070,8 @@ Landing page CSS end
 
   ga('create', 'UA-46395586-1', 'xpenseshare.com');
   ga('send', 'pageview');
+  
+  
 
 </script>
 

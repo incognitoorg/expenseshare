@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'danielbold';
+    src: url('danielbd-webfont.eot');
+    src: url('danielbd-webfont.eot?#iefix') format('embedded-opentype'),
+         url('danielbd-webfont.woff') format('woff'),
+         url('danielbd-webfont.ttf') format('truetype'),
+         url('danielbd-webfont.svg#danielbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

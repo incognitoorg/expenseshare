@@ -72,3 +72,69 @@ body {
 	/* background : url('images/background.jpg') repeat; */
 	/* padding:3px 30px 3px 30px!important; */
 }
+
+
+.header-2{
+	background: #3c3c3c;
+	color: #F4985A;
+	line-height: 34px;
+	font-size: 15px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: allerregular;
+}
+
+.js-menu{
+	border-bottom: 1px solid;
+	font-size: 16px!important;
+	text-transform: uppercase;
+}
+.js-menu>span{
+	display : inline-block;
+	width : 16px;	
+	height : 16px;	
+	
+	
+	
+	
+	
+}
+
+
+.js-menu:last-child{
+	border-bottom: none;
+}
+
+
+.js-menu:nth-child(1)>span{
+	 background: url("images/dashboard1-24-24-white.png") no-repeat;
+	 background-size: 100%;
+}
+.js-menu:nth-child(2)>span{
+	background: url("images/add-24-24-white.png") no-repeat; 
+	background-size: 100%;
+}
+.js-menu:nth-child(3)>span{
+	background: url("images/groups01-24-24-white.png") no-repeat; 
+	background-size: 100%;
+}
+.js-menu:nth-child(4)>span{
+	background: url("images/List-icon-24-24-white.png") no-repeat; 
+	background-size: 100%;
+}
+.js-menu:nth-child(5)>span{
+	background: url("images/edit-24-24-white.png") no-repeat;
+	background-size: 100%;
+	
+}
+.js-menu:nth-child(6)>span{
+	background: url("images/profile-24-24-white.png") no-repeat;
+	background-size: 100%;
+}
+
+.js-menu>div{
+	margin-top : 13px!important;
+	margin-bottom : 13px!important;
+	margin-left : 13px;
+	display: inline-block;
+}

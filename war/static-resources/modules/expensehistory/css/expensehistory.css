@@ -48,6 +48,8 @@ div.expense:nth-child(2n){
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
-	overflow-y: hidden;
 	list-style: none;
-	-webkit-perspective: 400px;}
+	-webkit-perspective: 400px;
+	overflow-y: scroll; 	
+}
+

@@ -1,9 +1,9 @@
 .owes-from-me{
-	background: rgb(209, 204, 204);
+	border-right : 1px dotted;
 }
 .owes-to-me{
-	background: rgb(190, 190, 190);
-}
+	
+} 
 .dashboard-payment-button{
 	float : right;
 	padding-right: 10px;

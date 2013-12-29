@@ -155,6 +155,7 @@ define(function(require) {
 				.compile(require('text!./../../templates/expensehistory.html')),
 		render : function(data) {
 			$(this.el).html(this.template(data));
+			this.$('.js-expenses-container').height($('body').height()-(45+45));
 		},
 		events : {
 			'click .js-expense' : 'showExpenseDetail',
