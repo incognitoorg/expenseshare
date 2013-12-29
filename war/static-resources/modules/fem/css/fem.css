@@ -58,6 +58,7 @@ body {
 	/* display: inline-block;
 	padding-top: 8px; */
 	cursor: pointer;
+	color: white;
 }
 
 .js-menu p{
