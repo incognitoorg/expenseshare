@@ -55,8 +55,9 @@ body {
 	float:right;
 }
 .js-currently-showing{
-	display: inline-block;
-	padding-top: 8px;
+	/* display: inline-block;
+	padding-top: 8px; */
+	cursor: pointer;
 }
 
 .js-menu p{
