@@ -59,6 +59,7 @@ body {
 	padding-top: 8px; */
 	cursor: pointer;
 	color: white;
+	font-size : 21px;
 }
 
 .js-menu p{
@@ -139,4 +140,34 @@ body {
 	margin-bottom : 13px!important;
 	margin-left : 13px;
 	display: inline-block;
+}
+
+.js-right-panel{
+	background: white;
+	opacity :1;
+}
+
+.button.tiny.radius{
+	font-size: 19px;
+	padding: 5px 20px 5px 20px;
+	background : #F4985A;
+	color : white;
+}
+
+select, input{
+	height: 30px!important;
+	font-size: 16px!important;
+	padding: 0!important;
+	padding-left : 5px!important;
+	border-radius : 5px!important;
+	background: whitesmoke!important;
+}
+
+.open-menu-icon{
+	display : inline-block;
+	width : 16px;	
+	height : 16px;	
+	background: url("images/menu-24-24-white.png") no-repeat;
+	background-size: 100%;
+	margin-right: 10px;
 }

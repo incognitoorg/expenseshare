@@ -38,7 +38,7 @@ div.carousel>div {
 }
 
 .js-contribution-input,.js-pay-input{
-	padding : 0!important;
+	/* padding : 0!important; */
 }
 
 .item>.row{
