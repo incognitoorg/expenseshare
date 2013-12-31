@@ -310,7 +310,7 @@ define(function(require) {
 				return;
 			}*/
 			
-			
+			var notLockedInputs = $includedMembers.find('input.js-contribution-input:not(.locked)');
 			
 			var payInputs =  this.$('.js-payers').find('input.js-pay-input');
 			var totalPayment = 0;
@@ -330,7 +330,7 @@ define(function(require) {
 			});
 			
 			var expenseToDivide = totalPayment - lockedExpense;
-			var contributionInputs = $includedMembers.find('input.js-contribution-input:not(.locked)');
+			var contributionInputs = notLockedInputs;
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
 			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
 			
@@ -344,7 +344,9 @@ define(function(require) {
 			this.setDynamicHeight();
 			
 			var $includedMembers=this.$('.js-included-members');
-			var contributionInputs = $includedMembers.find('input.js-contribution-input:not(.locked)').not(event.currentTarget);
+			
+			var notLockedInputs = $includedMembers.find('input.js-contribution-input:not(.locked)');
+			var contributionInputs = notLockedInputs.not(event.currentTarget);
 			var lockedInputs = $includedMembers.find('input.js-contribution-input.locked').not(event.currentTarget);
 			var lockedExpense = 0;
 			lockedInputs.each(function(index, el){
@@ -364,6 +366,17 @@ define(function(require) {
 			
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
 			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
+			
+			contributionInputs.last().val(function(){
+				otherInputs = notLockedInputs.filter(function(index){
+					return index!= notLockedInputs.size()-1;
+				});
+				var othersPayment = 0;
+				otherInputs.each(function(index, el){
+					othersPayment += parseFloat($(el).val(), 10);
+				});
+				return (totalPayment*100 - othersPayment*100)/100;
+			});
 			
 			//Commenting realtime validation as it hampers performance.
 			/*var valid= true;//;
