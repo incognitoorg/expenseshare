@@ -59,8 +59,7 @@ div.expense:nth-child(2n){
 }
 
 .payers-container{
-	border-right: 1px dotted #F4985A;
-	border-bottom: 1px dotted #F4985A;
+	/* border-bottom: 1px dotted #F4985A; */
 }
 
 .participants-container {

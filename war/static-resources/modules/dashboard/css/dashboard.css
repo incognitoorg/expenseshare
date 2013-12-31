@@ -24,3 +24,9 @@
 	cursor: pointer;
 	color : black;
 }
+
+.dashboard-container input{
+	width: 80px;
+	height: 24px!important;
+	line-height: 24px;
+}

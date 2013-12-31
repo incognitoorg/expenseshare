@@ -8,9 +8,7 @@
 	<div class="small-12 columns">
 		<span class="expense-date">{{type}}</span>
 	</div>
-	<div class="small-12 columns">
-		<span class=""><input type=button class="js-edit-expense" value="Edit Expense"  data-expense-id={{expenseEntityId}}></span>
-	</div>
+	
 </div> -->
 <div class="row">
 	<div class="small-12 large-6 columns payers-container">
@@ -34,6 +32,9 @@
 			</div>
 			{{/each}}
 		</div>
+	</div>
+	<div class="small-12 columns">
+		<span class=""><span type=button class="js-edit-expense button radius tiny" value="Edit Expense"  data-expense-id={{expenseEntityId}}>Edit expense</span></span>
 	</div>
 </div>
 

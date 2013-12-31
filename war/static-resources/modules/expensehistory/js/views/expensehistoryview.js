@@ -372,7 +372,7 @@ define(function(require) {
 			
 			/*Sandbox.publish('FEM:NAVIGATE', '#expensedetail');*/
 		},
-		editExpense : function(){
+		editExpense : function(event){
 			var newExpense = NewExpenseFactory.getInstance();
 			newExpense.initialize({ el : this.$('.js-edit-expense-form-container').show()});
 			var expense = this.expenseHitoryMap[$(event.target).data('expense-id')];
