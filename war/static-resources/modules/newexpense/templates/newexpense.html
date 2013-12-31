@@ -1,5 +1,5 @@
 <div class=row>
-	<div class="small-12 large-12 columns js-success-message">Expense saved successfully.</div>
+	<div class="small-12 large-12 columns js-success-message">Expense saved successfully. View <a href="#dashboard">Dashboard</a></div>
 	<div class="small-12 large-12 columns js-select-group"></div>
 	<div class="small-12 large-12 columns js-new-expense-form" style=display:none;>
 		<form class="js-add-expense-form">
@@ -8,21 +8,21 @@
 				<div>New expense</div>
 			</div>
 		</div>
-		<div class="row ">
-			<div class="small-12 large-4 columns  hide-for-small">Name :</div>
+		<div class="row " style="margin-top: 16px;">
+			<div class="small-12 large-4 columns  hide-for-small">Name</div>
 			<div class="small-12 large-6 columns" style="float: left;">
 				<input type=text class='js-expense-name' name=expensename placeholder="Expense Name">
 			</div>
 		</div>
 		<div class="row">
-			<div class="small-12 large-4 columns  hide-for-small">Date :</div>
+			<div class="small-12 large-4 columns  hide-for-small">Date</div>
 			<div class="small-12 large-6 columns" style="float: left;">
 				<input type=date class='js-expense-date' name=expensedate>
 			</div>
 		</div>
 		
 		<div class="row">
-			<div class="small-12 large-4 columns  hide-for-small">Type :</div>
+			<div class="small-12 large-4 columns  hide-for-small">Type</div>
 			<div class="small-12 large-6 columns" style="float: left;">
 					<select class="js-expense-type valid" name="expensetype" style="margin-bottom: 16px;">
 						<optgroup label="Entertainment">
@@ -74,14 +74,19 @@
 		
     
       <div class="row">
-			<div class="small-12 large-4 columns  hide-for-small">Amount Paid :</div>
+			<div class="small-12 large-4 columns">Who Paid</div>
+		</div>
+		<div class="row user-paid-row">
+			<div class="small-12 large-4 columns" style="float: left;">
+				I paid
+			</div>
 			<div class="small-12 large-6 columns" style="float: left;">
 				<input class="js-pay-input js-current-user-pay-input" type=tel style="height:45px;" placeholder="Amount paid by you" name="expenseInput-user">
 			</div>
 		</div>
 		<div class="row">
 		
-			<div class="large-10  large-push-4 small-12 columns js-more-payers" style="text-decoration: underline;cursor: pointer;">Other payers</div>
+			<div class="large-10  large-push-4 small-12 columns js-more-payers" style="text-decoration: underline;cursor: pointer;"><span class="down-icon"></span>Other payers</div>
 			<!-- <div class=row>
 				<div class="small-12 columns">
 					<h4>Amount Paid</h4>
