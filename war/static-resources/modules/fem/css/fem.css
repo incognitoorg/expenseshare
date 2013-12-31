@@ -175,3 +175,11 @@ select, input{
 .scrollable-right-section{
 	overflow-y:scroll; 
 }
+
+.js-menu .title{
+	width: 80%;
+}
+
+.js-show-menu{
+	cursor: pointer;	
+}
