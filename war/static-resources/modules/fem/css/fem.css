@@ -171,3 +171,7 @@ select, input{
 	background-size: 100%;
 	margin-right: 10px;
 }
+
+.scrollable-right-section{
+	overflow-y:scroll; 
+}

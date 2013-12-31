@@ -1,7 +1,7 @@
 .expense {
 	line-height: 2em;
 	cursor: pointer;
-	background: rgb(213, 213, 213);
+	background: whitesmoke;
 	margin: 7px!important;
 }
 .expense:hover{
@@ -12,7 +12,7 @@ div.expense:nth-child(2n){
 }
 
 .expense{
-	border-bottom : 1px solid gray;
+	/* border-bottom : 1px solid gray; */
 }
 
 .expense:last-child{
@@ -29,7 +29,7 @@ div.expense:nth-child(2n){
 	font-style:italic;
 }
 .amount,.expense-name{
-	font-size: 2em;
+	font-size: 24px;
 }
 
 .group.sentense-fillers{
@@ -37,7 +37,7 @@ div.expense:nth-child(2n){
 }
 
 .amount-row{
-	height: 35px;
+	/* height: 35px; */
 	overflow: hidden;
 }
 
@@ -47,9 +47,9 @@ div.expense:nth-child(2n){
 	height: 480px; */
 	margin: 0;
 	padding: 0;
-	overflow-x: hidden;
+	/* overflow-x: hidden; */
 	list-style: none;
 	-webkit-perspective: 400px;
-	overflow-y: scroll; 	
+	/* overflow-y: scroll; 	 */
 }
 

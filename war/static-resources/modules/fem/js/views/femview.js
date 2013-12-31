@@ -50,6 +50,8 @@ define(function(require){
 		template : Handlebars.compile(require('text!../../templates/femtemplate.html')),
 		render : function(){
 			$(this.el).html(this.template());
+			
+			this.$('.scrollable-right-section').height($('body').height()-(45));
 		},
 		events : {
 			'click .js-menu' : 'eventShowView',
