@@ -88,6 +88,7 @@ input::-webkit-inner-spin-button {
 	width : 16px;
 	height : 16px;
 	background-size : 100%;
+	margin-right: 10px;
 }
 
 .item{
@@ -101,4 +102,25 @@ input::-webkit-inner-spin-button {
 	background: gray;
 	position: relative;
 	bottom: 0; 
+}
+
+.divider-row{
+	background: #9c9c9c;
+	padding: 10px;
+	margin: 15px;
+	color: #fff;
+	text-transform: uppercase;
+	margin-bottom: 15px!important;
+	margin-left: 0px!important;
+	margin-right: 0px!important;
+}
+
+.other-payers-row{
+	margin-bottom: 15px!important;
+}
+
+hr.red-line{
+	border: 0;
+	border-top: 1px solid #df4a32;
+	margin-bottom: 16px;
 }
