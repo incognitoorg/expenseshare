@@ -5,7 +5,7 @@
 	margin: 7px!important;
 }
 .expense:hover{
-	background-color: gray;
+/* 	background-color: gray; */
 }
 div.expense:nth-child(2n){
 	/* background-color: #CCC; */
@@ -53,3 +53,16 @@ div.expense:nth-child(2n){
 	/* overflow-y: scroll; 	 */
 }
 
+.js-expense-detail-container{
+	box-shadow : inset 0 5px 7px -5px rgba(0,0,0,0.25),inset 0 -3px 7px -5px rgba(0,0,0,0.25);
+	padding-bottom: 15px;
+}
+
+.payers-container{
+	border-right: 1px dotted #F4985A;
+	border-bottom: 1px dotted #F4985A;
+}
+
+.participants-container {
+	border-left: 1px dotted #F4985A;
+}
