@@ -337,7 +337,7 @@ a.zocial {
 .zocial.facebook:before {content: "f";}
 /* Button background and text color */
 .zocial.facebook {background-color: #4863ae;}
-.zocial.google {background-color: #4e6cf7;}
+.zocial.google {background-color: #df4a32;}
 /* Any browser-specific adjustments */
 
 button:-moz-focus-inner {
