@@ -40,7 +40,7 @@ define(function(require) {
 
 		},
 		checkAndDoLogin : function(options){
-
+			showMask('Connecting with facebook...');
 			FB.getLoginStatus(function(loginStatusRes){
 				if(loginStatusRes.status==='connected'){
 
@@ -48,6 +48,7 @@ define(function(require) {
 
 					FB.api('/me', function(response) {
 						getUserInfo(options);
+						hideMask();
 					});
 				} else {
 					FB.login(function(response) {
@@ -58,6 +59,7 @@ define(function(require) {
 						} else {
 							console.log('User cancelled login or did not fully authorize.');
 						}
+						hideMask();
 					},{scope: 'email'});
 				}
 			});

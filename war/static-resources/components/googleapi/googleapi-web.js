@@ -20,9 +20,12 @@ define(function(require){
 	}
 
 	function checkAuth(options) {
+		showMask && showMask('Connecting with google...')
 		gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, function(authResult){
 			authToken = authResult.access_token;
 			makeApiCall(options);
+		}, function(){
+			hideMask();
 		});
 	}
 
@@ -54,6 +57,7 @@ define(function(require){
 							resp.authToken = authToken;
 							resp.email = emailResp.email;
 							options.callback.call(options.context||this, {loginType : 'google', googleId : resp.id, data : resp, email : resp.email});
+							hideMask();
 						}
 					});
 

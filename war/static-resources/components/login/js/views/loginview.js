@@ -68,7 +68,7 @@ define(function(require){
 			}, context : this});
 		},
 		doActualLogin : function(data){
-			showMask('Logging you in...');
+			showMask('Getting your information...');
 			document.getElementById('logincontainer').setAttribute('style', 'display:none;');
 
 			this.normalizeUserData(data);
@@ -93,11 +93,6 @@ define(function(require){
 			Sandbox.doPost(ajaxOptions);
 		},
 		loginSucceded : function(response){
-
-			console.log('In loginSucceded');
-			console.log(response);
-			
-			
 			
 			this.userInfo = this.normalizeUserData(response);
 			this.userInfo[response.loginType]=this.userInfo[response.loginType] || {}; 
