@@ -18,8 +18,8 @@
 <style type="text/css">
 html,body {
 	min-height: 100%;
-	height: 100%; 
-	overflow-y:hidden;
+	height: 100%;
+	overflow-y: hidden;
 }
 
 div.full {
@@ -92,35 +92,59 @@ header {
 }
 
 .fixed
+
+
 .expanded
+
+
 :not
+
  
+
 (
 .top-bar
+
  
+
 )
 {
 overflow-y
-:
- 
-auto
-;
 
-	
+
+:
+
+ 
+
+auto
+
+
+;
 height
-:
- 
-auto
-;
 
-	
-width
+
 :
+
  
+
+auto
+
+
+;
+width
+
+
+:
+
+ 
+
 100%;
 max-height
+
+
 :
+
  
+
 100%;
 }
 .fixed.expanded:not (.top-bar ) .title-area {
@@ -289,7 +313,7 @@ max-height
 	display: block;
 	width: 100%;
 	color: white;
-/* 	padding: 12px 0 12px 0; */
+	/* 	padding: 12px 0 12px 0; */
 	padding-left: 15px;
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 	font-size: 0.8125rem;
@@ -414,7 +438,8 @@ max-height
 .js-generated {
 	display: block;
 }
-#top-nav-bar{
+
+#top-nav-bar {
 	position: fixed;
 	top: 0;
 	z-index: 1;
@@ -475,70 +500,110 @@ max-height
 		display: none;
 	}
 	.top-bar-section
+	
 	 
+	
 	li
+	
+	
 	.hover
 	>
 	a
+	
+	
 	:not
+	
 	 
+	
 	(
 	.button
+	
 	 
+	
 	)
 	{
 	background
+	
+	
 	:
+	
 	 
+	
 	#272727
-	;
 	
-		
+	
+	;
 	color
+	
+	
 	:
+	
 	 
+	
 	white
+	
+	
 	;
-	
-	
 }
 
 .top-bar-section
+
  
+
 li
+
  
+
 a
+
+
 :not
+
  
+
 (
 .button
+
  
+
 )
 {
 padding
+
+
 :
+
  
+
 0
 15
 px
-;
 
-		
+
+;
 line-height
+
+
 :
+
  
+
 45
 px
-;
 
-		
+
+;
 background
-:
- 
-#333333
-;
 
-	
+
+:
+
+ 
+
+#333333
+
+
+;
 }
 .top-bar-section li a:not (.button ):hover {
 	background: #272727;
@@ -633,7 +698,7 @@ background
 /*
 Top bar css end
 **/
-#appcontainer, #landing-page {
+#appcontainer,#landing-page {
 	background: #757575; /* Old browsers */
 	background: -moz-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
 	/* FF3.6+ */
@@ -693,7 +758,7 @@ header .row {
 
 .landing-page-container {
 	color: #feffff;
-	overflow-y:auto;	 
+	overflow-y: auto;
 }
 
 .message-container {
@@ -745,42 +810,57 @@ header .row {
 	text-align: center;
 }
 
-.product-message{
+.product-message {
 	font-family: danielregular;
 }
 
-.devices-image{
+.devices-image {
 	background: url("landingpage-devices.png") no-repeat;
 	height: 94px;
 	width: 150px;
 	display: inline-block;
-	background-size:100%;
+	background-size: 100%;
 }
 
-.app-name{
-	font-size: 50px; 
-	color: white; 
-	text-align: center; 
+.app-name {
+	font-size: 50px;
+	color: white;
+	text-align: center;
 	margin-bottom: 30px;
 }
 
 @media only screen and (min-width: 40.063em) {
-	.devices-image{
+	.devices-image {
 		background: url("landingpage-devices.png") no-repeat;
 		height: 275px;
 		width: 425px;
 		display: inline-block;
 	}
-	.app-name{
-		font-size: 100px; 
+	.app-name {
+		font-size: 100px;
 	}
 }
 
-.small-screen-message{
-	margin-top:15px;
+.small-screen-message {
+	margin-top: 15px;
 }
-.small-screen-message .product-message{
+
+.small-screen-message .product-message {
 	font-size: 20px;
+}
+
+#loginform {
+	/* background: rgb(97,117,136); 
+	background: -moz-radial-gradient(center, ellipse cover,  rgba(97,117,136,1) 27%, rgba(63,76,107,1) 84%); 
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(27%,rgba(97,117,136,1)), color-stop(84%,rgba(63,76,107,1))); 
+	background: -webkit-radial-gradient(center, ellipse cover,  rgba(97,117,136,1) 27%,rgba(63,76,107,1) 84%); 
+	background: -o-radial-gradient(center, ellipse cover,  rgba(97,117,136,1) 27%,rgba(63,76,107,1) 84%); 
+	background: -ms-radial-gradient(center, ellipse cover,  rgba(97,117,136,1) 27%,rgba(63,76,107,1) 84%);
+	background: radial-gradient(ellipse at center,  rgba(97,117,136,1) 27%,rgba(63,76,107,1) 84%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#617588', endColorstr='#3f4c6b',GradientType=1 );  */
+	margin-top: 40px;
+	margin-bottom: 40px;
+	border-radius: 10px;
 }
 
 /*   Landing page CSS end    */
@@ -963,10 +1043,9 @@ header .row {
 			<div class="js-fem-container" style="display: none;"></div>
 			<div class="js-login-container" style="display: none;">
 				<div class="row" id='logincontainer'>
-					<div class="large-3 columns">&nbsp;</div>
-					<form id="" class="small-12 large-12 columns" id=loginform>
+					<form class="small-12 large-12 columns" id="loginform">
 						<div class="app-name">XpenseShare</div>
-						<hr>
+						<hr style="margin: 20px;">
 						<div class="row">
 							<div class="small-12 large-6 columns large-centered">
 								<div id="facebookfieldset">
