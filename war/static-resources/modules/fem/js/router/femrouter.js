@@ -28,7 +28,7 @@ define(function(require){
 			  this.options.view.eventShowView('js-new-expense'); 
 		  },
 		  showNewExpenseForm: function(query, page) {
-			  //this.options.view.eventShowView('js-new-expense'); 
+			  this.options.view.eventShowView('js-dashboard'); 
 		  },
 		  showCreateGroup: function(query, page) {
 			  this.options.view.eventShowView('js-create-group');
