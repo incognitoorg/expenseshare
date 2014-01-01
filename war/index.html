@@ -924,16 +924,20 @@ header .row {
 	</div>
 
 	<script type="text/javascript">
+		var initializationComplete = false;
 		if(!localStorage.loggedInUser){
 			document.getElementById('landing-page').style.display="";
 		}
 		function showLogin(){
 			document.getElementById('landing-page').style.display="none";
 			document.getElementById('appcontainer').style.display="";
+			if(!initializationComplete){
+				showMask('Initializing App...');
+			}
 		} 
 		document.getElementById('js-sign-up-link').onclick = showLogin;
 		document.getElementById('"js-sign-up-link-phone').onclick = showLogin;
-		document.getElementById('js-login-anchor').onclick = showLogin;
+		/* document.getElementById('js-login-anchor').onclick = showLogin; */
 		
 	</script>
 

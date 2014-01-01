@@ -28,6 +28,7 @@ define(function(require){
 			this.render();
 			this.show();
 			hideMask();
+			initializationComplete = true;
 		},
 		render : function(){
 			//$(this.el).html(this.template());
