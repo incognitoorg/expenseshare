@@ -140,6 +140,7 @@ define(function(require) {
 			if(expense){
 				this.populateExpenseData(expense);
 				this.oldObjExpenseModel = new ExpenseModel(expense);
+				this.eventShowMorePayers();
 			}
 			
 		},
