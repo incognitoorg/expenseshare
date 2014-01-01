@@ -103,6 +103,9 @@ input::-webkit-inner-spin-button {
 	position: relative;
 	bottom: 0; 
 }
+.previous .button.tiny.radius.navigation{
+	margin-left: 19px;
+}
 
 .divider-row{
 	background: #9c9c9c;
