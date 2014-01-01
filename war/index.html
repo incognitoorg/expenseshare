@@ -273,7 +273,7 @@ max-height
 	width: 100%;
 	height: auto;
 	display: block;
-	background: #333333;
+	background: transparent;
 	font-size: 16px;
 	margin: 0;
 }
@@ -747,11 +747,29 @@ header .row {
 .product-message{
 	font-family: danielregular;
 }
+
 .devices-image{
 	background: url("landingpage-devices.png") no-repeat;
-	height: 400px;
-	width: 425px;
+	height: 94px;
+	width: 150px;
 	display: inline-block;
+	background-size:100%;
+}
+
+@media only screen and (min-width: 40.063em) {
+	.devices-image{
+		background: url("landingpage-devices.png") no-repeat;
+		height: 275px;
+		width: 425px;
+		display: inline-block;
+	}
+}
+
+.small-screen-message{
+	margin-top:15px;
+}
+.small-screen-message .product-message{
+	font-size: 20px;
 }
 
 /*   Landing page CSS end    */
@@ -780,7 +798,7 @@ header .row {
 			<section class="top-bar-section">
 				<ul class="right">
 					<li class="has-dropdown not-click"><a id="js-login-anchor"><span
-							id="js-login-link" style="">Login</span><span id="js-user-link"
+							id="js-login-link" style=""></span><span id="js-user-link"
 							style="dispaly: none;"></span></a>
 						<ul id="login-dropdown-menu" class="dropdown"
 							style="display: none;">
@@ -795,7 +813,7 @@ header .row {
 	</div>
 	<div class="large-12 small-12 columns landing-page-container full" id="landing-page" style="display: none;">
 		<div class="row">
-			<div class="small-12 large-12 columns message-container">
+			<div class="small-12 large-12 columns message-container hide-for-small">
 				<div class="row">
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 					<div class="small-12 large-10 columns">
@@ -814,13 +832,39 @@ header .row {
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 				</div>
 			</div>
+			<div class="hide-for-medium-up small-screen-message">
+				<div class="row">
+					<div class="small-12 columns text-center product-message">Streamline your expense</div>
+				</div>
+				<div class="row">
+					<div class="small-12 columns text-center product-message">tracking & settlement and</div>
+				</div>
+				<div class="row">
+					<div class="small-12 columns text-center product-message">forget keeping mental notes.</div>
+				</div>
+			</div>
 			<div class="small-12 large-12 columns image-tagline-container">
 				<div class="row">
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
-					<div class="small-12 large-6 columns devices-image-container">
+					<div class="small-12 large-6 columns devices-image-container text-center">
 						<span class="devices-image"></span>
 					</div>
-					<div class="small-12 large-5 columns product-tagline-container">
+					<div class="small-12 large-5 columns product-tagline-container  text-center hide-for-medium-up">
+						<div class="row product-tagline">
+							<span class="large-6 small-8 small-centered product-message">Use It...</span>
+						</div>
+						<div class="row product-tagline">
+							<span class="large-6 small-8 small-centered product-message">Settle with
+								ease</span>
+						</div>
+						<div class="row">
+							<div class="large-10 small-12 ">
+								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link">SIGN IN FOR FREE</button>
+								<span style="font-size: 20px;display: block;margin-top:10px;">No signup required.</span>
+							</div>
+						</div>
+					</div>
+					<div class="small-12 large-5 columns product-tagline-container hide-for-small">
 						<div class="row product-tagline">
 							<span class="large-6 small-8 small-centered product-message">Use It...</span>
 						</div>
@@ -838,6 +882,7 @@ header .row {
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 				</div>
 			</div>
+			<div class="hide-for-small" style="margin-top:200px"></div>
 			<div class="small-12 large-12 columns product-features-container">
 				<div class="row">
 					<div class="small-12 large-6 columns">
