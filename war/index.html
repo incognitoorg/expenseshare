@@ -859,7 +859,7 @@ header .row {
 						</div>
 						<div class="row">
 							<div class="large-10 small-12 ">
-								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link">SIGN IN FOR FREE</button>
+								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link-phone">SIGN IN FOR FREE</button>
 								<span style="font-size: 20px;display: block;margin-top:10px;">No signup required.</span>
 							</div>
 						</div>
@@ -932,6 +932,7 @@ header .row {
 			document.getElementById('appcontainer').style.display="";
 		} 
 		document.getElementById('js-sign-up-link').onclick = showLogin;
+		document.getElementById('"js-sign-up-link-phone').onclick = showLogin;
 		document.getElementById('js-login-anchor').onclick = showLogin;
 		
 	</script>
@@ -1036,7 +1037,7 @@ header .row {
 	
 	
 	//document.getElementById('mask').style['line-height'] = screen.height/2+'px';
-	var heightForLoader = document.getElementById('login').offsetHeight;
+	//var heightForLoader = document.getElementById('login').offsetHeight;
 	var userInfo = localStorage.getItem('loggedInUser');
 	if(userInfo && JSON.parse(userInfo)){
 		this.userInfo = JSON.parse(userInfo);
