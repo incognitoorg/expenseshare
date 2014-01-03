@@ -33,6 +33,8 @@ public class User implements Serializable {
 	private String accessToken;
 	private String phone;
 	private String facebookEmail;
+	
+	private String userType="dummy";
 
 	
 	
@@ -125,6 +127,12 @@ public class User implements Serializable {
 	}
 	public void setFacebookEmail(String facebookEmail) {
 		this.facebookEmail = facebookEmail;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 	
 	
