@@ -120,6 +120,18 @@ public class UserEndpoint {
 			/*if (containsUser(user)) {
 				throw new EntityExistsException("Object already exists");
 			}*/
+			if(StringUtils.isEmpty( user.getFullName())){
+				throw new IllegalArgumentException("Full Name not provided");
+			}
+			
+			if(user.getLoginType().equals("google") && StringUtils.isEmpty(user.getEmail())){
+				throw new IllegalArgumentException("Using google login but email not provided.");
+			}
+			
+			if(user.getLoginType().equals("facebook") && StringUtils.isEmpty(user.getFacebookId())){
+				throw new IllegalArgumentException("Using facebook login but facebook id not provided.");
+			}
+			
 			mgr.makePersistent(user);
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
