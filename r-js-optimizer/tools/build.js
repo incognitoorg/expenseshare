@@ -190,14 +190,19 @@
         	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup']
         },
         {
+        	name :'modules/expenseutiliy/expenseutility',
+            include: ['modules/selectgroup/selectgroup'],
+        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup']
+        },
+        {
         	name :'modules/newexpense/newexpense',
             include: ['modules/newexpense/newexpense'],
-        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'plugins/jquery/formvalidation/formvalidation']
+        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'plugins/jquery/formvalidation/formvalidation', 'modules/expenseutiliy/expenseutility']
         },
         {
         	name :'modules/expensehistory/expensehistory',
             include: ['modules/expensehistory/expensehistory'],
-        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'modules/newexpense/newexpense']
+        	exclude: ['backbone','handlebars','underscore','jquery', 'bootloaders/fembootloader/fembootloader','components/login/login', 'modules/fem/fem','modules/addgroup/addgroup','modules/selectgroup/selectgroup', 'modules/newexpense/newexpense', 'modules/expenseutiliy/expenseutility']
         },
         {
         	name :'modules/editgroup/editgroup',
