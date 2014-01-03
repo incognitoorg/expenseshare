@@ -14,26 +14,32 @@ http://widget.uservoice.com/dcache/widget/feedback-tab.png?t=Report%20problems%2
 built-static-resources/components/login/css/login.css
 built-static-resources/libraries/foundation/4.0/css/foundation-icons.css
 built-static-resources/libraries/foundation/5.0.2/css/foundation.min.css
-http://fonts.googleapis.com/css?family=Damion
-http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700
 built-static-resources/plugins/cssmodal/modal.css
+static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css
 
 #style sheet images
 http://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/lock-48.png
 built-static-resources/components/login/css/images/loader.gif
+built-static-resources/modules/fem/css/images/List-icon-24-24-white.png
+built-static-resources/modules/fem/css/images/add-24-24-white.png
+built-static-resources/modules/fem/css/images/dashboard1-24-24-white.png
+built-static-resources/modules/fem/css/images/edit-24-24-white.png
+built-static-resources/modules/fem/css/images/groups01-24-24-white.png
 built-static-resources/modules/fem/css/images/main-bg.png
+built-static-resources/modules/fem/css/images/menu-24-24-white.png
+built-static-resources/modules/fem/css/images/profile-24-24-white.png
+built-static-resources/modules/newexpense/css/images/arrow_sans_down-24-24.png
+built-static-resources/plugins/jquery/formvalidation/css/img/error.png
+built-static-resources/plugins/jquery/formvalidation/css/img/valid.png
+landingpage-devices.png
 static-resources/images/icons/icons.jpg
-http://m-static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif
-http://m-static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif
-http://m-static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif
-http://m-static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png
-http://m-static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png
 http://www.red-team-design.com/wp-content/uploads/2011/09/login-sprite.png
 
 #javascript files
-https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_GB.A1q2aLhqJ8U.O/m=client/rt=j/sv=1/d=1/ed=1/am=EQ/rs=AItRSTOfwyJ9c7eL14XPtvPL-l86JqUibA/cb=gapi.loaded_0
-https://by.uservoice.com/t/195934/x/p/vzSFp4JQXlBipdR/track.js?_=1386271436659&s=0&c=__uvSessionData0&d=eyJlIjp7InUiOiJodHRwOi8vZmVtLmV4cGVuc2VzaGFyZS5pbi8iLCJyIjoiIn19
-http://widget.uservoice.com/rz5HGCoDAl7zdZIqgV15Rg.js
+https://by.uservoice.com/t/198656/x/p/12iOwouwlJ590uhH/track.js?_=1388775383903&s=0&c=__uvSessionData0&d=eyJlIjp7InUiOiJodHRwOi8vc2VjdXJlLnhwZW5zZXNoYXJlLmNvbS8jZGFzaGJvYXJkIiwiciI6IiJ9fQ%3D%3D
+https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_GB.Vyc2f-pbA00.O/m=client/rt=j/sv=1/d=1/ed=1/am=YQ/rs=AItRSTOEotIRRdgyNAFKM7hcw5LGG9_xKw/cb=gapi.loaded_0
+http://www.google-analytics.com/analytics.js
+http://widget.uservoice.com/gY6aeSUzHLXqZiFVd8zIvQ.js
 built-static-resources/page-js/fem.js
 built-static-resources/bootloaders/fembootloader/fembootloader.js
 https://apis.google.com/js/client.js
