@@ -90,8 +90,8 @@ define(function(require) {
 				
 				$.extend(customizations, options);
 				
-				this.testvalidator= $(options.element).validate(customizations);
-				return this.testvalidator;
+				var testvalidator= $(options.element).validate(customizations);
+				return testvalidator;
 			}
 	};
 	$(document).on('submit', 'form',function() {
