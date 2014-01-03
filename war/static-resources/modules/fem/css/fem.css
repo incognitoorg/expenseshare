@@ -23,7 +23,7 @@ body {
 }
 
 .js-right-panel>div>div {
-	height: 100%;
+	height: 99%;
 }
 
 .js-right-panel{
@@ -187,7 +187,7 @@ select, input{
 
 @media only screen and (max-width: 40.063em) {
 	.js-view-item{
-		background: #515151;
+		background: #5E5E5E;
 	}
 	.js-view-item>div{
 		height: 100%;
