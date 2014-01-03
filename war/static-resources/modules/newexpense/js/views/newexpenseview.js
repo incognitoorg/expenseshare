@@ -340,17 +340,14 @@ define(function(require) {
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
 			//contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
 			
-			var remaniningAmount = totalPayment;
+			var remaniningAmount = expenseToDivide;
 			contributionInputs.each(function(index, el){
 				$(el).val(dividedShare);
 				remaniningAmount-=dividedShare;
 			});
 			
-			if(remaniningAmount>0){
-				contributionInputs.last().val(parseFloat(dividedShare)+parseFloat(remaniningAmount));
-			} else {
-				contributionInputs.last().val(parseFloat(dividedShare)-parseFloat(remaniningAmount));
-			}
+			contributionInputs.last().val((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2));
+			
 			
 			console.timeEnd('divideExpense');
 		},
@@ -389,14 +386,24 @@ define(function(require) {
 				this.setDynamicHeight();
 				return;
 			}*/
-			this.$(event.currentTarget).parent('.js-expense-div').
+			
+			
+			var remaniningAmount = expenseToDivide;
+			contributionInputs.each(function(index, el){
+				$(el).val(dividedShare);
+				remaniningAmount-=dividedShare;
+			});
+			
+			contributionInputs.last().val((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2));
+			
+			this.$(event.currentTarget).parents('.js-expense-div').
 			addClass('locked').
 			find('input').
 			addClass('locked');
 			console.timeEnd('adjustExpenses');
 		},
 		eventLockExpense : function(event){
-			this.$(event.currentTarget).parent('.js-expense-div').
+			this.$(event.currentTarget).parents('.js-expense-div').
 			toggleClass('locked').
 			find('input').
 			toggleClass('locked');
