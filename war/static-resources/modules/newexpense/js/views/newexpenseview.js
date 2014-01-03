@@ -338,7 +338,19 @@ define(function(require) {
 			var expenseToDivide = totalPayment - lockedExpense;
 			var contributionInputs = $includedMembers.find('input.js-contribution-input:not(.locked)');
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
-			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
+			//contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
+			
+			var remaniningAmount = totalPayment;
+			contributionInputs.each(function(index, el){
+				$(el).val(dividedShare);
+				remaniningAmount-=dividedShare;
+			});
+			
+			if(remaniningAmount>0){
+				contributionInputs.last().val(parseFloat(dividedShare)+parseFloat(remaniningAmount));
+			} else {
+				contributionInputs.last().val(parseFloat(dividedShare)-parseFloat(remaniningAmount));
+			}
 			
 			console.timeEnd('divideExpense');
 		},
