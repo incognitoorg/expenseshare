@@ -45,6 +45,10 @@ div.carousel>div {
 	padding-right : 22px;
 }
 
+.js-payers .item>.row{
+	margin-left: 5px!important;
+}
+
 .locked{
 	background-color: gray;
 }
@@ -103,8 +107,8 @@ input::-webkit-inner-spin-button {
 	position: relative;
 	bottom: 0; 
 }
-.previous .button.tiny.radius.navigation{
-	margin-left: 19px;
+.js-included-members .previous .button.tiny.radius.navigation{
+	margin-left: 14px;
 }
 
 .divider-row{
