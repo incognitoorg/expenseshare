@@ -183,3 +183,17 @@ select, input{
 .js-show-menu{
 	cursor: pointer;	
 }
+
+
+@media only screen and (max-width: 40.063em) {
+	.js-view-item{
+		background: #515151;
+	}
+	.js-view-item>div{
+		height: 100%;
+		margin-top: 4px!important;
+		margin-left: -10px!important;
+		margin-right: -10px!important;
+		background: white;
+	}
+}
