@@ -19,16 +19,12 @@ public class Group {
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
     private String groupId;
 	
-	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String createdBy;
 	
-	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String editedBy;
 	
-	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private Date createdAt;
 	
-	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private Date editedAt;
 	
 	
@@ -39,6 +35,7 @@ public class Group {
 	
 	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String groupType;
+
 	private String ownerId;
 	
 	private ArrayList<User> members;

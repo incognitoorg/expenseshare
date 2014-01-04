@@ -19,19 +19,36 @@ public class User implements Serializable {
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
     private String userId;
 	
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String userName;
+
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String firstName;
+
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String lastName;
+	
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String fullName;
+	
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String password;
+
 	private String facebookId;
+	
 	private String googleId;
+
 	private String email;
 	private String mergeId;
+
 	private String loginType;
 	private Date lastLoggedInAt;
+	
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String accessToken;
 	private String phone;
+	
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String facebookEmail;
 	
 	private String userType="dummy";
