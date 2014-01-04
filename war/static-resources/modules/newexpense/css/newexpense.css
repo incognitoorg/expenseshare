@@ -139,12 +139,16 @@ hr.red-line{
 }
 
 .js-expense-div.locked.selected, .js-expense-div.locked.selected input{
-	background: #C9C9C9!important;
+	background: #F5F5F5!important;
 	
 }
 
 .js-expense-div.locked.selected .js-member-name,.js-expense-div.locked.selected .js-lock-button{
-	color : #A0A0A0;
+	color : #D3D3D3;
+}
+
+.js-expense-div.locked.selected .js-lock-button{
+	cursor: default;
 }
 
 .js-expense-div.locked {

@@ -408,6 +408,10 @@ define(function(require) {
 			console.timeEnd('adjustExpenses');
 		},
 		eventLockExpense : function(event){
+			if(this.$(event.currentTarget).parents('.js-expense-div').hasClass('selected')){
+				return;
+			}
+			
 			this.$(event.currentTarget).
 			toggleClass('foundicon-lock').
 			toggleClass('foundicon-unlock').
