@@ -1,21 +1,22 @@
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" manifest='builtfem.appcache' style="overflow-x: hidden;overflow-y: hidden;">
+<html class=no-js manifest=builtfem.appcache
+	style="overflow-x: hidden; overflow-y: hidden;">
 <!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta charset=utf-8>
+<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
 <title>Xpense Share</title>
-<meta name="description" content="">
-<meta name="viewport"
+<meta name=description content="">
+<meta name=viewport
 	content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no' />
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv=content-type content="text/html; charset=UTF-8">
 <title>FEM Version 1</title>
-
-<style type="text/css">
+<style>
 html,body {
 	min-height: 100%;
 	height: 100%;
@@ -71,9 +72,6 @@ header {
 	font-weight: bold;
 }
 
-/**
- Top bar css start
-*/
 .contain-to-grid {
 	width: 100%;
 	background: #333333;
@@ -92,61 +90,14 @@ header {
 }
 
 .fixed
-
-
-.expanded
-
-
-:not
-
- 
-
-(
-.top-bar
-
- 
-
-)
-{
-overflow-y
-
-
-:
-
- 
-
-auto
-
-
-;
-height
-
-
-:
-
- 
-
-auto
-
-
-;
-width
-
-
-:
-
- 
-
-100%;
-max-height
-
-
-:
-
- 
-
-100%;
+.expanded:not
+ (.top-bar ){
+	overflow-y: auto;
+	height: auto;
+	width: 100%;
+	max-height: 100%;
 }
+
 .fixed.expanded:not (.top-bar ) .title-area {
 	position: fixed;
 	width: 100%;
@@ -313,7 +264,6 @@ max-height
 	display: block;
 	width: 100%;
 	color: white;
-	/* 	padding: 12px 0 12px 0; */
 	padding-left: 15px;
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 	font-size: 0.8125rem;
@@ -448,7 +398,6 @@ max-height
 
 @media only screen and (min-width:40.063em) {
 	.top-bar {
-		/* background: #333333; */
 		background: #F4985A;
 		*zoom: 1;
 		overflow: visible;
@@ -500,227 +449,107 @@ max-height
 		display: none;
 	}
 	.top-bar-section
-	
-	 
-	
-	li
-	
-	
-	.hover
-	>
-	a
-	
-	
-	:not
-	
-	 
-	
-	(
-	.button
-	
-	 
-	
-	)
-	{
-	background
-	
-	
-	:
-	
-	 
-	
-	#272727
-	
-	
-	;
-	color
-	
-	
-	:
-	
-	 
-	
-	white
-	
-	
-	;
-}
-
-.top-bar-section
-
- 
-
 li
-
- 
-
-a
-
-
-:not
-
- 
-
-(
-.button
-
- 
-
-)
-{
-padding
-
-
-:
-
- 
-
-0
-15
-px
-
-
-;
-line-height
-
-
-:
-
- 
-
-45
-px
-
-
-;
-background
-
-
-:
-
- 
-
-#333333
-
-
-;
-}
-.top-bar-section li a:not (.button ):hover {
-	background: #272727;
-}
-
-.top-bar-section .has-dropdown.moved {
-	position: relative;
-}
-
-.top-bar-section .has-dropdown.moved>.dropdown {
-	display: none;
-}
-
-.top-bar-section .has-dropdown.hover>.dropdown,.top-bar-section .has-dropdown.not-click:hover>.dropdown
-	{
-	display: block;
-}
-
-.top-bar-section .has-dropdown .dropdown li.has-dropdown>a:after {
-	border: none;
-	content: "\00bb";
-	top: 1rem;
-	margin-top: -2px;
-	right: 5px;
-}
-
-.top-bar-section .dropdown {
-	left: 0;
-	top: auto;
-	background: transparent;
-	min-width: 100%;
-}
-
-.top-bar-section .dropdown li a {
-	color: white;
-	line-height: 1;
-	white-space: nowrap;
-	padding: 12px 15px;
-	background: #333333;
+.hover>a:not
+ (.button ){
+		background: #272727;
+		color: white;
+	}
+	.top-bar-section
+li
+a:not
+ (.button ){
+		padding: 0 15 px;
+		line-height: 45 px;
+		background: #333333;
+	}
+	.top-bar-section li a:not (.button ):hover {
+		background: #272727;
+	}
+	.top-bar-section .has-dropdown.moved {
+		position: relative;
+	}
+	.top-bar-section .has-dropdown.moved>.dropdown {
+		display: none;
+	}
+	.top-bar-section .has-dropdown.hover>.dropdown,.top-bar-section .has-dropdown.not-click:hover>.dropdown
+		{
+		display: block;
+	}
+	.top-bar-section .has-dropdown .dropdown li.has-dropdown>a:after {
+		border: none;
+		content: "\00bb";
+		top: 1rem;
+		margin-top: -2px;
+		right: 5px;
+	}
+	.top-bar-section .dropdown {
+		left: 0;
+		top: auto;
+		background: transparent;
+		min-width: 100%;
+	}
+	.top-bar-section .dropdown li a {
+		color: white;
+		line-height: 1;
+		white-space: nowrap;
+		padding: 12px 15px;
+		background: #333333;
+	}
+	.top-bar-section .dropdown li label {
+		white-space: nowrap;
+		background: #333333;
+	}
+	.top-bar-section .dropdown li .dropdown {
+		left: 100%;
+		top: 0;
+	}
+	.top-bar-section>ul>.divider,.top-bar-section>ul>[role="separator"] {
+		border-bottom: none;
+		border-top: none;
+		border-right: solid 1px #4d4d4d;
+		clear: none;
+		height: 45px;
+		width: 0;
+	}
+	.top-bar-section .has-form {
+		background: #333333;
+		padding: 0 15px;
+		height: 45px;
+	}
+	.top-bar-section ul.right li .dropdown {
+		left: auto;
+		right: 0;
+	}
+	.top-bar-section ul.right li .dropdown li .dropdown {
+		right: 100%;
+	}
+	.no-js .top-bar-section ul li:hover>a {
+		background: #272727;
+		color: white;
+	}
+	.no-js .top-bar-section ul li:active>a {
+		background: #008cba;
+		color: white;
+	}
+	.no-js .top-bar-section .has-dropdown:hover>.dropdown {
+		display: block;
+	}
 }
 
-.top-bar-section .dropdown li label {
-	white-space: nowrap;
-	background: #333333;
-}
-
-.top-bar-section .dropdown li .dropdown {
-	left: 100%;
-	top: 0;
-}
-
-.top-bar-section>ul>.divider,.top-bar-section>ul>[role="separator"] {
-	border-bottom: none;
-	border-top: none;
-	border-right: solid 1px #4d4d4d;
-	clear: none;
-	height: 45px;
-	width: 0;
-}
-
-.top-bar-section .has-form {
-	background: #333333;
-	padding: 0 15px;
-	height: 45px;
-}
-
-.top-bar-section ul.right li .dropdown {
-	left: auto;
-	right: 0;
-}
-
-.top-bar-section ul.right li .dropdown li .dropdown {
-	right: 100%;
-}
-
-.no-js .top-bar-section ul li:hover>a {
-	background: #272727;
-	color: white;
-}
-
-.no-js .top-bar-section ul li:active>a {
-	background: #008cba;
-	color: white;
-}
-
-.no-js .top-bar-section .has-dropdown:hover>.dropdown {
-	display: block;
-}
-
-}
-
-/*
-Top bar css end
-**/
 #appcontainer,#landing-page {
-	background: #757575; /* Old browsers */
+	background: #757575;
 	background: -moz-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
-	/* FF3.6+ */
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%,
 		color-stop(0%, #000000), color-stop(100%, #3D3D3D));
-	/* Chrome,Safari4+ */
 	background: -webkit-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
-	/* Chrome10+,Safari5.1+ */
 	background: -o-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
-	/* Opera 12+ */
 	background: -ms-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
-	/* IE10+ */
 	background: radial-gradient(ellipse at center, #757575 0%, #3D3D3D 100%);
-	/* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#757575',
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#757575',
 		endColorstr='#3D3D3D', GradientType=1);
-	/* IE6-9 fallback on horizontal gradient */
 }
 
-/*
-Landing page CSS start
-*/
 header {
 	background-color: #94CCFF;
 	min-height: 78px;
@@ -793,7 +622,6 @@ header .row {
 	display: inline-block;
 	padding: 14px 30px;
 	font-size: 20px;
-/* 	text-transform: uppercase; */
 }
 
 .product-features-container {
@@ -827,9 +655,10 @@ header .row {
 	color: white;
 	text-align: center;
 	margin-bottom: 30px;
+	margin-top: 30px;
 }
 
-@media only screen and (min-width: 40.063em) {
+@media only screen and (min-width:40.063em) {
 	.devices-image {
 		background: url("landingpage-devices.png") no-repeat;
 		height: 275px;
@@ -850,36 +679,45 @@ header .row {
 }
 
 #loginform {
-
-	background: #4A677A; 
-	background: -moz-radial-gradient(center, ellipse cover,  #4A677A 27%, #082B4D 84%); 
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(27%,#4A677A), color-stop(84%,#082B4D)); 
-	background: -webkit-radial-gradient(center, ellipse cover,  #4A677A 27%,#082B4D 84%); 
-	background: -o-radial-gradient(center, ellipse cover,  #4A677A 27%,#082B4D 84%); 
-	background: -ms-radial-gradient(center, ellipse cover,  #4A677A 27%,#082B4D 84%);
-	background: radial-gradient(ellipse at center,  #4A677A 27%,#082B4D 84%); 
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#617588', endColorstr='#3f4c6b',GradientType=1 );  */	
- 	margin-top: 40px;
-	margin-bottom: 40px;
+	background: #4A677A;
+	background: -moz-radial-gradient(center, ellipse cover, #4A677A 27%, #082B4D 84%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%,
+		color-stop(27%, #4A677A), color-stop(84%, #082B4D));
+	background: -webkit-radial-gradient(center, ellipse cover, #4A677A 27%, #082B4D 84%);
+	background: -o-radial-gradient(center, ellipse cover, #4A677A 27%, #082B4D 84%);
+	background: -ms-radial-gradient(center, ellipse cover, #4A677A 27%, #082B4D 84%);
+	background: radial-gradient(ellipse at center, #4A677A 27%, #082B4D 84%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#617588',
+		endColorstr='#3f4c6b', GradientType=1); */
 	border-radius: 10px;
+	border-radius: 10px;
+	margin-top: 4%;
+	height: 80%;
+	margin-bottom: 4%;
+	padding-bottom: 25px;
 }
 
-/*   Landing page CSS end    */
+#logincontainer{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 </style>
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/4.0/css/foundation-icons.css">
 <link rel=stylesheet href="static-resources/plugins/cssmodal/modal.css">
-
 <link rel=stylesheet
 	href="static-resources/components/login/css/login.css">
-<link href='static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css' rel='stylesheet'  type='text/css'>
-<link href='font-1942/stylesheet.css' rel='stylesheet'  type='text/css'>
-
-<style type="text/css">
-
-.first-timer-message{
+<link rel=stylesheet
+	href='static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css'
+	type='text/css'>
+<link rel=stylesheet
+	href='static-resources/modules/fem/css/fonts/universalfruitcake/stylesheet.css'
+	type='text/css'>
+<style>
+.first-timer-message {
 	font-family: universal_fruitcakeregular;
 	font-size: 16px;
 	margin-top: 10px;
@@ -887,26 +725,23 @@ header .row {
 	line-height: 28px;
 }
 </style>
-
 </head>
-
-<body style="font-family:allerregular">
-	<div class="hide-for-small" style="height: 45px">
-		<nav class="top-bar " data-topbar="" id="top-nav-bar">
-			<ul class="title-area">
-				<li class="name">
+<body style="font-family: allerregular">
+	<div class=hide-for-small style="height: 45px">
+		<nav class="top-bar " data-topbar="" id=top-nav-bar>
+			<ul class=title-area>
+				<li class=name>
 					<h1>
 						<a href="/">XpenseShare</a>
 					</h1>
 				</li>
 			</ul>
-			<section class="top-bar-section">
-				<ul class="right">
-					<li class="has-dropdown not-click"><a id="js-login-anchor"><span
-							id="js-login-link" style=""></span><span id="js-user-link"
+			<section class=top-bar-section>
+				<ul class=right>
+					<li class="has-dropdown not-click"><a id=js-login-anchor><span
+							id=js-login-link style=""></span><span id=js-user-link
 							style="dispaly: none;"></span></a>
-						<ul id="login-dropdown-menu" class="dropdown"
-							style="display: none;">
+						<ul id=login-dropdown-menu class=dropdown style="display: none;">
 							<li class="title back js-generated">
 							<li><a href="#profile">Account Settings</a></li>
 							<li><a href="#"
@@ -916,80 +751,94 @@ header .row {
 			</section>
 		</nav>
 	</div>
-	<div class="large-12 small-12 columns landing-page-container full" id="landing-page" style="display: none;">
-		<div class="row">
-			<div class="small-12 large-12 columns message-container hide-for-small">
-				<div class="row">
+	<div class="large-12 small-12 columns landing-page-container full"
+		id=landing-page style="display: none;">
+		<div class=row>
+			<div
+				class="small-12 large-12 columns message-container hide-for-small">
+				<div class=row>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 					<div class="small-12 large-10 columns">
-						<span class="product-message" >Streamline your expense
+						<span class=product-message>Streamline your expense
 							tracking & settlement</span>
 					</div>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 				</div>
-				<div class="row">
+				<div class=row>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 					<div class="small-6 large-3 columns">&nbsp;</div>
 					<div class="small-6 large-7 columns">
-						<span class="product-message">and forget keeping mental
+						<span class=product-message>and forget keeping mental
 							notes.</span>
 					</div>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 				</div>
 			</div>
 			<div class="hide-for-medium-up small-screen-message">
-				<div class="row">
-					<div class="small-12 columns text-center product-message">Streamline your expense</div>
+				<div class=row>
+					<div class="small-12 columns text-center product-message">Streamline
+						your expense</div>
 				</div>
-				<div class="row">
-					<div class="small-12 columns text-center product-message">tracking & settlement and</div>
+				<div class=row>
+					<div class="small-12 columns text-center product-message">tracking
+						& settlement and</div>
 				</div>
-				<div class="row">
-					<div class="small-12 columns text-center product-message">forget keeping mental notes.</div>
+				<div class=row>
+					<div class="small-12 columns text-center product-message">forget
+						keeping mental notes.</div>
 				</div>
 			</div>
 			<div class="small-12 large-12 columns image-tagline-container">
-				<div class="row">
+				<div class=row>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
-					<div class="small-12 large-6 columns devices-image-container text-center">
-						<span class="devices-image"></span>
+					<div
+						class="small-12 large-6 columns devices-image-container text-center">
+						<span class=devices-image></span>
 					</div>
-					<div class="small-12 large-5 columns product-tagline-container  text-center hide-for-medium-up">
+					<div
+						class="small-12 large-5 columns product-tagline-container  text-center hide-for-medium-up">
 						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Use It...</span>
+							<span class="large-6 small-8 small-centered product-message">Use
+								It...</span>
 						</div>
 						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Settle with
-								ease</span>
+							<span class="large-6 small-8 small-centered product-message">Settle
+								with ease</span>
 						</div>
-						<div class="row">
+						<div class=row>
 							<div class="large-10 small-12 ">
-								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link-phone">Sign in for free</button>
-								<span style="font-size: 20px;display: block;margin-top:10px;">No signup required.</span>
+								<button class="sign-up-link sign-up-link-container"
+									id=js-sign-up-link-phone>Sign in for free</button>
+								<span style="font-size: 20px; display: block; margin-top: 10px;">No
+									signup required.</span>
 							</div>
 						</div>
 					</div>
-					<div class="small-12 large-5 columns product-tagline-container hide-for-small">
+					<div
+						class="small-12 large-5 columns product-tagline-container hide-for-small">
 						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Use It...</span>
+							<span class="large-6 small-8 small-centered product-message">Use
+								It...</span>
 						</div>
 						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Settle with
-								ease</span>
+							<span class="large-6 small-8 small-centered product-message">Settle
+								with ease</span>
 						</div>
-						<div class="row">
+						<div class=row>
 							<div class="large-10 small-12 ">
-								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link">Sign in for free</button>
-								<span style="font-size: 20px;display: block;margin-top:10px;">No signup required.</span>
+								<button class="sign-up-link sign-up-link-container"
+									id=js-sign-up-link>Sign in for free</button>
+								<span style="font-size: 20px; display: block; margin-top: 10px;">No
+									signup required.</span>
 							</div>
 						</div>
 					</div>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 				</div>
 			</div>
-			<div class="hide-for-small" style="margin-top:200px"></div>
+			<div class=hide-for-small style="margin-top: 200px"></div>
 			<div class="small-12 large-12 columns product-features-container">
-				<div class="row">
+				<div class=row>
 					<div class="small-12 large-6 columns">
 						<span>- Use your social connections to login and add
 							friends.</span>
@@ -998,7 +847,7 @@ header .row {
 						<span>- Create groups to manage shared expenses.</span>
 					</div>
 				</div>
-				<div class="row">
+				<div class=row>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 					<div class="small-12 large-6 columns">
 						<span>- Share expenses among multiple benificiaries or
@@ -1009,7 +858,7 @@ header .row {
 					</div>
 					<div class="hide-for-small large-1 columns">&nbsp;</div>
 				</div>
-				<div class="row">
+				<div class=row>
 					<div class="hide-for-small large-2 columns">&nbsp;</div>
 					<div class="small-12 large-8 columns">
 						<span>- Filter expenses on benificiary, expense type and
@@ -1017,7 +866,7 @@ header .row {
 					</div>
 					<div class="hide-for-small large-2 columns">&nbsp;</div>
 				</div>
-				<div class="row">
+				<div class=row>
 					<div class="hide-for-small large-2 columns">&nbsp;</div>
 					<div class="small-12 large-8 columns">
 						<span>- Available in Android</span>
@@ -1026,53 +875,45 @@ header .row {
 				</div>
 			</div>
 		</div>
-		</div>
-	
-
-	<script type="text/javascript">
+	</div>
+	<script>
 		var initializationComplete = false;
-		if(!localStorage.loggedInUser){
-			document.getElementById('landing-page').style.display="";
+		if (!localStorage.loggedInUser) {
+			document.getElementById('landing-page').style.display = "";
 		}
-		function showLogin(){
-			document.getElementById('landing-page').style.display="none";
-			document.getElementById('appcontainer').style.display="";
-			if(!initializationComplete){
+		function showLogin() {
+			document.getElementById('landing-page').style.display = "none";
+			document.getElementById('appcontainer').style.display = "";
+			if (!initializationComplete) {
 				showMask('Initializing App...');
 			}
-		} 
+		}
 		document.getElementById('js-sign-up-link').onclick = showLogin;
 		document.getElementById('js-sign-up-link-phone').onclick = showLogin;
-		/* document.getElementById('js-login-anchor').onclick = showLogin; */
-		
 	</script>
-
-
-
-	<div class="mask" id="mask" style="height: 100%;display:none;">
+	<div class=mask id=mask style="height: 100%; display: none;">
 		<span>Initializing App...</span>
 	</div>
-	
-	<div id="appcontainer" style="display:none;">
-		<div class="bootloader">
-			<div class="js-fem-container" style="display: none;"></div>
-			<div class="js-login-container" style="display: none;">
-				<div class="row" id='logincontainer'>
-					<form class="small-12 large-12 columns" id="loginform">
-						<div class="app-name">XpenseShare</div>
+	<div id=appcontainer style="display: none;">
+		<div class=bootloader>
+			<div class=js-fem-container style="display: none;"></div>
+			<div class=js-login-container style="display: none;">
+				<div class=row id=logincontainer>
+					<form class="small-12 large-12 columns" id=loginform>
+						<div class=app-name>XpenseShare</div>
 						<hr style="margin: 20px;">
-						<div class="row">
+						<div class=row>
 							<div class="small-12 large-6 columns large-centered">
-								<div id="facebookfieldset">
+								<div id=facebookfieldset>
 									<a class="zocial facebook button"
-										style="line-height: 50px; font-size: 24px;">Sign in with
+										style="line-height: 50px; font-size: 24px;margin-bottom: 0px;">Sign in with
 										Facebook</a>
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class=row>
 							<div class="small-12 large-6 columns large-centered">
-								<div id="googlefieldset">
+								<div id=googlefieldset>
 									<a class="zocial google button"
 										style="line-height: 50px; font-size: 24px;">Sign in with
 										Google</a>
@@ -1089,87 +930,85 @@ header .row {
 	<div class="hide-for-medium is-medium"></div>
 	<div class="hide-for-large is-desktop"></div>
 	<script>
-	if(localStorage.loggedInUser){
-		document.getElementById('landing-page').style.display="none";
-		document.getElementById('mask').style.display="";
-		document.getElementById('appcontainer').style.display="";
-	}
-	window.EnvVariablesGlobal = function(mode){
-		if(mode=="production"){
-			return {
-				API_URL : "https://xpenseshareapp.appspot.com/",
-				FB_APP_ID : '295620837229600', 
-				GOOGLE_CLIENT_ID : '684896938909.apps.googleusercontent.com',
-				GOOGLE_API_KEY : 'AIzaSyDlmVOo6XaTWCvcLRVgHUVeEkN05BpD99I',
-				GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
-			                                                      
+		if (localStorage.loggedInUser) {
+			document.getElementById('landing-page').style.display = "none";
+			document.getElementById('mask').style.display = "";
+			document.getElementById('appcontainer').style.display = "";
+		}
+		window.EnvVariablesGlobal = function(mode) {
+			if (mode == "production") {
+				return {
+					API_URL : "https://xpenseshareapp.appspot.com/",
+					FB_APP_ID : '295620837229600',
+					GOOGLE_CLIENT_ID : '684896938909.apps.googleusercontent.com',
+					GOOGLE_API_KEY : 'AIzaSyDlmVOo6XaTWCvcLRVgHUVeEkN05BpD99I',
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
 				};
-		} else	 if(mode==='dev'){
-			return {
-				API_URL : "https://fem-dev.appspot.com/",
-				FB_APP_ID : '605170889512500', 
-				GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
-				GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
-				GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
-					                                                      
-			};
-		} else if(mode==='local'){
-			return {
-				API_URL : "",
-				FB_APP_ID : '503776339657462',
-				GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
-				GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
-				GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
-			};
-		} else if(mode==="qa"){
-			return {
-				API_URL : "https://fem-qa.appspot.com/",
-				FB_APP_ID : '610955545604534',
-				GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
-				GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
-				GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
-			};
-		}}("local");
-	function showMask(textToShow){
-		var mask = document.getElementById('mask')
-		mask.style['z-index'] = 32767;
-		mask.style['display'] = "";
-		mask.innerHTML = textToShow;
-	}
-	function hideMask(){
-		var mask = document.getElementById('mask')
-		mask.style['z-index'] = 0;
-		mask.style['display'] = "none";
-		mask.innerHTML = "";
-	}
-	
-	
-	//document.getElementById('mask').style['line-height'] = screen.height/2+'px';
-	//var heightForLoader = document.getElementById('login').offsetHeight;
-	var userInfo = localStorage.getItem('loggedInUser');
-	if(userInfo && JSON.parse(userInfo)){
-		this.userInfo = JSON.parse(userInfo);
-		document.getElementById('logincontainer').setAttribute('style', 'display:none;');
-		
-		document.getElementById("js-user-link").setAttribute('style', 'display:"";');
-		document.getElementById("js-user-link").innerHTML = userInfo.fullName;
-		document.getElementById("login-dropdown-menu").setAttribute('style', 'display:"";');
-		document.getElementById("js-login-link").setAttribute('style', 'display:none;');
-	}
+			} else if (mode === 'dev') {
+				return {
+					API_URL : "https://fem-dev.appspot.com/",
+					FB_APP_ID : '605170889512500',
+					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
+					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
+				};
+			} else if (mode === 'local') {
+				return {
+					API_URL : "",
+					FB_APP_ID : '503776339657462',
+					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
+					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
+				};
+			} else if (mode === "qa") {
+				return {
+					API_URL : "https://fem-qa.appspot.com/",
+					FB_APP_ID : '610955545604534',
+					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
+					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
+				};
+			}
+		}("local");
+		function showMask(textToShow) {
+			var mask = document.getElementById('mask')
+			mask.style['z-index'] = 32767;
+			mask.style['display'] = "";
+			mask.innerHTML = textToShow;
+		}
+		function hideMask() {
+			var mask = document.getElementById('mask')
+			mask.style['z-index'] = 0;
+			mask.style['display'] = "none";
+			mask.innerHTML = "";
+		}
+		var userInfo = localStorage.getItem('loggedInUser');
+		if (userInfo && JSON.parse(userInfo)) {
+			this.userInfo = JSON.parse(userInfo);
+			document.getElementById('logincontainer').setAttribute('style',
+					'display:none;');
+			document.getElementById("js-user-link").setAttribute('style',
+					'display:"";');
+			document.getElementById("js-user-link").innerHTML = userInfo.fullName;
+			document.getElementById("login-dropdown-menu").setAttribute(
+					'style', 'display:"";');
+			document.getElementById("js-login-link").setAttribute('style',
+					'display:none;');
+		}
 	</script>
-	<!-- Find solution for forcing update to this file -->
 	<script src=boilerplate.js></script>
-	<script src="static-resources/libraries/require/require.js"
-		type="text/javascript"></script>
-
-
-	<!-- UserVoice JavaScript SDK (only needed once on a page) -->
+	<script src="static-resources/libraries/require/require.js"></script>
 	<script>
-	(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/gY6aeSUzHLXqZiFVd8zIvQ.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()
-	var widowWidth = window.innerWidth || document.body.clientWidth;
-		if(widowWidth > 767){
-			
-		
+		(function() {
+			var uv = document.createElement('script');
+			uv.type = 'text/javascript';
+			uv.async = true;
+			uv.src = '//widget.uservoice.com/gY6aeSUzHLXqZiFVd8zIvQ.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(uv, s)
+		})()
+		var widowWidth = window.innerWidth || document.body.clientWidth;
+		if (widowWidth > 767) {
 			UserVoice = window.UserVoice || [];
 			UserVoice.push([ 'showTab', 'classic_widget', {
 				mode : 'full',
@@ -1185,40 +1024,25 @@ header .row {
 				support_tab_name : 'Report Problem'
 			} ]);
 		}
-		UserVoice.push(['addTrigger', '#contact_us', {
-						mode: 'contact',
-						trigger_position: 'none',
-						trigger_color: 'white',
-						trigger_background_color: 'transparent'
-					} ]);
+		UserVoice.push([ 'addTrigger', '#contact_us', {
+			mode : 'contact',
+			trigger_position : 'none',
+			trigger_color : 'white',
+			trigger_background_color : 'transparent'
+		} ]);
 	</script>
-	<section class="semantic-content" id="modal-text" tabindex="-1"
-		role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-
-		<div class="modal-inner" style="height: 200px;">
+	<section class=semantic-content id=modal-text tabindex=-1 role=dialog
+		aria-labelledby=modal-label aria-hidden=true>
+		<div class=modal-inner style="height: 200px;">
 			Oops, some error occured at server. Be assured that we have already
 			noted the eror down and looking into it. You can <a
-				style="text-decoration: underline;" id="contact_us" data-uv-trigger>Send
+				style="text-decoration: underline;" id=contact_us data-uv-trigger>Send
 				report</a>
 		</div>
-		<a class="modal-close" title="Close this modal" data-dismiss="modal">&times;</a>
+		<a class=modal-close title="Close this modal" data-dismiss=modal>&times;</a>
 	</section>
-	<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-46395586-1', 'xpenseshare.com');
-  ga('send', 'pageview');
-  
-  
-
-</script>
-
-
-
-<style type="text/css">
+	<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-46395586-1','xpenseshare.com');ga('send','pageview');</script>
+	<style>
 .zurb-footer-bottom ul.zurb-links li {
 	display: block;
 	float: left;
@@ -1271,27 +1095,28 @@ a {
 	margin-left: 10px;
 }
 </style>
-
 	<div class="zurb-footer-bottom hide-for-small xpenseshare-footer">
-	  <div class="row">
-	    <div class="medium-4 medium-4 push-8 columns">
-	      <ul class="home-social">
-	          <li><a href="https://twitter.com/xpenseshare" target="_blank" class="twitter"></a></li>
-	          <li><a href="https://www.facebook.com/xpenseshare" target="_blank" class="facebook"></a></li>
-	          <li><a href="mailto:support@xpenseshare.com" target="_blank" class="mail"></a></li>
-	        </ul>
-	     </div>
-	     <div class="medium-8 medium-8 pull-4 columns">
-	        <a href="http://www.zurb.com" class="zurb-logo regular"></a>
-	        <ul class="zurb-links">
-	          <li><a href="#">About</a></li>
-	          <li><a href="#">Blog</a></li>
-	          <li><a href="#">Contact</a></li>
-	          <li><a href="#">Sitemap</a></li>
-	       </ul>
-	    </div>          
-	  </div>
+		<div class=row>
+			<div class="medium-4 medium-4 push-8 columns">
+				<ul class=home-social>
+					<li><a href="https://twitter.com/xpenseshare" target=_blank
+						class=twitter></a></li>
+					<li><a href="https://www.facebook.com/xpenseshare"
+						target=_blank class=facebook></a></li>
+					<li><a href="mailto:support@xpenseshare.com" target=_blank
+						class=mail></a></li>
+				</ul>
+			</div>
+			<div class="medium-8 medium-8 pull-4 columns">
+				<a href="http://www.zurb.com" class="zurb-logo regular"></a>
+				<ul class=zurb-links>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">Sitemap</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-
 </body>
 </html>
