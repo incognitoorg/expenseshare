@@ -793,7 +793,7 @@ header .row {
 	display: inline-block;
 	padding: 14px 30px;
 	font-size: 20px;
-	text-transform: uppercase;
+/* 	text-transform: uppercase; */
 }
 
 .product-features-container {
@@ -875,6 +875,19 @@ header .row {
 <link rel=stylesheet
 	href="static-resources/components/login/css/login.css">
 <link href='static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css' rel='stylesheet'  type='text/css'>
+<link href='font-1942/stylesheet.css' rel='stylesheet'  type='text/css'>
+
+<style type="text/css">
+
+.first-timer-message{
+	font-family: universal_fruitcakeregular;
+	font-size: 16px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	line-height: 28px;
+}
+</style>
+
 </head>
 
 <body style="font-family:allerregular">
@@ -951,7 +964,7 @@ header .row {
 						</div>
 						<div class="row">
 							<div class="large-10 small-12 ">
-								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link-phone">SIGN IN FOR FREE</button>
+								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link-phone">Sign in for free</button>
 								<span style="font-size: 20px;display: block;margin-top:10px;">No signup required.</span>
 							</div>
 						</div>
@@ -966,7 +979,7 @@ header .row {
 						</div>
 						<div class="row">
 							<div class="large-10 small-12 ">
-								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link">SIGN IN FOR FREE</button>
+								<button class="sign-up-link sign-up-link-container" id="js-sign-up-link">Sign in for free</button>
 								<span style="font-size: 20px;display: block;margin-top:10px;">No signup required.</span>
 							</div>
 						</div>
@@ -1013,7 +1026,8 @@ header .row {
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
+	
 
 	<script type="text/javascript">
 		var initializationComplete = false;
@@ -1201,6 +1215,83 @@ header .row {
   
 
 </script>
+
+
+
+<style type="text/css">
+.zurb-footer-bottom ul.zurb-links li {
+	display: block;
+	float: left;
+	margin-left: 6px;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.75rem;
+}
+
+.zurb-footer-bottom {
+	position: fixed;
+	z-index: 1000;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	border-top: 2px solid #F4985A;
+}
+
+.zurb-footer-bottom ul.home-social li a.facebook {
+	background-position: center -200px;
+}
+
+.zurb-footer-bottom ul.home-social li a {
+	display: block;
+	height: 50px;
+	width: 50px;
+	background: url("../img/icons/social.png") no-repeat center 0;
+}
+
+a {
+	color: #777777;
+}
+
+.zurb-footer-bottom ul.home-social li a.mail {
+	background-position: center -400px;
+}
+
+.zurb-footer-bottom ul.home-social li a.twitter {
+	background-position: center 0;
+}
+
+.zurb-footer-bottom ul.home-social li:first-child {
+	margin-left: 0;
+}
+
+.zurb-footer-bottom ul.home-social li {
+	list-style: none;
+	display: block;
+	float: left;
+	margin-left: 10px;
+}
+</style>
+
+	<div class="zurb-footer-bottom hide-for-small xpenseshare-footer">
+	  <div class="row">
+	    <div class="medium-4 medium-4 push-8 columns">
+	      <ul class="home-social">
+	          <li><a href="https://twitter.com/xpenseshare" target="_blank" class="twitter"></a></li>
+	          <li><a href="https://www.facebook.com/xpenseshare" target="_blank" class="facebook"></a></li>
+	          <li><a href="mailto:support@xpenseshare.com" target="_blank" class="mail"></a></li>
+	        </ul>
+	     </div>
+	     <div class="medium-8 medium-8 pull-4 columns">
+	        <a href="http://www.zurb.com" class="zurb-logo regular"></a>
+	        <ul class="zurb-links">
+	          <li><a href="#">About</a></li>
+	          <li><a href="#">Blog</a></li>
+	          <li><a href="#">Contact</a></li>
+	          <li><a href="#">Sitemap</a></li>
+	       </ul>
+	    </div>          
+	  </div>
+	</div>
 
 </body>
 </html>
