@@ -396,14 +396,22 @@ define(function(require) {
 			
 			contributionInputs.last().val((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2));
 			
-			this.$(event.currentTarget).parents('.js-expense-div').
+			this.$(event.currentTarget).
+			parents('.js-expense-div').
 			addClass('locked').
 			find('input').
-			addClass('locked');
+			addClass('locked').
+			parents('.js-expense-div').
+			find('.js-lock-button').
+			removeClass('foundicon-lock').
+			addClass('foundicon-unlock');
 			console.timeEnd('adjustExpenses');
 		},
 		eventLockExpense : function(event){
-			this.$(event.currentTarget).parents('.js-expense-div').
+			this.$(event.currentTarget).
+			toggleClass('foundicon-lock').
+			toggleClass('foundicon-unlock').
+			parents('.js-expense-div').
 			toggleClass('locked').
 			find('input').
 			toggleClass('locked');
@@ -411,12 +419,13 @@ define(function(require) {
 		},
 		toggleExpense : function(event){
 			if(!$(event.currentTarget).is(':checked')){
-				this.$(event.currentTarget).parents('.js-expense-div')
+				this.$(event.currentTarget)
+				.parents('.js-expense-div')
 				.addClass('locked').addClass('selected')
 				.find('input.js-contribution-input')
 				.addClass('locked')
 				.attr('disabled', true)
-				.val(0);
+				.val('');
 			} else {
 				this.$(event.currentTarget).parents('.js-expense-div')
 				.removeClass('locked').removeClass('selected')
