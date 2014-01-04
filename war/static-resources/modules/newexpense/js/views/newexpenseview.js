@@ -122,6 +122,8 @@ define(function(require) {
 			this.$('.js-more-payers').show();
 			this.$('.user-paid-row').show();
 			
+			this.$('.js-division-type').val('all');
+			
 			
 			this.createPayersSection(group.members);
 			this.createMembersSection(group.members);
@@ -412,6 +414,10 @@ define(function(require) {
 				return;
 			}
 			
+			/*if(this.$('.js-included-members').find('.js-expense-div').not('.locked').not(this.$(event.currentTarget).parents('.js-expense-div')).size()==0){
+				return;
+			}*/
+			
 			this.$(event.currentTarget).
 			toggleClass('foundicon-lock').
 			toggleClass('foundicon-unlock').
@@ -422,8 +428,22 @@ define(function(require) {
 			this.divideExpense();
 		},
 		toggleExpense : function(event){
+			
+			if(this.$('.js-included-members').find('.js-expense-div').not('.locked').size()==1){
+				return;
+			}
+			
+			/*if(this.$('.js-included-members').find('.js-expense-div').not('.locked').filter(this.$(event.currentTarget).parents('.js-expense-div')).size()==0){
+				return;
+			}*/
+			
 			if(!$(event.currentTarget).is(':checked')){
-				this.$(event.currentTarget)
+				this.$(event.currentTarget).
+				
+				parents('.js-expense-div').
+				find('.js-lock-button').
+				removeClass('foundicon-unlock').
+				addClass('foundicon-lock')
 				.parents('.js-expense-div')
 				.addClass('locked').addClass('selected')
 				.find('input.js-contribution-input')
@@ -431,7 +451,12 @@ define(function(require) {
 				.attr('disabled', true)
 				.val('');
 			} else {
-				this.$(event.currentTarget).parents('.js-expense-div')
+				this.$(event.currentTarget).
+				parents('.js-expense-div').
+				find('.js-lock-button').
+				removeClass('foundicon-unlock').
+				addClass('foundicon-lock')
+				.parents('.js-expense-div')
 				.removeClass('locked').removeClass('selected')
 				.find('input.js-contribution-input')
 				.removeClass('locked')
@@ -485,19 +510,29 @@ define(function(require) {
 				
 				var payersInputs = self.$('.js-payers .js-pay-input');
 				
+				var totalPayment = 0;
+				
 				payersInputs.each(function(index, el){
 					if(parseFloat($(el).val())>0){
+						totalPayment+=parseFloat($(el).val());
 						payersInfo.push({userId : $(el).data('userd'), amount:parseFloat($(el).val())});
 					}
 				});
 				
+				var totalExpense = 0;
 				var includedMembersInputs = self.$('.js-contribution-input[disabled!="disabled"]');
 				includedMembersInputs.each(function(index, el){
 					if(parseFloat($(el).val())>0){
+						totalExpense+=parseFloat($(el).val());
 						includeMemberInfo.push({userId : $(el).data('userd'), amount:parseFloat($(el).val())});
 					}
 				});
 				
+				if(Math.abs(totalPayment-totalExpense) > 0.001){
+					alert("Total expense doesnt match total payment");
+					hideMask();
+					return;
+				}
 				var objExpenseModel = new ExpenseModel({
 					name : self.$('.js-expense-name').val()!=""?self.$('.js-expense-name').val() : "Untitled",
 					date : self.$('.js-expense-date').val(),

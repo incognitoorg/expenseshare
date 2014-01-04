@@ -373,13 +373,18 @@ define(function(require) {
 			/*Sandbox.publish('FEM:NAVIGATE', '#expensedetail');*/
 		},
 		editExpense : function(event){
-			var newExpense = NewExpenseFactory.getInstance();
-			newExpense.initialize({ el : this.$('.js-edit-expense-form-container').show()});
+			if(this.newExpense){
+				Sandbox.destroy(this.newExpense);
+			} else {
+			}
+			
+			this.newExpense = NewExpenseFactory.getInstance();
+			this.newExpense.initialize({ el : this.$('.js-edit-expense-form-container').show()});
 			var expense = this.expenseHitoryMap[$(event.target).data('expense-id')];
 			var group = this.groupMap[expense.groupId];
 			this.$('.js-expense-history-container').hide();
-			newExpense.view.mode='edit';
-			newExpense.view.showNewExpenseForm(group, expense);
+			this.newExpense.view.mode='edit';
+			this.newExpense.view.showNewExpenseForm(group, expense);
 		}
 	});
 
