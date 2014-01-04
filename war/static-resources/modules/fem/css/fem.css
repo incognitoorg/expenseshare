@@ -159,9 +159,11 @@ select, input{
 	padding: 0!important;
 	padding-left : 5px!important;
 	border-radius : 5px!important;
-	background: whitesmoke!important;
 }
 
+input{
+	background: whitesmoke!important; 
+}
 .open-menu-icon{
 	display : inline-block;
 	width : 16px;	
