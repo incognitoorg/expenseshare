@@ -92,6 +92,7 @@ define(function(require){
 			var self = this;
 			if(!appstarted){
 				$('.js-fem-container').show();
+				$('.xpenseshare-footer').css('visibility', 'hidden');
 				this.render();
 				appstarted = true;
 				
