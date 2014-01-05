@@ -333,8 +333,8 @@ define(function(require) {
 			
 		},
 		showNewExpenseForm : function(){
-			Sandbox.publish('GROUP:SELECTED:NEW-EXPENSE', this.newAddedGroupInfo.groupId);
-			Sandbox.publish('FEM:DESTROY:COMPONENT',{name : 'js-create-group'});
+			Sandbox.publish('GROUP:SELECTED:NEW-EXPENSE', this.newAddedGroupInfo);
+			//Sandbox.publish('FEM:DESTROY:COMPONENT',{name : 'js-create-group'});
 		},
 		doFacebookLogin : function(){
 			login.doFacebookLogin({userInfo : userInfo,context : this,  callback : this.reInitialize});
