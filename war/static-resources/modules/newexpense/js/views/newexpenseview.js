@@ -414,10 +414,6 @@ define(function(require) {
 				return;
 			}
 			
-			/*if(this.$('.js-included-members').find('.js-expense-div').not('.locked').not(this.$(event.currentTarget).parents('.js-expense-div')).size()==0){
-				return;
-			}*/
-			
 			this.$(event.currentTarget).
 			toggleClass('foundicon-lock').
 			toggleClass('foundicon-unlock').
@@ -428,14 +424,6 @@ define(function(require) {
 			this.divideExpense();
 		},
 		toggleExpense : function(event){
-			
-			if(this.$('.js-included-members').find('.js-expense-div').not('.locked').size()==1){
-				return;
-			}
-			
-			/*if(this.$('.js-included-members').find('.js-expense-div').not('.locked').filter(this.$(event.currentTarget).parents('.js-expense-div')).size()==0){
-				return;
-			}*/
 			
 			if(!$(event.currentTarget).is(':checked')){
 				this.$(event.currentTarget).
@@ -533,7 +521,9 @@ define(function(require) {
 					hideMask();
 					return;
 				}
-				var objExpenseModel = new ExpenseModel({
+				
+				
+				var expenseData = $.extend({}, {
 					name : self.$('.js-expense-name').val()!=""?self.$('.js-expense-name').val() : "Untitled",
 					date : self.$('.js-expense-date').val(),
 					listPayersInfo : payersInfo,
@@ -541,17 +531,27 @@ define(function(require) {
 					groupId : self.group.groupId,
 					group : self.group,
 					type : self.$('.js-expense-type').val(),
-					expenseEntityId : self.oldObjExpenseModel && self.oldObjExpenseModel.get('expenseEntityId')
+					expenseEntityId : self.oldObjExpenseModel && self.oldObjExpenseModel.get('expenseEntityId'),
 				});
+				
+				if(self.mode && self.mode=='edit'){
+					$.extend(expenseData, {
+						editedBy : user.getInfo().userId,
+						editedAt : new Date()
+					});
+				} else {
+					$.extend(expenseData, {
+						createdBy : user.getInfo().userId,
+						createdAt : new Date()
+					});
+				}
+				
+				var objExpenseModel = new ExpenseModel(expenseData);
 				
 				if(self.mode && self.mode=='edit'){
 					ExpenseUtility.updateIOU(self.oldObjExpenseModel.attributes, objExpenseModel.attributes.group, 'delete');
 				}
 				ExpenseUtility.updateIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
-				//updatedIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
-				
-				
-				
 				
 				var ajaxData = {
 					url :'_ah/api/expenseentityendpoint/v1/expenseentity',
