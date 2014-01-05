@@ -531,7 +531,7 @@ define(function(require) {
 					groupId : self.group.groupId,
 					group : self.group,
 					type : self.$('.js-expense-type').val(),
-					expenseEntityId : self.oldObjExpenseModel && self.oldObjExpenseModel.get('expenseEntityId'),
+					expenseEntityId : self.oldObjExpenseModel && self.oldObjExpenseModel.get('expenseEntityId')
 				});
 				
 				if(self.mode && self.mode=='edit'){
