@@ -9,20 +9,20 @@
 			</div>
 		</div>
 		<div class="row " style="margin-top: 16px;">
-			<div class="small-12 large-3 columns  hide-for-small">Description</div>
+			<div class="small-12 large-2 columns  hide-for-small">Description</div>
 			<div class="small-12 large-6 columns" style="float: left;">
 				<input type=text class='js-expense-name' name=expensename placeholder="Expense Description">
 			</div>
 		</div>
 		<div class="row">
-			<div class="small-12 large-3 columns  hide-for-small">Date</div>
+			<div class="small-12 large-2 columns  hide-for-small">Date</div>
 			<div class="small-12 large-6 columns" style="float: left;">
 				<input type=date class='js-expense-date' name=expensedate>
 			</div>
 		</div>
 		
 		<div class="row">
-			<div class="small-12 large-3 columns  hide-for-small">Type</div>
+			<div class="small-12 large-2 columns  hide-for-small">Type</div>
 			<div class="small-12 large-6 columns" style="float: left;">
 					<select class="js-expense-type valid" name="expensetype" style="margin-bottom: 16px;">
 						<optgroup label="Entertainment">
@@ -74,10 +74,10 @@
 		
     	<hr class="red-line">
       <div class="row divider-row">
-			<div class="small-12 large-3 columns">Who Paid</div>
+			<div class="small-12 columns">Who Paid</div>
 		</div>
 		<div class="row user-paid-row">
-			<div class="small-3 large-3 columns" style="float: left;">
+			<div class="small-2 large-2 columns" style="float: left;">
 				I paid
 			</div>
 			<div class="small-6 large-6 columns" style="float: left;">
@@ -86,7 +86,7 @@
 		</div>
 		<div class="row other-payers-row">
 		
-			<div class="large-10  large-push-3 small-push-3 small-12 columns js-more-payers" style="text-decoration: underline;cursor: pointer;"><span class="down-icon"></span>Other payers</div>
+			<div class="large-10  large-push-2 small-push-2 small-12 columns js-more-payers" style="text-decoration: underline;cursor: pointer;"><span class="down-icon"></span>Other payers</div>
 			<!-- <div class=row>
 				<div class="small-12 columns">
 					<h4>Amount Paid</h4>
@@ -107,9 +107,22 @@
 		</div>
 		<hr class="red-line">
 		<div class="row divider-row">
-			<div class="small-12 large-3 columns">How to divide</div>
+			<div class="small-12 columns">How to divide</div>
 		</div>
-		<div class=row style="padding-bottom: 15px;">
+		<div class="row" style="padding-bottom: 15px;background: whitesmoke;">
+		
+		<div class="small-2 large-2 columns" style="float: left;">
+				Divide
+			</div>
+			<div class="small-6 large-6 columns" style="float: left;">
+				<select class="js-division-type" style="height: 44px;width: 144px;margin: 0;padding: 0;">
+					<option value="all">Equally</option>
+					<option value="selected">Unequally</option>
+				</select>
+			</div>
+			
+		</div>
+		<!-- <div class=row style="padding-bottom: 15px;">
 			<div class="small-12 columns">
 				<span style="height: 44px;font-size: 16px;padding:0px;width:100px;" >Divide</span>
 				<select class="js-division-type" style="height: 44px;width: 144px;margin: 0;padding: 0;">
@@ -118,14 +131,14 @@
 				</select>
 				<div class="small-12 large-6 columns"></div>
 			</div>
-		</div>
+		</div> -->
 		<div class="row js-all-included-members">
 			<div class="js-included-members carousel small-12 columns" >
 			</div>
 		</div>
 		 <hr class="red-line">
 		<div class="row">
-			<div class="small-6 large-3 columns"
+			<div class="small-12 columns"
 				style="margin-top: 2%;">
 				<span class="js-save-expense button tiny radius" style="cursor: pointer;">Save</span>
 			</div>
