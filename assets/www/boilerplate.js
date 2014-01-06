@@ -20,6 +20,12 @@ var require = {
 			persistence : 'libraries/lawnchair/lawnchair',
 			fbapioauth : 'components/fbapi/fbapi-android',
 			googleapioauth : 'components/googleapi/googleapi-android',
+			formvalidationwrapper : 'plugins/jquery/formvalidation/formvalidation',
+			autocomplete : 'libraries/jquery-ui/js/ui/minified/jquery.ui.autocomplete.min',
+			uicore : 'libraries/jquery-ui/js/ui/minified/jquery.ui.core.min',
+			uiwidget : 'libraries/jquery-ui/js/ui/minified/jquery.ui.widget.min',
+			uimenu : 'libraries/jquery-ui/js/ui/minified/jquery.ui.menu.min',
+			uiposition : 'libraries/jquery-ui/js/ui/minified/jquery.ui.position.min',
 			animate : 'plugins/jquery/animate-enhanced/jquery.animate-enhanced.min'
 		},
 		shim : {
@@ -34,7 +40,13 @@ var require = {
 				exports : 'Lawnchair'
 			},
 			'animate' : {
-				deps : [ 'jquery' ]
+				deps : [ 'jquery' ],
+			},
+			'autocomplete' : {
+				deps : [ 'jquery', 'uicore' , 'uiwidget', 'uimenu', 'uiposition'],
+			},
+			'uimenu' : {
+				deps : [ 'uiwidget'],
 			}
 		},
 		waitSeconds : 60,
