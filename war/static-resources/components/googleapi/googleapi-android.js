@@ -1,7 +1,7 @@
 define(function(require){
 
 
-	var EnvVariables = require('envvariables');
+	EnvVariables = EnvVariablesGlobal || require('envvariables');
 	
 	var clientId = EnvVariables.GOOGLE_CLIENT_ID;;
 	var apiKey = EnvVariables.GOOGLE_API_KEY;
@@ -57,8 +57,6 @@ define(function(require){
 							redirect_uri: "http://localhost:8888/",
 							grant_type: 'authorization_code'
 						}).done(function(data) {
-							authToken = data.access_token;
-							makeApiCall(options);
 							
 						}).fail(function(response) {
 							deferred.reject(response.responseJSON);

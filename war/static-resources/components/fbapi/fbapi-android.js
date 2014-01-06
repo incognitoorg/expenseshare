@@ -1,6 +1,6 @@
 define(function(require) {
 
-	var EnvVariables = require('envvariables');
+	var EnvVariables = EnvVariablesGlobal || require('envvariables');
 
 	if(typeof FB!=='undefined'){
 		
