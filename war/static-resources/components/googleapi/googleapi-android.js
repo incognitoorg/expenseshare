@@ -57,7 +57,8 @@ define(function(require){
 							redirect_uri: "http://localhost:8888/",
 							grant_type: 'authorization_code'
 						}).done(function(data) {
-							
+							authToken = data.access_token;
+							makeApiCall(options);
 						}).fail(function(response) {
 							deferred.reject(response.responseJSON);
 						});
