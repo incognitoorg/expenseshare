@@ -138,7 +138,7 @@ define(function(require){
 			        $('.scrollable-right-section').on('scroll', function(){
 			        	
 			        	var $menuBar = $('.js-show-menu');
-			        	if($('.scrollable-right-section').scrollTop()>100){
+			        	if($('.scrollable-right-section').scrollTop()>200){
 			        		if($menuBar.height()!==0){
 			        			$menuBar.animate({
 									height: 0,
@@ -147,7 +147,7 @@ define(function(require){
 								});
 			        		}
 			        		
-			        	} else if($('.scrollable-right-section').scrollTop()<50) {
+			        	} else if($('.scrollable-right-section').scrollTop()<150) {
 			        		if($menuBar.height()!==menuBarHeight){
 			        			$menuBar.animate({
 			        				height: menuBarHeight,
