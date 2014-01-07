@@ -724,6 +724,7 @@ header .row {
 }
 
 </style>
+
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
 <link rel=stylesheet
@@ -735,6 +736,9 @@ header .row {
 <link rel=stylesheet
 	href="static-resources/components/login/css/login.css">
 </head>
+
+<script type="text/javascript" src=cordova.js></script>
+<script type="text/javascript" src=plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js></script>
 <body style="font-family: allerregular">
 	<div class=hide-for-small style="height: 45px">
 		<nav class="top-bar " data-topbar="" id=top-nav-bar>
@@ -954,7 +958,8 @@ header .row {
 					FB_APP_ID : '295620837229600',
 					GOOGLE_CLIENT_ID : '684896938909.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyDlmVOo6XaTWCvcLRVgHUVeEkN05BpD99I',
-					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email',
+					GOOGLE_CLIENT_SECRET : 'Nbbaz0J50cWsrLEACM-ZGHTY'
 				};
 			} else if (mode === 'dev') {
 				return {
@@ -1010,39 +1015,6 @@ header .row {
 	</script>
 	<script src=boilerplate.js></script>
 	<script src="static-resources/libraries/require/require.js"></script>
-	<script>
-		(function() {
-			var uv = document.createElement('script');
-			uv.type = 'text/javascript';
-			uv.async = true;
-			uv.src = '//widget.uservoice.com/gY6aeSUzHLXqZiFVd8zIvQ.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(uv, s)
-		})()
-		var widowWidth = window.innerWidth || document.body.clientWidth;
-		if (widowWidth > 767) {
-			UserVoice = window.UserVoice || [];
-			UserVoice.push([ 'showTab', 'classic_widget', {
-				mode : 'full',
-				primary_color : '#cc6d00',
-				link_color : '#007dbf',
-				default_mode : 'support',
-				forum_id : 230513,
-				tab_label : 'Report problems & Feedback',
-				tab_color : '#cc6d00',
-				tab_position : 'middle-right',
-				tab_inverted : false,
-				feedback_tab_name : 'Suggestions',
-				support_tab_name : 'Report Problem'
-			} ]);
-		}
-		UserVoice.push([ 'addTrigger', '#contact_us', {
-			mode : 'contact',
-			trigger_position : 'none',
-			trigger_color : 'white',
-			trigger_background_color : 'transparent'
-		} ]);
-	</script>
 	<section class=semantic-content id=modal-text tabindex=-1 role=dialog
 		aria-labelledby=modal-label aria-hidden=true>
 		<div class=modal-inner style="height: 200px;">
@@ -1128,8 +1100,6 @@ a {
 					<li><a href="#">Sitemap</a></li>
 				</ul>
 			</div
-			\/.;o>
-			 s4DES5-
 		</div>
 	</div>
 </body>
