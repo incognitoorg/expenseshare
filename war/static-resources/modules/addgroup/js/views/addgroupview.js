@@ -12,9 +12,37 @@ define(function(require) {
 	require('css!../../css/addgroup.css');
 	var userInfo = login.getInfo();
 	
+	function getAutosuggestOptions(data, query, allMembers){
+		var formatted = [];
+		for(var i = 0; i< data.length; i++) {
+			if (data[i].name.toLowerCase().indexOf(query.toLowerCase()) >= 0){
+				formatted.push({
+					label: data[i].name,
+					value: data[i]
+				});
+			}
+		}
+		
+		/*if(allMembers){
+			for(var index in allMembers){
+				if(allMembers[index].fullName.toLowerCase().indexOf(query.toLowerCase()) >= 0){
+					formatted.splice(0, 0, {
+							label: allMembers[index].fullName + " : APP",
+							value: allMembers[index],
+							type : 'app'
+					});
+				}
+			}
+		}*/
+		
+		return formatted;
+	}
+	
+	
 	var FEMAddGroupView = Sandbox.View.extend({
 		initialize : function(options){
 			this.start(options);
+			this.getGroups();
 		},
 		start : function(options){
 			this.initializeSubComponents();
@@ -64,20 +92,6 @@ define(function(require) {
 						$this = $(this);
 						var element = this.element;
 						
-						function filterData(data, query){
-							var formatted = [];
-							for(var i = 0; i< data.length; i++) {
-								if (data[i].name.toLowerCase().indexOf($(element).val().toLowerCase()) >= 0){
-									formatted.push({
-										label: data[i].name,
-										value: data[i]
-									});
-								}
-							}
-							return formatted;
-						}
-					
-						
 						
 						
 						if(!isDataObtained){
@@ -94,12 +108,12 @@ define(function(require) {
 									isDataObtained = true;
 									dataObtained = results.data;
 									// Filter the results and return a label/value object array  
-									var formatted = filterData(results.data);
+									var formatted = getAutosuggestOptions(results.data, $(element).val(), self.allMembers);
 									add(formatted);
 								}
 							});
 						} else {
-							var formatted = filterData(dataObtained);
+							var formatted = getAutosuggestOptions(dataObtained, $(element).val(), self.allMembers);
 							add(formatted);
 						}
 					};
@@ -148,21 +162,6 @@ define(function(require) {
 						$this = $(this);
 						var element = this.element;
 						
-						function filterData(data, query){
-							var formatted = [];
-							for(var i = 0; i< data.length; i++) {
-								console.log(data[i]);
-								console.log(data[i].name);
-								if (data[i].title.$t.toLowerCase().indexOf($(element).val().toLowerCase()) >= 0)
-									formatted.push({
-										label: data[i].title.$t + "(" + data[i].email+ ")",
-										value: data[i]
-									});
-							}
-							return formatted;
-						}
-					
-						
 						if(!isGoogleDataObtained){
 							// Call out to the Graph API for the friends list
 							$.ajax({
@@ -186,7 +185,7 @@ define(function(require) {
 										return  returnValue
 									});
 									// Filter the results and return a label/value object array  
-									var formatted = filterData(googleDataObtained);
+									var formatted = getAutosuggestOptions(googleDataObtained, $(element).val(), self.allMembers);
 									add(formatted);
 								}, 
 								error : function(xhr, errorText, error){
@@ -196,7 +195,7 @@ define(function(require) {
 								}
 							});
 						} else {
-							var formatted = filterData(googleDataObtained);
+							var formatted = getAutosuggestOptions(googleDataObtained, $(element).val(), self.allMembers);
 							add(formatted);
 						}
 					};
@@ -350,6 +349,32 @@ define(function(require) {
 			
 			this.$('.js-' + loginType + '-autocomplete').css('display', '');
 			this.$('.js-' + loginType +'-login').css('display', 'none');
+		},
+		getGroups : function(){
+			var self = this;
+			var data = {
+				url : '_ah/api/userendpoint/v1/user/' + userInfo.userId + '/group/',
+				callback : function(response){
+					
+					var groups = response.items;
+					self.groups = response;
+					var allMembers = {};
+					self.allMembers = allMembers;
+					var groupMap = self.groupMap = {};
+					for(var groupIndex in groups){
+						var groupInfo = groups[groupIndex];
+						for(var memberIndex in groupInfo.members ){
+							allMembers[groupInfo.members[memberIndex].userId] = groupInfo.members[memberIndex];
+						}
+						groupMap[groupInfo.groupId] = groupInfo;
+					}
+					
+				},
+				context : this,
+				dataType: 'json'
+			};
+			
+			Sandbox.doGet(data);
 		}
 		
 	});
