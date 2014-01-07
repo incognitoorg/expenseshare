@@ -51,7 +51,9 @@ define(function(require){
 		render : function(){
 			$(this.el).html(this.template());
 			
-			this.$('.scrollable-right-section').height($('body').height()-(45));
+			if(($('.is-mobile').css('display') !== 'none')) {
+				this.$('.scrollable-right-section').height($('body').height()-(45));
+			}
 		},
 		events : {
 			'click .js-menu' : 'eventShowView',
@@ -104,6 +106,59 @@ define(function(require){
 					self.showMenu(event);
 				});
 				
+				if(!($('.is-mobile').css('display') !== 'none')) {
+			        is_mobile = true;   
+			        var menuBarHeight = $('.js-show-menu').height();
+			        
+			     /*   var lastScroll = 0;
+			        $('.scrollable-right-section').scroll(function(event){
+			            
+			            var st = $(this).scrollTop();
+			  		  
+			            if (st > lastScroll){ //down
+			               $('.js-show-menu').stop().animate({
+								height: 0,
+							}, 1000);
+			            }
+			            else { //up
+			               $('.js-show-menu').stop().animate({
+								height: menuBarHeight,
+							}, 1000);
+			            }
+			            lastScroll = st;
+			          });
+			        
+			        
+			        
+			        
+			        */
+			        
+			       var menuBarHeight = $('.js-show-menu').height();
+			    
+			        $('.scrollable-right-section').on('scroll', function(){
+			        	
+			        	var $menuBar = $('.js-show-menu');
+			        	if($('.scrollable-right-section').scrollTop()>100){
+			        		if($menuBar.height()!==0){
+			        			$menuBar.animate({
+									height: 0,
+								}, 1000, function() {
+									// Animation complete.
+								});
+			        		}
+			        		
+			        	} else if($('.scrollable-right-section').scrollTop()<50) {
+			        		if($menuBar.height()!==menuBarHeight){
+			        			$menuBar.animate({
+			        				height: menuBarHeight,
+			        			}, 1000, function() {
+			        				// Animation complete.
+			        			});
+			        		}
+			        		
+			        	}
+			        });
+				}
 			}
 			
 			//TODO : Put this in some common place
