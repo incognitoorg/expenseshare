@@ -171,7 +171,7 @@ define(function (require) {
 		
 		
 		var storedAllUserData;
-		/*if(Modernizr.localstorage && !navigator.onLine){
+		if(true){
 			var URL = data.url;
 			var endPointURL = URL.substr(URL.indexOf('endpoint'));
 			
@@ -185,14 +185,18 @@ define(function (require) {
 			
 			var storedAllUserData = JSON.parse(localStorage.getItem('user'));
 			
-			if(storedAllUserData){
+			/*if(storedAllUserData){
 				var storedUserData = storedAllUserData[userId];
 				storedUserData[endPointType].items.push(dataToSend);
 				localStorage.setItem('user', JSON.stringify(storedAllUserData));
 			}
-			callback.call(data.context, data.data);
+			callback.call(data.context, data.data);*/
 			//locallayer.doAdd(data);
-		} else */{
+		} 
+		
+		
+		/*else*/
+		{
 			
 			var data = _.extend(data, {
 					dataType: 'json',
@@ -213,7 +217,7 @@ define(function (require) {
 						  
 						  if(storedAllUserData){
 								var storedUserData = storedAllUserData[userId];
-								storedUserData[endPointType].items.push(dataToSend);
+								storedUserData[endPointType].items.push(response);
 								localStorage.setItem('user', JSON.stringify(storedAllUserData));
 						  }
 						  callback.call(data.context, response);
