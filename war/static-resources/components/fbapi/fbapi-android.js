@@ -101,7 +101,7 @@ define(function(require) {
 		    authorize_url += "&display=" + (display ? display : "touch");
 		    authorize_url += "&type=user_agent";
 		    
-		    var ref = window.open(authorize_url, '_blank', 'location=yes');
+		    var ref = window.open(authorize_url, '_blank', 'location=no');
 		    
 		    var self = this;
 		    
