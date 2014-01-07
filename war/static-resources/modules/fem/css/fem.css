@@ -22,7 +22,7 @@ body {
 }
 
 .js-right-panel>div>div {
-	height: 99%;
+	/* height: 99%; */
 }
 
 .js-right-panel{
@@ -174,7 +174,13 @@ input{
 }
 
 .scrollable-right-section{
-	overflow-y:scroll; 
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 90%;
+	width: 100%!important;
+	position: absolute;
+	padding-bottom: 45px!important;
+	
 }
 
 .js-menu .title{
@@ -187,11 +193,15 @@ input{
 
 
 @media only screen and (max-width: 40.063em) {
+	/* .scrollable-right-section{
+		position: absolute;
+	} */
+	
 	.js-view-item{
 		background: #5E5E5E;
 	}
 	.js-view-item>div{
-		height: 100%;
+		/* height: 100%; */
 		margin-top: 4px!important;
 		margin-left: -10px!important;
 		margin-right: -10px!important;
