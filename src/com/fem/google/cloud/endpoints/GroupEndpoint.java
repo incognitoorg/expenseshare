@@ -139,7 +139,7 @@ public class GroupEndpoint {
 				User user = (User) iterator.next();
 				alMembersIdList.add(user.getUserId());
 			}
-			//Pushing to databse since needs group id
+			//Pushing to database since needs group id
 			group = mgr.makePersistent(group);
 			
 			for (Iterator<User> iterator = alTotalMembers.iterator(); iterator.hasNext();) {
