@@ -23,6 +23,7 @@ define(function(require) {
 			}
 		}
 		
+		//TODO : Uncomment for adding support for adding members already available.
 		/*if(allMembers){
 			for(var index in allMembers){
 				if(allMembers[index].fullName.toLowerCase().indexOf(query.toLowerCase()) >= 0){
@@ -123,26 +124,30 @@ define(function(require) {
 					//self.$('.js-friend-selector').val(ui.item.label);
 					self.$('.js-facebook-friend-selector').val('').focus();
 					var friendInfo = ui.item.value;
-					$.ajax({
-						url: 'https://graph.facebook.com/' + friendInfo.id +'?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
-						dataType: "jsonp",
-						success : function(response){
-							var normalizedFriendInfo = {
-									'fullName' : friendInfo.name,
-									'name' : friendInfo.name,
-									facebookId : friendInfo.id,
-									loginType : 'facebook',
-									facebookEmail : response.username + "@facebook.com",
-									firstName : response.first_name,
-									lastName : response.last_name
-								};
-								self.addFriendToGroup(normalizedFriendInfo);
-								self.$('.js-add-group-form').valid();
-						}
-					});
 					
 					
-					
+					if(friendInfo.userId){
+						normalizedFriendInfo = friendInfo;
+						self.addFriendToGroup(normalizedFriendInfo);
+					} else {
+						$.ajax({
+							url: 'https://graph.facebook.com/' + friendInfo.id +'?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
+							dataType: "jsonp",
+							success : function(response){
+								var normalizedFriendInfo = {
+										'fullName' : friendInfo.name,
+										'name' : friendInfo.name,
+										facebookId : friendInfo.id,
+										loginType : 'facebook',
+										facebookEmail : response.username + "@facebook.com",
+										firstName : response.first_name,
+										lastName : response.last_name
+									};
+									self.addFriendToGroup(normalizedFriendInfo);
+									self.$('.js-add-group-form').valid();
+							}
+						});
+					}
 					return false;
 				},
 				minLength:1,
@@ -206,13 +211,18 @@ define(function(require) {
 					self.$('.js-google-friend-selector').val('').focus();
 					
 					var friendInfo = ui.item.value;
-					var normalizedFriendInfo = {
-						fullName : friendInfo.title.$t,
-						name : friendInfo.title.$t,
-						googleId : '',
-						loginType : 'google',
-						email : friendInfo.email,
-					};
+					var normalizedFriendInfo = null;
+					if(friendInfo.userId){
+						normalizedFriendInfo = friendInfo;
+					} else {
+						normalizedFriendInfo = {
+							fullName : friendInfo.title.$t,
+							name : friendInfo.title.$t,
+							googleId : '',
+							loginType : 'google',
+							email : friendInfo.email,
+						};
+					}
 					
 					self.addFriendToGroup(normalizedFriendInfo);
 					self.$('.js-add-group-form').valid();
