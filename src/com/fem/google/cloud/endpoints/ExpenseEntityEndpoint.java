@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
@@ -14,8 +15,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
 
-import org.datanucleus.util.StringUtils;
-
+import com.fem.temp.GainerLoserInfo;
 import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -261,7 +261,7 @@ public class ExpenseEntityEndpoint {
 	
 	
 	
-	private void updateIOU(ExpenseEntity objExpenseEntity, Group objGroup, String mode){
+	private void updateIOU(ExpenseEntity objExpenseEntity, ArrayList<IOU> alIOU, String mode){
 		
 		HashMap<String, Double> calculatedIOU = new HashMap<String, Double>();
 		
@@ -287,7 +287,93 @@ public class ExpenseEntityEndpoint {
 		HashMap<String, Double> gainersMap = new HashMap<String, Double>();
 		HashMap<String, Double> losersMap = new HashMap<String, Double>();
 		
-		//TODO : Continue here for code of updateIOU conversion
+		ArrayList<GainerLoserInfo> alGainers = new ArrayList<GainerLoserInfo>();
+		ArrayList<GainerLoserInfo> alLosers = new ArrayList<GainerLoserInfo>();
+		
+		int gainerCount = 0;
+		int loserCount = 0;
+		
+		Set<String> gainerLoserKeys = gainerLosers.keySet(); 
+		
+		for (String index : gainerLoserKeys) {
+			double credit = 0.0;
+			ExpenseInfo objExpenseInfoCredit =  payersInfoMap.get(index);
+			if(objExpenseInfoCredit!=null){
+				credit = objExpenseInfoCredit.getAmount();
+			}
+			
+			double debit = 0.0;
+			ExpenseInfo objExpenseInfoDebit =  payersInfoMap.get(index);
+			if(objExpenseInfoDebit!=null){
+				debit = objExpenseInfoDebit.getAmount();
+			}
+			
+			double diff = credit - debit;
+			
+			gainerLosers.put(index, diff);
+			
+			if(diff>0){
+				gainersMap.put(index, diff);
+				alGainers.add(new GainerLoserInfo(diff, index));
+			} else {
+				losersMap.put(index, diff);
+				alLosers.add(new GainerLoserInfo(diff, index));
+			}
+		}
+		
+		if(mode.equals("delete")){
+			//Swapping for delete
+			ArrayList<GainerLoserInfo> alTemp = alGainers ;
+			alGainers = alLosers;
+			alLosers = alTemp;
+		}
+		
+		
+		for ( int i = 0,j=0; i < alGainers.size(); i++) {
+			GainerLoserInfo payer = alGainers.get(i);
+			
+			double amountToDistribute = payer.getAmount();
+			while(amountToDistribute>0){
+				//This will throw indexOutOfBounds if something wrong happens.
+				GainerLoserInfo member = alLosers.get(j++);
+				//TODO : This is put when amount to distribute is not summing up with member amounts
+				//Need to put better approach here
+				/*if(!member){
+				    break;
+				}*/
+				double amountToDeduct = member.getAmount();
+				
+				if(amountToDistribute<amountToDeduct){
+					amountToDeduct = amountToDistribute;
+					//TODO : To check on the round approach for more correctness
+					//member.amount -= Math.round(amountToDistribute);
+					member.setAmount(member.getAmount()-amountToDistribute);
+					amountToDistribute = 0;
+					j--;
+				} else {
+					amountToDistribute -= amountToDeduct;
+				}
+				//calculatedIOU[member.userId +"-"+ payer.userId]={amount:amountToDeduct};
+				calculatedIOU.put(member.getUserId() +"-"+ payer.getUserId(), amountToDeduct);
+			}
+		}
+		
+		for (IOU iou : alIOU) {
+			String forwardKey = iou.getFromUserId() + "-" +iou.getToUserId();
+			Double forwardAmount = calculatedIOU.get(forwardKey);
+			
+			if(forwardAmount!=null){
+				iou.setAmount(iou.getAmount() + forwardAmount);;
+			} else {
+				String backwardKey = iou.getToUserId() + "-" +iou.getFromUserId();
+				Double backwardAmount = calculatedIOU.get(backwardKey);
+				if(backwardAmount!=null){
+					iou.setAmount(iou.getAmount() - backwardAmount); ;
+				}
+				
+			}
+		}
+		
 		
 	}
 	
@@ -309,8 +395,8 @@ public class ExpenseEntityEndpoint {
 			
 			Group objGroup = expenseentity.getGroup();
 			
-			//This is an expense without group
 			//Experiemental stuff for adding expense without group
+			//This is an expense without group
 			/*if(StringUtils.isEmpty(objGroup.getGroupId())){
 				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers());
 				
