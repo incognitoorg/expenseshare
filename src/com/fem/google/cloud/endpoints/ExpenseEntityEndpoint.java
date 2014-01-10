@@ -280,7 +280,7 @@ public class ExpenseEntityEndpoint {
 		
 		for ( int i = 0; i < listIncludeMemberInfo.size(); i++) {
 			gainerLosers.put(listIncludeMemberInfo.get(i).getUserId(), 0.0);
-			payersInfoMap.put(listIncludeMemberInfo.get(i).getUserId(), listIncludeMemberInfo.get(i));
+			includedMembersInfoMap.put(listIncludeMemberInfo.get(i).getUserId(), listIncludeMemberInfo.get(i));
 		}
 		
 		
@@ -303,7 +303,7 @@ public class ExpenseEntityEndpoint {
 			}
 			
 			double debit = 0.0;
-			ExpenseInfo objExpenseInfoDebit =  payersInfoMap.get(index);
+			ExpenseInfo objExpenseInfoDebit =  includedMembersInfoMap.get(index);
 			if(objExpenseInfoDebit!=null){
 				debit = objExpenseInfoDebit.getAmount();
 			}
@@ -317,7 +317,7 @@ public class ExpenseEntityEndpoint {
 				alGainers.add(new GainerLoserInfo(diff, index));
 			} else {
 				losersMap.put(index, diff);
-				alLosers.add(new GainerLoserInfo(diff, index));
+				alLosers.add(new GainerLoserInfo(Math.abs(diff), index));
 			}
 		}
 		
@@ -422,6 +422,10 @@ public class ExpenseEntityEndpoint {
 			mgr.makePersistent(expenseentity);
 			
 			objGroup.setMembers(null);//Removing members as they are not embedded.
+			
+			
+			this.updateIOU(expenseentity, objGroup.getIouList(), "add");
+			
 			mgr.makePersistent(objGroup);
 			
 		} catch(Exception e) {
@@ -452,6 +456,11 @@ public class ExpenseEntityEndpoint {
 			expenseentity.setGroup(null);
 			
 			ExpenseEntity oldExpenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
+			
+			this.updateIOU(oldExpenseentity, objGroup.getIouList(), "delete");
+			this.updateIOU(expenseentity, objGroup.getIouList(), "edit");
+			
+			
 			//Removing related expenseinfo
 			for (Iterator iterator = oldExpenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
 				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
@@ -481,6 +490,8 @@ public class ExpenseEntityEndpoint {
 			
 			
 			objGroup.setMembers(null);//Removing members as they are not embedded.
+			
+			
 			mgr.makePersistent(objGroup);
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
@@ -513,6 +524,8 @@ public class ExpenseEntityEndpoint {
 			//Attaching to JDO
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
 			
+			this.updateIOU(expenseentity, objGroup.getIouList(), "delete");
+
 			//Removing related expenseinfo
 			for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
 				ExpenseInfo objExpenseInfo = (ExpenseInfo) iterator.next();
@@ -526,6 +539,8 @@ public class ExpenseEntityEndpoint {
 			}
 			
 			objGroup.setMembers(null);//Removing members as they are not embedded.
+			
+			
 			mgr.makePersistent(objGroup);
 			
 			

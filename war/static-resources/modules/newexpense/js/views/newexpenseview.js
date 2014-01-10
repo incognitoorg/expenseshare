@@ -548,10 +548,11 @@ define(function(require) {
 				
 				var objExpenseModel = new ExpenseModel(expenseData);
 				
-				if(self.mode && self.mode=='edit'){
+				//TODO : This calculation has been moved to back end ExpenseEntityEndpoint.updateIOU(). Can be deleted when confident of correct working.
+				/*if(self.mode && self.mode=='edit'){
 					ExpenseUtility.updateIOU(self.oldObjExpenseModel.attributes, objExpenseModel.attributes.group, 'delete');
 				}
-				ExpenseUtility.updateIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);
+				ExpenseUtility.updateIOU(objExpenseModel.attributes, objExpenseModel.attributes.group);*/
 				
 				var ajaxData = {
 					url :'_ah/api/expenseentityendpoint/v1/expenseentity',

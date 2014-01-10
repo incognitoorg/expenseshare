@@ -1,4 +1,6 @@
 define(function(){
+	
+	//TODO : This calculation has been moved to back end ExpenseEntityEndpoint.updateIOU(). Can be deleted when confident of correct working.
 	function updatedIOU(expenseModel, group, mode ){
 		
 		var calculatedIOU = {};

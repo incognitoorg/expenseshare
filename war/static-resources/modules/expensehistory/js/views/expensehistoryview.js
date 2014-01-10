@@ -325,7 +325,11 @@ define(function(require) {
 		},
 		groupDataObtained : function(response, expense){
 			var group = response;
-			var updatedGroup = ExpenseUtility.updateIOU(expense, group, 'delete');
+			
+			//TODO : This calculation has been moved to back end ExpenseEntityEndpoint.updateIOU(). Can be deleted when confident of correct working.
+			//var updatedGroup = ExpenseUtility.updateIOU(expense, group, 'delete');
+			
+			var updatedGroup = group;
 			
 			expense.group = updatedGroup;
 			
