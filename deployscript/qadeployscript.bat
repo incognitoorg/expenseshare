@@ -15,7 +15,7 @@ cd ..\r-js-optimizer\
 call optimize.cmd
 cd ..\deployscript\
 
-REM call "D:\chrome-downloads\appengine-java-sdk-1.8.6\bin\appcfg.cmd" update ../war
+call "D:\chrome-downloads\appengine-java-sdk-1.8.6\bin\appcfg.cmd" update ../war
 
 echo "Coming back to local"
 "C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/mode='qa'/mode='local'/g ..\war\static-resources\core\envvariables.js
