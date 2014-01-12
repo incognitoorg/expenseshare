@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="FEM" >
 	<property name="project.dir" location="." />
+	<delete includeemptydirs="true">
+    	<fileset dir="${project.dir}/assets/www/static-resources/" includes="**/*" />
+  	</delete>
 	<copy todir="${project.dir}/assets/www/static-resources/">
     	<fileset dir="${project.dir}/war/static-resources/"/>
 	</copy>
+	
 
 </project>
