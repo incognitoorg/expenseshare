@@ -952,6 +952,15 @@ header .row {
 			document.getElementById('appcontainer').style.display = "";
 		}
 		window.EnvVariablesGlobal = function(mode) {
+			
+			if(location.href.indexOf("xpenseshareapp.appspot.com")!=-1){
+				mode = "production";
+			} else if(location.href.indexOf("fem-qa.appspot.com")!=-1){
+				mode = "qa";
+			} else {
+				mode = "local";
+			}
+			
 			if (mode == "production") {
 				return {
 					API_URL : "https://xpenseshareapp.appspot.com/",
@@ -985,7 +994,7 @@ header .row {
 					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
 				};
 			}
-		}("local");
+		}();
 		function showMask(textToShow) {
 			var mask = document.getElementById('mask')
 			mask.style['z-index'] = 32767;
