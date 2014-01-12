@@ -75,6 +75,7 @@ public class ExpenseEntityEndpoint {
 			mgr.close();
 		}
 
+		
 		return CollectionResponse.<ExpenseEntity> builder().setItems(execute)
 				.setNextPageToken(cursorString).build();
 	}
