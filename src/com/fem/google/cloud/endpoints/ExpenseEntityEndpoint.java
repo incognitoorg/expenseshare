@@ -69,7 +69,7 @@ public class ExpenseEntityEndpoint {
 			for (ExpenseEntity obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);
 			throw e;
 		} finally {
 			mgr.close();
@@ -92,7 +92,7 @@ public class ExpenseEntityEndpoint {
 		try {
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);
 			throw e;
 		} finally {
 			mgr.close();
@@ -429,7 +429,7 @@ public class ExpenseEntityEndpoint {
 			mgr.makePersistent(objGroup);
 			
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);
 			throw e;
 		} finally {
 			mgr.close();
@@ -494,7 +494,7 @@ public class ExpenseEntityEndpoint {
 			
 			mgr.makePersistent(objGroup);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);
 			throw e;
 		} finally {
 			mgr.close();
@@ -546,7 +546,7 @@ public class ExpenseEntityEndpoint {
 			
 			mgr.deletePersistent(expenseentity);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString() , null);
 			throw e;
 		} finally {
 			mgr.close();
@@ -571,7 +571,7 @@ public class ExpenseEntityEndpoint {
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, id);
 			mgr.deletePersistent(expenseentity);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);
 			throw e;
 		} finally {
 			mgr.close();
