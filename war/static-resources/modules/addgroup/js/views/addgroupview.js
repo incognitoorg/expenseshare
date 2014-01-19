@@ -80,7 +80,6 @@ define(function(require) {
 				this.mode = 'add';
 				this.group = {};
 			}
-			
 		},
 		renderGroupData : function(group){
 			this.$('.js-group-name').val(group.groupName);
