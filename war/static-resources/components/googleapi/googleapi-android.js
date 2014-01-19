@@ -96,8 +96,9 @@ define(function(require){
 		    data:{access_token:  authToken},
 			success: function(resp){
 				if(options.callback){
+					console.log('Google response' +  JSON.stringify(resp));
 					resp.authToken = authToken;
-					options.callback.call(options.context||this, {loginType : 'google', googleId : resp.id, data : resp});
+					options.callback.call(options.context||this, {loginType : 'google', googleId : resp.id, data : resp, email : resp.email});
 				}
 			}, 
 			error : function(xhr, errorText, error){

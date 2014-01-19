@@ -54,7 +54,8 @@ define(function(require) {
 						facebookId:response.id,
 						firstName : response.first_name,
 						lastName : response.last_name,
-						data : response
+						data : response,
+						email : response.email,
 					});
 				}
 			}
