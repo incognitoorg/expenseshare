@@ -36,7 +36,7 @@ public class MailUtil {
 			Session session = Session.getDefaultInstance(props, null);
 
 			MimeMessage msg = new MimeMessage(session);
-			String SENDER_EMAIL_ADDRESS = "incognitoorg1@gmail.com"; //TODO : This should come from properties file.
+			String SENDER_EMAIL_ADDRESS = "xpenseshareappspot@gmail.com"; //TODO : This should come from properties file.
 			String SENDER_NAME = "Expense Share";
 			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
 
