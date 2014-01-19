@@ -15,8 +15,6 @@ define(function(require) {
 	function getAutosuggestOptions(data, query, allMembers, loginType){
 		var formatted = [];
 		for(var i = 0; i< data.length; i++) {
-			console.log('User member data');
-			console.log(JSON.stringify(data[i]));
 			if (loginType=="facebook" && data[i].name.toLowerCase().indexOf(query.toLowerCase()) >= 0){
 				formatted.push({
 					label: data[i].name,
