@@ -764,7 +764,7 @@ header .row {
 			</section>
 		</nav>
 	</div>
-	<div class="large-12 small-12 columns landing-page-container full"
+	<div class="large-12 small-12 columns landing-page-container full hide"
 		id=landing-page style="display: none;">
 		<div class=row>
 			<div
@@ -946,8 +946,8 @@ header .row {
 	<div class="hide-for-medium is-medium"></div>
 	<div class="hide-for-large is-desktop"></div>
 	<script>
-		//Showing login directly on phone.
-		showLogin();
+		
+		
 		if (localStorage.loggedInUser) {
 			document.getElementById('landing-page').style.display = "none";
 			document.getElementById('mask').style.display = "";
@@ -960,7 +960,7 @@ header .row {
 					FB_APP_ID : '295620837229600',
 					GOOGLE_CLIENT_ID : '684896938909.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyDlmVOo6XaTWCvcLRVgHUVeEkN05BpD99I',
-					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email',
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/userinfo.profile https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email',
 					GOOGLE_CLIENT_SECRET : 'Nbbaz0J50cWsrLEACM-ZGHTY'
 				};
 			} else if (mode === 'dev') {
@@ -969,7 +969,7 @@ header .row {
 					FB_APP_ID : '605170889512500',
 					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
-					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/userinfo.profile https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
 				};
 			} else if (mode === 'local') {
 				return {
@@ -977,7 +977,7 @@ header .row {
 					FB_APP_ID : '503776339657462',
 					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
-					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
+					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/userinfo.profile https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
 				};
 			} else if (mode === "qa") {
 				return {
@@ -989,18 +989,22 @@ header .row {
 				};
 			}
 		}("production");
+		console.log("EnvVariablesGlobal.GOOGLE_API_SCOPE : " + EnvVariablesGlobal.GOOGLE_API_SCOPE);
 		function showMask(textToShow) {
 			var mask = document.getElementById('mask')
 			mask.style['z-index'] = 32767;
 			mask.style['display'] = "";
 			mask.innerHTML = textToShow;
 		}
+		
 		function hideMask() {
 			var mask = document.getElementById('mask')
 			mask.style['z-index'] = 0;
 			mask.style['display'] = "none";
 			mask.innerHTML = "";
 		}
+		//Showing login directly on phone.
+		showLogin();
 		var userInfo = localStorage.getItem('loggedInUser');
 		if (userInfo && JSON.parse(userInfo)) {
 			this.userInfo = JSON.parse(userInfo);
