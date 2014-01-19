@@ -117,11 +117,11 @@ define(function(require){
 			$(this.el).show();
 		},
 		normalizeUserData : function(data){
-			console.log('Normalize user data',data);
+			console.log('Normalize user data' + JSON.stringify(data));
 			if(data.loginType==='facebook'){
 				data.fullName = data.fullName || (data.firstName + ' ' + data.lastName);
 			} else if(data.loginType==='google'){
-				data.fullName = data.fullName || (data.data.name.givenName + ' ' + data.data.name.familyName);
+				data.fullName = data.fullName || (data.data.given_name + ' ' + data.data.family_name);
 			}
 			return data;
 		},
