@@ -75,6 +75,7 @@ define(function(require) {
 				this.group = group;
 				this.mode = 'edit';
 			} else {
+				userInfo.imgURL = userInfo.loginType==="facebook"?"http://graph.facebook.com/" + userInfo.facebookId + "/picture?width=43&height=43" : "https://plus.google.com/s2/photos/profile/" + userInfo.googleId + "?sz=45" 
 				this.addFriendToGroup(userInfo);
 				this.mode = 'add';
 				this.group = {};
@@ -148,7 +149,8 @@ define(function(require) {
 										loginType : 'facebook',
 										facebookEmail : response.username + "@facebook.com",
 										firstName : response.first_name,
-										lastName : response.last_name
+										lastName : response.last_name,
+										imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" 
 									};
 									self.addFriendToGroup(normalizedFriendInfo);
 									self.$('.js-add-group-form').valid();
@@ -222,12 +224,14 @@ define(function(require) {
 					if(friendInfo.userId){
 						normalizedFriendInfo = friendInfo;
 					} else {
+						var probableImageURL = friendInfo.email.substr(0, friendInfo.email.indexOf("@"))
 						normalizedFriendInfo = {
 							fullName : friendInfo.title.$t,
 							name : friendInfo.title.$t,
 							googleId : '',
 							loginType : 'google',
 							email : friendInfo.email,
+							imgURL : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" 
 						};
 					}
 					
