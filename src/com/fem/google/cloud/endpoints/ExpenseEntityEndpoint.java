@@ -348,7 +348,7 @@ public class ExpenseEntityEndpoint {
 					amountToDeduct = amountToDistribute;
 					//TODO : To check on the round approach for more correctness
 					//member.amount -= Math.round(amountToDistribute);
-					member.setAmount(member.getAmount()-amountToDistribute);
+					member.setAmount((member.getAmount()*100-amountToDistribute*100)/100);
 					amountToDistribute = 0;
 					j--;
 				} else {
