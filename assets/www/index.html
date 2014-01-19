@@ -946,6 +946,8 @@ header .row {
 	<div class="hide-for-medium is-medium"></div>
 	<div class="hide-for-large is-desktop"></div>
 	<script>
+		//Showing login directly on phone.
+		showLogin();
 		if (localStorage.loggedInUser) {
 			document.getElementById('landing-page').style.display = "none";
 			document.getElementById('mask').style.display = "";
@@ -1099,7 +1101,7 @@ a {
 					<li><a href="#">Contact</a></li>
 					<li><a href="#">Sitemap</a></li>
 				</ul>
-			</div
+			</div>
 		</div>
 	</div>
 </body>
