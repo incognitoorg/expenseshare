@@ -12,15 +12,24 @@ define(function(require) {
 	require('css!../../css/addgroup.css');
 	var userInfo = login.getInfo();
 	
-	function getAutosuggestOptions(data, query, allMembers){
+	function getAutosuggestOptions(data, query, allMembers, loginType){
 		var formatted = [];
 		for(var i = 0; i< data.length; i++) {
-			if (data[i].name.toLowerCase().indexOf(query.toLowerCase()) >= 0){
+			console.log('User member data');
+			console.log(JSON.stringify(data[i]));
+			if (loginType=="facebook" && data[i].name.toLowerCase().indexOf(query.toLowerCase()) >= 0){
 				formatted.push({
 					label: data[i].name,
 					value: data[i]
 				});
 			}
+			
+			if (loginType=="google" &&data[i].title.$t.toLowerCase().indexOf(query.toLowerCase()) >= 0)
+				formatted.push({
+					label: data[i].title.$t + "(" + data[i].email+ ")",
+					value: data[i]
+			});
+			
 		}
 		
 		//TODO : Uncomment for adding support for adding members already available.
@@ -109,12 +118,12 @@ define(function(require) {
 									isDataObtained = true;
 									dataObtained = results.data;
 									// Filter the results and return a label/value object array  
-									var formatted = getAutosuggestOptions(results.data, $(element).val(), self.allMembers);
+									var formatted = getAutosuggestOptions(results.data, $(element).val(), self.allMembers, "facebook");
 									add(formatted);
 								}
 							});
 						} else {
-							var formatted = getAutosuggestOptions(dataObtained, $(element).val(), self.allMembers);
+							var formatted = getAutosuggestOptions(dataObtained, $(element).val(), self.allMembers, "facebook");
 							add(formatted);
 						}
 					};
@@ -190,7 +199,7 @@ define(function(require) {
 										return  returnValue
 									});
 									// Filter the results and return a label/value object array  
-									var formatted = getAutosuggestOptions(googleDataObtained, $(element).val(), self.allMembers);
+									var formatted = getAutosuggestOptions(googleDataObtained, $(element).val(), self.allMembers,  "google");
 									add(formatted);
 								}, 
 								error : function(xhr, errorText, error){
@@ -200,7 +209,7 @@ define(function(require) {
 								}
 							});
 						} else {
-							var formatted = getAutosuggestOptions(googleDataObtained, $(element).val(), self.allMembers);
+							var formatted = getAutosuggestOptions(googleDataObtained, $(element).val(), self.allMembers, "google");
 							add(formatted);
 						}
 					};
