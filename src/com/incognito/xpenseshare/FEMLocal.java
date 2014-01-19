@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.incognito.femandroid;
+package com.incognito.xpenseshare;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
