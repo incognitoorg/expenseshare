@@ -19,9 +19,12 @@
 
 package com.incognito.xpenseshare;
 
-import android.os.Bundle;
-import org.apache.cordova.*;
+import org.apache.cordova.Config;
+import org.apache.cordova.DroidGap;
 import org.apache.cordova.softkeyboardbugfix.AndroidBug5497Workaround;
+
+import android.os.Bundle;
+import android.view.WindowManager;
 
 public class FEMLocal extends DroidGap
 {
@@ -33,6 +36,8 @@ public class FEMLocal extends DroidGap
         super.loadUrl(Config.getStartUrl());
         AndroidBug5497Workaround.assistActivity(this);
         //super.loadUrl("file:///android_asset/www/index.cordova.html");
+        
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }
 
