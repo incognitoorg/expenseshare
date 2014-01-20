@@ -10,13 +10,14 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Key;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Group {
 
 	
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
     private String groupId;
 	
 	private String createdBy;
@@ -70,12 +71,6 @@ public class Group {
 		this.members = members;
 	}
 	
-	public String getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
 	
 	public ArrayList<String> getMembersIdList() {
 		return membersIdList;
@@ -118,6 +113,12 @@ public class Group {
 	}
 	public void setEditedAt(Date editedAt) {
 		this.editedAt = editedAt;
+	}
+	public String getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 	
 	

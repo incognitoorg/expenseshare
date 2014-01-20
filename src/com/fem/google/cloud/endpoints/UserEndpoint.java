@@ -261,6 +261,7 @@ public class UserEndpoint {
 	 * This method is supposed to retrieve group information of specific group.
 	 * @param userId UserId of the user whose groups to be fetched
 	 * @param groupId Group id of which information is to be fetched.
+	 * @throws Exception 
 	 * */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(
@@ -268,20 +269,9 @@ public class UserEndpoint {
 			name = "user.groups.group",
 			path="user/{userId}/group/{groupId}"
 			)
-	public Group getGroup(@Named("userId") String userId, @Named("groupId") String groupId) {
+	public Group getGroup(@Named("userId") String userId, @Named("groupId") String groupId) throws Exception {
 		Group objGroup = new Group();
-
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		Query q = pm.newQuery(Group.class);
-
-		q.setFilter("groupId == groupIdParam");
-		q.declareParameters("String groupIdParam");
-
-		List<Group> groups = (List<Group>) q.execute(groupId);
-
-		objGroup = groups.get(0);
-
+		objGroup = new GroupEndpoint().getGroup(groupId);
 		return objGroup;
 	}
 

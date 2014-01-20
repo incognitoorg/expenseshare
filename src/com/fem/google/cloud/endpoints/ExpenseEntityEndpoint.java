@@ -8,12 +8,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
+
+import org.datanucleus.util.StringUtils;
 
 import com.fem.temp.GainerLoserInfo;
 import com.fem.util.MailUtil;
@@ -21,6 +25,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
@@ -152,18 +157,18 @@ public class ExpenseEntityEndpoint {
 	
 	
 	
-	private Friendship createFriendship(PersistenceManager mgr ,ArrayList<User> memmbers) throws NoSuchAlgorithmException{
+	private Friendship createFriendship(PersistenceManager mgr ,ArrayList<User> members) throws NoSuchAlgorithmException{
 		
 		Friendship objFriendship = new Friendship();
 		
 		ArrayList<String> alGroupIds = new ArrayList<String>(); 
 		
-		for (int i = 0; i < memmbers.size(); i++) {
+		for (int i = 0; i < members.size(); i++) {
 
-			User fromUser = memmbers.get(i);
+			User fromUser = members.get(i);
 			
-			for (int j = i+1; j < memmbers.size(); j++) {
-				User toUser = memmbers.get(j);
+			for (int j = i+1; j < members.size(); j++) {
+				User toUser = members.get(j);
 				Group objGroup = this.getOrGenerateGroup(mgr, fromUser, toUser);
 				alGroupIds.add(objGroup.getGroupId());
 			}
@@ -183,13 +188,23 @@ public class ExpenseEntityEndpoint {
 		String encryptedfirstPassGroupId = this.getHashId(alString);
 		
 		//TODO : Get group which includes two users and is of type dummy
-		Group objGroup = null;//mgr.getObjectById(Group.class, encryptedfirstPassGroupId);
-		
+		//TODO : Can use sorting technique for saving on read and writes. Ref : Vinayak S
+		Group objGroup = null;
+		try {
+			objGroup = mgr.getObjectById(Group.class, UUID.nameUUIDFromBytes(encryptedfirstPassGroupId.getBytes()).toString());
+		} catch (JDOObjectNotFoundException e){
+			//Eat the exception. Yummy.
+		}
 		if(objGroup==null){
 			ArrayList<String> alString2 = new ArrayList<String>();
 			alString2.add(fromUser.getUserId() + toUser.getUserId());
 			String encryptedSecondPassGroupId = this.getHashId(alString2);
-			objGroup = mgr.getObjectById(Group.class, encryptedSecondPassGroupId);
+			
+			try {
+				objGroup = mgr.getObjectById(Group.class, UUID.nameUUIDFromBytes(encryptedSecondPassGroupId.getBytes()).toString());
+			} catch (JDOObjectNotFoundException e){
+				//Eat the exception. Yummy.
+			}
 			
 			if(objGroup==null){
 				Group objGroupToWrite = new Group();
@@ -199,6 +214,9 @@ public class ExpenseEntityEndpoint {
 				membersIdList.add(fromUser.getUserId());
 				membersIdList.add(toUser.getUserId());
 				
+				
+				objGroupToWrite.setGroupId(UUID.nameUUIDFromBytes(encryptedSecondPassGroupId.getBytes()).toString());
+				
 				objGroupToWrite.setMembersIdList(membersIdList);
 				
 				ArrayList<User> alMembers = new ArrayList<User>();
@@ -207,6 +225,8 @@ public class ExpenseEntityEndpoint {
 				objGroupToWrite.setIouList(this.generateIOUEntries(alMembers, objGroupToWrite));
 				
 				mgr.makePersistent(objGroupToWrite);
+				objGroup = objGroupToWrite;
+				
 			}
 		}
 		
@@ -243,12 +263,13 @@ public class ExpenseEntityEndpoint {
 			
 			Query q  = mgr.newQuery(FriendshipIndex.class);
 			
-			q.setFilter("indexNo == indexNoParam");
+			q.setFilter("id == indexNoParam");
 			q.declareParameters("String indexNoParam");
 			List<FriendshipIndex> alFriendshipIndex = (List<FriendshipIndex>) q.execute(uniqueId);
 			
 			if(alFriendshipIndex.size()>0){
-				objFriendShip = mgr.getObjectById(Friendship.class, alFriendshipIndex.get(0));
+				FriendshipIndex friendshipId = alFriendshipIndex.get(0);
+				objFriendShip = mgr.getObjectById(Friendship.class, friendshipId);
 			} else {
 				objFriendShip = this.createFriendship(mgr, realUsers);
 			}
@@ -398,10 +419,10 @@ public class ExpenseEntityEndpoint {
 			
 			//Experiemental stuff for adding expense without group
 			//This is an expense without group
-			/*if(StringUtils.isEmpty(objGroup.getGroupId())){
+			if(StringUtils.isEmpty(objGroup.getGroupId())){
 				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers());
 				
-			}*/
+			}
 			
 			
 			expenseentity.setGroup(null);
@@ -427,7 +448,7 @@ public class ExpenseEntityEndpoint {
 			
 			this.updateIOU(expenseentity, objGroup.getIouList(), "add");
 			
-			mgr.makePersistent(objGroup);
+			//mgr.makePersistent(objGroup);
 			
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);

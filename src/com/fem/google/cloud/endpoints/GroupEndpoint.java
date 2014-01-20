@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
@@ -15,6 +16,7 @@ import com.fem.util.MailUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
 @Api(name = "groupendpoint")
@@ -140,6 +142,7 @@ public class GroupEndpoint {
 				alMembersIdList.add(user.getUserId());
 			}
 			//Pushing to database since needs group id
+			group.setGroupId(UUID.randomUUID().toString());
 			group = mgr.makePersistent(group);
 			
 			for (Iterator<User> iterator = alTotalMembers.iterator(); iterator.hasNext();) {
@@ -153,10 +156,15 @@ public class GroupEndpoint {
 			ArrayList<IOU> alIOU = this.generateIOUEntries(alTotalMembers, group);
 			group.setIouList(alIOU);
 			
+			
+			
+			
+			
 			group = mgr.makePersistent(group);
 			group.setMembersIdList(alMembersIdList);
 			
 		} catch(Exception e) {
+			e.printStackTrace();
 			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
 		} finally {
 			mgr.close();
