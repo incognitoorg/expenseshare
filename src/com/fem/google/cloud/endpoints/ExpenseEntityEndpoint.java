@@ -28,6 +28,7 @@ import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 @Api(name = "expenseentityendpoint")
 public class ExpenseEntityEndpoint {
@@ -107,8 +108,11 @@ public class ExpenseEntityEndpoint {
 	}
 
 	
-	private String getHashId(ArrayList<String> alStrings) throws NoSuchAlgorithmException{
+	private String getPrimaryKey(ArrayList<String> alStrings) throws NoSuchAlgorithmException{
 		String mergedString = "";
+		
+		java.util.Collections.sort(alStrings);
+		
 		for (Iterator iterator = alStrings.iterator(); iterator.hasNext();) {
 			String memberId = (String) iterator.next();
 			mergedString = mergedString.concat(memberId);
@@ -119,11 +123,10 @@ public class ExpenseEntityEndpoint {
 		messageDigest.update(mergedString.getBytes());
 		String encryptedString = new String(messageDigest.digest());
 		
-		return encryptedString;
-	}
-	
-	private Group getFrienshipGroup(){
-		return null;
+		
+		String friendshipId =  UUID.nameUUIDFromBytes(encryptedString.getBytes()).toString();
+		
+		return friendshipId;
 	}
 	
 	
@@ -150,18 +153,13 @@ public class ExpenseEntityEndpoint {
 	
 	
 	
-	
-	private Group createFriendshipGroup(String fromMemberId, String toMemberId){
-		return null;
-	}
-	
-	
-	
-	private Friendship createFriendship(PersistenceManager mgr ,ArrayList<User> members) throws NoSuchAlgorithmException{
+	private Friendship createFriendship(PersistenceManager mgr ,ArrayList<User> members, String friendShipId) throws NoSuchAlgorithmException{
 		
 		Friendship objFriendship = new Friendship();
 		
 		ArrayList<String> alGroupIds = new ArrayList<String>(); 
+		
+		ArrayList<IOU> alIOU = new ArrayList<IOU>();
 		
 		for (int i = 0; i < members.size(); i++) {
 
@@ -170,12 +168,17 @@ public class ExpenseEntityEndpoint {
 			for (int j = i+1; j < members.size(); j++) {
 				User toUser = members.get(j);
 				Group objGroup = this.getOrGenerateGroup(mgr, fromUser, toUser);
+				alIOU.addAll(objGroup.getIouList());
 				alGroupIds.add(objGroup.getGroupId());
 			}
 		}
 		objFriendship.setGroupIds(alGroupIds);
 		
+		objFriendship.setId(friendShipId);
+		
 		mgr.makePersistent(objFriendship);
+		
+		objFriendship.setIouList(alIOU);
 		
 		return objFriendship;
 	}
@@ -184,21 +187,24 @@ public class ExpenseEntityEndpoint {
 	private Group getOrGenerateGroup(PersistenceManager mgr , User fromUser, User toUser) throws NoSuchAlgorithmException {
 		ArrayList<String> alString = new ArrayList<String>();
 		
-		alString.add(fromUser.getUserId() + toUser.getUserId());
-		String encryptedfirstPassGroupId = this.getHashId(alString);
+		alString.add(fromUser.getUserId());
+		alString.add(toUser.getUserId());
+		
+		
+		String groupId = this.getPrimaryKey(alString);
 		
 		//TODO : Get group which includes two users and is of type dummy
 		//TODO : Can use sorting technique for saving on read and writes. Ref : Vinayak S
 		Group objGroup = null;
 		try {
-			objGroup = mgr.getObjectById(Group.class, UUID.nameUUIDFromBytes(encryptedfirstPassGroupId.getBytes()).toString());
+			objGroup = mgr.getObjectById(Group.class, groupId);
 		} catch (JDOObjectNotFoundException e){
 			//Eat the exception. Yummy.
 		}
 		if(objGroup==null){
-			ArrayList<String> alString2 = new ArrayList<String>();
+			/*ArrayList<String> alString2 = new ArrayList<String>();
 			alString2.add(fromUser.getUserId() + toUser.getUserId());
-			String encryptedSecondPassGroupId = this.getHashId(alString2);
+			String encryptedSecondPassGroupId = this.getPrimaryKey(alString2);
 			
 			try {
 				objGroup = mgr.getObjectById(Group.class, UUID.nameUUIDFromBytes(encryptedSecondPassGroupId.getBytes()).toString());
@@ -206,16 +212,16 @@ public class ExpenseEntityEndpoint {
 				//Eat the exception. Yummy.
 			}
 			
-			if(objGroup==null){
+			if(objGroup==null){*/
 				Group objGroupToWrite = new Group();
-				objGroupToWrite.setGroupName("Dummy between " + fromUser.getUserId() + " and " + toUser);
+				objGroupToWrite.setGroupName("Dummy between " + fromUser.getUserId() + " and " + toUser.getUserId());
 				objGroupToWrite.setGroupType("dummy");
 				ArrayList<String> membersIdList = new ArrayList<String>();
 				membersIdList.add(fromUser.getUserId());
 				membersIdList.add(toUser.getUserId());
 				
 				
-				objGroupToWrite.setGroupId(UUID.nameUUIDFromBytes(encryptedSecondPassGroupId.getBytes()).toString());
+				objGroupToWrite.setGroupId(groupId);
 				
 				objGroupToWrite.setMembersIdList(membersIdList);
 				
@@ -224,10 +230,19 @@ public class ExpenseEntityEndpoint {
 				alMembers.add(toUser);
 				objGroupToWrite.setIouList(this.generateIOUEntries(alMembers, objGroupToWrite));
 				
+				
+				for (Iterator<User> iterator = alMembers.iterator(); iterator.hasNext();) {
+					User user = (User) iterator.next();
+					GroupMemberMapping objGroupMemberMapping = new GroupMemberMapping();
+					objGroupMemberMapping.setGroupId(objGroupToWrite.getGroupId());
+					objGroupMemberMapping.setUserId(user.getUserId());
+					mgr.makePersistent(objGroupMemberMapping);
+				}
+				
 				mgr.makePersistent(objGroupToWrite);
 				objGroup = objGroupToWrite;
 				
-			}
+			/*}*/
 		}
 		
 		
@@ -253,25 +268,34 @@ public class ExpenseEntityEndpoint {
 			realUsers.add(user);
 			alMemberIds.add(user.getUserId());
 		}
+		String friendshipId = getPrimaryKey(alMemberIds);
 		
 		Friendship objFriendShip = null;
 		if(!allUserPresent){
-			objFriendShip = this.createFriendship(mgr, realUsers);
+			objFriendShip = this.createFriendship(mgr, realUsers, friendshipId);
 		} else {
 			
-			String uniqueId = getHashId(alMemberIds);
 			
-			Query q  = mgr.newQuery(FriendshipIndex.class);
+			/*Query q  = mgr.newQuery(FriendshipIndex.class);
 			
 			q.setFilter("id == indexNoParam");
 			q.declareParameters("String indexNoParam");
 			List<FriendshipIndex> alFriendshipIndex = (List<FriendshipIndex>) q.execute(uniqueId);
 			
 			if(alFriendshipIndex.size()>0){
-				FriendshipIndex friendshipId = alFriendshipIndex.get(0);
+				FriendshipIndex friendshipId = alFriendshipIndex.get(0);*/
+			try {
 				objFriendShip = mgr.getObjectById(Friendship.class, friendshipId);
-			} else {
+			} catch (javax.jdo.JDOObjectNotFoundException ex) {
+				new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
+			} finally {
+			}
+			/*} else {
 				objFriendShip = this.createFriendship(mgr, realUsers);
+			}*/
+				
+			if(objFriendShip==null){
+				objFriendShip = this.createFriendship(mgr, realUsers, friendshipId);
 			}
 		}
 		
@@ -283,7 +307,7 @@ public class ExpenseEntityEndpoint {
 	
 	
 	
-	private void updateIOU(ExpenseEntity objExpenseEntity, ArrayList<IOU> alIOU, String mode){
+	private void updateIOU(PersistenceManager mgr, ExpenseEntity objExpenseEntity, ArrayList<IOU> alIOU, String mode){
 		
 		HashMap<String, Double> calculatedIOU = new HashMap<String, Double>();
 		
@@ -397,6 +421,11 @@ public class ExpenseEntityEndpoint {
 		}
 		
 		
+		for (IOU iou : alIOU) {
+			mgr.makePersistent(iou);
+		}
+		
+		
 	}
 	
 	/**
@@ -416,12 +445,15 @@ public class ExpenseEntityEndpoint {
 			}*/
 			
 			Group objGroup = expenseentity.getGroup();
-			
+			ArrayList<IOU> iouToUpdate = null;
 			//Experiemental stuff for adding expense without group
 			//This is an expense without group
 			if(StringUtils.isEmpty(objGroup.getGroupId())){
 				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers());
+				iouToUpdate = objFriendship.getIOUList();
 				
+			} else {
+				iouToUpdate = objGroup.getIouList();
 			}
 			
 			
@@ -446,7 +478,7 @@ public class ExpenseEntityEndpoint {
 			objGroup.setMembers(null);//Removing members as they are not embedded.
 			
 			
-			this.updateIOU(expenseentity, objGroup.getIouList(), "add");
+			this.updateIOU(mgr, expenseentity, iouToUpdate, "add");
 			
 			//mgr.makePersistent(objGroup);
 			
@@ -479,8 +511,8 @@ public class ExpenseEntityEndpoint {
 			
 			ExpenseEntity oldExpenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
 			
-			this.updateIOU(oldExpenseentity, objGroup.getIouList(), "delete");
-			this.updateIOU(expenseentity, objGroup.getIouList(), "edit");
+			this.updateIOU(mgr, oldExpenseentity, objGroup.getIouList(), "delete");
+			this.updateIOU(mgr, expenseentity, objGroup.getIouList(), "edit");
 			
 			
 			//Removing related expenseinfo
@@ -546,7 +578,7 @@ public class ExpenseEntityEndpoint {
 			//Attaching to JDO
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
 			
-			this.updateIOU(expenseentity, objGroup.getIouList(), "delete");
+			this.updateIOU(mgr, expenseentity, objGroup.getIouList(), "delete");
 
 			//Removing related expenseinfo
 			for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
