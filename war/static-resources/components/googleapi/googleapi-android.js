@@ -57,9 +57,11 @@ define(function(require){
 							redirect_uri: "http://localhost:8888/",
 							grant_type: 'authorization_code'
 						}).done(function(data) {
+							alert('Token success : ' + JSON.stringify(data));
 							authToken = data.access_token;
 							makeApiCall(options);
 						}).fail(function(response) {
+							alert('Token failure : ' + JSON.stringify(response));
 							deferred.reject(response.responseJSON);
 						});
 
@@ -95,10 +97,17 @@ define(function(require){
 		    headers: "GData-Version: 3.0",
 		    data:{access_token:  authToken},
 			success: function(resp){
+				
+				console.log('Google API response' + JSON.stringify(resp));
+				
 				if(options.callback){
 					console.log('Google response' +  JSON.stringify(resp));
 					resp.authToken = authToken;
-					options.callback.call(options.context||this, {loginType : 'google', googleId : resp.id, data : resp, email : resp.email});
+					options.callback.call(options.context||this, {
+						loginType : 'google', googleId : resp.id, data : resp, email : resp.email,
+						firstName : resp.given_name,
+						lastName : resp.family_name
+					});
 				}
 			}, 
 			error : function(xhr, errorText, error){
