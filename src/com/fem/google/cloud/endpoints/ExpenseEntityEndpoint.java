@@ -249,7 +249,7 @@ public class ExpenseEntityEndpoint {
 		return objGroup;
 	}
 
-	private Friendship getFriendship(PersistenceManager mgr , ArrayList<User> alMembers) throws NoSuchAlgorithmException{
+	private Friendship getFriendship(PersistenceManager mgr , ArrayList<User> alMembers, ExpenseEntity expenseentity) throws NoSuchAlgorithmException{
 		
 		
 		boolean allUserPresent = true;
@@ -258,17 +258,43 @@ public class ExpenseEntityEndpoint {
 		
 		ArrayList<String> alMemberIds = new ArrayList<String>();
 		
+		
+		HashMap<String, User> oldUserMap = new  HashMap<String, User>();
+		
+		
+		
+		
 		for (Iterator iterator = alMembers.iterator(); iterator.hasNext();) {
 			User user = (User) iterator.next();
-			if(user.getUserId()==null){
+			
+			String oldUserId = user.getUserId();
+			
+			if(user.getUserId()==null || user.getUserId().indexOf("dummy")!=-1){
 				allUserPresent = false;
 				user = new UserEndpoint().getOrInsertUser(user, null, null) ;
-				break;
 			}
 			realUsers.add(user);
+			oldUserMap.put(oldUserId, user);
+
 			alMemberIds.add(user.getUserId());
 		}
 		String friendshipId = getPrimaryKey(alMemberIds);
+		
+		List<ExpenseInfo> alPayers = expenseentity.getListPayersInfo();
+		List<ExpenseInfo> alParticipants = expenseentity.getListIncludeMemberInfo();
+		
+		for (Iterator iterator = alParticipants.iterator(); iterator.hasNext();) {
+			ExpenseInfo expenseInfo = (ExpenseInfo) iterator.next();
+			User objUser = oldUserMap.get(expenseInfo.getUserId());
+			expenseInfo.setUserId(objUser.getUserId());
+		}
+		
+		for (Iterator iterator = alPayers.iterator(); iterator.hasNext();) {
+			ExpenseInfo expenseInfo = (ExpenseInfo) iterator.next();
+			User objUser = oldUserMap.get(expenseInfo.getUserId());
+			expenseInfo.setUserId(objUser.getUserId());
+		}
+		
 		
 		Friendship objFriendShip = null;
 		if(!allUserPresent){
@@ -276,23 +302,11 @@ public class ExpenseEntityEndpoint {
 		} else {
 			
 			
-			/*Query q  = mgr.newQuery(FriendshipIndex.class);
-			
-			q.setFilter("id == indexNoParam");
-			q.declareParameters("String indexNoParam");
-			List<FriendshipIndex> alFriendshipIndex = (List<FriendshipIndex>) q.execute(uniqueId);
-			
-			if(alFriendshipIndex.size()>0){
-				FriendshipIndex friendshipId = alFriendshipIndex.get(0);*/
 			try {
 				objFriendShip = mgr.getObjectById(Friendship.class, friendshipId);
 			} catch (javax.jdo.JDOObjectNotFoundException ex) {
-				new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
-			} finally {
+				//Eat the exception because we dont need it.
 			}
-			/*} else {
-				objFriendShip = this.createFriendship(mgr, realUsers);
-			}*/
 				
 			if(objFriendShip==null){
 				objFriendShip = this.createFriendship(mgr, realUsers, friendshipId);
@@ -379,7 +393,7 @@ public class ExpenseEntityEndpoint {
 			GainerLoserInfo payer = alGainers.get(i);
 			
 			double amountToDistribute = payer.getAmount();
-			while(amountToDistribute>0){
+			while(Math.abs(amountToDistribute)>0.001){
 				//This will throw indexOutOfBounds if something wrong happens.
 				GainerLoserInfo member = alLosers.get(j++);
 				//TODO : This is put when amount to distribute is not summing up with member amounts
@@ -449,7 +463,7 @@ public class ExpenseEntityEndpoint {
 			//Experiemental stuff for adding expense without group
 			//This is an expense without group
 			if(StringUtils.isEmpty(objGroup.getGroupId())){
-				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers());
+				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers(), expenseentity);
 				iouToUpdate = objFriendship.getIOUList();
 				
 			} else {
