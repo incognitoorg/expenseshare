@@ -118,11 +118,11 @@ define(function(require){
 		},
 		normalizeUserData : function(data){
 			console.log('Normalize user data' + JSON.stringify(data));
-			if(data.loginType==='facebook'){
+			/*if(data.loginType==='facebook'){*/
 				data.fullName = data.fullName || (data.firstName + ' ' + data.lastName);
-			} else if(data.loginType==='google'){
-				data.fullName = data.fullName || (data.data.given_name + ' ' + data.data.family_name);
-			}
+			/*} else if(data.loginType==='google'){*/
+				/*data.fullName = data.fullName || (data.firstName + ' ' + data.lastName);*/
+			/*}*/
 			return data;
 		},
 		addInSession : function(){
