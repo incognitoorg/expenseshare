@@ -150,6 +150,7 @@ define(['require', 'jquery','underscore', 'backbone'], function (require) {
 			component.stopListening();
 			component.off();
 			component.undelegateEvents(); 
+			$(component.el).html('');
 		}
 
 		_.each(children, function(child){
