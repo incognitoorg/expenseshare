@@ -8,11 +8,97 @@ define(function(require) {
 	var memberExpenseTemplate = require('text!./../../templates/member-expense.html');
 	var ExpenseModel = require('./../models/expensemodel');
 	var FormValidator = require("./../validator/newexpensevalidator");
-	var user = require('components/login/login');
+	var user = login = require('components/login/login');
 	var ExpenseUtility = require('modules/expenseutiliy/expenseutility');
+	require('autocomplete');
+	require('css!libraries/jquery-ui/css/themes/base/jquery.ui.autocomplete.css');
 
 
 	var expenseInputCounter = 0;
+	
+	
+	function getAutosuggestOptions(data, query){
+		var formatted = [];
+		for(var i = 0; i< data.length; i++) {
+			if(data[i].fullName.toLowerCase().indexOf(query.term.toLowerCase())!=-1){
+				formatted.push({
+					label: data[i].fullName,
+					value: data[i]
+				});
+			}
+			
+		}
+		
+		formatted.sort(function(a, b){
+			var orderA = a.label.toLowerCase().indexOf(query.term.toLowerCase())==0 && 1;
+			var orderB = b.label.toLowerCase().indexOf(query.term.toLowerCase())==0 && 1;
+			return orderB - orderA;
+		});
+		
+		return formatted;
+	}
+	
+	
+	function normalizeGoogleUserData(googleData){
+		var googleDataObtained = _.filter(googleData.feed.entry, function(item){
+			var returnValue = false;
+			if(item.gd$email){
+				for(var i = 0; i<item.gd$email.length; i++){
+					if(item.gd$email[i].address.indexOf("gmail")!==-1){
+						item.email = item.gd$email[i].address;
+						return true;
+					}
+					
+				}
+			}
+			
+			
+			return  returnValue
+		});
+		
+		var retArray = [];
+		for(var i = 0; i<googleDataObtained.length; i++){
+			var friendInfo = googleDataObtained[i];
+			var probableImageURL = friendInfo.email.substr(0, friendInfo.email.indexOf("@"))
+			var normalizedFriendInfo = {
+				fullName : friendInfo.title.$t || friendInfo.email,
+				name : friendInfo.title.$t,
+				googleId : '',
+				loginType : 'google',
+				email : friendInfo.email,
+				imgURL : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" 
+			};
+			
+			retArray.push(normalizedFriendInfo);
+			
+		}
+		return retArray;
+		
+		
+	}
+	
+	function normalizeFacebookUserData(facebookData){
+
+		var facebookDataObtained = facebookData.data;
+		var retArray = [];
+		for(var i = 0; i<facebookDataObtained.length; i++){
+			var friendInfo = facebookDataObtained[i];
+			var normalizedFriendInfo = {
+					fullName : friendInfo.name,
+					name : friendInfo.name,
+					facebookId : friendInfo.id,
+					loginType : 'facebook',
+					facebookEmail : friendInfo.username + "@facebook.com",
+					firstName : friendInfo.first_name,
+					lastName : friendInfo.last_name,
+					imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" 
+			};
+
+			retArray.push(normalizedFriendInfo);
+
+		}
+		return retArray;
+	}
 	
 	var NewExpenseView = Sandbox.View.extend({
 		initialize : function(options) {
@@ -24,6 +110,8 @@ define(function(require) {
 			this.start();
 			
 		},
+		selectedFriends : [],
+		friendArr : [],
 		totalExpense : 0,
 		template : Handlebars.compile(require('text!./../../templates/newexpense.html')),
 		render : function(data) {
@@ -38,7 +126,8 @@ define(function(require) {
 			'click .js-select-expense' : 'toggleExpense',
 			'click .js-save-expense' : 'eventSaveExpense',
 			'change .js-division-type' : 'eventShowMembersToDivide',
-			'click .js-allmembers' : 'toggleAllMembers'
+			'click .js-allmembers' : 'toggleAllMembers',
+			'click .next-button' : 'showExpenseWithoutGroupForm'
 		},
 		registerValidator : function(){
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});
@@ -60,8 +149,97 @@ define(function(require) {
 			this.$('.js-select-group').show();
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
+			
+			this.populateFriends();
+			
+			
 			this.objSelectGroup.initialize({el:this.$('.js-select-group'), 'owner':'NEW-EXPENSE'});
 		},
+		populateFriends : function(){
+			var self = this;
+			if(login.getInfo().facebook){
+				
+				$.ajax({
+					url: 'https://graph.facebook.com/me/friends?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
+					dataType: "jsonp",
+					success: function(response){
+						
+						if(response.error && response.error.type==="OAuthException"){
+							self.doFacebookLogin();
+							return;
+						}
+						self.renderFacebookData(response);
+						
+						console.log(response);
+					}
+				});
+			}
+			
+			if(login.getInfo().google){
+				
+				$.ajax({
+					url: "https://www.google.com/m8/feeds/contacts/default/full?alt=json&max-results=9999",
+					dataType: "jsonp",
+					headers: "GData-Version: 3.0",
+					data:{access_token:  login.getInfo().google.authToken},
+					success: function(results){
+						self.renderGoogleData(results);
+					}, 
+					error : function(xhr, errorText, error){
+						self.doGoogleLogin();
+					}
+				});
+			}
+			
+			
+			this.$('.js-friends-autocomplete').autocomplete({
+				source : function(request, response){
+					response(getAutosuggestOptions(self.friendArr, request));
+				}, 
+				select: function(event, ui) {
+					var friendInfo = ui.item.value;
+					this.value='';
+					if(self.selectedFriends.indexOf(friendInfo)==-1){
+						self.selectedFriends.push(friendInfo);
+					}
+					event.preventDefault();
+				},
+				minLength:1,
+				focus : function(event, ui){
+					//this.value = ui.item.label;
+					event.preventDefault();
+				}
+			})
+			
+		},
+		doFacebookLogin : function(){
+			login.doFacebookLogin({userInfo : login.getInfo(),context : this,  callback : this.renderFacebookData});
+		},
+		doGoogleLogin : function(){
+			login.doGoogleLogin({userInfo : login.getInfo(), context : this, callback : this.renderGoogleData});
+		},
+		renderGoogleData : function(response){
+			var friendArr = normalizeGoogleUserData(response)
+			this.addFriends(friendArr)
+		}, 
+		renderFacebookData : function(response){
+			var friendArr = normalizeFacebookUserData(response);
+			this.addFriends(friendArr)
+		},
+		addFriends : function(friendArr){
+			Array.prototype.push.apply(this.friendArr, friendArr);
+			this.friendArr.sort(function(a, b){
+				return a.fullName > b.fullName
+			});
+			/*this.renderFriends();*/
+			
+		},
+		/*renderFriends : function(){
+			for (var i = 0; i < this.friendArr.length; i++) {
+				var friendInfo = this.friendArr[i];
+				this.$('.js-friend-selector').append($('<div class="small-12 large-3 medium-4 columns" >').html(friendInfo.fullName));
+			}
+		},*/
 		registerSubscribers : function(){
 			Sandbox.subscribe('GROUP:SELECTED:NEW-EXPENSE', this.showNewExpenseForm, this);
 			                   
@@ -601,6 +779,23 @@ define(function(require) {
 			} else {
 				this.$('.js-included-members').hide('slow');
 			}
+		},
+		showExpenseWithoutGroupForm : function(){
+			
+			var memberIdList = [];
+			for(var index in this.selectedFriends){
+				memberIdList.push(this.selectedFriends[index].userId)
+			}
+			
+					var dummyGroup = {
+						"groupId" : "",
+						"groupName" : "",
+						"ownerId" : "",
+						"members" : this.selectedFriends,
+						"membersIdList" : memberIdList,
+						"active" : true
+					};
+			this.showNewExpenseForm(dummyGroup);
 		}
 		
 	});
