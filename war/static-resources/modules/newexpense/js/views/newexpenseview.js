@@ -110,7 +110,7 @@ define(function(require) {
 			this.start();
 			
 		},
-		selectedFriends : [],
+		selectedFriends : [user.getInfo()],
 		friendArr : [],
 		totalExpense : 0,
 		template : Handlebars.compile(require('text!./../../templates/newexpense.html')),
@@ -138,6 +138,7 @@ define(function(require) {
 			this.$('.js-success-message').hide();
 			this.objSelectGroup.reInitialize();
 			
+			this.selectedFriends = [user.getInfo()];
 		},
 		start : function(){
 			if(this.objSelectGroup){
