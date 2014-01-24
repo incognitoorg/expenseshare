@@ -59,7 +59,8 @@ define(function(require){
 							options.callback.call(options.context||this, {
 								loginType : 'google', googleId : resp.id, data : resp, email : resp.email,
 								firstName : resp.name.givenName,
-								lastName : resp.name.familyName
+								lastName : resp.name.familyName,
+								imgUrl : "https://plus.google.com/s2/photos/profile/" +resp.id + "?sz=45" ,
 							});
 							hideMask();
 						}
