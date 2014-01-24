@@ -34,6 +34,9 @@ public class User implements Serializable {
 	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
 	private String password;
 
+	@Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
+	private String imgUrl;
+
 	private String facebookId;
 	
 	private String googleId;
@@ -150,6 +153,12 @@ public class User implements Serializable {
 	}
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	
 	
