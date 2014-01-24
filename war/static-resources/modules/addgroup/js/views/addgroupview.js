@@ -319,7 +319,8 @@ define(function(require) {
 							});
 							return membersArray;
 						})(),
-						'ownerId' : userInfo.userId
+						'ownerId' : userInfo.userId,
+						groupType : 'room'
 				};
 				_.extend(this.group, groupData);
 			/*}*/ /*else {
