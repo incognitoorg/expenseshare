@@ -169,3 +169,56 @@ hr.red-line{
 	font-size: 30px;
 	cursor: pointer;
 }
+
+.ui-helper-hidden-accessible { 
+	display:none; 
+}
+
+
+/**/
+
+.ui-menu-item{
+	display : block;
+	background : white;	
+	opacity : 0.8;
+	height: auto;
+	border-bottom : 1px solid black;
+	border-left : 1px solid black;
+	border-right : 1px solid black;
+	/* padding-top : 5px;
+	padding-bottom : 5px; */
+	
+}
+.ui-menu-item>a{
+	color : black;
+}
+
+
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    padding-left: 0px;
+}
+
+
+.ui-menu-item{
+	width : 100%;
+}
+
+.ui-menu-item .ui-corner-all{
+	width : 100%;
+	margin-top : 5px;
+	margin-bottom : 5px;
+	display: inline-block;
+}
+.ui-state-focus{
+	background: gray;
+	display: inline-block;
+	width : 100%;
+}
+
+.js-friend-selector>:last-child{
+	float:left!important;
+}
