@@ -164,39 +164,6 @@ define(function(require) {
 		},
 		populateFriends : function(){
 			var self = this;
-			/*if(login.getInfo().facebook){
-				
-				$.ajax({
-					url: 'https://graph.facebook.com/me/friends?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
-					dataType: "jsonp",
-					success: function(response){
-						
-						if(response.error && response.error.type==="OAuthException"){
-							self.doFacebookLogin();
-							return;
-						}
-						self.renderFacebookData(response);
-						
-						console.log(response);
-					}
-				});
-			}
-			
-			if(login.getInfo().google){
-				
-				$.ajax({
-					url: "https://www.google.com/m8/feeds/contacts/default/full?alt=json&max-results=9999",
-					dataType: "jsonp",
-					headers: "GData-Version: 3.0",
-					data:{access_token:  login.getInfo().google.authToken},
-					success: function(results){
-						self.renderGoogleData(results);
-					}, 
-					error : function(xhr, errorText, error){
-						self.doGoogleLogin();
-					}
-				});
-			}*/
 			this.populateGoogleFriends();
 			this.populateFacebookFriends();
 			
