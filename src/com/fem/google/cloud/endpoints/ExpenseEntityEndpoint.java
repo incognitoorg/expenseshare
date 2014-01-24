@@ -271,6 +271,7 @@ public class ExpenseEntityEndpoint {
 			
 			if(user.getUserId()==null || user.getUserId().indexOf("dummy")!=-1){
 				allUserPresent = false;
+				user.setUserId(null);
 				user = new UserEndpoint().getOrInsertUser(user, null, null) ;
 			}
 			realUsers.add(user);
