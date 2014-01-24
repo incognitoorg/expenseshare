@@ -141,6 +141,7 @@ define(function(require) {
 			this.$('.js-success-message').hide();
 			this.objSelectGroup.reInitialize();
 			
+			this.$('.js-friend-selector-container').show();
 			this.selectedFriends = [user.getInfo()];
 			this.renderFriendsSelected();
 		},
@@ -163,7 +164,7 @@ define(function(require) {
 		},
 		populateFriends : function(){
 			var self = this;
-			if(login.getInfo().facebook){
+			/*if(login.getInfo().facebook){
 				
 				$.ajax({
 					url: 'https://graph.facebook.com/me/friends?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
@@ -195,8 +196,9 @@ define(function(require) {
 						self.doGoogleLogin();
 					}
 				});
-			}
-			
+			}*/
+			this.populateGoogleFriends();
+			this.populateFacebookFriends();
 			
 			this.$('.js-friends-autocomplete').autocomplete({
 				source : function(request, response){
@@ -218,6 +220,44 @@ define(function(require) {
 			});
 			
 		},
+		populateFacebookFriends : function(){
+			var self = this;
+			if(login.getInfo().facebook){
+				
+				$.ajax({
+					url: 'https://graph.facebook.com/me/friends?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
+					dataType: "jsonp",
+					success: function(response){
+						
+						if(response.error && response.error.type==="OAuthException"){
+							self.doFacebookLogin();
+							return;
+						}
+						self.renderFacebookData(response);
+						
+						console.log(response);
+					}
+				});
+			}
+		},
+		populateGoogleFriends : function(){
+			var self = this;
+			if(login.getInfo().google){
+				
+				$.ajax({
+					url: "https://www.google.com/m8/feeds/contacts/default/full?alt=json&max-results=9999",
+					dataType: "jsonp",
+					headers: "GData-Version: 3.0",
+					data:{access_token:  login.getInfo().google.authToken},
+					success: function(results){
+						self.renderGoogleData(results);
+					}, 
+					error : function(xhr, errorText, error){
+						self.doGoogleLogin();
+					}
+				});
+			}
+		},
 		renderFriendsSelected : function (){
 			var self = this;
 			var htmlContain= '';
@@ -230,26 +270,25 @@ define(function(require) {
 			$('.js-friend-selector').html(htmlContain);	
 		},
 		doFacebookLogin : function(){
-			login.doFacebookLogin({userInfo : login.getInfo(),context : this,  callback : this.renderFacebookData});
+			login.doFacebookLogin({userInfo : login.getInfo(),context : this,  callback : this.populateFacebookFriends});
 		},
 		doGoogleLogin : function(){
-			login.doGoogleLogin({userInfo : login.getInfo(), context : this, callback : this.renderGoogleData});
+			login.doGoogleLogin({userInfo : login.getInfo(), context : this, callback : this.populateGoogleFriends});
 		},
 		renderGoogleData : function(response){
-			var friendArr = normalizeGoogleUserData(response)
-			this.addFriends(friendArr)
+			var friendArr = normalizeGoogleUserData(response);
+			this.addFriends(friendArr);
 		}, 
 		renderFacebookData : function(response){
 			var friendArr = normalizeFacebookUserData(response);
-			this.addFriends(friendArr)
+			this.addFriends(friendArr);
 		},
 		addFriends : function(friendArr){
 			Array.prototype.push.apply(this.friendArr, friendArr);
 			this.friendArr.sort(function(a, b){
-				return a.fullName > b.fullName
+				return a.fullName > b.fullName;
 			});
 			/*this.renderFriends();*/
-			
 		},
 		/*renderFriends : function(){
 			for (var i = 0; i < this.friendArr.length; i++) {
@@ -285,6 +324,7 @@ define(function(require) {
 			
 		    var self = this;
 			this.$('.js-select-group').hide();
+			this.$('.js-friend-selector-container').hide();
 			this.$('.js-new-expense-form').show();
 			
 			
