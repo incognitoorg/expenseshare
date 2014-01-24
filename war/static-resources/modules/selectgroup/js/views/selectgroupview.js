@@ -37,6 +37,12 @@ define(function(require) {
 		},
 		renderGroups : function(data){
 			this.groupsMap = {};
+			
+			data.items = _.filter(data.items, function(el){
+				return el.groupType!='dummy';
+			});
+			
+			
 			for(var groupIndex in data.items){
 				this.groupsMap[data.items[groupIndex].groupId] = data.items[groupIndex];
 			}
