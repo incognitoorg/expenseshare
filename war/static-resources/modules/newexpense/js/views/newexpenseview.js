@@ -15,6 +15,7 @@ define(function(require) {
 
 
 	var expenseInputCounter = 0;
+	var dummyIdCounter = 0;
 	
 	
 	function getAutosuggestOptions(data, query){
@@ -59,14 +60,15 @@ define(function(require) {
 		var retArray = [];
 		for(var i = 0; i<googleDataObtained.length; i++){
 			var friendInfo = googleDataObtained[i];
-			var probableImageURL = friendInfo.email.substr(0, friendInfo.email.indexOf("@"))
+			var probableImageURL = friendInfo.email.substr(0, friendInfo.email.indexOf("@"));
 			var normalizedFriendInfo = {
 				fullName : friendInfo.title.$t || friendInfo.email,
 				name : friendInfo.title.$t,
 				googleId : '',
 				loginType : 'google',
 				email : friendInfo.email,
-				imgURL : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" 
+				imgURL : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" ,
+				userId :'dummy-' + dummyIdCounter++
 			};
 			
 			retArray.push(normalizedFriendInfo);
@@ -88,10 +90,11 @@ define(function(require) {
 					name : friendInfo.name,
 					facebookId : friendInfo.id,
 					loginType : 'facebook',
-					facebookEmail : friendInfo.username + "@facebook.com",
+					facebookEmail : friendInfo.id + "@facebook.com",
 					firstName : friendInfo.first_name,
 					lastName : friendInfo.last_name,
-					imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" 
+					imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" ,
+					userId :'dummy-' + dummyIdCounter++
 			};
 
 			retArray.push(normalizedFriendInfo);
@@ -139,6 +142,7 @@ define(function(require) {
 			this.objSelectGroup.reInitialize();
 			
 			this.selectedFriends = [user.getInfo()];
+			this.renderFriendsSelected();
 		},
 		start : function(){
 			if(this.objSelectGroup){
@@ -155,6 +159,7 @@ define(function(require) {
 			
 			
 			this.objSelectGroup.initialize({el:this.$('.js-select-group'), 'owner':'NEW-EXPENSE'});
+			this.renderFriendsSelected();
 		},
 		populateFriends : function(){
 			var self = this;
@@ -203,15 +208,26 @@ define(function(require) {
 					if(self.selectedFriends.indexOf(friendInfo)==-1){
 						self.selectedFriends.push(friendInfo);
 					}
+					self.renderFriendsSelected();
 					event.preventDefault();
 				},
 				minLength:1,
 				focus : function(event, ui){
-					//this.value = ui.item.label;
 					event.preventDefault();
 				}
-			})
+			});
 			
+		},
+		renderFriendsSelected : function (){
+			var self = this;
+			var htmlContain= '';
+			for(var i=0;i<self.selectedFriends.length;i++){
+				var friendInfo		= self.selectedFriends[i];
+				var fullname  = friendInfo.fullName;
+				var imgUrl    = friendInfo.imgURL;
+				htmlContain+= '<div class="small-12 large-6 columns">'+fullname+'<img src="'+imgUrl+'" style="padding:0 0 10px 5px;"></img></div>';
+			}	
+			$('.js-friend-selector').html(htmlContain);	
 		},
 		doFacebookLogin : function(){
 			login.doFacebookLogin({userInfo : login.getInfo(),context : this,  callback : this.renderFacebookData});
@@ -252,16 +268,19 @@ define(function(require) {
 			//TODO : Global variable from femview.js. If you are reading this. Go kill Vishwanath.
 			AppRouterInstance.navigate('#newexpenseform');
 			
-			
-			var data = {
-				url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/group/' + group.groupId,
-				callback : this.dataRefresh,
-				context : this,
-				dataType: 'json',
-				loaderContainer : this.$('.groups-container')
-			};
-			this.groupDataObtained = Sandbox.doGet(data);
-			
+			if(group.groupId){
+				var data = {
+						url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/group/' + group.groupId,
+						callback : this.dataRefresh,
+						context : this,
+						dataType: 'json',
+						loaderContainer : this.$('.groups-container')
+				};
+				this.groupDataObtained = Sandbox.doGet(data);
+			} else {
+				this.groupDataObtained = $.Deferred();
+				this.groupDataObtained.resolve();
+			}
 			this.group = group;
 			
 		    var self = this;
