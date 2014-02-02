@@ -36,12 +36,12 @@ public class MailUtil {
 			Session session = Session.getDefaultInstance(props, null);
 
 			MimeMessage msg = new MimeMessage(session);
-			String SENDER_EMAIL_ADDRESS = "xpenseshareappspot@gmail.com"; //TODO : This should come from properties file.
-			String SENDER_NAME = "Expense Share";
+			String SENDER_EMAIL_ADDRESS = PropertiesUtil.getProperty("SENDER_EMAIL_ADDRESS");
+			String SENDER_NAME = PropertiesUtil.getProperty("SENDER_NAME");
 			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
 
 			if(hmEmailIds == null) {
-				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
 			} else {
 				for (Map.Entry<String, String> entry : hmEmailIds.entrySet()) { 
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()));
