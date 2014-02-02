@@ -15,7 +15,6 @@ public class PropertiesUtil {
 		props = new Properties();
 		try
 		{
-			System.out.println("Reading from Properties");
 			PropertiesUtil util = new PropertiesUtil();
 			props = util.getPropertiesFromClasspath("configuration/configuration.properties");
 		}
