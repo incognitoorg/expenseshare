@@ -2,16 +2,18 @@
 <div class="row expense" >
 	<div class="small-11 columns js-expense" data-expense-id={{expenseEntityId}}>
 		<div class="row amount-row">
-			<div class="small-12 large-6 columns">
-				<span class=expense-name>{{name}}</span>
+			<div class="small-9 large-6 columns">
+				<div class="row"><div class="small-12 columns"><span class=expense-name>{{name}}</span></div></div>
+				<div class="row">
+					<div class="small-6 columns">{{day}}</div>
+					<div class="small-6 columns">{{group.groupName}}</div>
+				</div>
 			</div>
-			<div class="small-9 large-4 columns">
-				<span class="sentense-fillers on">{{day}}</span> 
-				<span class="sentense-fillers group">-{{group.groupName}}</span>
+			<div class="large-3 columns hide-for-small">
+				{{whoPaid}} Paid {{totalAmountPaid}}
 			</div>
-			<div class="small-3 large-2 columns">
-				<span class="amount text-right">{{userExpenseAmount}}</span>
-				
+			<div class="small-3 large-3 columns">
+				<span class="text-right">{{transactionType}} {{userTransaction}}</span>
 			</div>
 		</div>
 	</div>

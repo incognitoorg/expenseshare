@@ -12,27 +12,46 @@ define(function(require) {
 	var css = require('css!./../../css/expensehistory.css');
 	
 	function normalizeExpense(expense, allMembers, groupMap){
-		//var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+		
+		var totalAmountPaid = 0;
+		var userTransaction = 0;
+		
 		for ( var i = 0; i < expense.listIncludeMemberInfo.length; i++) {
 			var memberInfo = expense.listIncludeMemberInfo[i];
 			memberInfo.userInfo = allMembers[memberInfo.userId];
-			if(memberInfo.userId== user.getInfo().userId){
-				expense.userExpenseAmount=parseInt(memberInfo.amount);
+			if(memberInfo.userId == user.getInfo().userId){
+				expense.userExpenseAmount = parseInt(memberInfo.amount);
 			}
-		}
-		expense.userExpenseAmount = expense.userExpenseAmount || 0;
-		
-		if(!expense.userExpenseAmount){
-			expense.extendedType = 'payeronly';
 		}
 		
 		for ( var i = 0; i < expense.listPayersInfo.length; i++) {
 			var memberInfo = expense.listPayersInfo[i];
 			memberInfo.userInfo = allMembers[memberInfo.userId];
+			totalAmountPaid+= memberInfo.amount;
+			if(memberInfo.userId== user.getInfo().userId){
+				expense.userPaid=parseInt(memberInfo.amount);
+			}
 		}
+		
+		if(expense.listPayersInfo.length>1){
+			expense.whoPaid = expense.listPayersInfo.length + " People";
+		} else {
+			expense.whoPaid = expense.listPayersInfo[0].userInfo.fullName;
+		}
+		
+		
+		userTransaction = expense.userTransaction = expense.userPaid - expense.userExpenseAmount;
+		
+		if(userTransaction>0){
+			expense.transactionType = "lent";
+		} else if(userTransaction<0){
+			expense.transactionType = "borrowed";
+		}
+		
 		expense.day = new Date(expense.date).toDateString();
 		//expense.date = new Date(expense.date);
 		expense.group = expense.groupId && groupMap[expense.groupId];
+		expense.totalAmountPaid = totalAmountPaid;
 		return expense;
 	}
 
@@ -382,10 +401,40 @@ define(function(require) {
 			} else {
 			}
 			
+			
+			
 			this.newExpense = NewExpenseFactory.getInstance();
 			this.newExpense.initialize({ el : this.$('.js-edit-expense-form-container').show()});
 			var expense = this.expenseHitoryMap[$(event.target).data('expense-id')];
 			var group = this.groupMap[expense.groupId];
+			
+			
+			var selectedFriends = [];
+			
+			//selectedFriends = selectedFriends.concat(_.pluck(expense.listPayersInfo, "userInfo"));
+			//selectedFriends = selectedFriends.concat(_.pluck(expense.listIncludeMemberInfo, "userInfo"));
+			
+			selectedFriends = _.union(_.pluck(expense.listPayersInfo, "userInfo"), _.pluck(expense.listIncludeMemberInfo, "userInfo"))
+			
+			//_.unique(selectedFriends);
+			
+			
+			if(!group){
+				var memberIdList = [];
+				for(var index in selectedFriends){
+					memberIdList.push(selectedFriends[index].userId);
+				}
+			
+				group = {
+					"groupId" : "",
+					"groupName" : "",
+					"ownerId" : "",
+					"members" : selectedFriends,
+					"membersIdList" : memberIdList,
+					"active" : true
+				};
+			}
+			
 			this.$('.js-expense-history-container').hide();
 			this.newExpense.view.mode='edit';
 			this.newExpense.view.showNewExpenseForm(group, expense);

@@ -1,14 +1,17 @@
 <div class=row>
 	<div class="small-12 large-12 columns js-success-message">Expense saved successfully. View <a href="#dashboard">Dashboard</a></div>
-	<div class="row">
-		<div class="small-12 large-12 columns js-friend-selector-container">
-			<input type="text" class="js-friends-autocomplete">
+	<div class="row js-friend-selector-container">
+		<div class="small-10 columns ">
+			<input type="text" class="js-friends-autocomplete" placeholder="Select friends">
+		</div>
+		<div class="small-2 columns"><input type=button value=Next class="next-button" style="min-width: 60px;"></div>
+		<div class="small-12 large-12 columns">
 			<div class="row js-friend-selector">
 			</div>
-			<div class="row">
-				<div class="small-12 columns"><input type=button value=Next class="next-button"></div>
-			</div>
 		</div>
+	</div>
+	<div class="row js-select-group-container">
+		<div class="small-12 columns right">Select Group</div>
 		<div class="small-12 large-12 columns js-select-group"></div>
 	</div>
 	<div class="small-12 large-12 columns js-new-expense-form" style=display:none;>

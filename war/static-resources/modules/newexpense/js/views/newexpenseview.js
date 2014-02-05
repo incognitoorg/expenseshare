@@ -136,7 +136,7 @@ define(function(require) {
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});
 		},
 		reInitialize : function(){
-			this.$('.js-select-group').show();
+			this.$('.js-select-group-container').show();
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
 			this.objSelectGroup.reInitialize();
@@ -152,7 +152,7 @@ define(function(require) {
 				this.objSelectGroup = SelectGroup.getInstance();
 			}
 			
-			this.$('.js-select-group').show();
+			this.$('.js-select-group-container').show();
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
 			
@@ -232,6 +232,7 @@ define(function(require) {
 				});
 			}
 		},
+		//TODO : I outsourced this function. Can write better code than this.
 		renderFriendsSelected : function (){
 			var self = this;
 			var htmlContain= '';
@@ -239,7 +240,7 @@ define(function(require) {
 				var friendInfo		= self.selectedFriends[i];
 				var fullname  = friendInfo.fullName;
 				var imgUrl    = friendInfo.imgURL;
-				htmlContain+= '<div class="small-12 large-6 columns">'+fullname+'<img src="'+imgUrl+'" style="padding:0 0 10px 5px;"></img></div>';
+				htmlContain+= '<div class="small-12 large-6 columns">'+'<img src="'+imgUrl+'" style="padding:0 0 10px 5px;"></img>' + fullname +'</div>';
 			}	
 			$('.js-friend-selector').html(htmlContain);	
 		},
@@ -297,7 +298,7 @@ define(function(require) {
 			this.group = group;
 			
 		    var self = this;
-			this.$('.js-select-group').hide();
+			this.$('.js-select-group-container').hide();
 			this.$('.js-friend-selector-container').hide();
 			this.$('.js-new-expense-form').show();
 			
@@ -818,7 +819,7 @@ define(function(require) {
 			
 			var memberIdList = [];
 			for(var index in this.selectedFriends){
-				memberIdList.push(this.selectedFriends[index].userId)
+				memberIdList.push(this.selectedFriends[index].userId);
 			}
 			
 					var dummyGroup = {
@@ -829,6 +830,11 @@ define(function(require) {
 						"membersIdList" : memberIdList,
 						"active" : true
 					};
+					
+			if(memberIdList.length<2){
+				alert("Please select at least one friend.");
+				return;
+			}
 			this.showNewExpenseForm(dummyGroup);
 		}
 		
