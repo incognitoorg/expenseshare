@@ -466,7 +466,8 @@ public class ExpenseEntityEndpoint {
 			if(StringUtils.isEmpty(objGroup.getGroupId())){
 				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers(), expenseentity);
 				iouToUpdate = objFriendship.getIOUList();
-				
+				expenseentity.setFriendshipId(objFriendship.getId());
+				expenseentity.setFriendship(objFriendship);
 			} else {
 				iouToUpdate = objGroup.getIouList();
 			}
@@ -518,16 +519,42 @@ public class ExpenseEntityEndpoint {
 	public ExpenseEntity updateExpenseEntity(ExpenseEntity expenseentity) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
+			ArrayList<IOU> iouToUpdate = null;
+			ArrayList<IOU> iouToDelete = null;
 			if (!containsExpenseEntity(expenseentity)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			Group objGroup = expenseentity.getGroup();
+			
+			//This is non group expense
+			if(StringUtils.isEmpty( expenseentity.getGroupId())){
+				String oldFriendshipId = expenseentity.getFriendshipId();
+				
+				Friendship objOldFriendship = mgr.getObjectById(Friendship.class,  oldFriendshipId);
+				iouToDelete = objOldFriendship.getIouList();
+				
+				
+				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers(), expenseentity);
+				iouToUpdate = objFriendship.getIouList();
+				
+				expenseentity.setFriendshipId(objFriendship.getId());
+				expenseentity.setFriendship(objFriendship);
+				
+			} else {
+				iouToDelete = objGroup.getIouList();
+				iouToUpdate = objGroup.getIouList();
+			}
+			
 			expenseentity.setGroup(null);
 			
 			ExpenseEntity oldExpenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
 			
-			this.updateIOU(mgr, oldExpenseentity, objGroup.getIouList(), "delete");
-			this.updateIOU(mgr, expenseentity, objGroup.getIouList(), "edit");
+			
+			
+			
+			
+			this.updateIOU(mgr, oldExpenseentity, iouToDelete, "delete");
+			this.updateIOU(mgr, expenseentity, iouToUpdate, "edit");
 			
 			
 			//Removing related expenseinfo

@@ -10,6 +10,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.datanucleus.annotations.Unowned;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class ExpenseEntity {
 
@@ -41,10 +43,35 @@ public class ExpenseEntity {
 	private List<ExpenseInfo> listIncludeMemberInfo;
 	
 	//This element is only for expense addition serialization
+	@Unowned
 	private Group objGroup;
 	
 	private String groupId;
+
+	//This element is only for expense addition serialization
+	@Unowned
+	private Friendship objFriendship;
 	
+	private String friendshipId;
+	
+	public Group getObjGroup() {
+		return objGroup;
+	}
+	public void setObjGroup(Group objGroup) {
+		this.objGroup = objGroup;
+	}
+	public Friendship getFriendship() {
+		return objFriendship;
+	}
+	public void setFriendship(Friendship objFriendship) {
+		this.objFriendship = objFriendship;
+	}
+	public String getFriendshipId() {
+		return friendshipId;
+	}
+	public void setFriendshipId(String friendshipId) {
+		this.friendshipId = friendshipId;
+	}
 	public String getExpenseEntityId() {
 		return expenseEntityId;
 	}
