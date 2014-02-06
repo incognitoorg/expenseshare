@@ -231,3 +231,16 @@ hr.red-line{
 .js-friend-selector>:last-child{
 	float:left!important;
 }
+
+.hr{
+	height: 1px;
+	border-bottom: 1px solid;
+	margin-top: 7px;
+}
+
+.hr:nth-child(1)>span{
+	padding-left:7px;
+}
+.hr:nth-child(3)>span{
+	padding-right: 33px; 
+}

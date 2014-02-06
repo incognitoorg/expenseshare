@@ -240,7 +240,7 @@ define(function(require) {
 				var friendInfo		= self.selectedFriends[i];
 				var fullname  = friendInfo.fullName;
 				var imgUrl    = friendInfo.imgURL;
-				htmlContain+= '<div class="small-12 large-6 columns">'+'<img src="'+imgUrl+'" style="padding:0 0 10px 5px;"></img>' + fullname +'</div>';
+				htmlContain+= '<div class="small-12 large-6 columns">'+'<img src="'+imgUrl+'" style="padding:0 0 10px 5px;"></img><span style="padding-left:10px;">' + fullname +'</span></div>';
 			}	
 			$('.js-friend-selector').html(htmlContain);	
 		},
