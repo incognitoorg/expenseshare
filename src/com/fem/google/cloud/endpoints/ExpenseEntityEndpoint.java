@@ -549,13 +549,8 @@ public class ExpenseEntityEndpoint {
 			
 			ExpenseEntity oldExpenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
 			
-			
-			
-			
-			
 			this.updateIOU(mgr, oldExpenseentity, iouToDelete, "delete");
 			this.updateIOU(mgr, expenseentity, iouToUpdate, "edit");
-			
 			
 			//Removing related expenseinfo
 			for (Iterator iterator = oldExpenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
@@ -583,12 +578,6 @@ public class ExpenseEntityEndpoint {
 			
 			mgr.makePersistent(expenseentity);
 			
-			
-			
-			objGroup.setMembers(null);//Removing members as they are not embedded.
-			
-			
-			mgr.makePersistent(objGroup);
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);
 			throw e;

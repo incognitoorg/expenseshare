@@ -15,6 +15,8 @@ define(function(require) {
 		
 		var totalAmountPaid = 0;
 		var userTransaction = 0;
+		expense.userPaid  = 0;
+		expense.userExpenseAmount = 0;
 		
 		for ( var i = 0; i < expense.listIncludeMemberInfo.length; i++) {
 			var memberInfo = expense.listIncludeMemberInfo[i];
