@@ -121,7 +121,7 @@ public class GroupEndpoint {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			ArrayList<User> alMembersFromClient = group.getMembers();
-			
+			HashMap<String, String> hmUserEmails = new HashMap<String, String>();
 			
 			ArrayList<User> alTotalMembers = new ArrayList<User>();
 			UserEndpoint userEndpoint = new UserEndpoint();
@@ -147,6 +147,13 @@ public class GroupEndpoint {
 			
 			for (Iterator<User> iterator = alTotalMembers.iterator(); iterator.hasNext();) {
 				User user = (User) iterator.next();
+				
+				if(user.getEmail() != null) {
+					hmUserEmails.put(user.getEmail(), user.getFullName());
+				} else {
+					hmUserEmails.put(user.getFacebookEmail(), user.getFullName());
+				}
+				
 				GroupMemberMapping objGroupMemberMapping = new GroupMemberMapping();
 				objGroupMemberMapping.setGroupId(group.getGroupId());
 				objGroupMemberMapping.setUserId(user.getUserId());
@@ -157,8 +164,59 @@ public class GroupEndpoint {
 			group.setIouList(alIOU);
 			
 			
-			
-			
+			String msgContent = "";
+			msgContent = "<table width='700px' border='0px' cellspacing='0px' cellpadding='0px' align='center'>"
+					+ "<tbody><tr>"
+					+ "<td width='700px' height='12px'>"
+					+ "<img src='http://www.expenseshare.in/static-resources/images/email/top.jpg' width='700px' height='12px' align='center' border='0px'>"
+					+ "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td width='700px' height='100px' style='border-left:1px;border-right:1px;border-style:solid;border-color:#cccccc' align='center'>"
+					+ "<a href='http://www.expenseshare.in/' target='_blank'>"
+					+ "<img src='http://www.expenseshare.in/static-resources/images/email/incognito_buck_logo.jpg' alt='xpenseshare.in' border='0px' align='center'>"
+					+ "</a>"
+					+ "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td style='padding-left:15px;padding-right:15px;padding-top:none;letter-spacing:normal;border-right-style:solid;padding-bottom:15px;line-height:18px;border-left-color:#cccccc;border-left-style:solid;border-right-color:#cccccc;font-size:13px;border-right-width:1px;font-family:verdana,arial,helvetica,sans-serif;border-left-width:1px'>"
+					+ "Hi All,"
+					+ "<br><br>"
+					+ "<b>"
+					+ "Welcome to <span class='il'>XpenseShare</span>.com!"
+					+ "</b>"
+					+ "<br>"
+					+ "<p>"
+					+ "You have been added to the " + group.getGroupName() + " by " + group.getCreatedBy() + "."
+					+ "</p>"
+					+ "<p>"
+					+ "Streamline your expense tracking & settlement and forget keeping mental notes."
+					+ "</p>"
+					+ "<p>"
+					+ "If you wish to view your expenses, you may do so <a href='http://www.expenseshare.in/#dashboard' target='_blank'>here</a>."
+					+ "</p>"
+					+ "<p>"
+					+ "You can start your xpense sharing experience right <a href='http://www.expenseshare.in/' target='_blank'>now</a>."
+					+ "</p>"
+					+ "<p>"
+					+ "We hope to see you soon!"
+					+ "</p>"
+					+ "<br><br>"
+					+ "<b>Thank You For Choosing <span class='il'>XpenseShare</span>.com!</b>"
+					+ "<br>"
+					+ "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td background='http://www.expenseshare.in/static-resources/images/email/btm_bg.jpg' height='37px' width='700px' style='font-size:11px;font-family:verdana,arial,helvetica,sans-serif;color:#fff;padding:0px 10px' valign='middle'>"
+					+ "<b>Follow Us On</b> &nbsp;"
+					+ "<img src='http://www.expenseshare.in/static-resources/images/email/social_icon.png' alt='Facebook / Twitter / Blog' width='48px' height='21px' border='0px' align='absmiddle' usemap='#1404dc1a58831188_Map2'>"
+					+ "</span>"
+					+ "Copyright © 2013 <span class='il'>XpenseShare</span>.com and Affiliates"
+					+ "</td>"
+					+ "</tr>"
+					+ "</tbody></table>";
+
+			new MailUtil().sendMail("Bingo...", msgContent, hmUserEmails);
 			
 			group = mgr.makePersistent(group);
 			group.setMembersIdList(alMembersIdList);

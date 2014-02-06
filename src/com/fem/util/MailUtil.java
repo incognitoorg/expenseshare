@@ -42,10 +42,14 @@ public class MailUtil {
 
 			if(hmEmailIds == null) {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
+				log.info("Admin only mails " + PropertiesUtil.getProperty("ADMINS"));
 			} else {
 				for (Map.Entry<String, String> entry : hmEmailIds.entrySet()) { 
-					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()));
+					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()!=null ? entry.getValue() : "User"));
+					log.info("User email added - " + entry.getKey());
 				}
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
+				log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
 			}
 
 			msg.setSubject(subject);
