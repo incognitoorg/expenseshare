@@ -208,7 +208,7 @@ hr.red-line{
 }
 
 .ui-menu-item.facebook{
-	background:blue;
+	background: rgb(232, 232, 247);
 }
 
 
@@ -243,4 +243,19 @@ hr.red-line{
 }
 .hr:nth-child(3)>span{
 	padding-right: 33px; 
+}
+
+
+.click-to-login>span{
+	display: inline-block;
+	height :20px;
+	width: 20px;
+	cursor: pointer;
+}
+
+.click-to-login .facebook-button{
+	background :url("images/facebook.png") no-repeat;
+}
+.click-to-login .google-button{
+	background :url("images/google.png") no-repeat;
 }
