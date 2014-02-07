@@ -603,13 +603,25 @@ public class ExpenseEntityEndpoint {
 			}
 			
 			
-			Group objGroup = expenseentity.getGroup();
+			
+			ArrayList<IOU> iouToDelete = null;
+			
+			//This is non group expense
+			if(StringUtils.isEmpty( expenseentity.getGroupId())){
+				String oldFriendshipId = expenseentity.getFriendshipId();
+				Friendship objOldFriendship = mgr.getObjectById(Friendship.class,  oldFriendshipId);
+				iouToDelete = objOldFriendship.getIouList();
+			} else {
+				Group objGroup = mgr.getObjectById(Group.class,  expenseentity.getGroupId());
+				iouToDelete = objGroup.getIouList();
+			}
+			
 			expenseentity.setGroup(null);
 			
 			//Attaching to JDO
 			expenseentity = mgr.getObjectById(ExpenseEntity.class, expenseentity.getExpenseEntityId());
 			
-			this.updateIOU(mgr, expenseentity, objGroup.getIouList(), "delete");
+			this.updateIOU(mgr, expenseentity, iouToDelete, "delete");
 
 			//Removing related expenseinfo
 			for (Iterator iterator = expenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
@@ -623,10 +635,8 @@ public class ExpenseEntityEndpoint {
 				mgr.deletePersistent(objExpenseInfo);
 			}
 			
-			objGroup.setMembers(null);//Removing members as they are not embedded.
-			
-			
-			mgr.makePersistent(objGroup);
+			//objGroup.setMembers(null);//Removing members as they are not embedded.
+			//mgr.makePersistent(objGroup);
 			
 			
 			mgr.deletePersistent(expenseentity);

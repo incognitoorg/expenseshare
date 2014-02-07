@@ -344,15 +344,13 @@ define(function(require) {
 			$detailContainer.toggle();//.animate({height : $detailContainer.height()});
 			
 		},
-		groupDataObtained : function(response, expense){
-			var group = response;
+		deleteExpense : function(event){
+			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
+			var confirmation = confirm('Are you sure you want to delete this expense, ' + expense.name + ' ?');
 			
-			//TODO : This calculation has been moved to back end ExpenseEntityEndpoint.updateIOU(). Can be deleted when confident of correct working.
-			//var updatedGroup = ExpenseUtility.updateIOU(expense, group, 'delete');
-			
-			var updatedGroup = group;
-			
-			expense.group = updatedGroup;
+			if(!confirmation){
+				return;
+			}
 			
 			Sandbox.doDelete({
 				url : '_ah/api/expenseentityendpoint/v1/expenseentity/deleteandupdateiou', 
@@ -369,33 +367,6 @@ define(function(require) {
 					console.log('error occured');
 				}
 			});
-		},
-		deleteExpense : function(event){
-			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
-			var confirmation = confirm('Are you sure you want to delete this expense, ' + expense.name + ' ?');
-			
-			if(!confirmation){
-				return;
-			}
-			
-			
-			var group = this.groupMap[expense.groupId];
-			
-			var data = {
-				url : '_ah/api/userendpoint/v1/user/' + user.getInfo().userId + '/group/' + group.groupId,
-				context : this,
-				callback : function(response){
-					this.groupDataObtained(response, expense);
-				},
-				dataType: 'json',
-				loaderContainer : this.$('.groups-container')
-			};
-			Sandbox.doGet(data);
-			
-				
-			
-			
-			/*Sandbox.publish('FEM:NAVIGATE', '#expensedetail');*/
 		},
 		editExpense : function(event){
 			if(this.newExpense){
