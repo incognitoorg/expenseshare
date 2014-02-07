@@ -52,9 +52,7 @@ define(function(require) {
 					
 				}
 			}
-			
-			
-			return  returnValue
+			return  returnValue;
 		});
 		
 		var retArray = [];
