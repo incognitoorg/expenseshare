@@ -130,15 +130,18 @@ define(function(require) {
 			'click .js-save-expense' : 'eventSaveExpense',
 			'change .js-division-type' : 'eventShowMembersToDivide',
 			'click .js-allmembers' : 'toggleAllMembers',
-			'click .next-button' : 'showExpenseWithoutGroupForm'
+			'click .next-button' : 'showExpenseWithoutGroupForm',
+			'click .add-group-button' : 'showSelectGroup',
+			'click .back-to-without-group' : 'showNonGroupForm'
 		},
 		registerValidator : function(){
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});
 		},
 		reInitialize : function(){
-			this.$('.js-select-group-container').show();
+			this.$('.js-select-group-container').hide();
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
+			this.$('.js-friend-selector-container').show().css({top:0});
 			this.objSelectGroup.reInitialize();
 			
 			this.$('.js-friend-selector-container').show();
@@ -152,7 +155,8 @@ define(function(require) {
 				this.objSelectGroup = SelectGroup.getInstance();
 			}
 			
-			this.$('.js-select-group-container').show();
+			this.$('.js-friend-selector-container').show().css({top:0});
+			this.$('.js-select-group-container').hide();
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
 			
@@ -837,7 +841,24 @@ define(function(require) {
 				return;
 			}
 			this.showNewExpenseForm(dummyGroup);
+		},
+		showSelectGroup : function(){
+			var $friendSelector =this.$('.js-friend-selector-container');
+			var $seletGroupContainer=this.$('.js-select-group-container');
+			$friendSelector .animate({top : -$friendSelector .height()}, function(){
+				$(this).hide();
+				$seletGroupContainer.show('slow');
+			});
+		},
+		showNonGroupForm : function(){
+			var $friendSelector =this.$('.js-friend-selector-container');
+			var $seletGroupContainer=this.$('.js-select-group-container');
+			$seletGroupContainer.hide('slow', function(){
+				$friendSelector.show().animate({top : 0}, function(){
+				});
+			});
 		}
+		
 		
 	});
 	

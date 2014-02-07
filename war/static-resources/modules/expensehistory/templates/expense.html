@@ -1,26 +1,33 @@
-<li class="js-expense-li li-{{expenseEntityId}}">
-<div class="row expense" >
-	<div class="small-11 columns js-expense" data-expense-id={{expenseEntityId}}>
-		<div class="row amount-row">
-			<div class="small-9 large-6 columns">
-				<div class="row"><div class="small-12 columns"><span class=expense-name>{{name}}</span></div></div>
-				<div class="row">
-					<div class="small-6 columns">{{day}}</div>
-					<div class="small-6 columns">{{group.groupName}}</div>
+<li class="js-expense-li li-{{expenseEntityId}} {{transactionType}}">
+	<div class="row expense">
+		<div class="small-11 columns js-expense"
+			data-expense-id={{expenseEntityId}}>
+			<div class="row amount-row">
+				<div class="small-9 large-6 columns">
+					<div class="row">
+						<div class="small-12 columns">
+							<span class=expense-name>{{name}}</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-6 columns">{{day}}</div>
+						<div class="small-6 columns">{{group.groupName}}</div>
+					</div>
+				</div>
+				<div class="large-3 columns hide-for-small">{{whoPaid}} Paid
+					{{totalAmountPaid}}</div>
+				<div class="small-3 large-3 columns">
+					<span class="text-right">{{transactionType}}
+						{{userTransaction}}</span>
 				</div>
 			</div>
-			<div class="large-3 columns hide-for-small">
-				{{whoPaid}} Paid {{totalAmountPaid}}
-			</div>
-			<div class="small-3 large-3 columns">
-				<span class="text-right">{{transactionType}} {{userTransaction}}</span>
-			</div>
+		</div>
+		<div class="small-1 column delete-expense"
+			data-expense-id={{expenseEntityId}} title="Delete expense..">X
 		</div>
 	</div>
-	<div class="small-1 column delete-expense" data-expense-id={{expenseEntityId}} title="Delete expense..">X
+	<div class="row detail-expense">
+		<div class="small-12 columns js-expense-detail-container"
+			style="display: none;"></div>
 	</div>
-</div>
-<div class="" >
-	<div class="small-12 columns js-expense-detail-container" style=display:none;></div>
-</div>
 </li>
