@@ -13,6 +13,7 @@ import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
 
 import com.fem.util.MailUtil;
+import com.fem.util.TemplateUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
@@ -150,7 +151,7 @@ public class GroupEndpoint {
 				
 				if(user.getEmail() != null) {
 					hmUserEmails.put(user.getEmail(), user.getFullName());
-				} else {
+				} else if(user.getFacebookEmail() != null) {
 					hmUserEmails.put(user.getFacebookEmail(), user.getFullName());
 				}
 				
@@ -164,59 +165,16 @@ public class GroupEndpoint {
 			group.setIouList(alIOU);
 			
 			
-			String msgContent = "";
-			msgContent = "<table width='700px' border='0px' cellspacing='0px' cellpadding='0px' align='center'>"
-					+ "<tbody><tr>"
-					+ "<td width='700px' height='12px'>"
-					+ "<img src='http://www.expenseshare.in/static-resources/images/email/top.jpg' width='700px' height='12px' align='center' border='0px'>"
-					+ "</td>"
-					+ "</tr>"
-					+ "<tr>"
-					+ "<td width='700px' height='100px' style='border-left:1px;border-right:1px;border-style:solid;border-color:#cccccc' align='center'>"
-					+ "<a href='http://www.expenseshare.in/' target='_blank'>"
-					+ "<img src='http://www.expenseshare.in/static-resources/images/email/incognito_buck_logo.jpg' alt='xpenseshare.in' border='0px' align='center'>"
-					+ "</a>"
-					+ "</td>"
-					+ "</tr>"
-					+ "<tr>"
-					+ "<td style='padding-left:15px;padding-right:15px;padding-top:none;letter-spacing:normal;border-right-style:solid;padding-bottom:15px;line-height:18px;border-left-color:#cccccc;border-left-style:solid;border-right-color:#cccccc;font-size:13px;border-right-width:1px;font-family:verdana,arial,helvetica,sans-serif;border-left-width:1px'>"
-					+ "Hi All,"
-					+ "<br><br>"
-					+ "<b>"
-					+ "Welcome to <span class='il'>XpenseShare</span>.com!"
-					+ "</b>"
-					+ "<br>"
-					+ "<p>"
-					+ "You have been added to the " + group.getGroupName() + " by " + group.getCreatedBy() + "."
-					+ "</p>"
-					+ "<p>"
-					+ "Streamline your expense tracking & settlement and forget keeping mental notes."
-					+ "</p>"
-					+ "<p>"
-					+ "If you wish to view your expenses, you may do so <a href='http://www.expenseshare.in/#dashboard' target='_blank'>here</a>."
-					+ "</p>"
-					+ "<p>"
-					+ "You can start your xpense sharing experience right <a href='http://www.expenseshare.in/' target='_blank'>now</a>."
-					+ "</p>"
-					+ "<p>"
-					+ "We hope to see you soon!"
-					+ "</p>"
-					+ "<br><br>"
-					+ "<b>Thank You For Choosing <span class='il'>XpenseShare</span>.com!</b>"
-					+ "<br>"
-					+ "</td>"
-					+ "</tr>"
-					+ "<tr>"
-					+ "<td background='http://www.expenseshare.in/static-resources/images/email/btm_bg.jpg' height='37px' width='700px' style='font-size:11px;font-family:verdana,arial,helvetica,sans-serif;color:#fff;padding:0px 10px' valign='middle'>"
-					+ "<b>Follow Us On</b> &nbsp;"
-					+ "<img src='http://www.expenseshare.in/static-resources/images/email/social_icon.png' alt='Facebook / Twitter / Blog' width='48px' height='21px' border='0px' align='absmiddle' usemap='#1404dc1a58831188_Map2'>"
-					+ "</span>"
-					+ "Copyright © 2013 <span class='il'>XpenseShare</span>.com and Affiliates"
-					+ "</td>"
-					+ "</tr>"
-					+ "</tbody></table>";
+			StringBuilder msgContent = null;
+			
+			msgContent = new StringBuilder(TemplateUtil.getTemplate("GROUP_CREATED_MAIL_TEMPLATE"));
+			
+			int index = msgContent.indexOf("??groupname??");
+			msgContent.replace(index, index + 13, group.getGroupName() == null ? "" : group.getGroupName());
+			index = msgContent.indexOf("??groupcreatedby??");
+			msgContent.replace(index, index + 18, group.getCreatedBy() == null ? "Group Admin" : group.getCreatedBy());
 
-			new MailUtil().sendMail("Bingo...", msgContent, hmUserEmails);
+			new MailUtil().sendMail("Bingo...", msgContent.toString(), hmUserEmails);
 			
 			group = mgr.makePersistent(group);
 			group.setMembersIdList(alMembersIdList);
