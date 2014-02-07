@@ -12,7 +12,7 @@ REM "C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/'fem.appcache'/'builtfem.app
 
 
 cd ..\r-js-optimizer\
-REM call optimize.cmd
+call optimize.cmd
 cd ..\deployscript\
 
 break 
