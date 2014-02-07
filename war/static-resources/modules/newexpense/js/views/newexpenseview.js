@@ -17,6 +17,30 @@ define(function(require) {
 	var expenseInputCounter = 0;
 	var dummyIdCounter = 0;
 	
+	//TODO : If miraculously user is able to proceed to form enter details and  sends the add expense withuot this request getting completed this user will not have the facebook email.
+	function updateFriendInfo(friendInfo){
+		if(friendInfo.loginType=="facebook"){
+			$.ajax({
+				url: 'https://graph.facebook.com/' + friendInfo.facebookId +'?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
+				dataType: "jsonp",
+				success : function(response){
+					
+					friendInfo.facebookEmail = response.username + "@facebook.com";
+					
+					/*var normalizedFriendInfo = {
+							'fullName' : friendInfo.name,
+							'name' : friendInfo.name,
+							facebookId : friendInfo.id,
+							loginType : 'facebook',
+							facebookEmail : response.username + "@facebook.com",
+							firstName : response.first_name,
+							lastName : response.last_name,
+							imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" 
+					};*/
+				}
+			});
+		}
+	}
 	
 	function getAutosuggestOptions(data, query){
 		var formatted = [];
@@ -88,7 +112,7 @@ define(function(require) {
 					name : friendInfo.name,
 					facebookId : friendInfo.id,
 					loginType : 'facebook',
-					facebookEmail : friendInfo.id + "@facebook.com",
+					/*facebookEmail : friendInfo.id + "@facebook.com",*/
 					firstName : friendInfo.first_name,
 					lastName : friendInfo.last_name,
 					imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" ,
@@ -178,6 +202,7 @@ define(function(require) {
 					this.value='';
 					if(self.selectedFriends.indexOf(friendInfo)==-1){
 						self.selectedFriends.push(friendInfo);
+						updateFriendInfo(friendInfo);
 					}
 					self.renderFriendsSelected();
 					event.preventDefault();
