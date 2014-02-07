@@ -328,7 +328,7 @@ define(function(require) {
 			this.renderExpenses(filteredExpenses);
 			
 		},
-		//TODO : Remove all code of separate detail expense.
+		//TODO : Remove all code of separate detail expense. Or maybe use this for phone layout
 		showExpenseDetail : function(event){
 			var self = this;
 			var expense = this.expenseHitoryMap[$(event.currentTarget).data('expense-id')];
@@ -384,13 +384,7 @@ define(function(require) {
 			
 			var selectedFriends = [];
 			
-			//selectedFriends = selectedFriends.concat(_.pluck(expense.listPayersInfo, "userInfo"));
-			//selectedFriends = selectedFriends.concat(_.pluck(expense.listIncludeMemberInfo, "userInfo"));
-			
 			selectedFriends = _.union(_.pluck(expense.listPayersInfo, "userInfo"), _.pluck(expense.listIncludeMemberInfo, "userInfo"))
-			
-			//_.unique(selectedFriends);
-			
 			
 			if(!group){
 				var memberIdList = [];
