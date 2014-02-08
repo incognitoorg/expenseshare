@@ -51,6 +51,8 @@ public class MailUtil {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
 				log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
 			}
+			
+			System.out.println(msgContent);
 
 			msg.setSubject(subject);
 			msg.setText(msgContent, "utf-8", "html");
