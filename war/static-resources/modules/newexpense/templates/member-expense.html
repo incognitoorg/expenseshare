@@ -1,11 +1,8 @@
 <div class="row js-expense-div">
-	<label><input type="checkbox" checked class="small-1 columns js-select-expense"
-		style="float: left;" data-userd={{userId}} >
-	<div class="js-member-name small-5 columns" style="float: left;">{{fullName}}</div>
-		</label>
-	<div class="small-2 columns js-lock-button foundicon-lock" style="float: left;">&nbsp;</div>
-		<div class="small-3 columns"><input type="tel" name="expenseInput{{inputNumber}}" step="0.01"
-		class="small-3 columns js-contribution-input {{userId}}" style="float: left;" data-userd={{userId}}></div>
+	<div class="small-2 columns"><input type="checkbox" id="exp-{{userId}}" checked class="js-select-expense" style="float: left;" data-userd={{userId}} ></div>
+	<div class="small-5 columns js-member-name " style="float: left;"><label for="exp-{{userId}}">{{fullName}}</label></div>
+	<div class="small-2 columns"><div class="js-lock-button foundicon-lock">&nbsp;</div></div>
+	<div class="small-3 columns"><input type="tel" name="expenseInput{{inputNumber}}" step="0.01" class="js-contribution-input {{userId}}" style="float: left;" data-userd={{userId}}></div>
 </div>
 
 
