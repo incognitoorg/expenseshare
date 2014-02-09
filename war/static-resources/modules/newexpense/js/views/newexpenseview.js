@@ -161,11 +161,11 @@ define(function(require) {
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});
 		},
 		reInitialize : function(){
-			this.$('.js-select-group-container').hide();
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
-			this.$('.js-friend-selector-container').show().css({top:0});
 			this.objSelectGroup.reInitialize();
+			this.$('.js-select-group-container').show().css({top : -this.$('.js-select-group-container').height()}).hide();
+			this.$('.js-friend-selector-container').show().css({top:0});
 			
 			this.$('.js-friend-selector-container').show();
 			this.selectedFriends = [user.getInfo()];
@@ -178,8 +178,6 @@ define(function(require) {
 				this.objSelectGroup = SelectGroup.getInstance();
 			}
 			
-			this.$('.js-friend-selector-container').show().css({top:0});
-			this.$('.js-select-group-container').hide();
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
 			
@@ -187,6 +185,10 @@ define(function(require) {
 			
 			
 			this.objSelectGroup.initialize({el:this.$('.js-select-group'), 'owner':'NEW-EXPENSE'});
+			this.$('.js-friend-selector-container').show().css({top:0});
+			this.$('.js-select-group-container').show().css({top : -this.$('.js-select-group-container').height()}).hide();
+
+
 			this.renderFriendsSelected();
 		},
 		populateFriends : function(){
@@ -871,13 +873,19 @@ define(function(require) {
 			var $seletGroupContainer=this.$('.js-select-group-container');
 			$friendSelector .animate({top : -$friendSelector .height()}, function(){
 				$(this).hide();
-				$seletGroupContainer.show('slow');
+				//$seletGroupContainer.show('slow');
+				$seletGroupContainer.show().animate({top : 0});
 			});
 		},
 		showNonGroupForm : function(){
 			var $friendSelector =this.$('.js-friend-selector-container');
 			var $seletGroupContainer=this.$('.js-select-group-container');
-			$seletGroupContainer.hide('slow', function(){
+			/*$seletGroupContainer.hide('slow', function(){
+				$friendSelector.show().animate({top : 0}, function(){
+				});
+			});*/
+			$seletGroupContainer.animate({top : -$seletGroupContainer.height()}, function(){
+				$(this).hide();
 				$friendSelector.show().animate({top : 0}, function(){
 				});
 			});
