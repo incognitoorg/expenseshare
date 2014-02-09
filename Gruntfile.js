@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
 
+	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
+	/*console.log('requirejsconfig', requirejsconfig)*/
+	
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -63,6 +66,17 @@ module.exports = function(grunt) {
 				backendName: 'crawler'
 			}
 		},
+		requirejs : {
+			compile : {
+				options : requirejsconfig 
+			} 
+		},
+		
+		/*(function(){
+			console.log(JSON.parse(grunt.file.read("r-js-optimizer/tools/build.js"));
+			return JSON.parse(grunt.file.read("r-js-optimizer/tools/build.js");
+		})()*/
+		
 		'string-replace': {
 			  dist: {
 			    files: {
@@ -102,11 +116,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-string-replace');
 	grunt.loadNpmTasks('grunt-appengine');
-
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	
-	 grunt.registerTask('replaceBack', 'Managing App Engine.', exports.execute);
+	
+	console.log('printing gruntconfig', grunt.config().requirejs);
+
 	// Default task(s).
-	//grunt.registerTask('default', ['replace']);
+	grunt.registerTask('default', ['replace']);
 
 };
 

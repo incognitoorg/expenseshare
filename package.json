@@ -9,6 +9,7 @@
     "grunt-version": "~0.3.0",
     "grunt-text-replace": "~0.3.10",
     "grunt-appengine": "~0.1.4",
-    "grunt-string-replace": "~0.2.7"
+    "grunt-string-replace": "~0.2.7",
+    "grunt-contrib-requirejs": "~0.4.1"
   }
 }
