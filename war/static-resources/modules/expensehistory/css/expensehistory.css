@@ -84,3 +84,14 @@ div.expense:nth-child(2n){
 .js-expense-li.lent>div.expense{
 	background: rgb(169, 199, 46);
 }
+
+.header-4 {
+	font-size: 20px;
+	font-weight: bold;
+	margin-top : 5px;
+	margin-bottom : 5px;
+}
+
+.payers-container, .participants-container{
+	margin-bottom : 10px;
+}

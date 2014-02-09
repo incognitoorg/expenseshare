@@ -13,7 +13,7 @@
 <div class="row">
 	<div class="small-12 large-6 columns payers-container">
 		<div class="row collapse">
-			<h4>Payers</h4>
+			<div  class="header-4">Payers</div>
 			{{#each listPayersInfo}}
 			<div class="small-12 columns js-participants">
 				 <span>{{userInfo.fullName}}</span> <span
@@ -24,7 +24,7 @@
 	</div>
 	<div class="small-12 large-6 columns participants-container">
 		<div class="row collapse">
-			<h4>Participants share</h4>
+			<div class="header-4">Participants share</div>
 			{{#each listIncludeMemberInfo}}
 			<div class="small-12 columns js-participants">
 
@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div class="small-12 columns">
-		<span class=""><span type=button class="js-edit-expense button radius tiny" value="Edit Expense"  data-expense-id={{expenseEntityId}}>Edit expense</span></span>
+		<span type=button class="js-edit-expense button radius tiny" value="Edit Expense"  data-expense-id={{expenseEntityId}} >Edit expense</span>
 	</div>
 </div>
 
