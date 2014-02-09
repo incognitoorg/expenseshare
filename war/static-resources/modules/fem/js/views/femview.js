@@ -201,7 +201,7 @@ define(function(require){
 			if(redirectURL.length>1){
 				this.router.navigate(redirectURL);
 			} else {
-				this.eventShowView('js-dashboard');
+				this.eventShowView('js-new-expense');
 			}
 			
 			Sandbox.publish('APP:START', userdata.data);
