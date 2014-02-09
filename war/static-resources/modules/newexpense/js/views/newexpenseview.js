@@ -154,7 +154,8 @@ define(function(require) {
 			'click .js-allmembers' : 'toggleAllMembers',
 			'click .next-button' : 'showExpenseWithoutGroupForm',
 			'click .add-group-button' : 'showSelectGroup',
-			'click .back-to-without-group' : 'showNonGroupForm'
+			'click .back-to-without-group' : 'showNonGroupForm',
+			'focus input' : 'makeInputVisible'
 		},
 		registerValidator : function(){
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});
@@ -880,6 +881,15 @@ define(function(require) {
 				$friendSelector.show().animate({top : 0}, function(){
 				});
 			});
+		},
+		makeInputVisible : function(event){
+			var scrollTop = $('.scrollable-right-section').scrollTop();
+			var inputPosition = $(event.currentTarget).offset().top;
+			var bottomPaddingAdjust = parseInt($('.scrollable-right-section').css('padding-bottom'));
+			
+			if(scrollTop < inputPosition){
+				$('.scrollable-right-section').scrollTop(inputPosition + bottomPaddingAdjust);
+			}
 		}
 		
 		
