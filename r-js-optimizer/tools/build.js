@@ -297,6 +297,11 @@
                 "modules/expensehistory/expensehistory",
                 "modules/dashboard/dashboard"
             ]
+        },
+        {
+        	"name" :"autocomplete",
+            "include": ["autocomplete"],
+        	"exclude": ["backbone","handlebars","underscore","jquery", "bootloaders/fembootloader/fembootloader","components/login/login", "modules/fem/fem","modules/addgroup/addgroup","modules/selectgroup/selectgroup", "modules/newexpense/newexpense", "modules/expensehistory/expensehistory","modules/dashboard/dashboard"]
         }
     ]
 }
