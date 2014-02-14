@@ -68,12 +68,12 @@ module.exports = function(grunt) {
 
 			frontend: {
 				root: 'war/'
-			},
+			}/*,
 			backend: {
 				root: 'backend/',
 				backend: true,
 				backendName: 'crawler'
-			}
+			}*/
 		},
 		requirejs : {
 			compile : {
@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 		})()*/
 
 		'string-replace': {
-			dist: {
+			toDeploy: {
 				files: {
 					/*'path/to/directory/': 'path/to/source/*', // includes files in dir
 				      'path/to/directory/': 'path/to/source/**', // includes files in dir and subdirs
@@ -115,6 +115,35 @@ module.exports = function(grunt) {
 						replacement: "require.min.js"
 					}]
 				}
+			},
+			toLocal: {
+				files: {
+					/*'path/to/directory/': 'path/to/source/*', // includes files in dir
+				      'path/to/directory/': 'path/to/source/**', // includes files in dir and subdirs
+				      'path/to/project-<%= pkg.version %>/': 'path/to/source/**', // variables in destination
+				      'path/to/directory/': ['path/to/sources/*.js', 'path/to/more/*.js'], // include JS files in two diff dirs
+					 */			      
+					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
+					'war/boilerplate.js': 'war/boilerplate.js',
+					'war/index.html': 'war/index.html',
+				},
+				options: {
+					replacements: [{
+						pattern: "/built-static-resources/",
+						replacement: "/static-resources/"
+					}, {
+						pattern: "mode='dev'",
+						replacement: "mode='local'"
+					},
+					 {
+						pattern: "'builtfem.appcache'",
+						replacement: "'fem.appcache'"
+					},
+					 {
+						pattern: "require.min.js",
+						replacement: "require.js"
+					}]
+				}
 			}
 		}
 
@@ -128,16 +157,6 @@ module.exports = function(grunt) {
 
 
 	// Default task(s).
-	grunt.registerTask('default', ['replace']);
-
+	grunt.registerTask('default', ['string-replace:toDeploy', 'requirejs', 'appengine:update:frontend', 'string-replace:toLocal']);
+	grunt.registerTask('upload', ['string-replace:toDeploy', /*'requirejs',*/ 'appengine:update:frontend', 'string-replace:toLocal'])
 };
-
-
-
-//echo "substituting dev settings"
-//"C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/mode='local'/mode='dev'/g ..\war\static-resources\core\envvariables.js
-//"C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/\/static-resources\//\/built-static-resources\//g ../war/boilerplate.js
-//REM "C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/'fem.appcache'/'builtfem.appcache'/g ../war/index.html
-//"C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/\"static-resources\//\"built-static-resources\//g ../war/index.html
-//"C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/require.js/require.min.js/g ../war/index.html
-//"C:\Program Files (x86)\GnuWin32\bin\sed" -ci s/1\.0/1\.0\.1/g ../war/builtfem.appcache
