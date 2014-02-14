@@ -180,7 +180,7 @@ hr.red-line{
 .ui-menu-item{
 	display : block;
 	background : white;	
-	opacity : 0.8;
+	opacity: 0.93;
 	height: auto;
 	border-bottom : 1px solid black;
 	border-left : 1px solid black;
@@ -208,12 +208,17 @@ hr.red-line{
 }
 
 .ui-menu-item.facebook{
-	background: rgb(232, 232, 247);
+	/* background: rgb(232, 232, 247); */
+	background :url("images/facebook.png") no-repeat;
+	background-position: 98% 50%;
+	background-color: #4863ae;
 }
 
 
 .ui-menu-item.google{
-	background:orange;
+	background :url("images/google.png") no-repeat;
+	background-position: 98% 50%;
+	background-color: #df4a32;
 }
 
 .ui-menu-item .ui-corner-all{
@@ -264,3 +269,4 @@ hr.red-line{
 	height : 50px;
 	margin-bottom : 10px;	
 }
+
