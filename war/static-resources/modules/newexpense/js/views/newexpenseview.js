@@ -10,7 +10,7 @@ define(function(require) {
 	var FormValidator = require("./../validator/newexpensevalidator");
 	var user = login = require('components/login/login');
 	var ExpenseUtility = require('modules/expenseutiliy/expenseutility');
-	require('autocomplete');
+	require('libraries/jquery-ui/jquery.ui.autocomplete-amd');
 	require('css!libraries/jquery-ui/css/themes/base/jquery.ui.autocomplete.css');
 
 
@@ -155,7 +155,9 @@ define(function(require) {
 			'click .next-button' : 'showExpenseWithoutGroupForm',
 			'click .add-group-button' : 'showSelectGroup',
 			'click .back-to-without-group' : 'showNonGroupForm',
-			'focus input' : 'makeInputVisible'
+			'focus input' : 'makeInputVisible',
+			'click .facebook-button' : 'doFacebookLogin',
+			'click .google-button' : 'doGoogleLogin'
 		},
 		registerValidator : function(){
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});

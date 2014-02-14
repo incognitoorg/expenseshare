@@ -21,6 +21,7 @@ var require = {
 			fbapioauth : 'components/fbapi/fbapi-web',
 			googleapioauth : 'components/googleapi/googleapi-web',
 			formvalidationwrapper : 'plugins/jquery/formvalidation/formvalidation',
+			"autocomplete-amd" : 'libraries/jquery-ui/jquery.ui.autocomplete-amd',
 			autocomplete : 'libraries/jquery-ui/js/ui/minified/jquery.ui.autocomplete.min',
 			uicore : 'libraries/jquery-ui/js/ui/minified/jquery.ui.core.min',
 			uiwidget : 'libraries/jquery-ui/js/ui/minified/jquery.ui.widget.min',
@@ -47,7 +48,7 @@ var require = {
 			},
 			'uimenu' : {
 				deps : [ 'uiwidget'],
-			},
+			}
 		},
 		waitSeconds : 60,
 		/* urlArgs: "v=0.25",  */

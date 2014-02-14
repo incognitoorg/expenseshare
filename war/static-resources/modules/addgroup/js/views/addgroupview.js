@@ -7,10 +7,11 @@ define(function(require) {
 	var login = require('components/login/login');
 	var FormValidator = require("./../validator/addgroupvalidator");
 	var FEMFriendManager = require('modules/friendmanager/friendmanager');
-	require('autocomplete');
+	require('libraries/jquery-ui/jquery.ui.autocomplete-amd');
 	require('css!libraries/jquery-ui/css/themes/base/jquery.ui.autocomplete.css');
 	require('css!../../css/addgroup.css');
 	var userInfo = login.getInfo();
+	
 	
 	function getAutosuggestOptions(data, query, allMembers, loginType){
 		var formatted = [];

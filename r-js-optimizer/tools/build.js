@@ -61,6 +61,7 @@
         "persistence": "libraries/lawnchair/lawnchair",
         "fbapioauth": "components/fbapi/fbapi-web",
         "googleapioauth": "components/googleapi/googleapi-web",
+        "autocomplete-amd" : "libraries/jquery-ui/jquery.ui.autocomplete-amd",
         "autocomplete": "libraries/jquery-ui/js/ui/minified/jquery.ui.autocomplete.min",
         "uicore": "libraries/jquery-ui/js/ui/minified/jquery.ui.core.min",
         "uiwidget": "libraries/jquery-ui/js/ui/minified/jquery.ui.widget.min",
@@ -128,6 +129,17 @@
             ]
         },
         {
+			"name" : "autocomplete-amd",
+		    "include": [ "autocomplete-amd"],
+		    "exclude": [
+                "backbone",
+                "handlebars",
+                "underscore",
+                "jquery",
+                "bootloaders/fembootloader/fembootloader"
+            ]
+		},
+        {
             "name": "components/login/login",
             "include": [
                 "components/login/login"
@@ -167,7 +179,8 @@
                 "bootloaders/fembootloader/fembootloader",
                 "components/login/login",
                 "modules/fem/fem",
-                "plugins/jquery/formvalidation/formvalidation"
+                "plugins/jquery/formvalidation/formvalidation",
+                "autocomplete"
             ]
         },
         {
@@ -218,7 +231,8 @@
                 "modules/addgroup/addgroup",
                 "modules/selectgroup/selectgroup",
                 "plugins/jquery/formvalidation/formvalidation",
-                "modules/expenseutiliy/expenseutility"
+                "modules/expenseutiliy/expenseutility",
+                "autocomplete"
             ]
         },
         {
@@ -297,11 +311,6 @@
                 "modules/expensehistory/expensehistory",
                 "modules/dashboard/dashboard"
             ]
-        },
-        {
-        	"name" :"autocomplete",
-            "include": ["autocomplete"],
-        	"exclude": ["backbone","handlebars","underscore","jquery", "bootloaders/fembootloader/fembootloader","components/login/login", "modules/fem/fem","modules/addgroup/addgroup","modules/selectgroup/selectgroup", "modules/newexpense/newexpense", "modules/expensehistory/expensehistory","modules/dashboard/dashboard"]
         }
     ]
 }
