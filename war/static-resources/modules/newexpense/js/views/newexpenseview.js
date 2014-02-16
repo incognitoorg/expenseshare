@@ -197,6 +197,7 @@ define(function(require) {
 			var self = this;
 			this.populateGoogleFriends();
 			this.populateFacebookFriends();
+			this.populateAppFriends();
 			
 			this.$('.js-friends-autocomplete').autocomplete({
 				source : function(request, response){
@@ -244,6 +245,8 @@ define(function(require) {
 						console.log(response);
 					}
 				});
+				self.$('.facebook-button').hide();
+				self.updateInputPlaceholder();
 			}
 		},
 		populateGoogleFriends : function(){
@@ -262,7 +265,52 @@ define(function(require) {
 						self.doGoogleLogin();
 					}
 				});
+				self.$('.google-button').hide();
+				self.updateInputPlaceholder();
+
 			}
+		},
+		populateAppFriends : function(){
+			var self = this;
+			Sandbox.doGet({
+				url : '_ah/api/userendpoint/v1/user/' + login.getInfo().userId +'/group',
+				callback : function(response){
+					self.renderAppData.call(self, response);
+				},
+				loaderContainer : this.$('.js-owers,.js-payers'),
+				cached : false 
+			});
+		},
+		renderAppData : function(response){
+			var groups = response.items;
+			
+			if(groups){
+				var allMembers = {};
+				var membersArray = [];
+				for ( var i = 0; i < groups.length; i++) {
+					var group = groups[i];
+					var members = group.members;
+					var groupMembersMap = {};
+					
+					for ( var memberCount = 0; memberCount < members.length; memberCount++) {
+						var member = members[memberCount];
+						groupMembersMap[member.userId] = member;
+					}
+					_.extend(allMembers, groupMembersMap);
+				}
+				
+				for ( var memberId in allMembers) {
+					membersArray.push(allMembers[memberId]);
+				}
+				//console.log('allMembers', membersArray);
+				this.addFriends(membersArray);
+			}
+		},
+		updateInputPlaceholder : function(){
+			var loginAvailable = [];
+			login.getInfo().google?loginAvailable.push(' google'):'';
+			login.getInfo().facebook?loginAvailable.push(' facebook'):'';
+			this.$('.js-friends-autocomplete').attr('placeholder', 'Select friends from' + loginAvailable.join(','));
 		},
 		//TODO : I outsourced this function. Can write better code than this.
 		renderFriendsSelected : function (){
