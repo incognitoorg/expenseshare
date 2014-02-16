@@ -45,7 +45,7 @@ define(function(require) {
 	function getAutosuggestOptions(data, query){
 		var formatted = [];
 		for(var i = 0; i< data.length; i++) {
-			if(data[i].fullName.toLowerCase().indexOf(query.term.toLowerCase())!=-1){
+			if(data[i].fullName.toLowerCase().indexOf(query.term.trim().toLowerCase())!=-1){
 				formatted.push({
 					label: data[i].fullName,
 					value: data[i]
@@ -308,8 +308,8 @@ define(function(require) {
 		},
 		updateInputPlaceholder : function(){
 			var loginAvailable = [];
-			login.getInfo().google?loginAvailable.push(' google'):'';
-			login.getInfo().facebook?loginAvailable.push(' facebook'):'';
+			login.getInfo().google?loginAvailable.push(' Google'):'';
+			login.getInfo().facebook?loginAvailable.push(' Facebook'):'';
 			this.$('.js-friends-autocomplete').attr('placeholder', 'Select friends from' + loginAvailable.join(','));
 		},
 		//TODO : I outsourced this function. Can write better code than this.
