@@ -941,12 +941,21 @@ define(function(require) {
 			});
 		},
 		makeInputVisible : function(event){
-			var scrollTop = $('.scrollable-right-section').scrollTop();
-			var inputPosition = $(event.currentTarget).offset().top;
-			var bottomPaddingAdjust = parseInt($('.scrollable-right-section').css('padding-bottom'));
-			
-			if(scrollTop < inputPosition){
-				$('.scrollable-right-section').scrollTop(inputPosition + bottomPaddingAdjust);
+			var isMobile = false;
+			//TODO : Put this in some common place
+			if( $('.is-mobile').css('display') == 'none' ) {
+		        isMobile = true;      
+		    }
+			if(isMobile){
+				setTimeout(function(){
+					var scrollTop = $('.scrollable-right-section').scrollTop();
+					var inputPosition = $(event.currentTarget).offset().top;
+					var bottomPaddingAdjust = parseInt($('.scrollable-right-section').css('padding-bottom'));
+					
+					if(scrollTop < inputPosition){
+						$('.scrollable-right-section').scrollTop(inputPosition + bottomPaddingAdjust);
+					}
+				}, 1000);
 			}
 		}
 		
