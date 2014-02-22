@@ -22,7 +22,7 @@ body {
 }
 
 .js-right-panel>div>div {
-	/* height: 99%; */
+	height: 99%;
 }
 
 .js-right-panel{
@@ -179,7 +179,7 @@ input{
 	overflow-x: hidden;
 	height: 90%;
 	width: 100%!important;
-	position: absolute;
+	/* position: absolute; */
 	padding-bottom: 45px!important;
 	
 }
@@ -192,11 +192,19 @@ input{
 	cursor: pointer;	
 }
 
+.scrollable-right-section{
+	overflow-y:scroll; 
+}
+	.js-hide-menu{
+		margin-left: 0!important;
+		margin-right: 0!important;
+	}
 
 @media only screen and (max-width: 40.063em) {
-	/* .scrollable-right-section{
-		position: absolute;
-	} */
+	.scrollable-right-section{
+		margin-left:0!important;
+		margin-right:0!important;
+	}
 	
 	.js-view-item{
 		background: #5E5E5E;
@@ -208,4 +216,11 @@ input{
 		margin-right: -10px!important;
 		background: white;
 	}
+	
+	.js-right-panel{
+		padding-right:0!important;
+		padding-left:0!important;
+	}
+	
+
 }

@@ -34,8 +34,31 @@ html,body {
 
 div.full {
 	min-height: 100%;
-	max-height: 100%;
+	max-height: 100%; 
 }
+
+@media only screen and (max-width:40.063em){
+	div.full {
+		min-height: auto!important;
+		max-height: auto!important;
+		height:auto!important; 
+	}
+	
+	div#appcontainer{
+		height:100%;
+		overflow-y:scroll; 
+	}
+	
+	.scrollable-right-section{
+		overflow-y:hidden!important;
+		height:auto!important;
+	}
+	
+	.js-right-panel>div>div{
+		height:auto!important;
+	}
+}
+
 
 ::selection {
 	color: inherit;
