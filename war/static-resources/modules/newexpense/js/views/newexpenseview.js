@@ -941,7 +941,7 @@ define(function(require) {
 			});
 		},
 		makeInputVisible : function(event){
-			var isMobile = false;
+			/*var isMobile = false;
 			//TODO : Put this in some common place
 			if( $('.is-mobile').css('display') == 'none' ) {
 		        isMobile = true;      
@@ -956,7 +956,7 @@ define(function(require) {
 						$('.scrollable-right-section').scrollTop(inputPosition + bottomPaddingAdjust);
 					}
 				}, 1000);
-			}
+			}*/
 		}
 		
 		
