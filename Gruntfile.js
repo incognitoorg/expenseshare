@@ -1,62 +1,14 @@
 module.exports = function(grunt) {
 
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
-	/*console.log('requirejsconfig', requirejsconfig)*/
 
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		/*replace: {
-			production: {
-				env : {
-					src: ['war/static-resources/core/envvariables.js'],             // source files array (supports minimatch)
-					dest: 'war/static-resources/core/envvariables.js',             // destination directory or file
-					replacements: [{ 
-						from: "mode='local'",                   // string replacement
-						to: "mode='dev'" 
-					}, {
-						from: '/static-resources/',
-						to: function (matchedWord) {   // callback replacement
-							return '/built-static-resources/';
-						}
-					}]
-					files: {
-						'path/to/directory/': 'path/to/source/*', // includes files in dir
-					      'path/to/directory/': 'path/to/source/**', // includes files in dir and subdirs
-					      'path/to/project-<%= pkg.version %>/': 'path/to/source/**', // variables in destination
-					      'path/to/directory/': ['path/to/sources/*.js', 'path/to/more/*.js'], // include JS files in two diff dirs
-						 			      'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js'
-					},
-					options: {
-						replacements: [{ 
-							from: "mode='local'",                   // string replacement
-							to: "mode='dev'" 
-						}, {
-								from: 'Foo',
-								to: function (matchedWord) {   // callback replacement
-									return matchedWord + ' Bar';
-								}
-							}]
-					}
-				}
-			},
-			local: {
-				src: ['war/static-resources/core/envvariables.js'],             // source files array (supports minimatch)
-				dest: 'war/static-resources/core/envvariables.js',             // destination directory or file
-				replacements: [{ 
-					from: "mode='dev'",                   // string replacement
-					to: "mode='local'" 
-				}, {
-					from: 'Foo',
-					to: function (matchedWord) {   // callback replacement
-						return matchedWord + ' Bar';
-					}
-				}]
-			}
-		},*/
 		appengine: {
 			options: {
-				sdk:'D:/chrome-downloads/appengine-java-sdk-1.8.6/bin',
+				/*sdk:'C:/Users/VAronde/Downloads/sdk/gae-sdk/appengine-java-sdk-1.8.6/bin',*/
+				sdk: process.env.GAE_SDK + '/bin',
 				manageScript : 'appcfg.cmd',
 				runFlags: {
 					port: 8080
@@ -80,12 +32,6 @@ module.exports = function(grunt) {
 				options : requirejsconfig 
 			} 
 		},
-
-		/*(function(){
-			console.log(JSON.parse(grunt.file.read("r-js-optimizer/tools/build.js"));
-			return JSON.parse(grunt.file.read("r-js-optimizer/tools/build.js");
-		})()*/
-
 		'string-replace': {
 			toDeploy: {
 				files: {
@@ -118,11 +64,6 @@ module.exports = function(grunt) {
 			},
 			toLocal: {
 				files: {
-					/*'path/to/directory/': 'path/to/source/*', // includes files in dir
-				      'path/to/directory/': 'path/to/source/**', // includes files in dir and subdirs
-				      'path/to/project-<%= pkg.version %>/': 'path/to/source/**', // variables in destination
-				      'path/to/directory/': ['path/to/sources/*.js', 'path/to/more/*.js'], // include JS files in two diff dirs
-					 */			      
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
@@ -150,13 +91,24 @@ module.exports = function(grunt) {
 	});
 
 	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-string-replace');
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 
 
 	// Default task(s).
-	grunt.registerTask('default', ['string-replace:toDeploy', 'requirejs', 'appengine:update:frontend', 'string-replace:toLocal']);
-	grunt.registerTask('upload', ['string-replace:toDeploy', /*'requirejs',*/ 'appengine:update:frontend', 'string-replace:toLocal'])
+	grunt.registerTask('default',function(){
+		grunt.task.run(['all']);
+	});
+	
+	grunt.registerTask('all', ['string-replace:toDeploy', 'requirejs', 'appengineUpdateWrapper', 'string-replace:toLocal'])
+	grunt.registerTask('onlyupload', ['string-replace:toDeploy', /*'requirejs',*/ 'appengineUpdateWrapper', 'string-replace:toLocal'])
+	grunt.registerTask('appengineUpdateWrapper', function(){
+		var gaeSDK = process.env.GAE_SDK;
+		if(!gaeSDK){
+			console.error('\nGAE SDK not configured. Please set env variables GAE_SDK to gae sdk path. \n\nFor more info about env variable visit http://en.wikipedia.org/wiki/Environment_variable ')
+			return false;
+		}
+		grunt.task.run(['appengine:update:frontend']);
+	});
 };
