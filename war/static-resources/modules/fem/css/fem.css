@@ -179,7 +179,7 @@ input{
 	overflow-x: hidden;
 	height: 90%;
 	width: 100%!important;
-	/* position: absolute; */
+	position: absolute;
 	padding-bottom: 45px!important;
 	
 }
