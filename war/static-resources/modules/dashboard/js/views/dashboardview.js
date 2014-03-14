@@ -147,6 +147,7 @@ define(function(require) {
 					var option = $('<option>').text(member.fullName).val(member.userId);
 					$selectForUsers.append(option);
 				}
+				$selectForUsers.hide();
 				self.allMembers = allMembers;
 			}
 			if(this.$('.js-owers').html().trim()===''){
