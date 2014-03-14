@@ -194,7 +194,7 @@ input{
 }
 
 .scrollable-right-section{
-	overflow-y:scroll; 
+	overflow-y: auto; 
 }
 	.js-hide-menu{
 		margin-left: 0!important;
