@@ -1,6 +1,4 @@
 var debugMode = false;
-var isCorporate = false;
-var theme="default";
 
 if(localStorage.getItem('theme')){
 	theme = localStorage.getItem('theme');
