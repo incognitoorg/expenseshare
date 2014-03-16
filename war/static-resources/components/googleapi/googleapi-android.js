@@ -57,11 +57,10 @@ define(function(require){
 							redirect_uri: "http://localhost:8888/",
 							grant_type: 'authorization_code'
 						}).done(function(data) {
-							alert('Token success : ' + JSON.stringify(data));
 							authToken = data.access_token;
 							makeApiCall(options);
 						}).fail(function(response) {
-							alert('Token failure : ' + JSON.stringify(response));
+							alert('Error Occured. Token failure : ' + JSON.stringify(response));
 							deferred.reject(response.responseJSON);
 						});
 
