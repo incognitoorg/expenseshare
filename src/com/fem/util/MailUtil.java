@@ -48,7 +48,7 @@ public class MailUtil {
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()!=null ? entry.getValue() : "User"));
 					log.info("User email added - " + entry.getKey());
 				}
-				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
+				msg.addRecipient(Message.RecipientType.BCC , new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
 				log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
 			}
 			
