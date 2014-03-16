@@ -174,7 +174,7 @@ public class GroupEndpoint {
 			index = msgContent.indexOf("??groupcreatedby??");
 			msgContent.replace(index, index + 18, group.getCreatedBy() == null ? "Group Admin" : group.getCreatedBy());
 
-			new MailUtil().sendMail("Bingo...", msgContent.toString(), hmUserEmails);
+			new MailUtil().sendMail("You have been added to group : " + group.getGroupName() , msgContent.toString(), hmUserEmails);
 			
 			group = mgr.makePersistent(group);
 			group.setMembersIdList(alMembersIdList);
