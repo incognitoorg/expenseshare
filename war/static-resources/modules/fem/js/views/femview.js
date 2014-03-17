@@ -109,31 +109,6 @@ define(function(require){
 				if(!($('.is-mobile').css('display') !== 'none')) {
 			        is_mobile = true;   
 			        var menuBarHeight = $('.js-show-menu').height();
-			        
-			     /*   var lastScroll = 0;
-			        $('.scrollable-right-section').scroll(function(event){
-			            
-			            var st = $(this).scrollTop();
-			  		  
-			            if (st > lastScroll){ //down
-			               $('.js-show-menu').stop().animate({
-								height: 0,
-							}, 1000);
-			            }
-			            else { //up
-			               $('.js-show-menu').stop().animate({
-								height: menuBarHeight,
-							}, 1000);
-			            }
-			            lastScroll = st;
-			          });
-			        
-			        
-			        
-			        
-			        */
-			        
-			       var menuBarHeight = $('.js-show-menu').height();
 			    
 			        $('.scrollable-right-section').on('scroll', function(){
 			        	
@@ -161,13 +136,13 @@ define(function(require){
 				}
 			}
 			
-			//TODO : Put this in some common place
+			/*//TODO : Put this in some common place
 			if(!($('.is-mobile').css('display') !== 'none')) {
 		        is_mobile = true;      
 		        $(document).on('focus', 'input', function(event){
 		        	$("body").animate({ scrollTop: $(event.currentTarget)[0].getBoundingClientRect().top+document.body.scrollTop }, "slow");
 		        });
-		    }
+		    }*/
 			
 			
 			
