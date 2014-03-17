@@ -23,7 +23,7 @@ body {
 }
 
 .js-right-panel>div>div {
-	/* height: 99%; */
+	min-height: 100%;
 }
 
 .js-right-panel{
@@ -211,12 +211,14 @@ input{
 		background: #5E5E5E;
 	}
 	.js-view-item>div{
-		/* height: 100%; */
+		min-height: 100%;
 		margin-top: 4px!important;
 		margin-left: -10px!important;
 		margin-right: -10px!important;
 		background: white;
-	}
+	
+		margin-bottom: 4px!important;
+}
 	
 	.js-right-panel{
 		padding-right:0!important;
