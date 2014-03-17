@@ -242,7 +242,7 @@ define(function(require){
 				self.$('.app-container').animate({
 					/*left: $(window).width(),*/
 					left: $('.js-left-side-menu').width(),
-				}, 300, function() {
+				}, 400, 'easeOutCubic'/*'easeOutBack'*/,  function() {
 					window.scrollTo(0,0);
 					// Animation complete.
 				});
@@ -255,7 +255,7 @@ define(function(require){
 
 				self.$('.app-container').animate({
 					left: 0,
-				}, 300, function() {
+				}, 400,'easeInBack', function() {
 					// Animation complete.
 				});
 			}
