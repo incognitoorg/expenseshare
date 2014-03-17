@@ -103,9 +103,13 @@ define(function(require){
 					console.log('Google response' +  JSON.stringify(resp));
 					resp.authToken = authToken;
 					options.callback.call(options.context||this, {
-						loginType : 'google', googleId : resp.id, data : resp, email : resp.email,
+						loginType : 'google', 
+						googleId : resp.id, 
+						data : resp, 
+						email : resp.email,
 						firstName : resp.given_name,
-						lastName : resp.family_name
+						lastName : resp.family_name,
+						imgUrl : "https://plus.google.com/s2/photos/profile/" +resp.id + "?sz=45" 
 					});
 				}
 			}, 
