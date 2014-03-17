@@ -188,6 +188,8 @@ hr.red-line{
 	/* padding-top : 5px;
 	padding-bottom : 5px; */
 	
+	line-height: 25px;
+	padding-left: 10px;
 }
 .ui-menu-item>a{
 	color : black;

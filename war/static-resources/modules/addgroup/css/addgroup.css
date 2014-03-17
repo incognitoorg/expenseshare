@@ -1,13 +1,13 @@
 .ui-menu-item{
-	display : block;
-	background : white;	
-	opacity : 0.8;
+	display: block;
+	background: white;
+	opacity: 0.93;
 	height: auto;
-	border-bottom : 1px solid black;
-	border-left : 1px solid black;
-	border-right : 1px solid black;
-	/* padding-top : 5px;
-	padding-bottom : 5px; */
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	line-height: 25px;
+	padding-left: 10px;
 	
 }
 .ui-menu-item>a{
@@ -40,8 +40,8 @@
 
 .ui-menu-item .ui-corner-all{
 	width : 100%;
-	margin-top : 5px;
-	margin-bottom : 5px;
+	/* margin-top : 5px; */
+	/* margin-bottom : 5px; */
 	display: inline-block;
 }
 .ui-state-focus{
