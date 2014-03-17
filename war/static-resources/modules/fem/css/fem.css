@@ -216,9 +216,9 @@ input{
 		margin-left: -10px!important;
 		margin-right: -10px!important;
 		background: white;
-	
+		border-radius:3px!important;
 		margin-bottom: 4px!important;
-}
+	}
 	
 	.js-right-panel{
 		padding-right:0!important;
