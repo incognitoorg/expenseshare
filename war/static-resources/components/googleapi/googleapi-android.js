@@ -118,24 +118,6 @@ define(function(require){
 			}
 		});
 		
-		
-		
-		// Step 4: Load the Google+ API
-		/*gapi.client.load('plus', 'v1', function() {
-			// Step 5: Assemble the API request
-			var request = gapi.client.plus.people.get({
-				'userId': 'me'
-			});
-			// Step 6: Execute the API request
-			request.execute(function(resp) {
-				if(options.callback){
-					resp.authToken = authToken;
-					alert('User data from google api ' + JSON.stringify(resp));
-					options.callback.call(options.context||this, {loginType : 'google', googleId : resp.id, data : resp});
-				}
-			});
-		});*/
-
 
 
 
