@@ -5,56 +5,68 @@ CACHE MANIFEST
 CACHE:
 
 #images
-http://widget.uservoice.com/dcache/widget/feedback-tab.png?t=Report%20problems%20%26%20Feedback&c=ffffff&r=90
 
 #internal HTML documents
 
 
 #style sheets
-built-static-resources/components/login/css/login.css
-built-static-resources/libraries/foundation/4.0/css/foundation-icons.css
-built-static-resources/libraries/foundation/5.0.2/css/foundation.min.css
-built-static-resources/plugins/cssmodal/modal.css
+built-static-resources/libraries/jquery-ui/css/themes/base/jquery.ui.autocomplete.css
+static-resources/components/login/css/login.css
+static-resources/libraries/foundation/4.0/css/foundation-icons.css
+static-resources/libraries/foundation/5.0.2/css/foundation.min.css
+static-resources/modules/fem/css/fonts/aller/fonts.css
 static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css
+static-resources/modules/fem/css/fonts/universalfruitcake/stylesheet.css
+static-resources/plugins/cssmodal/modal.css
+
+#javascript files
+boilerplate.js
+static-resources/libraries/require/require.min.js
+built-static-resources/page-js/fem.js
+built-static-resources/bootloaders/fembootloader/fembootloader.js
+built-static-resources/modules/newexpense/newexpense.js
+built-static-resources/modules/selectgroup/selectgroup.js
+built-static-resources/plugins/jquery/formvalidation/formvalidation.js
+built-static-resources/modules/expenseutiliy/expenseutility.js
+built-static-resources/libraries/jquery-ui/jquery.ui.autocomplete-amd.js
+built-static-resources/modules/dashboard/dashboard.js
+built-static-resources/modules/addgroup/addgroup.js
+built-static-resources/modules/expensehistory/expensehistory.js
+built-static-resources/modules/editgroup/editgroup.js
+built-static-resources/modules/profile/profile.js
+https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_GB.meG8K-jcWN8.O/m=client/rt=j/sv=1/d=1/ed=1/am=AQ/rs=AItRSTPlVRG-apw2rgpm5dmWoLPjEtnx8Q/cb=gapi.loaded_0
+https://apis.google.com/js/client.js
+http://connect.facebook.net/en_US/all.js
+http://www.google-analytics.com/analytics.js
+http://widget.uservoice.com/gY6aeSUzHLXqZiFVd8zIvQ.js
+https://by.uservoice.com/t/198656/x/p/1LBr0i3I1yEnrWcX/track.js?_=1395249874311&s=0&c=__uvSessionData0&d=eyJlIjp7InUiOiJodHRwOi8vc2VjdXJlLnhwZW5zZXNoYXJlLmNvbS8jbmV3ZXhwZW5zZSIsInIiOiIifX0%3D
+
 
 #style sheet images
-http://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/lock-48.png
-built-static-resources/components/login/css/images/loader.gif
 built-static-resources/modules/fem/css/images/List-icon-24-24-white.png
 built-static-resources/modules/fem/css/images/add-24-24-white.png
 built-static-resources/modules/fem/css/images/dashboard1-24-24-white.png
 built-static-resources/modules/fem/css/images/edit-24-24-white.png
 built-static-resources/modules/fem/css/images/groups01-24-24-white.png
-built-static-resources/modules/fem/css/images/main-bg.png
 built-static-resources/modules/fem/css/images/menu-24-24-white.png
 built-static-resources/modules/fem/css/images/profile-24-24-white.png
 built-static-resources/modules/newexpense/css/images/arrow_sans_down-24-24.png
+built-static-resources/modules/newexpense/css/images/facebook.png
+built-static-resources/modules/newexpense/css/images/google.png
 built-static-resources/plugins/jquery/formvalidation/css/img/error.png
 built-static-resources/plugins/jquery/formvalidation/css/img/valid.png
+collaboration-512.png
+iconmonstr-facebook-4-icon-256.png
+iconmonstr-user-14-icon.svg
+img/icons/social.png
 landingpage-devices.png
+static-resources/components/login/css/images/loader.gif
 static-resources/images/icons/icons.jpg
-http://www.red-team-design.com/wp-content/uploads/2011/09/login-sprite.png
-
-#javascript files
-https://by.uservoice.com/t/198656/x/p/12iOwouwlJ590uhH/track.js?_=1388775383903&s=0&c=__uvSessionData0&d=eyJlIjp7InUiOiJodHRwOi8vc2VjdXJlLnhwZW5zZXNoYXJlLmNvbS8jZGFzaGJvYXJkIiwiciI6IiJ9fQ%3D%3D
-https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_GB.Vyc2f-pbA00.O/m=client/rt=j/sv=1/d=1/ed=1/am=YQ/rs=AItRSTOEotIRRdgyNAFKM7hcw5LGG9_xKw/cb=gapi.loaded_0
-http://www.google-analytics.com/analytics.js
-http://widget.uservoice.com/gY6aeSUzHLXqZiFVd8zIvQ.js
-built-static-resources/page-js/fem.js
-built-static-resources/bootloaders/fembootloader/fembootloader.js
-https://apis.google.com/js/client.js
-http://connect.facebook.net/en_US/all.js
-built-static-resources/modules/dashboard/dashboard.js
-built-static-resources/modules/newexpense/newexpense.js
-built-static-resources/modules/selectgroup/selectgroup.js
-built-static-resources/plugins/jquery/formvalidation/formvalidation.js
-built-static-resources/modules/addgroup/addgroup.js
-built-static-resources/modules/expensehistory/expensehistory.js
-built-static-resources/modules/expenseutiliy/expenseutility.js
-built-static-resources/modules/editgroup/editgroup.js
-built-static-resources/modules/profile/profile.js
-boilerplate.js
-built-static-resources/libraries/require/require.min.js
+http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif
+http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif
+http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif
+http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png
+http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png
 
 NETWORK:
 *

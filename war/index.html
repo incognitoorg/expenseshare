@@ -1169,6 +1169,15 @@ a {
 			document.getElementById("js-login-link").setAttribute('style',
 					'display:none;');
 		}
+		
+		/**
+		 * Determine whether the file loaded from PhoneGap or not
+		 */
+		function isPhoneGap() {
+		    return (cordova || PhoneGap || phonegap) 
+		    && /^file:\/{3}[^\/]/i.test(window.location.href) 
+		    && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+		}
 	</script>
 	<script src=boilerplate.js></script>
 	<script src="static-resources/libraries/require/require.js"></script>
