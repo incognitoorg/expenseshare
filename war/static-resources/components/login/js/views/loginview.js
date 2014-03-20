@@ -144,7 +144,7 @@ define(function(require){
 				var userData = JSON.parse(localStorage.getItem('user'))[userObject.userId];
 				_.extend(userObject, userData);
 			}
-			//userObject.imgURL = userObject.loginType==="facebook"?"http://graph.facebook.com/" + userObject.facebookId + "/picture?width=43&height=43" : "https://plus.google.com/s2/photos/profile/" + userObject.googleId + "?sz=45" 
+			//userObject.imgUrl = userObject.loginType==="facebook"?"http://graph.facebook.com/" + userObject.facebookId + "/picture?width=43&height=43" : "https://plus.google.com/s2/photos/profile/" + userObject.googleId + "?sz=45" 
 			return userObject;
 		}
 	});

@@ -30,7 +30,7 @@ define(function(require) {
 					lastName : response.last_name,
 					email : response.email,
 					data : response,
-					imgURL : "http://graph.facebook.com/" + response.id + "/picture?width=43&height=43" 
+					imgUrl : "http://graph.facebook.com/" + response.id + "/picture?width=43&height=43" 
 				});
 			}
 		});
