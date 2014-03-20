@@ -109,7 +109,7 @@ define(function(require){
 						email : resp.email,
 						firstName : resp.given_name,
 						lastName : resp.family_name,
-						imgUrl : resp.picture + "?sz=45" 
+						imgUrl : resp.image.url + "?sz=45" 
 					});
 				}
 			}, 
