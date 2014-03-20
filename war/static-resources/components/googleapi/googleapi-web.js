@@ -63,7 +63,7 @@ define(function(require){
 								email : resp.email,
 								firstName : resp.name.givenName,
 								lastName : resp.name.familyName,
-								imgUrl : "https://plus.google.com/s2/photos/profile/" +resp.id + "?sz=45" 
+								imgUrl : resp.picture + "?sz=45" 
 							});
 							hideMask();
 						}
