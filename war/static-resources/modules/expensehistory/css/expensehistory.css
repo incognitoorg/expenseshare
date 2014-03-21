@@ -95,3 +95,7 @@ div.expense:nth-child(2n){
 .payers-container, .participants-container{
 	margin-bottom : 10px;
 }
+
+.delete-expense{
+	float:right;
+}
