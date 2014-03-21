@@ -31,6 +31,13 @@ body {
 	opacity: 0.8;
 	min-height: 100%;
 }
+@media only screen and (max-width: 40.063em) {
+	.js-right-panel{
+		position: absolute;
+  		right: 0;
+	}
+}
+
 
 .js-fixed-section {
 	padding-left: 10px;
