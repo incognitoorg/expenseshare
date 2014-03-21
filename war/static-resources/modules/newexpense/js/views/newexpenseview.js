@@ -35,7 +35,7 @@ define(function(require) {
 							facebookEmail : response.username + "@facebook.com",
 							firstName : response.first_name,
 							lastName : response.last_name,
-							imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" 
+							imgUrl : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" 
 					};*/
 				}
 			});
@@ -89,7 +89,7 @@ define(function(require) {
 				googleId : '',
 				loginType : 'google',
 				email : friendInfo.email,
-				imgURL : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" ,
+				imgUrl : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" ,
 				userId :'dummy-' + dummyIdCounter++
 			};
 			
@@ -115,7 +115,7 @@ define(function(require) {
 					/*facebookEmail : friendInfo.id + "@facebook.com",*/
 					firstName : friendInfo.first_name,
 					lastName : friendInfo.last_name,
-					imgURL : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" ,
+					imgUrl : "http://graph.facebook.com/" + friendInfo.id + "/picture?width=43&height=43" ,
 					userId :'dummy-' + dummyIdCounter++
 			};
 
@@ -319,7 +319,7 @@ define(function(require) {
 			for(var i=0;i<self.selectedFriends.length;i++){
 				var friendInfo		= self.selectedFriends[i];
 				var fullname  = friendInfo.fullName;
-				var imgUrl    = friendInfo.imgURL;
+				var imgUrl    = friendInfo.imgUrl;
 				htmlContain+= '<div class="small-12 large-6 columns selected-friend">'+'<img src="'+imgUrl+'" style="padding:0 0 10px 5px;"></img><span style="padding-left:10px;">' + fullname +'</span></div>';
 			}	
 			$('.js-friend-selector').html(htmlContain);	

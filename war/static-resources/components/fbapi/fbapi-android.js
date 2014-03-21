@@ -26,7 +26,8 @@ define(function(require) {
 					facebookId:response.id,
 					firstName : response.first_name,
 					lastName : response.last_name,
-					data : response
+					data : response,
+					imgUrl : "http://graph.facebook.com/" + response.id + "/picture?width=43&height=43"
 				});
 			}
 		});
