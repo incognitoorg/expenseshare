@@ -30,6 +30,8 @@ public class MailUtil {
 	public void sendMail(String subject, String msgContent, HashMap<String, String> hmEmailIds) {
 
 		log.info("In sendMail() of MailUtil...."); 
+		
+		StringBuilder sbMsgContent = new StringBuilder(msgContent);
 
 		try {
 			Properties props = new Properties();
@@ -43,23 +45,37 @@ public class MailUtil {
 			if(hmEmailIds == null) {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
 				log.info("Admin only mails " + PropertiesUtil.getProperty("ADMINS"));
+				
+				System.out.println(sbMsgContent);
+
+				msg.setSubject(subject);
+				msg.setText(sbMsgContent.toString(), "utf-8", "html");
+				Transport.send(msg);
+
+				log.info("Mail sent successfully");
 			} else {
 				for (Map.Entry<String, String> entry : hmEmailIds.entrySet()) { 
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()!=null ? entry.getValue() : "User"));
 					log.info("User email added - " + entry.getKey());
+					
+					int index = sbMsgContent.indexOf("??username??");
+					sbMsgContent.replace(index, index + 12, entry.getValue()!=null ? entry.getValue() : "User");
+					
+					msg.addRecipient(Message.RecipientType.BCC , new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
+					log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
+					
+					System.out.println(sbMsgContent);
+
+					msg.setSubject(subject);
+					msg.setText(sbMsgContent.toString(), "utf-8", "html");
+					Transport.send(msg);
+
+					log.info("Mail sent successfully");
 				}
 				msg.addRecipient(Message.RecipientType.BCC , new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
 				log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
 			}
 			
-			System.out.println(msgContent);
-
-			msg.setSubject(subject);
-			msg.setText(msgContent, "utf-8", "html");
-			Transport.send(msg);
-
-			log.info("Mail sent successfully");
-
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			log.log(Level.SEVERE, e.getStackTrace().toString());
