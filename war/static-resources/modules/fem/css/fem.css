@@ -24,8 +24,13 @@ body {
 
 .js-right-panel>div>div {
 	min-height: 100%;
+	/* border-right: 1px solid #222222; */
 }
 
+.future-use{
+	background: white;
+	opacity:0.8;
+}
 .js-right-panel{
 	background: #F6F2E3;
 	opacity: 0.8;
