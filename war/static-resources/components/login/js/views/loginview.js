@@ -76,6 +76,7 @@ define(function(require){
 			var ajaxOptions = {
 				url : '_ah/api/userendpoint/v1/user/doLogin',
 				callback : function(response){
+					_.extend(response, data);
 					if(data.callback){
 						data.callback.call(this, response);
 					} else {
