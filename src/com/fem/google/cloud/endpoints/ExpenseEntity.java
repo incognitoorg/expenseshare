@@ -1,5 +1,6 @@
 package com.fem.google.cloud.endpoints;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class ExpenseEntity {
 	
 	@Persistent(defaultFetchGroup = "true")
 	private List<ExpenseInfo> listIncludeMemberInfo;
+	
+	@Persistent(defaultFetchGroup = "true")
+	@Unowned
+	private ArrayList<IOU> alIOU;
 	
 	//This element is only for expense addition serialization
 	@Unowned
@@ -143,5 +148,11 @@ public class ExpenseEntity {
 	}
 	public void setEditedAt(Date editedAt) {
 		this.editedAt = editedAt;
+	}
+	public ArrayList<IOU> getIOU() {
+		return alIOU;
+	}
+	public void setIOU(ArrayList<IOU> alIOU) {
+		this.alIOU = alIOU;
 	}
 }

@@ -325,6 +325,7 @@ public class ExpenseEntityEndpoint {
 	private void updateIOU(PersistenceManager mgr, ExpenseEntity objExpenseEntity, ArrayList<IOU> alIOU, String mode){
 		
 		HashMap<String, Double> calculatedIOU = new HashMap<String, Double>();
+		ArrayList<IOU> alExpenseIOU = new ArrayList<IOU>();
 		
 		List<ExpenseInfo> listPayersInfo = objExpenseEntity.getListPayersInfo();
 		List<ExpenseInfo> listIncludeMemberInfo =  objExpenseEntity.getListIncludeMemberInfo();
@@ -416,8 +417,35 @@ public class ExpenseEntityEndpoint {
 				}
 				//calculatedIOU[member.userId +"-"+ payer.userId]={amount:amountToDeduct};
 				calculatedIOU.put(member.getUserId() +"-"+ payer.getUserId(), amountToDeduct);
+				
+				IOU objIOU = new IOU(); 
+				objIOU.setFromUserId(member.getUserId());
+				objIOU.setToUserId(payer.getUserId());
+				objIOU.setAmount(amountToDeduct);
+				alExpenseIOU.add(objIOU);
 			}
 		}
+		
+		objExpenseEntity.setIOU(alExpenseIOU);
+		
+		
+		/*ArrayList<IOU> alExpenseIOU = new ArrayList<IOU>();
+		for (String iouString : calculatedIOU.keySet()) {
+			String forwardKey = iouString.split();
+			Double forwardAmount = calculatedIOU.get(forwardKey);
+			
+			if(forwardAmount!=null){
+				iou.setAmount(iou.getAmount() + forwardAmount);;
+			} else {
+				String backwardKey = iou.getToUserId() + "-" +iou.getFromUserId();
+				Double backwardAmount = calculatedIOU.get(backwardKey);
+				if(backwardAmount!=null){
+					iou.setAmount(iou.getAmount() - backwardAmount); ;
+				}
+				
+			}
+		}*/
+		
 		
 		for (IOU iou : alIOU) {
 			String forwardKey = iou.getFromUserId() + "-" +iou.getToUserId();
@@ -489,14 +517,13 @@ public class ExpenseEntityEndpoint {
 				objExpenseInfo.setExpenseId(expenseEntityId);
 			}
 			
-			mgr.makePersistent(expenseentity);
 			
 			objGroup.setMembers(null);//Removing members as they are not embedded.
 			
-			
+			//This call makes changes to expenseentity. Adds IOU to it.
 			this.updateIOU(mgr, expenseentity, iouToUpdate, "add");
 			
-			//mgr.makePersistent(objGroup);
+			mgr.makePersistent(expenseentity);
 			
 		} catch(Exception e) {
 			new MailUtil().sendMail("Exception occured ", e.getMessage() + e.getStackTrace().toString(), null);
