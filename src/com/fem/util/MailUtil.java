@@ -43,7 +43,7 @@ public class MailUtil {
 			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
 
 			if(hmEmailIds == null) {
-				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
 				log.info("Admin only mails " + PropertiesUtil.getProperty("ADMINS"));
 				
 				System.out.println(sbMsgContent);
@@ -61,7 +61,8 @@ public class MailUtil {
 					int index = sbMsgContent.indexOf("??username??");
 					sbMsgContent.replace(index, index + 12, entry.getValue()!=null ? entry.getValue() : "User");
 					
-					msg.addRecipient(Message.RecipientType.BCC , new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
+					//msg.addRecipient(Message.RecipientType.BCC , new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
+					msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
 					log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
 					
 					System.out.println(sbMsgContent);
@@ -72,8 +73,6 @@ public class MailUtil {
 
 					log.info("Mail sent successfully");
 				}
-				msg.addRecipient(Message.RecipientType.BCC , new InternetAddress(PropertiesUtil.getProperty("ADMINS")));
-				log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
 			}
 			
 		} catch (UnsupportedEncodingException e) {
