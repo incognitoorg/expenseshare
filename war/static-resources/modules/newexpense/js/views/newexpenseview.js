@@ -5,6 +5,7 @@ define(function(require) {
 	var CSS = require('css!./../../css/newexpense.css');
 	var JqueryTouch = require('libraries/jquery-mobile/jquery.mobile.touch.min');
 	var memberPayTemplate = require('text!./../../templates/member-pay.html');
+	var friendRowTemplate = require('text!./../../templates/friendrow.html');
 	var memberExpenseTemplate = require('text!./../../templates/member-expense.html');
 	var ExpenseModel = require('./../models/expensemodel');
 	var FormValidator = require("./../validator/newexpensevalidator");
@@ -312,17 +313,16 @@ define(function(require) {
 			login.getInfo().facebook?loginAvailable.push(' Facebook'):'';
 			this.$('.js-friends-autocomplete').attr('placeholder', 'Select friends from' + loginAvailable.join(','));
 		},
-		//TODO : I outsourced this function. Can write better code than this.
 		renderFriendsSelected : function (){
 			var self = this;
 			var htmlContain= '';
+			var friendRowTemplateFn = Handlebars.compile(friendRowTemplate);
 			for(var i=0;i<self.selectedFriends.length;i++){
 				var friendInfo		= self.selectedFriends[i];
-				var fullname  = friendInfo.fullName;
-				var imgUrl    = friendInfo.imgUrl;
-				htmlContain+= '<div class="small-12 large-6 columns selected-friend">'+'<img src="'+imgUrl+'" style="padding:0 0 10px 5px;"></img><span style="padding-left:10px;">' + fullname +'</span></div>';
+				var html = friendRowTemplateFn(friendInfo);
+				htmlContain+=html;
 			}	
-			$('.js-friend-selector').html(htmlContain);	
+			this.$('.js-friend-selector').html(htmlContain);	
 		},
 		doFacebookLogin : function(){
 			login.doFacebookLogin({userInfo : login.getInfo(),context : this,  callback : this.populateFacebookFriends});
