@@ -142,9 +142,12 @@ public class GroupEndpoint {
 				User user = (User) iterator.next();
 				alMembersIdList.add(user.getUserId());
 			}
+			
+			String groupId = UUID.randomUUID().toString();
+			
 			//Pushing to database since needs group id
-			group.setGroupId(UUID.randomUUID().toString());
-			group = mgr.makePersistent(group);
+			group.setGroupId(groupId);
+			//group = mgr.makePersistent(group);
 			
 			for (Iterator<User> iterator = alTotalMembers.iterator(); iterator.hasNext();) {
 				User user = (User) iterator.next();
@@ -182,7 +185,7 @@ public class GroupEndpoint {
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
+			new MailUtil().sendToAdmin("Exception occured while creating group ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
