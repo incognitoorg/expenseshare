@@ -99,7 +99,7 @@ public class MailUtil {
 				System.out.println(sbEmailContent);
 
 				msg.setSubject(subject);
-				msg.setText(sbMsgContent.toString(), "utf-8", "html");
+				msg.setText(sbEmailContent.toString(), "utf-8", "html");
 				Transport.send(msg);
 
 				log.info("Mail sent successfully");
