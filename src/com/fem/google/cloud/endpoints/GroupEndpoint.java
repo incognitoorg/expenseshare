@@ -176,8 +176,9 @@ public class GroupEndpoint {
 
 			new MailUtil().sendToAll("You have been added to group : " + group.getGroupName() , msgContent.toString(), hmUserEmails);
 			
-			group = mgr.makePersistent(group);
 			group.setMembersIdList(alMembersIdList);
+
+			group = mgr.makePersistent(group);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
