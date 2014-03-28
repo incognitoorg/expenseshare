@@ -93,8 +93,9 @@ public class MailUtil {
 				sbEmailContent.replace(index, index + 12, entry.getValue()!=null ? entry.getValue() : "User");
 				
 				//TODO : Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.
-				msg.addRecipient(Message.RecipientType.BCC, new InternetAddress("admins"));
-				log.info("Admin added " + PropertiesUtil.getProperty("ADMINS"));
+				//msg.addRecipient(Message.RecipientType.BCC, new InternetAddress("admins"));
+				log.info("Admin added ");
+				log.info("Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.");
 				
 				System.out.println(sbEmailContent);
 
