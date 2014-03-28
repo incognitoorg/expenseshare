@@ -224,14 +224,14 @@ define(function(require) {
 					if(friendInfo.userId){
 						normalizedFriendInfo = friendInfo;
 					} else {
-						var probableImageURL = friendInfo.email.substr(0, friendInfo.email.indexOf("@"))
+						//var probableImageURL = friendInfo.email.substr(0, friendInfo.email.indexOf("@"))
 						normalizedFriendInfo = {
 							fullName : friendInfo.title.$t,
 							name : friendInfo.title.$t,
 							googleId : '',
 							loginType : 'google',
-							email : friendInfo.email,
-							imgUrl : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" 
+							email : friendInfo.email/*,
+							imgUrl : "https://plus.google.com/s2/photos/profile/" +probableImageURL + "?sz=45" */
 						};
 					}
 					
