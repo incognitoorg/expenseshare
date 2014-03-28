@@ -20,12 +20,12 @@ public class PropertiesUtil {
 		}
 		catch (FileNotFoundException e)
 		{
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 			e.printStackTrace();
 		}
 	}

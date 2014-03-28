@@ -27,7 +27,7 @@ public class MailUtil {
 	}
 	
 	
-	public void sendMail(String subject, String msgContent, HashMap<String, String> hmEmailIds) {
+	public void sendToAll(String subject, String msgContent, HashMap<String, String> hmEmailIds) {
 
 		log.info("In sendMail() of MailUtil...."); 
 		
@@ -82,6 +82,39 @@ public class MailUtil {
 			e.printStackTrace();
 			log.log(Level.SEVERE, e.getStackTrace().toString());
 		}
+	}
+	
+	
+	public String sendToAdmin(String subject, String msgContent){
+		
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
+
+		MimeMessage msg = new MimeMessage(session);
+		String SENDER_EMAIL_ADDRESS = PropertiesUtil.getProperty("SENDER_EMAIL_ADDRESS");
+		String SENDER_NAME = PropertiesUtil.getProperty("SENDER_NAME");
+		
+		try {
+			
+			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins")); //Setting the property admins sends it to GAE admin google account. It has seperate quota for that.
+			
+			System.out.println(msgContent);
+			
+			msg.setSubject(subject);
+			msg.setText(msgContent.toString(), "utf-8", "html");
+			Transport.send(msg);
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			log.log(Level.SEVERE, e.getStackTrace().toString());
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			log.log(Level.SEVERE, e.getStackTrace().toString());
+		}
+
+		log.info("Mail sent to admin successfully");
+		return null;
 	}
 
 }

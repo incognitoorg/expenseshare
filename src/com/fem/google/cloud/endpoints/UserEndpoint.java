@@ -66,7 +66,7 @@ public class UserEndpoint {
 			for (User obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 			throw e;
 		} finally {
 			mgr.close();
@@ -98,7 +98,7 @@ public class UserEndpoint {
 		try {
 			user = mgr.getObjectById(User.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured while getting user data, userId :" + id , e.getMessage() + "<br><br><br>"+ this.getStackTrace(e.getStackTrace()) , null);
+			new MailUtil().sendToAdmin("Exception occured while getting user data, userId :" + id , e.getMessage() + "<br><br><br>"+ this.getStackTrace(e.getStackTrace()));
 		} finally {
 			mgr.close();
 		}
@@ -134,7 +134,7 @@ public class UserEndpoint {
 			
 			mgr.makePersistent(user);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
@@ -157,7 +157,7 @@ public class UserEndpoint {
 			}
 			mgr.makePersistent(user);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
@@ -178,7 +178,7 @@ public class UserEndpoint {
 			user = mgr.getObjectById(User.class, id);
 			mgr.deletePersistent(user);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
@@ -191,7 +191,7 @@ public class UserEndpoint {
 		try {
 			mgr.getObjectById(User.class, user.getUserId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
-			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
+			new MailUtil().sendToAdmin("Exception", ex.getStackTrace().toString());
 			contains = false;
 		} finally {
 			mgr.close();
@@ -251,7 +251,7 @@ public class UserEndpoint {
 	
 			}
 		} catch (Exception e) {
-			new MailUtil().sendMail("Exception occured while getting groups of user, userId :" + id , e.getMessage() + "<br><br><br>"+ this.getStackTrace(e.getStackTrace()) , null);
+			new MailUtil().sendToAdmin("Exception occured while getting groups of user, userId :" + id , e.getMessage() + "<br><br><br>"+ this.getStackTrace(e.getStackTrace()) );
 			throw e;
 		}
 		return alGroups;
@@ -322,7 +322,7 @@ public class UserEndpoint {
 		user = getOrInsertUser(user, loginDate, UUID.randomUUID().toString());
 
 		} catch (Exception e){
-			new MailUtil().sendMail("Exception occured while loggin in", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured while loggin in", e.getMessage());
 			throw e;
 		}
 		
@@ -443,10 +443,10 @@ public class UserEndpoint {
 				
 				if(user.getEmail() != null) {
 					hmEmailIds.put(user.getEmail(), user.getFullName());
-					new MailUtil().sendMail("Greetings...", msgContent.toString(), hmEmailIds);
+					new MailUtil().sendToAll("Greetings...", msgContent.toString(), hmEmailIds);
 				} else {
 					hmEmailIds.put(user.getFacebookEmail(), user.getFullName());
-					new MailUtil().sendMail("Welcome to Xpense Share!!!", msgContent.toString(), hmEmailIds);
+					new MailUtil().sendToAll("Welcome to Xpense Share!!!", msgContent.toString(), hmEmailIds);
 				}
 
 			}

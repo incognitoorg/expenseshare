@@ -63,7 +63,7 @@ public class GroupEndpoint {
 			for (Group obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
@@ -101,7 +101,7 @@ public class GroupEndpoint {
 				objIOU.getFromUserId();//Cause The datastore does not support joins and therefore cannot honor requests to place related objects in the default fetch group. 
 			}
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured while getting group data, group Id :" + id , e.getMessage() + "<br><br><br>"+ MailUtil.getStackTrace(e.getStackTrace()) , null);
+			new MailUtil().sendToAdmin("Exception occured while getting group data, group Id :" + id , e.getMessage() + "<br><br><br>"+ MailUtil.getStackTrace(e.getStackTrace()));
 			throw e;
 		} finally {
 			mgr.close();
@@ -174,14 +174,14 @@ public class GroupEndpoint {
 			index = msgContent.indexOf("??groupcreatedby??");
 			msgContent.replace(index, index + 18, group.getCreatedBy() == null ? "Group Admin" : group.getCreatedBy());
 
-			new MailUtil().sendMail("You have been added to group : " + group.getGroupName() , msgContent.toString(), hmUserEmails);
+			new MailUtil().sendToAll("You have been added to group : " + group.getGroupName() , msgContent.toString(), hmUserEmails);
 			
 			group = mgr.makePersistent(group);
 			group.setMembersIdList(alMembersIdList);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
@@ -273,7 +273,7 @@ public class GroupEndpoint {
 			group.setIouList(iouList);
 			mgr.makePersistent(group);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
@@ -325,7 +325,7 @@ public class GroupEndpoint {
 			group = mgr.getObjectById(Group.class, id);
 			mgr.deletePersistent(group);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
 		} finally {
 			mgr.close();
 		}
@@ -338,7 +338,7 @@ public class GroupEndpoint {
 		try {
 			mgr.getObjectById(Group.class, group.getGroupId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
-			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
+			new MailUtil().sendToAdmin("Exception", ex.getStackTrace().toString());
 			contains = false;
 		} finally {
 			mgr.close();

@@ -58,7 +58,7 @@ public class IOUEndpoint {
 			for (IOU obj : execute)
 				;
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage().toString());
 		} finally {
 			mgr.close();
 		}
@@ -79,7 +79,7 @@ public class IOUEndpoint {
 		try {
 			iou = mgr.getObjectById(IOU.class, id);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage().toString());
 		} finally {
 			mgr.close();
 		}
@@ -102,7 +102,7 @@ public class IOUEndpoint {
 			}*/
 			mgr.makePersistent(iou);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage().toString());
 		} finally {
 			mgr.close();
 		}
@@ -125,7 +125,7 @@ public class IOUEndpoint {
 			}
 			mgr.makePersistent(iou);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage().toString());
 		} finally {
 			mgr.close();
 		}
@@ -146,7 +146,7 @@ public class IOUEndpoint {
 			iou = mgr.getObjectById(IOU.class, id);
 			mgr.deletePersistent(iou);
 		} catch(Exception e) {
-			new MailUtil().sendMail("Exception occured ", e.getMessage(), null);
+			new MailUtil().sendToAdmin("Exception occured ", e.getMessage().toString());
 		} finally {
 			mgr.close();
 		}
@@ -159,7 +159,7 @@ public class IOUEndpoint {
 		try {
 			mgr.getObjectById(IOU.class, iou.getGroupId());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
-			new MailUtil().sendMail("Exception", ex.getStackTrace().toString(), null);
+			new MailUtil().sendToAdmin("Exception", ex.getStackTrace().toString());
 			contains = false;
 		} finally {
 			mgr.close();
