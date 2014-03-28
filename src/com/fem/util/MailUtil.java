@@ -65,7 +65,7 @@ public class MailUtil {
 		}
 	}
 	
-	
+	//TODO : This method should be re-factored further for better control.
 	public void sendToAll(String subject, String msgContent, HashMap<String, String> hmEmailIds) {
 
 		log.info("In sendMail() of MailUtil...."); 
@@ -76,12 +76,13 @@ public class MailUtil {
 			Properties props = new Properties();
 			Session session = Session.getDefaultInstance(props, null);
 
-			MimeMessage msg = new MimeMessage(session);
-			String SENDER_EMAIL_ADDRESS = PropertiesUtil.getProperty("SENDER_EMAIL_ADDRESS");
-			String SENDER_NAME = PropertiesUtil.getProperty("SENDER_NAME");
-			msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
 
 			for (Map.Entry<String, String> entry : hmEmailIds.entrySet()) { 
+				MimeMessage msg = new MimeMessage(session);
+				String SENDER_EMAIL_ADDRESS = PropertiesUtil.getProperty("SENDER_EMAIL_ADDRESS");
+				String SENDER_NAME = PropertiesUtil.getProperty("SENDER_NAME");
+				msg.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
+				
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()!=null ? entry.getValue() : "User"));
 				log.info("User email added - " + entry.getKey());
 				
@@ -92,16 +93,25 @@ public class MailUtil {
 				
 				sbEmailContent.replace(index, index + 12, entry.getValue()!=null ? entry.getValue() : "User");
 				
-				//TODO : Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.
-				//msg.addRecipient(Message.RecipientType.BCC, new InternetAddress("admins"));
-				log.info("Admin added ");
-				log.info("Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.");
+				
 				
 				System.out.println(sbEmailContent);
 
 				msg.setSubject(subject);
 				msg.setText(sbEmailContent.toString(), "utf-8", "html");
 				Transport.send(msg);
+				
+				
+				//TODO : Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.
+				MimeMessage msgAdmin = new MimeMessage(session);
+				msgAdmin.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
+				msgAdmin.addRecipient(Message.RecipientType.BCC, new InternetAddress("admins"));
+				msgAdmin.setSubject(subject);
+				msgAdmin.setText(sbEmailContent.toString(), "utf-8", "html");
+				Transport.send(msgAdmin);
+				log.info("Sent email to admin ");
+				log.info("Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.");
+				
 
 				log.info("Mail sent successfully");
 			}
