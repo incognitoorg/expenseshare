@@ -113,8 +113,9 @@ public class UserEndpoint {
 	 *
 	 * @param user the entity to be inserted.
 	 * @return The inserted entity.
+	 * @throws Exception 
 	 */
-	public User insertUser(User user) {
+	public User insertUser(User user) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			/*if (containsUser(user)) {
@@ -135,6 +136,7 @@ public class UserEndpoint {
 			mgr.makePersistent(user);
 		} catch(Exception e) {
 			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -335,7 +337,7 @@ public class UserEndpoint {
 	@ApiMethod(path="userendpoint/user/getorinsertuser")
 	public User getOrInsertUser(User user, 
 			@Nullable @Named("lastLoggedIn") Date lastLoggedIn, 
-			@Nullable @Named("authToken") String authToken){
+			@Nullable @Named("authToken") String authToken) throws Exception{
 
 		String apiId = null;
 		String loginType = user.getLoginType();

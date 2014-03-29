@@ -116,8 +116,9 @@ public class GroupEndpoint {
 	 *
 	 * @param group the entity to be inserted.
 	 * @return The inserted entity.
+	 * @throws Exception 
 	 */
-	public Group insertGroup(Group group) {
+	public Group insertGroup(Group group) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			ArrayList<User> alMembersFromClient = group.getMembers();
@@ -186,6 +187,7 @@ public class GroupEndpoint {
 		} catch(Exception e) {
 			e.printStackTrace();
 			new MailUtil().sendToAdmin("Exception occured while creating group ", e.getMessage());
+			throw e;
 		} finally {
 			mgr.close();
 		}
@@ -223,8 +225,9 @@ public class GroupEndpoint {
 	 *
 	 * @param group the entity to be updated.
 	 * @return The updated entity.
+	 * @throws Exception 
 	 */
-	public Group updateGroup(Group group) {
+	public Group updateGroup(Group group) throws Exception {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			if (!containsGroup(group)) {
@@ -278,6 +281,7 @@ public class GroupEndpoint {
 			mgr.makePersistent(group);
 		} catch(Exception e) {
 			new MailUtil().sendToAdmin("Exception occured ", e.getMessage());
+			throw e;
 		} finally {
 			mgr.close();
 		}

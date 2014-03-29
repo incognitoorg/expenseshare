@@ -249,7 +249,7 @@ public class ExpenseEntityEndpoint {
 		return objGroup;
 	}
 
-	private Friendship getFriendship(PersistenceManager mgr , ArrayList<User> alMembers, ExpenseEntity expenseentity) throws NoSuchAlgorithmException{
+	private Friendship getFriendship(PersistenceManager mgr , ArrayList<User> alMembers, ExpenseEntity expenseentity) throws Exception{
 		
 		
 		boolean allUserPresent = true;
