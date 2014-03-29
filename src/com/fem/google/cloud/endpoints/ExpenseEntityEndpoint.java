@@ -489,7 +489,7 @@ public class ExpenseEntityEndpoint {
 			
 			Group objGroup = expenseentity.getGroup();
 			ArrayList<IOU> iouToUpdate = null;
-			//Experiemental stuff for adding expense without group
+
 			//This is an expense without group
 			if(StringUtils.isEmpty(objGroup.getGroupId())){
 				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers(), expenseentity);
