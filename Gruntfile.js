@@ -43,6 +43,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
+					'war/builtfem.appcache': 'war/builtfem.appcache'
 				},
 				options: {
 					replacements: [{
@@ -59,6 +60,10 @@ module.exports = function(grunt) {
 					 {
 						pattern: "require.js",
 						replacement: "require.min.js"
+					},
+					{
+						pattern: "1.0",
+						replacement: "1.0.1"
 					}]
 				}
 			},
@@ -67,6 +72,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
+					'war/builtfem.appcache': 'war/builtfem.appcache'
 				},
 				options: {
 					replacements: [{
@@ -83,9 +89,26 @@ module.exports = function(grunt) {
 					 {
 						pattern: "require.min.js",
 						replacement: "require.js"
-					}]
+					},
+					{
+						pattern: "1.0.1.1.1.1.1.1.1",
+						replacement: "1.0"
+					}
+					]
 				}
 			}
+		},
+		version: {
+			options: {
+				// Task-specific options go here.
+			},
+			// Target-specific file lists and/or options go here.
+			appcache : {
+				/*options : {
+					prefix: '#version\\s*'
+				},*/
+				src : ['war/builtfem.appcache']
+			},
 		}
 
 	});
@@ -94,6 +117,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-string-replace');
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-version');
 
 
 	// Default task(s).
@@ -111,4 +135,7 @@ module.exports = function(grunt) {
 		}
 		grunt.task.run(['appengine:update:frontend']);
 	});
+	
+	grunt.registerTask('version', [])
+	
 };
