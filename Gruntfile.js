@@ -62,8 +62,8 @@ module.exports = function(grunt) {
 						replacement: "require.min.js"
 					},
 					{
-						pattern: "1.0",
-						replacement: "1.0.1"
+						pattern: "version 1.0",
+						replacement: "version 1.0.1"
 					}]
 				}
 			},
@@ -91,8 +91,8 @@ module.exports = function(grunt) {
 						replacement: "require.js"
 					},
 					{
-						pattern: "1.0.1.1.1.1.1.1.1",
-						replacement: "1.0"
+						pattern: "version 1.0.1.1.1.1.1.1.1",
+						replacement: "version 1.0"
 					}
 					]
 				}
