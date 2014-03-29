@@ -4,7 +4,7 @@ define(function(require) {
 	
 	if(mode=="production"){
 		return {
-			API_URL : "https://xpenseshareapp.appspot.com/",
+			API_URL : "https://xpenseshare-prod.appspot.com/",
 			FB_APP_ID : '295620837229600', 
 			GOOGLE_CLIENT_ID : '684896938909.apps.googleusercontent.com',
 			GOOGLE_API_KEY : 'AIzaSyDlmVOo6XaTWCvcLRVgHUVeEkN05BpD99I',
