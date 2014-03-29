@@ -57,6 +57,7 @@ define(function(require) {
 						lastName : response.last_name,
 						data : response,
 						email : response.email,
+						imgUrl : "http://graph.facebook.com/" + response.id + "/picture?width=43&height=43"
 					});
 				}
 			}
@@ -70,29 +71,7 @@ define(function(require) {
 		},
 		checkAndDoLogin : function(options){
 
-			/*FB.getLoginStatus(function(loginStatusRes){
-				if(loginStatusRes.status==='connected'){
 
-					FBAuthToken = loginStatusRes.authResponse.accessToken;
-
-					FB.api('/me', function(response) {
-						getUserInfo(options);
-					});
-				} else {
-					FB.login(function(response) {
-
-						if (response.authResponse) {
-							FBAuthToken = response.authResponse.accessToken;
-							getUserInfo(options);
-						} else {
-							console.log('User cancelled login or did not fully authorize.');
-						}
-					});
-				}
-			});*/
-			
-			
-			
 			var redirect_uri = "http://www.facebook.com/connect/login_success.html";
 			var client_id = EnvVariables.FB_APP_ID;
 			var display;
