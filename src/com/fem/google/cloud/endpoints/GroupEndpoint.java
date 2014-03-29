@@ -17,7 +17,6 @@ import com.fem.util.TemplateUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
 @Api(name = "groupendpoint")
@@ -168,6 +167,7 @@ public class GroupEndpoint {
 			group.setIouList(alIOU);
 			
 			
+			//TODO :Sending mail. This should be moved to separate method.  
 			StringBuilder msgContent = null;
 			
 			msgContent = new StringBuilder(TemplateUtil.getTemplate("GROUP_CREATED_MAIL_TEMPLATE"));
