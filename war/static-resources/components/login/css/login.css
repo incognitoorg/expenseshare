@@ -1,5 +1,9 @@
 /*----------Login form CSS----------*/
-#login {
+.loginform-container {
+	padding-top: 5%;
+}
+
+.login-container {
 	background-color: #fff;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
 		to(#eee));
@@ -31,7 +35,7 @@
 	height : 100%;
 }
 
-#login:before {
+.login-container:before {
 	content: '';
 	position: absolute;
 	z-index: -1;
@@ -46,7 +50,7 @@
 }
 
 /*--------------------*/
-#login h1 {
+.login-container h1 {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0
 		rgba(0, 0, 0, .5);
 	text-transform: uppercase;
@@ -58,7 +62,7 @@
 	position: relative;
 }
 
-#login h1:after,#login h1:before {
+.login-container h1:after,.login-container h1:before {
 	background-color: #777;
 	content: "";
 	height: 1px;
@@ -67,7 +71,7 @@
 	width: 120px;
 }
 
-#login h1:after {
+.login-container h1:after {
 	background-image: -webkit-gradient(linear, left top, right top, from(#777),
 		to(#fff));
 	background-image: -webkit-linear-gradient(left, #777, #fff);
@@ -78,7 +82,7 @@
 	right: 0;
 }
 
-#login h1:before {
+.login-container h1:before {
 	background-image: -webkit-gradient(linear, right top, left top, from(#777),
 		to(#fff));
 	background-image: -webkit-linear-gradient(right, #777, #fff);
@@ -90,7 +94,7 @@
 }
 
 /*--------------------*/
-#login fieldset {
+.login-container fieldset {
 	border: 0;
 	padding: 0;
 	margin: 0;
@@ -131,11 +135,11 @@
 }
 
 /*--------------------*/
-#actions {
+.login-actions {
 	margin: 25px 0 0 0;
 }
 
-#submit {
+.action-submit {
 	background-color: #ffb94b;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#fddb6f),
 		to(#ffb94b));
@@ -166,7 +170,7 @@
 	color: #8f5a0a;
 }
 
-#submit:hover,#submit:focus {
+#.action-submit:hover,.action-submit:focus {
 	background-color: #fddb6f;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb94b),
 		to(#fddb6f));
@@ -177,22 +181,26 @@
 	background-image: linear-gradient(top, #ffb94b, #fddb6f);
 }
 
-#submit:active {
+.action-submit:active {
 	outline: none;
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 }
 
-#submit::-moz-focus-inner {
+.action-submit::-moz-focus-inner {
 	border: none;
 }
 
-#actions a {
+.login-actions a {
 	color: #3151A2;
 	float: right;
 	line-height: 35px;
 	margin-left: 10px;
+}
+
+.login-actions a:hover{
+	text-decoration: underline;
 }
 
 /*--------------------*/
@@ -204,7 +212,7 @@
 	color: #999;
 }
 
-#login input[type="text"],#login input[type="password"] {
+.login-container input[type="text"],.login-container input[type="password"] {
 	height: 45px !important;
 }
 
