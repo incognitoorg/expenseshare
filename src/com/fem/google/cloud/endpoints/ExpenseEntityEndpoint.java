@@ -272,7 +272,7 @@ public class ExpenseEntityEndpoint {
 			if(user.getUserId()==null || user.getUserId().indexOf("dummy")!=-1){
 				allUserPresent = false;
 				user.setUserId(null);
-				user = new UserEndpoint().getOrInsertUser(user, null, null) ;
+				user = new UserEndpoint().getOrInsertUser(mgr, user) ;
 			}
 			realUsers.add(user);
 			oldUserMap.put(oldUserId, user);
@@ -280,6 +280,7 @@ public class ExpenseEntityEndpoint {
 			alMemberIds.add(user.getUserId());
 		}
 		String friendshipId = getPrimaryKey(alMemberIds);
+		
 		
 		List<ExpenseInfo> alPayers = expenseentity.getListPayersInfo();
 		List<ExpenseInfo> alParticipants = expenseentity.getListIncludeMemberInfo();
