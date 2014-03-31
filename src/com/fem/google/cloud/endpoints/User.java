@@ -12,6 +12,18 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class User implements Serializable {
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName
+				+ ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", fullName=" + fullName + ", password=" + password
+				+ ", imgUrl=" + imgUrl + ", facebookId=" + facebookId
+				+ ", googleId=" + googleId + ", email=" + email + ", mergeId="
+				+ mergeId + ", loginType=" + loginType + ", lastLoggedInAt="
+				+ lastLoggedInAt + ", accessToken=" + accessToken + ", phone="
+				+ phone + ", facebookEmail=" + facebookEmail + ", userType="
+				+ userType + "]";
+	}
 	private static final long serialVersionUID = 6181797377962410874L;
 
 	@PrimaryKey
