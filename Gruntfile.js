@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
-					'war/builtfem.appcache': 'war/builtfem.appcache'
+					'war/fem.appcache': 'war/builtfem.appcache'
 				},
 				options: {
 					replacements: [{
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
-					'war/builtfem.appcache': 'war/builtfem.appcache'
+					'war/builtfem.appcache': 'war/fem.appcache'
 				},
 				options: {
 					replacements: [{
