@@ -1,7 +1,6 @@
 package com.fem.google.cloud.endpoints;
 
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.datanucleus.util.StringUtils;
 import org.mortbay.util.ajax.JSON;
+import org.w3c.dom.UserDataHandler;
 
 import com.fem.util.MailUtil;
 import com.fem.util.TemplateUtil;
@@ -315,6 +315,48 @@ public class UserEndpoint {
 		return returnList;
 	}
 
+	@ApiMethod(
+			httpMethod = "POST", 
+			name = "user.setpassword",
+			path="user/setpassword"
+			)
+	public User setPassword(User user) throws Exception {
+		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		User userFromDataStore = getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
+		
+		if(!userFromDataStore.getAccessToken().equals(user.getAccessToken())){
+			throw new IllegalAccessError("Trying to set password without verifying from email." + user);
+		}
+		userFromDataStore.setPassword(user.getPassword());
+		userFromDataStore.setAccessToken(null);
+		pm.makePersistent(userFromDataStore);
+		
+		return userFromDataStore;
+	}
+	
+	@ApiMethod(
+			httpMethod = "POST", 
+			name = "user.register",
+			path="user/register"
+			)
+	public User regsiter(User user) throws Exception {
+		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		User userFromDataStore = getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
+		
+		//This accessToken should be used for verifying the user while changing the password.
+		String accessToken = UUID.randomUUID().toString();
+		String setPassWordURL = "//xpenseshare.com/setpassword.html?email=" + user.getEmail()+ " + &accessToken=" + accessToken;
+		//Send email to registered email.
+		//TODO : Create email template for this email.
+		new MailUtil().sendToOne("Set password for your account", "<a href='" + setPassWordURL + "'>" + setPassWordURL  + "</a>", user.getEmail());
+		user.setAccessToken(accessToken);
+		pm.makePersistent(user);
+		
+		return user;
+	}
+	
 	@ApiMethod(
 			httpMethod = "POST", 
 			name = "user.login",
