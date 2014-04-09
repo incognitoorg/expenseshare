@@ -953,7 +953,8 @@ define(function(require) {
 					var bottomPaddingAdjust = parseInt($('.scrollable-right-section').css('padding-bottom'));
 					
 					if(scrollTop < inputPosition){
-						$('.scrollable-right-section').scrollTop(inputPosition - bottomPaddingAdjust);
+						//$('.scrollable-right-section').scrollTop(inputPosition - bottomPaddingAdjust);
+						$('.scrollable-right-section').animate({'scrollTop' : (inputPosition - bottomPaddingAdjust)}, 1000);
 					}
 				}, 2000);
 			}
