@@ -1,13 +1,13 @@
 module.exports = function(grunt) {
 
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
-	var
+	/*var
 	  LIVERELOAD_PORT = 35729,
 	  lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT }),
 	  mountFolder = function( connect, dir ) {
 	    return connect.static(require('path').resolve(dir));
 	  };
-	
+	*/
 	// Project configuration.
 	grunt.initConfig({
 		/*pkg: grunt.file.readJSON('package.json'),*/
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
 			},
 			files:['**/*.js','**/*.html', '**/*.css']/*,
 			tasks:['min']*/
-		},
+		}/*,
 		connect: {
 			options: {
 				port: 8889,//I dont know why I need this port
@@ -140,7 +140,7 @@ module.exports = function(grunt) {
 					}
 				}
 			}
-		}
+		}*/
 	});
 
 	// Load the plugin that provides the "uglify" task.
@@ -170,6 +170,6 @@ module.exports = function(grunt) {
 	});
 	
 	grunt.registerTask('version', []);
-	grunt.registerTask('server', [ 'connect', 'watch']);
+	grunt.registerTask('server', [ /*'connect',*/ 'watch']);
 	
 };
