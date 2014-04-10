@@ -815,8 +815,6 @@ define(function(require) {
 					return;
 				}
 				
-				//TODO : Deleting group id for testing expense without group
-				delete self.group.groupId;
 				
 				var expenseData = $.extend({}, {
 					name : self.$('.js-expense-name').val()!=""?self.$('.js-expense-name').val() : "Untitled",
