@@ -10,8 +10,9 @@ module.exports = function(grunt) {
 				/*sdk:'C:/Users/VAronde/Downloads/sdk/gae-sdk/appengine-java-sdk-1.8.6/bin',*/
 				sdk: process.env.GAE_SDK + '/bin',
 				manageScript : 'appcfg.cmd',
+				runScript : 'dev_appserver.cmd',
 				runFlags: {
-					port: 8080
+					port: 8888
 				},
 				manageFlags: {
 					oauth2 : true
