@@ -337,7 +337,7 @@ public class UserEndpoint {
 			name = "user.register",
 			path="user/register"
 			)
-	public User regsiter(User user) throws Exception {
+	public User register(User user) throws Exception {
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		User userFromDataStore = getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
