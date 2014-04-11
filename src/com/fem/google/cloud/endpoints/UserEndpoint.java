@@ -607,7 +607,10 @@ public class UserEndpoint {
 			q.declareParameters("String expenseIdParam");
 
 			List<ExpenseEntity> listExpenseResult = (List<ExpenseEntity>)q.execute(objExpenseInfo.getExpenseId());
-			hmExpenses.put(listExpenseResult.get(0).getExpenseEntityId(), listExpenseResult.get(0));
+			
+			ExpenseEntity expenseEntity = listExpenseResult.get(0);
+			expenseEntity.getIOU(); //Touching to fetch
+			hmExpenses.put(expenseEntity.getExpenseEntityId(), expenseEntity);
 		}
 
 		alExpenses = new ArrayList<ExpenseEntity>(hmExpenses.values());

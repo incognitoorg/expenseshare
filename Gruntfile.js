@@ -1,10 +1,16 @@
 module.exports = function(grunt) {
 
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
-
+	/*var
+	  LIVERELOAD_PORT = 35729,
+	  lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT }),
+	  mountFolder = function( connect, dir ) {
+	    return connect.static(require('path').resolve(dir));
+	  };
+	*/
 	// Project configuration.
 	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
+		/*pkg: grunt.file.readJSON('package.json'),*/
 		appengine: {
 			options: {
 				/*sdk:'C:/Users/VAronde/Downloads/sdk/gae-sdk/appengine-java-sdk-1.8.6/bin',*/
@@ -110,8 +116,32 @@ module.exports = function(grunt) {
 				},*/
 				src : ['war/builtfem.appcache']
 			},
-		}
-
+		},
+		watch:{
+			options: {
+				livereload: true
+			},
+			files:['**/*.js','**/*.html', '**/*.css']/*,
+			tasks:['min']*/
+		}/*,
+		connect: {
+			options: {
+				port: 8889,//I dont know why I need this port
+				// Change this to '*' to access the server from outside.
+				hostname: 'localhost',
+				livereload: 35729
+			},
+			livereload: {
+				options: {
+					middleware: function( connect ) {
+						return [
+						        lrSnippet,
+						        mountFolder(connect, './')
+						        ];
+					}
+				}
+			}
+		}*/
 	});
 
 	// Load the plugin that provides the "uglify" task.
@@ -119,6 +149,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-version');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	
 
 
 	// Default task(s).
@@ -137,6 +170,7 @@ module.exports = function(grunt) {
 		grunt.task.run(['appengine:update:frontend']);
 	});
 	
-	grunt.registerTask('version', [])
+	grunt.registerTask('version', []);
+	grunt.registerTask('server', [ /*'connect',*/ 'watch']);
 	
 };

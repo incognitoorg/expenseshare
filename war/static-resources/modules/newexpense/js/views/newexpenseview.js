@@ -815,8 +815,6 @@ define(function(require) {
 					return;
 				}
 				
-				//TODO : Deleting group id for testing expense without group
-				delete self.group.groupId;
 				
 				var expenseData = $.extend({}, {
 					name : self.$('.js-expense-name').val()!=""?self.$('.js-expense-name').val() : "Untitled",
@@ -953,7 +951,8 @@ define(function(require) {
 					var bottomPaddingAdjust = parseInt($('.scrollable-right-section').css('padding-bottom'));
 					
 					if(scrollTop < inputPosition){
-						$('.scrollable-right-section').scrollTop(inputPosition - bottomPaddingAdjust);
+						//$('.scrollable-right-section').scrollTop(inputPosition - bottomPaddingAdjust);
+						$('.scrollable-right-section').animate({'scrollTop' : (inputPosition - bottomPaddingAdjust)}, 1000);
 					}
 				}, 2000);
 			}

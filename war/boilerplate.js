@@ -1,11 +1,11 @@
 var require = {
 		baseUrl : '/static-resources/',
 		paths : {
-			backbone : 'libraries/backbone/backbone.min',// ['http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min', 'libraries/backbone/backbone'],
-			jquery : 'libraries/jquery/jquery-2.0.0.min',//['http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min', 'libraries/jquery/jquery'],
-			underscore : 'libraries/underscore/underscore.min',//['http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min','libraries/underscore/underscore'],
+			backbone : 'libraries/backbone/backbone.min',
+			jquery : 'libraries/jquery/jquery-2.0.0.min',
+			underscore : 'libraries/underscore/underscore.min',
 			handlebars : 'libraries/handlebars/handlebarshelpers',
-			handlebarshelpers :'libraries/handlebars/handlebars',// ['http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.3/handlebars.min','libraries/handlebars/handlebars'],
+			handlebarshelpers :'libraries/handlebars/handlebars',
 			css : 'libraries/require/css',
 			normalize : 'libraries/require/normalize',
 			async : 'libraries/require/async',
