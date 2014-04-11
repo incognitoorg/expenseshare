@@ -43,7 +43,7 @@ define(function(require){
 		},
 		template: Handlebars.compile(require("text!./../../templates/loginform.html")),
 		render : function(){
-			$(this.el).html(this.template());
+			//$(this.el).html(this.template());
 		},
 		events : {
 			'click .facebook' : 'eventDoFacebookLogin',
@@ -118,6 +118,20 @@ define(function(require){
 			}
 			/*getting the form controls and obtaining values to send data*/
 			var userInfo = this.getUserAccessInfo("signup-username");
+			
+			var ajaxOptions = {
+				url : '_ah/api/userendpoint/v1/user/register',
+				callback : function(response){
+					
+				}, 
+				errorCallback : this.somethingBadHappend,
+				context : this,
+				dataType: 'json',
+				contentType: 'application/json',
+				type : 'POST',
+				data : userInfo
+			}
+			Sandbox.doPost(ajaxOptions);
 			console.log("userInfo", userInfo);
 		},
 		eventDoForgotPassword: function (event) {
