@@ -320,7 +320,7 @@ public class UserEndpoint {
 	public User setPassword(User user) throws Exception {
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		User userFromDataStore = getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
+		User userFromDataStore = UserUtil.getOrInsertUser(pm, user);
 		
 		if(!userFromDataStore.getAccessToken().equals(user.getAccessToken())){
 			throw new IllegalAccessError("Trying to set password without verifying from email." + user);
@@ -340,19 +340,20 @@ public class UserEndpoint {
 	public User register(User user) throws Exception {
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		User userFromDataStore = getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
+		User userFromDataStore = UserUtil.getOrInsertUser(pm, user);
 		
 		//This accessToken should be used for verifying the user while changing the password.
 		String accessToken = UUID.randomUUID().toString();
-		String setPassWordURL = "//xpenseshare.com/setpassword.html?email=" + user.getEmail()+ " + &accessToken=" + accessToken;
+		String setPassWordURL = "//xpenseshare.com/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken;
 		//Send email to registered email.
 		//TODO : Create email template for this email.
-		new MailUtil().sendToOne("Set password for your account", "<a href='" + setPassWordURL + "'>" + setPassWordURL  + "</a>", user.getEmail());
+		new MailUtil().sendToOne("Set password for your account", "<a href='" + setPassWordURL + "' target='_blank'>" + setPassWordURL  + "</a>", user.getEmail());
 		user.setAccessToken(accessToken);
 		pm.makePersistent(user);
 		
 		return user;
 	}
+	
 	
 	@ApiMethod(
 			httpMethod = "POST", 
@@ -362,9 +363,8 @@ public class UserEndpoint {
 	public User doLogin(User user) throws Exception {
 
 		try {
-			
 			PersistenceManager pm = PMF.get().getPersistenceManager();
-			user = getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
+			user = UserUtil.getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
 			
 			if(user.getLastLoggedInAt()==null && !StringUtils.isEmpty(user.getEmail())){
 
@@ -394,7 +394,7 @@ public class UserEndpoint {
 			Date loginDate = new Date();
 			user.setLastLoggedInAt(loginDate);
 			user.setAccessToken(UUID.randomUUID().toString());
-			pm.makePersistent(user);
+			//pm.makePersistent(user);
 			
 			
 		} catch (Exception e){
@@ -406,166 +406,7 @@ public class UserEndpoint {
 		return user;
 	}
 
-	@SuppressWarnings("unchecked")
-	@ApiMethod(path="userendpoint/user/getorinsertuser")
-	public User getOrInsertUser(PersistenceManager pm, User user/*, 
-			@Nullable @Named("lastLoggedIn") Date lastLoggedIn, 
-			@Nullable @Named("authToken") String authToken*/) throws Exception{
-
-		String apiId = null;
-		String loginType = user.getLoginType();
-		String googleId = user.getGoogleId();
-		String facebookId = user.getFacebookId();
-		List<User> execute = null;
-		String email = user.getEmail();
-
-		
-		Query q = pm.newQuery(User.class);
-
-		//Client is coming with the email. Either login or friend with email availability (Non facebook)
-		if(!StringUtils.isEmpty(email)){
-			User userFromDataStore = null;
-			q.setFilter("email == emailParam");
-			q.declareParameters("String emailParam");
-			execute = (List<User>)q.execute(email);
-
-			if(execute.size()>1){
-				//TODO : User have got  multiple accounts. How can we merge this shit.
-			}
-
-			if(execute.size()>0){
-				//User is already in the system. 
-				for (int i = 0; i < execute.size(); i++) {
-					if(execute.get(i).getLastLoggedInAt()!=null){
-						userFromDataStore = execute.get(i);
-						break;
-					}
-				}
-				
-				if(userFromDataStore==null){
-					userFromDataStore = execute.get(0);
-				}
-				
-			} else {
-				//User is not in the system. Making the entry for first time.
-				user = this.insertUser(user);
-			}
-
-			/*//User is logging into application. So update lastLoggedIn timestamp.
-			if(lastLoggedIn!= null){
-				user.setLastLoggedInAt(lastLoggedIn);
-				user.setAccessToken(authToken);
-				pm.makePersistent(user);
-			}*/
-			
-			if(userFromDataStore!=null){
-				if(userFromDataStore.getFacebookEmail()==null && user.getFacebookEmail()!=null) {
-					userFromDataStore.setFacebookEmail(user.getFacebookEmail());
-				}
-				if(userFromDataStore.getFacebookId()==null && user.getFacebookId()!=null){
-					userFromDataStore.setFacebookId(user.getFacebookId());
-				}
-				if(userFromDataStore.getGoogleId()==null && user.getGoogleId()!=null){
-					user.setGoogleId(user.getGoogleId());
-				}
-				if((userFromDataStore.getEmail()==null && user.getEmail()!=null) ){
-					userFromDataStore.setEmail(user.getEmail());
-				}
-				if(userFromDataStore.getImgUrl()==null && user.getImgUrl()!=null) {
-					userFromDataStore.setImgUrl(user.getImgUrl());
-				}
-				if(userFromDataStore.getPhone()==null &&  user.getPhone()!=null){
-					userFromDataStore.setPhone(user.getPhone());
-				}
-				user = userFromDataStore;
-			} 
-			
-			user.setLoginType(loginType);
-			user.setGoogleId(googleId);
-			user.setFacebookId(facebookId);
-			return user;
-		}
-
-
-
-
-		/*if("google".equalsIgnoreCase(user.getLoginType())) {
-			apiId = user.getGoogleId();
-			q.setFilter("googleId == googleIdParam");
-			q.declareParameters("String googleIdParam");
-		} else */
-		if("facebook".equalsIgnoreCase(loginType)) {
-			apiId = user.getFacebookId();
-			q.setFilter("facebookId == facebookIdParam");
-			q.declareParameters("String facebookIdParam");
-		} else {
-			/*apiId = user.getEmail();
-			q.setFilter("email == emailIdParam");
-			q.declareParameters("String emailIdParam");*/
-
-			//TODO : In google contacts, you may get entity which might have only phone
-			//This presents opportunity to present user to login with phone.
-			/*String phone = user.getPhone();
-			q.setFilter("phone == phoneParam");
-			q.declareParameters("String phoneParam");*/
-
-		}
-
-
-
-		if(apiId==null){
-			throw new IllegalArgumentException("Neither email provided nor apiId aka facebook id was provided. Front end is having some problems. Go check.\n\nUser info : " + user);
-		} else {
-			execute = (List<User>)q.execute(apiId);
-			if(execute.size()>0){
-				user = execute.get(0);
-				//I dont know what was I thinking, get the user from datastore and then write it again if it has no email. :D
-				/*if(StringUtils.isEmpty(user.getEmail())){
-					pm.makePersistent(user);
-				}*/
-			} else {
-				user = this.insertUser(user);
-			}
-		}
-
-		/*user.setLoginType(loginType);
-		user.setGoogleId(googleId);
-		user.setFacebookId(facebookId);*/
-
-		/*if(lastLoggedIn!= null){
-			
-			if(user.getLastLoggedInAt()==null && !StringUtils.isEmpty(user.getEmail())){
-
-				log.info("User email " + user.getEmail());
-
-				HashMap<String, String> hmEmailIds = new HashMap<String, String>();
-				
-				StringBuilder msgContent = null;
-				
-				msgContent = new StringBuilder(TemplateUtil.getTemplate("USER_CREATED_MAIL_TEMPLATE"));
-				
-				int index = msgContent.indexOf("??userfirstname??");
-				msgContent.replace(index, index + 17, user.getFirstName() == null ? "" : user.getFirstName());
-				index = msgContent.indexOf("??userlastname??");
-				msgContent.replace(index, index + 16, user.getLastName() == null ? "" : user.getLastName());
-				
-				if(user.getEmail() != null) {
-					hmEmailIds.put(user.getEmail(), user.getFullName());
-					new MailUtil().sendToAll("Greetings...", msgContent.toString(), hmEmailIds);
-				} else {
-					hmEmailIds.put(user.getFacebookEmail(), user.getFullName());
-					new MailUtil().sendToAll("Welcome to Xpense Share!!!", msgContent.toString(), hmEmailIds);
-				}
-
-			}
-			
-			user.setLastLoggedInAt(lastLoggedIn);
-			user.setAccessToken(authToken);
-			pm.makePersistent(user);
-		}*/
-
-		return user;
-	}
+	
 
 
 	/**
