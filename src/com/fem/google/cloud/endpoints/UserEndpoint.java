@@ -324,10 +324,6 @@ public class UserEndpoint {
 			)
 	public User setPassword(User user) throws Exception {
 		
-		User userFromClient = user;
-		
-		
-		
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		User userFromDataStore = UserUtil.getOrInsertUser(pm, user);
