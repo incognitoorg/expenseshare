@@ -1,5 +1,7 @@
 package com.fem.google.cloud.endpoints;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -322,17 +324,36 @@ public class UserEndpoint {
 			)
 	public User setPassword(User user) throws Exception {
 		
+		User userFromClient = user;
+		
+		
+		
+		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		User userFromDataStore = UserUtil.getOrInsertUser(pm, user);
+		
 		
 		if(!userFromDataStore.getAccessToken().equals(user.getAccessToken())){
 			throw new IllegalAccessError("Trying to set password without verifying from email." + user);
 		}
-		userFromDataStore.setPassword(user.getPassword());
-		userFromDataStore.setAccessToken(null);
+		
+		
+		userFromDataStore.setPassword(getEncryptedPassword(user.getPassword()));
+		userFromDataStore.setAccessToken(UUID.randomUUID().toString());
 		pm.makePersistent(userFromDataStore);
 		
 		return userFromDataStore;
+	}
+	
+	
+	private String getEncryptedPassword(String password) throws NoSuchAlgorithmException{
+		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+		messageDigest.update(password.getBytes());
+		String encryptedString = new String(messageDigest.digest());
+		
+		
+		String encryptedPassword =  UUID.nameUUIDFromBytes(encryptedString.getBytes()).toString();
+		return encryptedPassword;
 	}
 	
 	@ApiMethod(
@@ -347,10 +368,15 @@ public class UserEndpoint {
 		
 		//This accessToken should be used for verifying the user while changing the password.
 		String accessToken = UUID.randomUUID().toString();
-		String setPassWordURL = "//xpenseshare.com/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken;
+		String setPassWordURL = "//xpenseshare.com/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
 		//Send email to registered email.
 		//TODO : Create email template for this email.
 		new MailUtil().sendToOne("Set password for your account", "<a href='" + setPassWordURL + "' target='_blank'>" + setPassWordURL  + "</a>", user.getEmail());
+		
+		if(userFromDataStore!=null){
+			user = userFromDataStore;
+		}
+		
 		user.setAccessToken(accessToken);
 		pm.makePersistent(user);
 		
@@ -365,14 +391,46 @@ public class UserEndpoint {
 			)
 	public User doLogin(User user) throws Exception {
 
+<<<<<<< HEAD
 		log.info(user.toString());
+=======
+
+		String passwordFromClient = user.getPassword();
+		if(user.getLoginType().equals("google")){
+			//TODO : Verify with google service to authorize the user.
+			if(user.getGoogleId()==null && user.getEmail()==null){
+				throw new IllegalAccessError("Logging in with google but googleId or email was not provided.");
+			}
+		} else if(user.getLoginType().equals("facebook")){
+			//TODO : Verify with facebook service to authorize the user.
+			if(user.getFacebookId()==null){
+				throw new IllegalAccessError("Logging in with facebook but facebook id was not provided.");
+			}
+		} else if(user.getLoginType().equals("email")){
+			if(user.getEmail()==null || user.getPassword()==null){
+				throw new IllegalAccessError("Loggin with email but username or password was not provided.");
+			}			
+		}
+		
+>>>>>>> Register and setpasword flow.
 		
 		try {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
+
+			
 			user = UserUtil.getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
+			
+			
+			if(user.getLoginType().equals("email")){
+				if(!(this.getEncryptedPassword(passwordFromClient).equals(user.getPassword()))){
+					throw new IllegalAccessError("Incorrect email or password");
+				}
+			}
+			
 			
 			if(user.getLastLoggedInAt()==null && !StringUtils.isEmpty(user.getEmail())){
 
+				//TODO : Move this to separate class/method for sending email stuff.
 				log.info("User email " + user.getEmail());
 
 				HashMap<String, String> hmEmailIds = new HashMap<String, String>();
@@ -393,21 +451,23 @@ public class UserEndpoint {
 					hmEmailIds.put(user.getFacebookEmail(), user.getFullName());
 					new MailUtil().sendToAll("Welcome to Xpense Share!!!", msgContent.toString(), hmEmailIds);
 				}
-
 			}
 			
 			Date loginDate = new Date();
 			user.setLastLoggedInAt(loginDate);
 			user.setAccessToken(UUID.randomUUID().toString());
-			//pm.makePersistent(user);
-			
+			pm.makePersistent(user);
 			
 		} catch (Exception e){
 			new MailUtil().sendToAdmin(" Exception occured while loggin in." + e.getMessage() , "Exception occured while loggin in. "+"  User : " + user + " \n "+ e.getMessage() + e.getMessage() + "\n\n" + e.getStackTrace());
 			throw e;
 		}
 		
-
+		//TODO : Need to remove password from sending to client. For people like Krunal who think there data is secure when they use internet.
+		//Not that this gives any info to hacker. Since all he is getting is encrypted password.
+		//This also updates the password in datastore. Need to find way to disconnect the object with datastore and remove password from it. 
+		//user.setPassword(null);
+		
 		return user;
 	}
 

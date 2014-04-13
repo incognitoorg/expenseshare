@@ -101,6 +101,10 @@ define(function(require){
 					userControl["password"] = userpass;
 				}
 			}
+			
+			userControl.fullName = "User Full Name here";
+			userControl.loginType = "email";
+			
 			return userControl;
 		},
 		eventDoEmailLogin: function (event) {
@@ -110,7 +114,11 @@ define(function(require){
 			}
 			/*getting the form controls and obtaining values to send data*/
 			var userInfo = this.getUserAccessInfo("username", "password");
-			console.log("userInfo", userInfo);
+			this.doActualLogin({
+				email : this.$('#username').val(),
+				password : this.$('#password').val(),
+				loginType : "email"
+			});
 		},
 		eventDoEmailSignup: function (event) {
 			if (this.$("#app-access-control")[0].checkValidity()) {
@@ -183,7 +191,7 @@ define(function(require){
 			
 			this.userInfo = this.normalizeUserData(response);
 			this.userInfo[response.loginType]=this.userInfo[response.loginType] || {}; 
-			this.userInfo[response.loginType].authToken = APIMapper[response.loginType].getAuthToken();
+			response.loginType!=='email' && (this.userInfo[response.loginType].authToken = APIMapper[response.loginType].getAuthToken());
 			this.hide();
 			this.addInSession();
 			hideMask();
