@@ -9,17 +9,23 @@ import org.datanucleus.util.StringUtils;
 
 public class UserUtil {
 	
-	public static User getOrInsertUser(PersistenceManager pm, User user/*, 
-			@Nullable @Named("lastLoggedIn") Date lastLoggedIn, 
-			@Nullable @Named("authToken") String authToken*/) throws Exception{
+	public static User getOrInsertUser(PersistenceManager pm, User user) throws Exception{
 
-		/*PersistenceManager pm = PMF.get().getPersistenceManager();*/
 		String apiId = null;
 		String loginType = user.getLoginType();
 		String googleId = user.getGoogleId();
 		String facebookId = user.getFacebookId();
 		List<User> execute = null;
 		String email = user.getEmail();
+		String userId = user.getUserId();
+		
+		//Client is coming with userId. Check if user already available if yes return it.
+		if(userId!=null){
+			User userFromDataStore = (User)pm.getObjectById(userId);
+			if(userFromDataStore!=null){
+				return userFromDataStore;
+			}
+		}
 
 		
 		Query q = pm.newQuery(User.class);
@@ -122,50 +128,10 @@ public class UserUtil {
 			execute = (List<User>)q.execute(apiId);
 			if(execute.size()>0){
 				user = execute.get(0);
-				//I dont know what was I thinking, get the user from datastore and then write it again if it has no email. :D
-				/*if(StringUtils.isEmpty(user.getEmail())){
-					pm.makePersistent(user);
-				}*/
 			} else {
 				user = new UserEndpoint().insertUser(user);
 			}
 		}
-
-		/*user.setLoginType(loginType);
-		user.setGoogleId(googleId);
-		user.setFacebookId(facebookId);*/
-
-		/*if(lastLoggedIn!= null){
-			
-			if(user.getLastLoggedInAt()==null && !StringUtils.isEmpty(user.getEmail())){
-
-				log.info("User email " + user.getEmail());
-
-				HashMap<String, String> hmEmailIds = new HashMap<String, String>();
-				
-				StringBuilder msgContent = null;
-				
-				msgContent = new StringBuilder(TemplateUtil.getTemplate("USER_CREATED_MAIL_TEMPLATE"));
-				
-				int index = msgContent.indexOf("??userfirstname??");
-				msgContent.replace(index, index + 17, user.getFirstName() == null ? "" : user.getFirstName());
-				index = msgContent.indexOf("??userlastname??");
-				msgContent.replace(index, index + 16, user.getLastName() == null ? "" : user.getLastName());
-				
-				if(user.getEmail() != null) {
-					hmEmailIds.put(user.getEmail(), user.getFullName());
-					new MailUtil().sendToAll("Greetings...", msgContent.toString(), hmEmailIds);
-				} else {
-					hmEmailIds.put(user.getFacebookEmail(), user.getFullName());
-					new MailUtil().sendToAll("Welcome to Xpense Share!!!", msgContent.toString(), hmEmailIds);
-				}
-
-			}
-			
-			user.setLastLoggedInAt(lastLoggedIn);
-			user.setAccessToken(authToken);
-			pm.makePersistent(user);
-		}*/
 
 		return user;
 	}
