@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
 
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
+	var moment = require('moment');
+	console.log('moment', moment);
 
 	// Project configuration.
 	grunt.initConfig({
@@ -98,6 +100,14 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		gittag: {
+	        task: {
+	            options: {
+	                tag: moment().format('DDMMYYYY'),
+	                message: 'Testing'
+	            }
+	        }
+	    },
 		version: {
 			options: {
 				// Task-specific options go here.
@@ -118,6 +128,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-version');
+	grunt.loadNpmTasks('grunt-git');
 
 
 	// Default task(s).
@@ -135,6 +146,11 @@ module.exports = function(grunt) {
 		}
 		grunt.task.run(['appengine:update:frontend']);
 	});
+	
+	grunt.registerTask('tag', function(){
+		var date = new Date();
+		grunt.task.run(['gittag']);
+	})
 	
 	grunt.registerTask('version', [])
 	
