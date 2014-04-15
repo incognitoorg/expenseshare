@@ -387,9 +387,7 @@ public class UserEndpoint {
 			)
 	public User doLogin(User user) throws Exception {
 
-<<<<<<< HEAD
 		log.info(user.toString());
-=======
 
 		String passwordFromClient = user.getPassword();
 		if(user.getLoginType().equals("google")){
@@ -407,8 +405,6 @@ public class UserEndpoint {
 				throw new IllegalAccessError("Loggin with email but username or password was not provided.");
 			}			
 		}
-		
->>>>>>> Register and setpasword flow.
 		
 		try {
 			PersistenceManager pm = PMF.get().getPersistenceManager();

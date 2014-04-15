@@ -502,7 +502,7 @@ public class ExpenseEntityEndpoint {
 			}
 			
 			
-			expenseentity.setGroup(null);
+			
 			
 			String expenseEntityId = KeyFactory.createKeyString("ExpenseEntity", new Date().getTime());
 			expenseentity.setExpenseEntityId(expenseEntityId);
@@ -530,7 +530,14 @@ public class ExpenseEntityEndpoint {
 				mgr.makePersistent(objGroup);
 			}
 
+			expenseentity.setGroup(null);
 			mgr.makePersistent(expenseentity);
+			
+			//This is an expense in group
+			//TODO: I dont know why this is needed. But without this the IOU updation is not persistent
+			if(!StringUtils.isEmpty(objGroup.getGroupId())){
+				mgr.makePersistent(objGroup);
+			}
 			
 		} catch(Exception e) {
 			new MailUtil().sendToAdmin("Exception occured ", e.getMessage() + e.getStackTrace().toString());
