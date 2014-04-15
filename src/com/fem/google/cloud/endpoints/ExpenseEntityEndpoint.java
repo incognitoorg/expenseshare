@@ -523,6 +523,12 @@ public class ExpenseEntityEndpoint {
 			//This call makes changes to expenseentity. Adds IOU to it.
 			this.updateIOU(mgr, expenseentity, iouToUpdate, "add");
 			
+			//This is an expense in group
+			//TODO: I dont know why this is needed. But without this the IOU updation is not persistent
+			if(!StringUtils.isEmpty(objGroup.getGroupId())){
+				mgr.makePersistent(objGroup);
+			}
+
 			mgr.makePersistent(expenseentity);
 			
 		} catch(Exception e) {
