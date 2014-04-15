@@ -1,13 +1,9 @@
 module.exports = function(grunt) {
 
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
-	/*var
-	  LIVERELOAD_PORT = 35729,
-	  lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT }),
-	  mountFolder = function( connect, dir ) {
-	    return connect.static(require('path').resolve(dir));
-	  };
-	*/
+	var moment = require('moment');
+	console.log('moment', moment);
+
 	// Project configuration.
 	grunt.initConfig({
 		/*pkg: grunt.file.readJSON('package.json'),*/
@@ -105,6 +101,14 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		gittag: {
+	        task: {
+	            options: {
+	                tag: moment().format('DDMMYYYY'),
+	                message: 'Testing'
+	            }
+	        }
+	    },
 		version: {
 			options: {
 				// Task-specific options go here.
@@ -149,11 +153,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-version');
+	grunt.loadNpmTasks('grunt-git');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-connect');
 	
-
-
 	// Default task(s).
 	grunt.registerTask('default',function(){
 		grunt.task.run(['all']);
@@ -170,7 +172,12 @@ module.exports = function(grunt) {
 		grunt.task.run(['appengine:update:frontend']);
 	});
 	
-	grunt.registerTask('version', []);
+	grunt.registerTask('tag', function(){
+		var date = new Date();
+		grunt.task.run(['gittag']);
+	})
+	
+	grunt.registerTask('version', [])
 	grunt.registerTask('server', [ /*'connect',*/ 'watch']);
 	
 };
