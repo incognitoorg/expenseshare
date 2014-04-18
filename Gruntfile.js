@@ -101,14 +101,14 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		gittag: {
+		/*gittag: {
 	        task: {
 	            options: {
 	                tag: moment().format('DDMMYYYY'),
 	                message: 'Testing'
 	            }
 	        }
-	    },
+	    },*/
 		version: {
 			options: {
 				// Task-specific options go here.
@@ -121,6 +121,79 @@ module.exports = function(grunt) {
 				src : ['war/builtfem.appcache']
 			},
 		},
+	    gitpull : {
+	    	option : {
+	    		remote : 'https://github.com/incognitoorg/expenseshare.git'
+	    	},
+	    	prod : {
+	    		options : {
+	    			branch : 'master'
+	    		}
+	    	},
+	    	qa : {
+	    		options : {
+	    			branch : 'develop'
+	    		}
+	    	},
+	    	dev : {
+	    		
+	    	}
+	    },
+	    gitcheckout : {
+	    	options : {
+    			remote : 'https://github.com/incognitoorg/expenseshare.git'
+    		},
+    		prod : {
+    			options : {
+	    			branch : 'master'
+	    		}
+	    	},
+	    	qa : {
+	    		options : {
+	    			branch : 'develop'
+	    		}
+	    	},
+	    	dev : {
+	    		
+	    	}
+	    },
+	    gittag : {
+	    	options : {
+    			remote : 'https://github.com/incognitoorg/expenseshare.git'
+    		},
+    		prod : {
+    			options : {
+	    			branch : 'master'
+	    		}
+	    	},
+	    	qa : {
+	    		options : {
+	    			branch : 'develop'
+	    		}
+	    	},
+	    	dev : {
+	    		
+	    	}
+	    },
+	    gitpush : {
+	    	options : {
+    			remote : 'https://github.com/incognitoorg/expenseshare.git'
+    		},
+    		prod : {
+    			options : {
+	    			branch : 'master'
+	    		}
+	    	},
+	    	qa : {
+	    		options : {
+	    			branch : 'develop',
+	    			tags : true
+	    		}
+	    	},
+	    	dev : {
+	    		
+	    	}
+	    },
 		watch:{
 			options: {
 				livereload: true
@@ -172,12 +245,23 @@ module.exports = function(grunt) {
 		grunt.task.run(['appengine:update:frontend']);
 	});
 	
-	grunt.registerTask('tag', function(){
-		var date = new Date();
-		grunt.task.run(['gittag']);
-	})
+	grunt.registerTask('tagBuild', function(build){
+		var message = grunt.option("m") || "";
+		var tag = grunt.option("tag") || moment().format('DD-MM-YYYY_HH.mm');
+		var build = build || "prod";
+		
+		console.log('b4 options message', grunt.config.get('gittag.' + build + '.options.messsage'));
+		console.log('b4 options tag', grunt.option("tag"));
+		
+		grunt.config.set('gittag.' + build + '.options.messsage', message);
+		grunt.config.set('gittag.' + build + '.options.tag', tag);
+		
+		console.log('after options message', grunt.config.get('gittag.' + build + '.options.messsage'));
+		console.log('after options tag', grunt.config.get('gittag.' + build + '.options.tag'));
+		grunt.task.run(['gitcheckout:' + build, 'gittag:' + build,  'gitpush:' + build]);
+	});
 	
-	grunt.registerTask('version', [])
+	grunt.registerTask('version', []);
 	grunt.registerTask('server', [ /*'connect',*/ 'watch']);
 	
 };
