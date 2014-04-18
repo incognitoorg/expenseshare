@@ -19,7 +19,7 @@ define(function(require){
 			    "profile": "showProfile"   
 		  },
 		  showMenu : function(){
-			  this.options.view.eventShowMenu();
+			  this.options.view.showMenu();
 		  },
 		  showDashboard: function(query, page) {
 			  this.options.view.eventShowView('js-dashboard');
