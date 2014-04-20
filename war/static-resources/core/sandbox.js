@@ -48,6 +48,30 @@ define(function (require) {
 		var data = options.data;
 		var loader = options.loader;
 		
+		
+		
+		/*function checkConnection() {
+            var networkState = navigator.connection.type;
+
+            var states = {};
+            states[Connection.UNKNOWN]  = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI]     = 'WiFi connection';
+            states[Connection.CELL_2G]  = 'Cell 2G connection';
+            states[Connection.CELL_3G]  = 'Cell 3G connection';
+            states[Connection.CELL_4G]  = 'Cell 4G connection';
+            states[Connection.CELL]     = 'Cell generic connection';
+            states[Connection.NONE]     = 'No network connection';
+
+        }
+
+        checkConnection();*/
+		
+		if(!isOnline){
+			alert('It appears that you are not connected to internet. Please come back later when you are connected.');
+			return false;
+		}
+		
 		return $.ajax({
 		  'url':url,
 		  'type': type, 
