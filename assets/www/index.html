@@ -737,18 +737,46 @@ header .row {
 	href="static-resources/components/login/css/login.css">
 </head>
 
-<body style="font-family: allerregular">
-	<script type="text/javascript" src=cordova.js></script>
-	<script type="text/javascript" src=plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js></script>
+<body style="font-family: allerregular" onload="onBodyLoad()">
+	
 	<script>
 	var isOnline = true;
-	document.addEventListener("offline", function(){
-		isOnline = false;
-	}, false);
-	document.addEventListener("online", function(){
-		isOnline = true;
-	}, false);
+	
+	
+	function onBodyLoad() {
+	    // these are useful later in the app, might as well set early
+	    window.isRipple = (window.tinyHippos != null);
+	    window.isPhoneGap = /^file:\/{3}[^\/]/i.test(window.location.href);
+	    window.isIOS = !window.isRipple && navigator.userAgent.match(/(ios|iphone|ipod|ipad)/gi) != null;
+	    window.isAndroid = !window.isRipple && navigator.userAgent.match(/(android)/gi) != null;
+
+	    // stuff I use for debugging in chrome
+	    if (window.isPhoneGap) {
+	        document.addEventListener("deviceready", onDeviceReady, false);
+	    } else {
+	        onDeviceReady();
+	    }
+	    
+	   
+	}
+	
+	function onDeviceReady(){
+		 document.addEventListener("offline", function(){
+				alert('User got offline');
+				isOnline = false;
+				showMask("You went offline.")
+			}, false);
+			document.addEventListener("online", function(){
+				alert('User got online.');
+				isOnline = true;
+				hideMask();
+			}, false);
+	}
+	
+	document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
+	<script type="text/javascript" src=cordova.js></script>
+	<script type="text/javascript" src=plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js></script>
 	<div class=hide-for-small style="height: 45px">
 		<nav class="top-bar " data-topbar="" id=top-nav-bar>
 			<ul class=title-area>

@@ -67,8 +67,10 @@ define(function (require) {
 
         checkConnection();*/
 		
+		
 		if(!isOnline){
 			alert('It appears that you are not connected to internet. Please come back later when you are connected.');
+			showMask('You are offline. Get online\n and come back');
 			return false;
 		}
 		
