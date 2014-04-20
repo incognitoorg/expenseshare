@@ -737,9 +737,18 @@ header .row {
 	href="static-resources/components/login/css/login.css">
 </head>
 
-<script type="text/javascript" src=cordova.js></script>
-<script type="text/javascript" src=plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js></script>
 <body style="font-family: allerregular">
+	<script type="text/javascript" src=cordova.js></script>
+	<script type="text/javascript" src=plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js></script>
+	<script>
+	var isOnline = true;
+	document.addEventListener("offline", function(){
+		isOnline = false;
+	}, false);
+	document.addEventListener("online", function(){
+		isOnline = true;
+	}, false);
+	</script>
 	<div class=hide-for-small style="height: 45px">
 		<nav class="top-bar " data-topbar="" id=top-nav-bar>
 			<ul class=title-area>

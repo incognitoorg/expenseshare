@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<manifest android:hardwareAccelerated="true" android:versionCode="11" android:versionName="1.0.5" android:windowSoftInputMode="adjustPan" package="com.incognito.xpenseshare" xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest android:hardwareAccelerated="true" android:versionCode="15" android:versionName="1.0.7" android:windowSoftInputMode="adjustPan" package="com.incognito.xpenseshare" xmlns:android="http://schemas.android.com/apk/res/android">
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true" />
     <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19" />
     <application android:debuggable="false" android:hardwareAccelerated="true" android:icon="@drawable/icon" android:label="XpenseShare">
         <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="XpenseShare" android:name="FEMLocal" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask"
@@ -12,5 +15,4 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19" />
 </manifest>
