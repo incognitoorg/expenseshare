@@ -761,19 +761,20 @@ header .row {
 	}
 	
 	function onDeviceReady(){
-		 document.addEventListener("offline", function(){
-				alert('User got offline');
+			isOnline = navigator.connection.type!==Connection.NONE && navigator.connection.type!==Connection.UNKNOWN;
+			alert('isOnline in onDeviceReady : ' + navigator.connection.type);
+		 	document.addEventListener("offline", function(){
+				//alert('User got offline');
 				isOnline = false;
-				showMask("You went offline.")
+				//showMask("You went offline.")
 			}, false);
 			document.addEventListener("online", function(){
-				alert('User got online.');
+				//alert('User got online.');
 				isOnline = true;
-				hideMask();
+				//hideMask();
 			}, false);
 	}
 	
-	document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
 	<script type="text/javascript" src=cordova.js></script>
 	<script type="text/javascript" src=plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js></script>

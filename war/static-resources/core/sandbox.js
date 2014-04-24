@@ -6,6 +6,16 @@ define(function (require) {
 	EnvVariables = EnvVariablesGlobal || require('envvariables'),
 	locallayer = require('locallayer');
 	
+	document.addEventListener("offline", function(){
+		alert('User got offline sandbox');
+		isOnline = false;
+		showMask("You went offline.")
+	}, false);
+	document.addEventListener("online", function(){
+		alert('User got online sandbox.');
+		isOnline = true;
+		hideMask();
+	}, false);
 	
 	
 	$(document).on('click', '.modal-close', function(event){
@@ -63,17 +73,21 @@ define(function (require) {
             states[Connection.CELL]     = 'Cell generic connection';
             states[Connection.NONE]     = 'No network connection';
 
+            alert('Network state :  ' + states[networkState]);
         }
 
-        checkConnection();*/
+        checkConnection();
 		
 		
-		if(!isOnline){
+		if(!isOnline || (navigator.connection.type==Connection.NONE)){
 			alert('It appears that you are not connected to internet. Please come back later when you are connected.');
 			showMask('You are offline. Get online\n and come back');
 			return false;
 		}
+		*/
 		
+		alert('Making ajax call');
+		options.loaderContainer && options.loaderContainer.addClass('global-loader');
 		return $.ajax({
 		  'url':url,
 		  'type': type, 
@@ -84,10 +98,12 @@ define(function (require) {
 			  loader && loader.addClass('js-loader');
 		  },
 		  'success': function(response){
-				  callback.call(context, response);
-				  loader && loader.removeClass('js-loader');
+			  hideMask();
+			  callback.call(context, response);
+			  loader && loader.removeClass('js-loader');
 		  },
 		  'error': function(response){
+			  hideMask();
 			  if(errorCallback){
 				  errorCallback.call(context, response);
 			  } else {
@@ -95,6 +111,7 @@ define(function (require) {
 			  }
 			  loader && loader.removeClass('js-loader');
 			  $('#modal-text').addClass('show-modal');
+			  
 			  
 			  
 		  }
@@ -115,6 +132,11 @@ define(function (require) {
 	
 
 	Sandbox.doUpdate= function(data){
+		if(!isOnline){
+			alert('It appears that you are not connected to internet. Please come back later when you are connected.');
+			return $.Deferred().resolve();
+		}
+		
 		data.type="PUT";
 		data.dataType='json';
 		data.contentType='application/json';
@@ -146,7 +168,7 @@ define(function (require) {
 		/*if(Modernizr.localstorage && !navigator.onLine){
 			locallayer.doGet(options);
 		} else */{
-			options.loaderContainer && options.loaderContainer.addClass('global-loader');
+			
 			var extendedData = _.extend(options, {
 				dataType: 'json',
 				contentType: 'application/json',
@@ -175,7 +197,13 @@ define(function (require) {
 				}
 			});
 
-			var promise = this.doAjax(extendedData);
+			var promise = null;
+			if(!isOnline){
+				promise = $.Deferred().resolve();
+				//alert('It appears that you are not connected to internet. Please come back later when you are connected. Test');
+			} else {
+				promise = this.doAjax(extendedData);
+			}
 			if(options.cached){
 				var cachedData = thisEndPoint[splits[2]];
 				cachedData && callback.call(options.context, cachedData);// && options.loaderContainer && options.loaderContainer.removeClass('global-loader');;
@@ -185,6 +213,10 @@ define(function (require) {
 	};
 	
 	Sandbox.doDelete = function(data){
+		if(!isOnline){
+			alert('It appears that you are not connected to internet. Please come back later when you are connected.');
+			return $.Deferred().resolve();
+		}
 		/*if(Modernizr.localstorage && !navigator.onLine){
 			locallayer.doDelete(data);
 		} else */{
@@ -193,6 +225,12 @@ define(function (require) {
 	};
 	
 	Sandbox.doAdd = function(data){
+		
+		if(!isOnline){
+			alert('It appears that you are not connected to internet. Please come back later when you are connected.');
+			return $.Deferred().resolve();
+		}
+		
 		var callback = data.callback;
 		
 		
@@ -255,10 +293,16 @@ define(function (require) {
 	};
 	
 	Sandbox.doPost = function(data){
+		if(!isOnline){
+			alert('It appears that you are not connected to internet. Please come back later when you are connected.');
+			return $.Deferred().resolve();
+		}
 		/*if(Modernizr.localstorage && !navigator.onLine){
 			locallayer.doPost(data);
 		} else */{
-			
+			if(data.mask){
+				showMask(data.mask || 'Saving changes...')
+			}
 			var data = _.extend(data, {
 					dataType: 'json',
 					contentType: 'application/json',

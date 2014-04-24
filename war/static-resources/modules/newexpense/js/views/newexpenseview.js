@@ -854,7 +854,8 @@ define(function(require) {
 						self.expenseSaved(objExpenseModel);
 					},
 					data : objExpenseModel.attributes,
-					contex : self
+					contex : self,
+					mask : 'Saving expense...'
 				};
 				
 				if(self.mode=='edit'){
