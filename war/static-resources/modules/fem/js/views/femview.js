@@ -78,11 +78,6 @@ define(function(require){
 			argumentsProvided.length>0?dataToPublish['argumentsProvided']=argumentsProvided : ''; 
 			Sandbox.publish('FEM:MENU:CLICK',dataToPublish);
 		},
-		eventShowMenu : function(){
-			/*this.$('.js-left-side-menu').removeClass('hide-for-small');
-			this.$('.js-right-panel').addClass('hide-for-small');*/
-			this.router.navigate("#menu");
-		},
 		makeResponsive : function(){
 			this.$('.js-left-side-menu p').height(parseInt(this.$('.js-left-side-menu').height()/this.menulength)-1);
 		},
@@ -213,6 +208,8 @@ define(function(require){
 		showMenu : function(event){
 			var self = this;
 			if(is_mobile){
+				//Backbone.history.start();
+				this.router.navigate("#menu");
 				this.$('.js-show-menu').removeClass('js-show-menu').addClass('js-hide-menu');
 				self.$('.app-container').animate({
 					/*left: $(window).width(),*/
