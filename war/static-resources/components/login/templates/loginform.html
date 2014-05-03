@@ -1,44 +1,48 @@
-
-<div class="row loginform-container">
-	<div class=small-12>
-		<form id="app-access-control" name="app-access-control" class="small-12 large-centered large-6 columns login-container">
-			<div id="app-signin" class="form-container">
-				<h1>Log In</h1>
-			    <fieldset id="inputs">
-			        <input id="username" name="username" type="email" placeholder="Email" class="required-inputs" autofocus required>
-			        <input id="password" name="password" type="password" placeholder="Password" class="required-inputs" required>
-			    </fieldset>
-			    <fieldset id="actions" class="login-actions">
-			        <input type="submit" name="emailSignin" class="email-signin action-submit" id="email-signin" value="Log in">
-			        <a class="show-forgot-password">Forgot password?</a><a class="show-signup">Register</a>
-			    </fieldset>
-			     <fieldset id="facebookfieldset">
-				<a  class="zocial facebook">Sign in with Facebook</a>
-				 </fieldset>
-			     <fieldset id="googlefieldset">
-			        <a  class="zocial google">Sign in with Google</a>
-			    </fieldset>
-			</div>
-			<div id="app-signup" style="display: none;" class="form-container">
-				<h1>Register</h1>
-			    <fieldset id="signup-inputs">
-			        <input id="signup-username" name="signupUsername" type="email" placeholder="Email" class="required-inputs">
-			    </fieldset>
-			    <fieldset id="signup-actions" class="login-actions">
-			        <input type="submit" name="emailSignup" class="email-signup action-submit" id="email-signup" value="Register">
-			        <a class="show-signin">Back to Login</a>
-			    </fieldset>
-			</div>
-			<div id="app-forgot-password" style="display: none;" class="form-container">
-				<h1>Forgot Password</h1>
-			    <fieldset id="signup-inputs">
-			        <input id="forgot-pass-username" name="forgotPassUsername" type="email" placeholder="Registered Email" class="required-inputs">
-			    </fieldset>
-			    <fieldset id="signup-actions" class="login-actions">
-			        <input type="submit" name="retrievePassword" class="retrieve-password action-submit" id="retrieve-password" value="Retrieve Password" style="width: auto;">
-			        <a class="show-signin">Back to Login</a>
-			    </fieldset>
-			</div>
-		</form>
+<div class=row id=logincontainer>
+	<div class="row loginform-container">
+		<div class=small-12>
+			<form id="app-access-control" name="app-access-control" class="small-12 large-centered large-6 columns login-container">
+				<div id="app-signin" class="form-container">
+					<h1>Log In</h1>
+				    <fieldset id="inputs">
+				        <input id="username" name="username" type="email" placeholder="Email" class="required-inputs" autofocus required>
+				        <input id="password" name="password" type="password" placeholder="Password" class="required-inputs" required>
+				    </fieldset>
+				    <fieldset id="actions" class="login-actions">
+				        <input type="submit" name="emailSignin" class="email-signin action-submit" id="email-signin" value="Log in">
+				        <a class="show-forgot-password">Forgot password?</a><a class="show-signup">Register</a>
+				    </fieldset>
+				     <fieldset id="facebookfieldset">
+					<a  class="zocial facebook">Sign in with Facebook</a>
+					 </fieldset>
+				     <fieldset id="googlefieldset">
+				        <a  class="zocial google">Sign in with Google</a>
+				    </fieldset>
+				</div>
+				<div id="app-signup" style="display: none;" class="form-container">
+					<h1>Register</h1>
+				    <fieldset id="signup-inputs">
+				        <input id="signup-name" name="signupName" type="text" placeholder="Name" class="required-inputs">
+				        <input id="signup-username" name="signupUsername" type="email" placeholder="Email" class="required-inputs">
+				    </fieldset>
+				    <fieldset id="signup-actions" class="login-actions">
+				        <input type="submit" name="emailSignup" class="email-signup action-submit" id="email-signup" value="Register">
+				        <a class="show-signin">Back to Login</a>
+				    </fieldset>
+				</div>
+				<div id="app-forgot-password" style="display: none;" class="form-container">
+					<h1>Forgot Password</h1>
+				    <fieldset id="signup-inputs">
+				        <input id="forgot-pass-username" name="forgotPassUsername" type="email" placeholder="Registered Email" class="required-inputs">
+				    </fieldset>
+				    <fieldset id="signup-actions" class="login-actions">
+				        <input type="submit" name="retrievePassword" class="retrieve-password action-submit" id="retrieve-password" value="Retrieve Password" style="width: auto;">
+				        <a class="show-signin">Back to Login</a>
+				    </fieldset>
+				</div>
+			</form>
+		</div>
 	</div>
+	
+	<div class="large-3 columns">&nbsp;</div>
 </div>

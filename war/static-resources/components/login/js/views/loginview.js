@@ -43,7 +43,7 @@ define(function(require){
 		},
 		template: Handlebars.compile(require("text!./../../templates/loginform.html")),
 		render : function(){
-			//$(this.el).html(this.template());
+			$(this.el).html(this.template());
 		},
 		events : {
 			'click .facebook' : 'eventDoFacebookLogin',
@@ -85,13 +85,18 @@ define(function(require){
 				}
 			}, context : this});
 		},
-		getUserAccessInfo : function (userControl, passControl) {
+		getUserAccessInfo : function (userInfo) {
 			/*using the form controls provided to get the values*/
-			var useremail = this.$("#" + userControl).val(),
+			var useremail = this.$("#" + userInfo.userControl).val(),
 				/*creating the object to send to the back-end*/
 				userControl = {};
-			if(passControl) {
-				var userpass = this.$("#" + passControl).val();
+			if(userInfo.passControl) {
+				var userpass = this.$("#" + userInfo.passControl).val();
+			}
+			
+			if(userInfo.nameControl) {
+				var username = this.$("#" + userInfo.nameControl).val();
+				userControl.name = username;
 			}
 
 			if (useremail !== "" && validateEmail(useremail)) {
@@ -102,9 +107,7 @@ define(function(require){
 				}
 			}
 			
-			userControl.fullName = "User Full Name here";
 			userControl.loginType = "email";
-			
 			return userControl;
 		},
 		eventDoEmailLogin: function (event) {
@@ -113,7 +116,11 @@ define(function(require){
 				event.preventDefault();
 			}
 			/*getting the form controls and obtaining values to send data*/
-			var userInfo = this.getUserAccessInfo("username", "password");
+			var userInfoElements = {
+					"userControl": "username",
+					"passControl": "password"
+			};
+			var userInfo = this.getUserAccessInfo(userInfoElements);
 			this.doActualLogin({
 				email : this.$('#username').val(),
 				password : this.$('#password').val(),
@@ -125,12 +132,18 @@ define(function(require){
 				event.preventDefault();
 			}
 			/*getting the form controls and obtaining values to send data*/
-			var userInfo = this.getUserAccessInfo("signup-username");
-			
+			var userInfoElements = {
+					"userControl": "signup-username",
+					"passControl": "",
+					"nameControl": "signup-name"
+			};
+			var userInfo = this.getUserAccessInfo(userInfoElements);
+			debugger;
 			var ajaxOptions = {
 				url : '_ah/api/userendpoint/v1/user/register',
 				callback : function(response){
-					
+					debugger;
+					console.log(response);
 				}, 
 				errorCallback : this.somethingBadHappend,
 				context : this,
@@ -147,7 +160,10 @@ define(function(require){
 				event.preventDefault();
 			}
 			/*getting the form controls and obtaining values to send data*/
-			var userInfo = this.getUserAccessInfo("forgot-pass-username");
+			var userInfoElements = {
+					"userControl": "forgot-pass-username"
+			};
+			var userInfo = this.getUserAccessInfo(userInfoElements);
 			console.log("userInfo", userInfo);
 		},
 		eventShowForm: function (event) {
