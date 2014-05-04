@@ -2,7 +2,6 @@
 *.jar
 *.discovery
 /endpoint-libs
-/.settings
 /bin
 /gen
 /assets
