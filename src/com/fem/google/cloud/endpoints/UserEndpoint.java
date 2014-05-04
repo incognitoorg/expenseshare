@@ -116,6 +116,8 @@ public class UserEndpoint {
 	 * @throws Exception 
 	 */
 	public User insertUser(User user) throws Exception {
+		
+		log.info(user.toString());
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			/*if (containsUser(user)) {
@@ -225,6 +227,7 @@ public class UserEndpoint {
 			)
 	public List<Group> getGroups(@Named("id") String id) throws Exception {
 		List<Group> alGroups = new ArrayList<Group>();
+		log.info("User Id : " + id);
 		try {
 			GroupMemberMapping groupMemberMapping = null;
 			int iCounter = 0;
@@ -317,6 +320,8 @@ public class UserEndpoint {
 			)
 	public User doLogin(User user) throws Exception {
 
+		log.info(user.toString());
+		
 		try {
 			
 		Date loginDate = new Date();
@@ -474,6 +479,8 @@ public class UserEndpoint {
 			)
 	public List<ExpenseEntity> getExpenses(@Named("id") String id) {
 
+		log.info("User Id : " + id);
+		
 		List<ExpenseEntity> alExpenses = null;
 
 		HashMap<String, ExpenseEntity> hmExpenses = new HashMap<String, ExpenseEntity>();
