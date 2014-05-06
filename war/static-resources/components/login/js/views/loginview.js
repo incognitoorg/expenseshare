@@ -1,4 +1,5 @@
 define(function(require){
+	var foundation = require('foundation');	
 	var Normalize = require('css!libraries/foundation/5.0.2/css/normalize.css');
 	
 	var Sandbox = require('sandbox');
@@ -20,6 +21,14 @@ define(function(require){
 	function validateEmail(email) {
 		var regEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	    return regEx.test(email);
+	}
+	
+	function showHideToasters(context, message, state) {
+		context.$(".alert-box").html(message);
+		context.$(".alert-box").removeClass("success").removeClass("info").removeClass("error");
+		context.$(".alert-box").addClass(state);
+		context.$(".alert-box").fadeIn("slow");
+		//context.$(".alert-box").fadeOut("slow");
 	}
 
 	var LoginView = Backbone.View.extend({
@@ -95,8 +104,8 @@ define(function(require){
 			}
 			
 			if(userInfo.nameControl) {
-				var username = this.$("#" + userInfo.nameControl).val();
-				userControl.name = username;
+				var userFullName = this.$("#" + userInfo.nameControl).val();
+				userControl["fullName"] = userFullName;
 			}
 
 			if (useremail !== "" && validateEmail(useremail)) {
@@ -138,12 +147,12 @@ define(function(require){
 					"nameControl": "signup-name"
 			};
 			var userInfo = this.getUserAccessInfo(userInfoElements);
-			debugger;
 			var ajaxOptions = {
 				url : '_ah/api/userendpoint/v1/user/register',
 				callback : function(response){
-					debugger;
-					console.log(response);
+					var message = "You have been successfully registered with us. A mail has been sent to the account specified by you for verification, wherein you can activate your account by clicking the link provided in the mail.",
+						state = "success";
+					showHideToasters(this, message, state);
 				}, 
 				errorCallback : this.somethingBadHappend,
 				context : this,
