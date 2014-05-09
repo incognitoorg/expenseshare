@@ -118,13 +118,14 @@ header {
 	margin-top: 45px;
 }
 
-.top-bar {
+.top-bar.custom {
 	overflow: hidden;
 	height: 45px;
 	line-height: 45px;
 	position: relative;
 	background: #F4985A;
 	margin-bottom: 0;
+	
 }
 
 .top-bar ul {
@@ -403,6 +404,15 @@ header {
 	top: 0;
 	z-index: 1;
 	width: 100%;
+	background: #6d0019;
+	background: -moz-linear-gradient(top, #6d0019 22%, #8f0222 48%, #8f0222 54%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(22%,#6d0019), color-stop(48%,#8f0222), color-stop(54%,#8f0222));
+	background: -webkit-linear-gradient(top, #6d0019 22%,#8f0222 48%,#8f0222 54%);
+	background: -o-linear-gradient(top, #6d0019 22%,#8f0222 48%,#8f0222 54%);
+	background: -ms-linear-gradient(top, #6d0019 22%,#8f0222 48%,#8f0222 54%);
+	background: linear-gradient(to bottom, #6d0019 22%,#8f0222 48%,#8f0222 54%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d0019', endColorstr='#8f0222',GradientType=0 );
+	border-bottom: 2px solid rgb(213, 94, 94);
 }
 
 @media only screen and (min-width:40.063em) {
@@ -851,7 +861,7 @@ a {
 </head>
 <body style="font-family: allerregular">
 	<div class=hide-for-small style="height: 45px;position: fixed;width: 100%;z-index: 100;">
-		<nav class="top-bar " data-topbar="" id=top-nav-bar>
+		<nav class="top-bar custom" data-topbar="" id=top-nav-bar>
 			<ul class=title-area>
 				<li class=name>
 					<h1>
