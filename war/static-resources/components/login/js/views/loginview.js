@@ -138,31 +138,31 @@ define(function(require){
 		},
 		eventDoEmailSignup: function (event) {
 			if (this.$("#app-access-control")[0].checkValidity()) {
+				/*getting the form controls and obtaining values to send data*/
+				var userInfoElements = {
+						"userControl": "signup-username",
+						"passControl": "",
+						"nameControl": "signup-name"
+				};
+				var userInfo = this.getUserAccessInfo(userInfoElements);
+				var ajaxOptions = {
+						url : '_ah/api/userendpoint/v1/user/register',
+						callback : function(response){
+							var message = "You have been successfully registered with us. A mail has been sent to the account specified by you for verification, wherein you can activate your account by clicking the link provided in the mail.",
+							state = "success";
+							showHideToasters(this, message, state);
+						}, 
+						errorCallback : this.somethingBadHappend,
+						context : this,
+						dataType: 'json',
+						contentType: 'application/json',
+						type : 'POST',
+						data : userInfo
+				}
+				Sandbox.doPost(ajaxOptions);
 				event.preventDefault();
 			}
-			/*getting the form controls and obtaining values to send data*/
-			var userInfoElements = {
-					"userControl": "signup-username",
-					"passControl": "",
-					"nameControl": "signup-name"
-			};
-			var userInfo = this.getUserAccessInfo(userInfoElements);
-			var ajaxOptions = {
-				url : '_ah/api/userendpoint/v1/user/register',
-				callback : function(response){
-					var message = "You have been successfully registered with us. A mail has been sent to the account specified by you for verification, wherein you can activate your account by clicking the link provided in the mail.",
-						state = "success";
-					showHideToasters(this, message, state);
-				}, 
-				errorCallback : this.somethingBadHappend,
-				context : this,
-				dataType: 'json',
-				contentType: 'application/json',
-				type : 'POST',
-				data : userInfo
-			}
-			Sandbox.doPost(ajaxOptions);
-			console.log("userInfo", userInfo);
+			
 		},
 		eventDoForgotPassword: function (event) {
 			if (this.$("#app-access-control")[0].checkValidity()) {
