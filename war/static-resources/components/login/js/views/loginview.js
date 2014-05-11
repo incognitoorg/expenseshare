@@ -227,7 +227,7 @@ define(function(require){
 			this.$("#" + formContainers[currentTarget]).find(".required-inputs").prop("required", true);
 		},
 		doActualLogin : function(data){
-			showMask('Getting your information...');
+			showMask('Logging you in...');
 
 			this.normalizeUserData(data);
 			

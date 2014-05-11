@@ -62,6 +62,9 @@ define(function (require) {
 				  loader && loader.removeClass('js-loader');
 		  },
 		  'error': function(response){
+			  hideMask();
+			  loader && loader.removeClass('js-loader');
+			  
 			  response = response.responseJSON;
 			  if(response.error){
 				  var errorCode = response.error.code;
@@ -79,9 +82,7 @@ define(function (require) {
 				  errorFallback.call(response, data);
 				  $('#modal-text').addClass('show-modal');
 			  }
-			  hideMask();
-			  loader && loader.removeClass('js-loader');
-			  
+			
 			  
 		  }
 		});
