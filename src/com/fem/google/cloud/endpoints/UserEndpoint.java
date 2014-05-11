@@ -366,7 +366,7 @@ public class UserEndpoint {
 		String accessToken = UUID.randomUUID().toString();
 		//TODO : Derive this property for outside. Maybe client sends it or config properties. 
 		//String host = "http://xpenseshare.com";
-		String host = "//fem-qa.appspot.com";
+		String host = "http://fem-qa.appspot.com";
 		
 		String setPassWordURL = host + "/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
 		//Send email to registered email.
@@ -416,8 +416,12 @@ public class UserEndpoint {
 			
 			user = UserUtil.getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
 			
+			if(user==null){
+				throw new IllegalAccessError("User is not present. Please register or login with social accounts.");
+			}
 			
 			if(user.getLoginType().equals("email")){
+				
 				if(!(this.getEncryptedPassword(passwordFromClient).equals(user.getPassword()))){
 					throw new IllegalAccessError("Incorrect email or password");
 				}
