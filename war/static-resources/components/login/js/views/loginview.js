@@ -228,13 +228,13 @@ define(function(require){
 		},
 		doActualLogin : function(data){
 			showMask('Getting your information...');
-			document.getElementById('logincontainer').setAttribute('style', 'display:none;');
 
 			this.normalizeUserData(data);
 			
 			var ajaxOptions = {
 				url : '_ah/api/userendpoint/v1/user/doLogin',
 				callback : function(response){
+					document.getElementById('logincontainer').setAttribute('style', 'display:none;');
 					_.extend(response, data);
 					if(data.callback){
 						data.callback.call(this, response);
