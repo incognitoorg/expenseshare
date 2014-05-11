@@ -62,7 +62,7 @@ define(function (require) {
 				  loader && loader.removeClass('js-loader');
 		  },
 		  'error': function(response){
-			  
+			  response = response.responseJSON;
 			  if(response.error){
 				  var errorCode = response.error.code;
 				  var message = response.error.message;
