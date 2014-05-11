@@ -77,10 +77,10 @@ define(function (require) {
 				  errorCallback.call(context, response);
 			  } else {
 				  errorFallback.call(response, data);
+				  $('#modal-text').addClass('show-modal');
 			  }
 			  hideMask();
 			  loader && loader.removeClass('js-loader');
-			  $('#modal-text').addClass('show-modal');
 			  
 			  
 		  }
