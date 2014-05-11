@@ -70,7 +70,7 @@ define(function (require) {
 			  }
 			  
 			  _.extend(response, {
-				  errMessage : readableMessage;
+				  errMessage : readableMessage
 			  })
 			  
 			  if(errorCallback){
