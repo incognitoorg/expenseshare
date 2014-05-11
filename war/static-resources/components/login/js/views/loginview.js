@@ -242,7 +242,11 @@ define(function(require){
 						this.loginSucceded.call(this, response);
 					}
 				}, 
-				errorCallback : this.somethingBadHappend,
+				errorCallback : function(response){
+					if(response && response.errMessage){
+						alert(response.errMessage);
+					}
+				},
 				context : this,
 				dataType: 'json',
 				contentType: 'application/json',
