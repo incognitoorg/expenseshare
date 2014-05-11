@@ -364,7 +364,11 @@ public class UserEndpoint {
 		
 		//This accessToken should be used for verifying the user while changing the password.
 		String accessToken = UUID.randomUUID().toString();
-		String setPassWordURL = "//xpenseshare.com/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
+		//TODO : Derive this property for outside. Maybe client sends it or config properties. 
+		//String host = "http://xpenseshare.com";
+		String host = "//fem-qa.appspot.com";
+		
+		String setPassWordURL = host + "/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
 		//Send email to registered email.
 		//TODO : Create email template for this email.
 		new MailUtil().sendToOne("Set password for your account", "<a href='" + setPassWordURL + "' target='_blank'>" + setPassWordURL  + "</a>", user.getEmail());
