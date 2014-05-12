@@ -178,6 +178,14 @@
 	cursor: pointer;
 	font: bold 15px Arial, Helvetica;
 	color: #8f5a0a;
+	padding-left: 16px!important;
+	padding-right: 16px!important;
+}
+
+#retrieve-password{
+	padding-left: 16px!important;
+	padding-right: 16px!important;
+
 }
 
 .action-submit:hover,.action-submit:focus {
