@@ -147,6 +147,9 @@ define(function(require) {
 			'keyup input.js-pay-input' : 'divideExpense',
 			'keyup input.js-contribution-input' : 'adjustExpenses',
 			'keyup input.js-current-user-pay-input' : 'divideExpenseCurrentUser',
+			'blur input.js-pay-input' : 'validate',
+			'blur input.js-contribution-input' : 'validate',
+			'blur input.js-current-user-pay-input' : 'validate',
 			'click .js-more-payers' : 'eventShowMorePayers',
 			'click .js-lock-button' : 'eventLockExpense',
 			'click .js-select-expense' : 'toggleExpense',
@@ -160,8 +163,16 @@ define(function(require) {
 			'click .facebook-button' : 'doFacebookLogin',
 			'click .google-button' : 'doGoogleLogin'
 		},
+		validate : function(){
+			this.$('.js-contribution-input').each(function(index, el ){    $(el).valid()})
+			this.$('.js-pay-input').each(function(index, el ){    $(el).valid()});
+			this.setDynamicHeight();
+		},
 		registerValidator : function(){
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});
+			/*this.$(".js-add-expense-form").each(function () {
+	        	$(this).data("validator").settings.success = false;
+	    	});*/
 		},
 		reInitialize : function(){
 			this.$('.js-new-expense-form').hide();
@@ -762,8 +773,8 @@ define(function(require) {
 			var incMemberState = $includedMembers.is(":visible");
 			
 			
-			this.$('.js-contribution-input').each(function(index, el ){    $(el).valid()})
-			this.$('.js-pay-input').each(function(index, el ){    $(el).valid()})
+			//this.$('.js-contribution-input').each(function(index, el ){    $(el).valid()})
+			//this.$('.js-pay-input').each(function(index, el ){    $(el).valid()})
 			
 			
 			$allPayers.show();
