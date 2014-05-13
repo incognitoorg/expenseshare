@@ -604,12 +604,7 @@ define(function(require) {
 		divideExpense : function(){
 			console.time('divideExpense');
 			var self = this;
-			this.setDynamicHeight();
 			
-			//Commenting realtime validation as it hampers performance.
-			/*if(!self.$('.js-add-expense-form').valid()){
-				return;
-			}*/
 			
 			
 			
@@ -643,6 +638,13 @@ define(function(require) {
 			
 			contributionInputs.last().val((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2));
 			
+			//Commenting realtime validation as it hampers performance.
+			/*if(!self.$('.js-add-expense-form').valid()){
+				this.setDynamicHeight();
+				return;
+			}*/
+			
+			this.setDynamicHeight();
 			
 			console.timeEnd('divideExpense');
 		},
@@ -651,7 +653,7 @@ define(function(require) {
 			var self = this;
 			
 			
-			this.setDynamicHeight();
+			
 			
 			var $includedMembers=this.$('.js-included-members');
 			var contributionInputs = $includedMembers.find('input.js-contribution-input:not(.locked)').not(event.currentTarget);
@@ -675,12 +677,6 @@ define(function(require) {
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
 			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
 			
-			//Commenting realtime validation as it hampers performance.
-			/*var valid= true;//;
-			if(!self.$('.js-add-expense-form').valid()){
-				this.setDynamicHeight();
-				return;
-			}*/
 			
 			
 			var remaniningAmount = expenseToDivide;
@@ -700,6 +696,18 @@ define(function(require) {
 			find('.js-lock-button').
 			removeClass('foundicon-lock').
 			addClass('foundicon-unlock');
+			
+			
+			
+			//Commenting realtime validation as it hampers performance.
+			/*var valid= true;//;
+			if(!self.$('.js-add-expense-form').valid()){
+				this.setDynamicHeight();
+				return;
+			}*/
+			
+			this.setDynamicHeight();
+			
 			console.timeEnd('adjustExpenses');
 		},
 		eventLockExpense : function(event){
@@ -753,6 +761,11 @@ define(function(require) {
 			var $includedMembers=this.$('.js-included-members');
 			var incMemberState = $includedMembers.is(":visible");
 			
+			
+			this.$('.js-contribution-input').each(function(index, el ){    $(el).valid()})
+			this.$('.js-pay-input').each(function(index, el ){    $(el).valid()})
+			
+			
 			$allPayers.show();
 			$includedMembers.show();
 			self.$('.carousel').each(function(index, carouselEl){
@@ -766,6 +779,9 @@ define(function(require) {
 			});
 			payersState?$allPayers.show() : $allPayers.hide();
 			incMemberState?$includedMembers.show():$includedMembers.hide();
+			
+			
+			
 			console.timeEnd('setDynamicHeight');
 		},
 		eventSaveExpense : function(){
