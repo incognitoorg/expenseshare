@@ -1,6 +1,6 @@
 define(function(require) {
 
-	var FBAPI = require('//connect.facebook.net/en_US/all.js');
+	var FBAPI = require('http://connect.facebook.net/en_US/all.js');
 
 	var EnvVariables = EnvVariablesGlobal || require('envvariables');
 
