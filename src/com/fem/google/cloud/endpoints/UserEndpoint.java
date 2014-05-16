@@ -20,6 +20,7 @@ import org.mortbay.util.ajax.JSON;
 import org.w3c.dom.UserDataHandler;
 
 import com.fem.util.MailUtil;
+import com.fem.util.PropertiesUtil;
 import com.fem.util.TemplateUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -45,6 +46,9 @@ public class UserEndpoint {
 		PersistenceManager mgr = null;
 		Cursor cursor = null;
 		List<User> execute = null;
+		
+		System.out.println("Sender name : " + PropertiesUtil.getProperty("SENDER_NAME"));
+		
 
 		try {
 			mgr = getPersistenceManager();
@@ -364,9 +368,8 @@ public class UserEndpoint {
 		
 		//This accessToken should be used for verifying the user while changing the password.
 		String accessToken = UUID.randomUUID().toString();
-		//TODO : Derive this property for outside. Maybe client sends it or config properties. 
-		//String host = "http://xpenseshare.com";
-		String host = "http://fem-qa.appspot.com";
+		
+		String host = PropertiesUtil.getProperty("HOST");
 		
 		String setPassWordURL = host + "/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
 		//Send email to registered email.
