@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
 	var moment = require('moment');
-	console.log('moment', moment);
 
 	// Project configuration.
 	grunt.initConfig({
@@ -36,6 +35,40 @@ module.exports = function(grunt) {
 			} 
 		},
 		'string-replace': {
+			prod : {
+				files: {
+					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
+					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+				},
+				options: {
+					replacements: [{
+						pattern:  /<application>.*<\/application>/,
+						replacement: "<application>xpenseshareapp</application>"
+					},
+					{
+						pattern: /MODE=.*/,
+						replacement: "MODE=prod"
+					}]
+				
+				}
+			},
+			qa : {
+				files: {
+					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
+					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+				},
+				options: {
+					replacements: [{
+						pattern: /<application>.*<\/application>/,
+						replacement: "<application>fem-qa</application>"
+					}, 
+					{
+						pattern: /MODE=.*/,
+						replacement: "MODE=qa"
+					}]
+				}
+			},
+			
 			toDeploy: {
 				files: {
 					/*'path/to/directory/': 'path/to/source/*', // includes files in dir
@@ -231,6 +264,15 @@ module.exports = function(grunt) {
 	
 	// Default task(s).
 	grunt.registerTask('default',function(){
+		grunt.task.run(['all']);
+	});
+	
+	grunt.registerTask('prod',function(){
+		grunt.task.run(['string-replace:prod'])
+		grunt.task.run(['all']);
+	});
+	grunt.registerTask('qa',function(){
+		grunt.task.run(['string-replace:qa'])
 		grunt.task.run(['all']);
 	});
 	
