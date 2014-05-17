@@ -16,6 +16,7 @@
 	/* width: 400px;
     margin: -150px 0 0 -230px; */
 	padding: 30px;
+	margin-top: 5%;
 	/* position: absolute; */
 	/*  top: 50%;
     left: 50%; */
@@ -71,6 +72,15 @@
 	width: 120px;
 }
 
+.login-container #app-set-password h1:after,.login-container h1:before {
+	background-color: #777;
+	content: "";
+	height: 1px;
+	position: absolute;
+	top: 15px;
+	width: 85px;
+}
+
 .login-container h1:after {
 	background-image: -webkit-gradient(linear, left top, right top, from(#777),
 		to(#fff));
@@ -101,11 +111,11 @@
 }
 
 /*--------------------*/
-#inputs input {
+#inputs input, #signup-inputs input{
 	background: #f1f1f1
 		url(http://www.red-team-design.com/wp-content/uploads/2011/09/login-sprite.png)
 		no-repeat;
-	padding: 15px 15px 15px 30px !important;
+	padding: 10px 10px 10px 30px !important;
 	margin: 0 0 10px 0;
 	/*   width: 353px; 353 + 2 + 45 = 400 */
 	border: 1px solid #ccc;
@@ -168,9 +178,17 @@
 	cursor: pointer;
 	font: bold 15px Arial, Helvetica;
 	color: #8f5a0a;
+	padding-left: 16px!important;
+	padding-right: 16px!important;
 }
 
-#.action-submit:hover,.action-submit:focus {
+#retrieve-password{
+	padding-left: 16px!important;
+	padding-right: 16px!important;
+
+}
+
+.action-submit:hover,.action-submit:focus {
 	background-color: #fddb6f;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb94b),
 		to(#fddb6f));
@@ -212,7 +230,14 @@
 	color: #999;
 }
 
-.login-container input[type="text"],.login-container input[type="password"] {
+.login-container label.user-info {
+	cursor:default;
+	height: 45px !important;
+	font-size: 1.2rem;
+	color: #555555;
+}
+
+.login-container input[type="text"],.login-container input[type="password"], .login-container input[type="email"] {
 	height: 45px !important;
 }
 

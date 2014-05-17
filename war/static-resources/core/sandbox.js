@@ -62,14 +62,27 @@ define(function (require) {
 				  loader && loader.removeClass('js-loader');
 		  },
 		  'error': function(response){
+			  hideMask();
+			  loader && loader.removeClass('js-loader');
+			  
+			  response = response.responseJSON;
+			  if(response.error){
+				  var errorCode = response.error.code;
+				  var message = response.error.message;
+				  var readableMessage = message.substr(message.indexOf(":")+1).trim();
+			  }
+			  
+			  _.extend(response, {
+				  errMessage : readableMessage
+			  })
+			  
 			  if(errorCallback){
 				  errorCallback.call(context, response);
 			  } else {
 				  errorFallback.call(response, data);
+				  $('#modal-text').addClass('show-modal');
 			  }
-			  loader && loader.removeClass('js-loader');
-			  $('#modal-text').addClass('show-modal');
-			  
+			
 			  
 		  }
 		});

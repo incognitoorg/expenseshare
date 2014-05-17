@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
 	var moment = require('moment');
-	console.log('moment', moment);
 
 	// Project configuration.
 	grunt.initConfig({
@@ -11,13 +10,14 @@ module.exports = function(grunt) {
 			options: {
 				/*sdk:'C:/Users/VAronde/Downloads/sdk/gae-sdk/appengine-java-sdk-1.8.6/bin',*/
 				sdk: process.env.GAE_SDK + '/bin',
-				manageScript : 'appcfg.cmd',
+				manageScript : 'appcfg.sh',
 				runScript : 'dev_appserver.cmd',
 				runFlags: {
 					port: 8888
 				},
 				manageFlags: {
-					oauth2 : true
+					oauth2 : true,
+					oauth2_refresh_token : '1/8LlEZ-6T_Et_QBwn56UT3eHnZu4Wa3i5pNt3uFr1yYA'
 				}
 			},
 
@@ -36,6 +36,40 @@ module.exports = function(grunt) {
 			} 
 		},
 		'string-replace': {
+			prod : {
+				files: {
+					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
+					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+				},
+				options: {
+					replacements: [{
+						pattern:  /<application>.*<\/application>/,
+						replacement: "<application>xpenseshareapp</application>"
+					},
+					{
+						pattern: /MODE=.*/,
+						replacement: "MODE=prod"
+					}]
+				
+				}
+			},
+			qa : {
+				files: {
+					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
+					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+				},
+				options: {
+					replacements: [{
+						pattern: /<application>.*<\/application>/,
+						replacement: "<application>fem-qa</application>"
+					}, 
+					{
+						pattern: /MODE=.*/,
+						replacement: "MODE=qa"
+					}]
+				}
+			},
+			
 			toDeploy: {
 				files: {
 					/*'path/to/directory/': 'path/to/source/*', // includes files in dir
@@ -231,6 +265,15 @@ module.exports = function(grunt) {
 	
 	// Default task(s).
 	grunt.registerTask('default',function(){
+		grunt.task.run(['all']);
+	});
+	
+	grunt.registerTask('prod',function(){
+		grunt.task.run(['string-replace:prod'])
+		grunt.task.run(['all']);
+	});
+	grunt.registerTask('qa',function(){
+		grunt.task.run(['string-replace:qa'])
 		grunt.task.run(['all']);
 	});
 	
