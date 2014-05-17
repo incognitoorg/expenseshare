@@ -10,8 +10,8 @@ before_install:
   - unzip -qd vendors appengine-java-sdk-1.8.6
   
 before_script:
-  - npm install -g grunt-cli
-  - npm install>/dev/null
+  - npm install -g grunt-cli --silent
+  - npm install>/dev/null --silent
   - grunt -version
  
 script : 
