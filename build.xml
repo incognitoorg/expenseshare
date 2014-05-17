@@ -45,7 +45,9 @@
         destdir="war/WEB-INF/classes"
         classpathref="project.classpath"
         debug="on" >
-      	<exclude name="org/apache/cordova/*/**.java"/>
+      	<exclude name="org/apache/cordova/inappbrowser/**.java"/>
+      	<exclude name="org/apache/cordova/softkeyboardbugfix/**.java"/>
+      	<exclude name="com/incognito/xpenseshare/**.java"/>
       </javac>
   </target>
 
