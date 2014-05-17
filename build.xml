@@ -46,7 +46,6 @@
         classpathref="project.classpath"
         debug="on" >
       	<exclude name="org/apache/cordova/*/**.java"/>
-      	<exclude name="com/incognito/femandroid/**.java"/>
       </javac>
   </target>
 
