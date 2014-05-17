@@ -1,6 +1,6 @@
 env:
   global:
-    - GAE_SDK: /home/travis/build/incognitoorg/fem/vendors/appengine-java-sdk-1.9.4
+    - GAE_SDK: /home/travis/build/incognitoorg/expenseshare/vendors/appengine-java-sdk-1.9.4
     
 #language: java
 
@@ -17,3 +17,4 @@ before_script:
 script : 
  - ant compile
  - grunt qa
+ 
