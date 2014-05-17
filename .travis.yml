@@ -1,3 +1,7 @@
+branches:
+  only:
+    - master
+    - develop
 env:
   global:
     - GAE_SDK: /home/travis/build/incognitoorg/expenseshare/vendors/appengine-java-sdk-1.8.6
