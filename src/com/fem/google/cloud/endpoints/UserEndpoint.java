@@ -20,6 +20,7 @@ import org.mortbay.util.ajax.JSON;
 import org.w3c.dom.UserDataHandler;
 
 import com.fem.util.MailUtil;
+import com.fem.util.PropertiesUtil;
 import com.fem.util.TemplateUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -45,6 +46,10 @@ public class UserEndpoint {
 		PersistenceManager mgr = null;
 		Cursor cursor = null;
 		List<User> execute = null;
+		
+		System.out.println("Sender name : " + PropertiesUtil.getProperty("SENDER_NAME"));
+		System.out.println("Travis successfull + I need a party ");
+		
 
 		try {
 			mgr = getPersistenceManager();
@@ -324,6 +329,7 @@ public class UserEndpoint {
 			)
 	public User setPassword(User user) throws Exception {
 		
+		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		User userFromDataStore = UserUtil.getOrInsertUser(pm, user);
 		
@@ -363,7 +369,10 @@ public class UserEndpoint {
 		
 		//This accessToken should be used for verifying the user while changing the password.
 		String accessToken = UUID.randomUUID().toString();
-		String setPassWordURL = "//xpenseshare.com/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
+		
+		String host = PropertiesUtil.getProperty("HOST");
+		
+		String setPassWordURL = host + "/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
 		//Send email to registered email.
 		//TODO : Create email template for this email.
 		new MailUtil().sendToOne("Set password for your account", "<a href='" + setPassWordURL + "' target='_blank'>" + setPassWordURL  + "</a>", user.getEmail());
@@ -387,7 +396,7 @@ public class UserEndpoint {
 	public User doLogin(User user) throws Exception {
 
 		log.info(user.toString());
-		
+
 		String passwordFromClient = user.getPassword();
 		if(user.getLoginType().equals("google")){
 			//TODO : Verify with google service to authorize the user.
@@ -405,15 +414,18 @@ public class UserEndpoint {
 			}			
 		}
 		
-		
 		try {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 
 			
 			user = UserUtil.getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
 			
+			if(user==null){
+				throw new IllegalAccessError("User is not present. Please register or login with social accounts.");
+			}
 			
 			if(user.getLoginType().equals("email")){
+				
 				if(!(this.getEncryptedPassword(passwordFromClient).equals(user.getPassword()))){
 					throw new IllegalAccessError("Incorrect email or password");
 				}

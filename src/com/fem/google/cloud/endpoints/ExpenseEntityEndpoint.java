@@ -25,10 +25,8 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 @Api(name = "expenseentityendpoint")
 public class ExpenseEntityEndpoint {
@@ -531,6 +529,7 @@ public class ExpenseEntityEndpoint {
 				mgr.makePersistent(objGroup);
 			}
 
+			expenseentity.setGroup(null);
 			mgr.makePersistent(expenseentity);
 			
 			//This is an expense in group
