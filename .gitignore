@@ -6,3 +6,5 @@
 /gen
 /assets
 /node_modules
+.settings/com.google.appengine.eclipse.core.prefs
+.settings/org.eclipse.jdt.core.prefs
