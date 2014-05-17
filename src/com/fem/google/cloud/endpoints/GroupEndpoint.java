@@ -130,7 +130,7 @@ public class GroupEndpoint {
 				User user = (User) iterator.next();
 				if(user.getUserId()==null){
 					//TODO : To put this in transaction
-					user = userEndpoint.getOrInsertUser(user, null, null);
+					user = UserUtil.getOrInsertUser(mgr, user);
 				}
 				alTotalMembers.add(user);
 			}
@@ -242,7 +242,7 @@ public class GroupEndpoint {
 				User user = (User) iterator.next();
 				if(user.getUserId()==null){
 					//TODO : To put this in transaction
-					user = userEndpoint.getOrInsertUser(user, null, null);
+					user = UserUtil.getOrInsertUser(mgr, user);
 				}
 				alTotalMembers.add(user);
 			}

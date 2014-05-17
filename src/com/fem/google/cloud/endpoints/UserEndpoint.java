@@ -1,5 +1,7 @@
 package com.fem.google.cloud.endpoints;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,8 +16,11 @@ import javax.jdo.Query;
 import javax.persistence.EntityNotFoundException;
 
 import org.datanucleus.util.StringUtils;
+import org.mortbay.util.ajax.JSON;
+import org.w3c.dom.UserDataHandler;
 
 import com.fem.util.MailUtil;
+import com.fem.util.PropertiesUtil;
 import com.fem.util.TemplateUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -41,6 +46,10 @@ public class UserEndpoint {
 		PersistenceManager mgr = null;
 		Cursor cursor = null;
 		List<User> execute = null;
+		
+		System.out.println("Sender name : " + PropertiesUtil.getProperty("SENDER_NAME"));
+		System.out.println("Travis successfull + I need a party ");
+		
 
 		try {
 			mgr = getPersistenceManager();
@@ -315,126 +324,117 @@ public class UserEndpoint {
 
 	@ApiMethod(
 			httpMethod = "POST", 
+			name = "user.setpassword",
+			path="user/setpassword"
+			)
+	public User setPassword(User user) throws Exception {
+		
+		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		User userFromDataStore = UserUtil.getOrInsertUser(pm, user);
+		
+		
+		if(!userFromDataStore.getAccessToken().equals(user.getAccessToken())){
+			throw new IllegalAccessError("Trying to set password without verifying from email." + user);
+		}
+		
+		
+		userFromDataStore.setPassword(getEncryptedPassword(user.getPassword()));
+		userFromDataStore.setAccessToken(UUID.randomUUID().toString());
+		pm.makePersistent(userFromDataStore);
+		
+		return userFromDataStore;
+	}
+	
+	
+	private String getEncryptedPassword(String password) throws NoSuchAlgorithmException{
+		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+		messageDigest.update(password.getBytes());
+		String encryptedString = new String(messageDigest.digest());
+		
+		
+		String encryptedPassword =  UUID.nameUUIDFromBytes(encryptedString.getBytes()).toString();
+		return encryptedPassword;
+	}
+	
+	@ApiMethod(
+			httpMethod = "POST", 
+			name = "user.register",
+			path="user/register"
+			)
+	public User register(User user) throws Exception {
+		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		User userFromDataStore = UserUtil.getOrInsertUser(pm, user);
+		
+		//This accessToken should be used for verifying the user while changing the password.
+		String accessToken = UUID.randomUUID().toString();
+		
+		String host = PropertiesUtil.getProperty("HOST");
+		
+		String setPassWordURL = host + "/setpassword.html?email=" + user.getEmail()+ "&accessToken=" + accessToken+ "&name=" + user.getFullName();
+		//Send email to registered email.
+		//TODO : Create email template for this email.
+		new MailUtil().sendToOne("Set password for your account", "<a href='" + setPassWordURL + "' target='_blank'>" + setPassWordURL  + "</a>", user.getEmail());
+		
+		if(userFromDataStore!=null){
+			user = userFromDataStore;
+		}
+		
+		user.setAccessToken(accessToken);
+		pm.makePersistent(user);
+		
+		return user;
+	}
+	
+	
+	@ApiMethod(
+			httpMethod = "POST", 
 			name = "user.login",
 			path="user/doLogin"
 			)
 	public User doLogin(User user) throws Exception {
 
 		log.info(user.toString());
+
+		String passwordFromClient = user.getPassword();
+		if(user.getLoginType().equals("google")){
+			//TODO : Verify with google service to authorize the user.
+			if(user.getGoogleId()==null && user.getEmail()==null){
+				throw new IllegalAccessError("Logging in with google but googleId or email was not provided.");
+			}
+		} else if(user.getLoginType().equals("facebook")){
+			//TODO : Verify with facebook service to authorize the user.
+			if(user.getFacebookId()==null){
+				throw new IllegalAccessError("Logging in with facebook but facebook id was not provided.");
+			}
+		} else if(user.getLoginType().equals("email")){
+			if(user.getEmail()==null || user.getPassword()==null){
+				throw new IllegalAccessError("Loggin with email but username or password was not provided.");
+			}			
+		}
 		
 		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+
 			
-		Date loginDate = new Date();
-		
-		user = getOrInsertUser(user, loginDate, UUID.randomUUID().toString());
-
-		} catch (Exception e){
-			new MailUtil().sendToAdmin("Exception occured while loggin in", e.getMessage());
-			throw e;
-		}
-		
-
-		return user;
-	}
-
-	//TODO : I will kill myself in past for writing this bad code.
-	@SuppressWarnings("unchecked")
-	@ApiMethod(path="userendpoint/user/getorinsertuser")
-	public User getOrInsertUser(User user, 
-			@Nullable @Named("lastLoggedIn") Date lastLoggedIn, 
-			@Nullable @Named("authToken") String authToken) throws Exception{
-
-		String apiId = null;
-		String loginType = user.getLoginType();
-		String googleId = user.getGoogleId();
-		String facebookId = user.getFacebookId();
-		List<User> execute = null;
-
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		Query q = pm.newQuery(User.class);
-
-		String email = user.getEmail();
-
-
-
-
-		if(!StringUtils.isEmpty(email)){
-			q.setFilter("email == emailParam");
-			q.declareParameters("String emailParam");
-			execute = (List<User>)q.execute(email);
-
-
-			if(execute.size()>1){
-				//TODO : User have got  multiple accounts. How can we merge this shit.
+			user = UserUtil.getOrInsertUser(pm, user/*, loginDate, UUID.randomUUID().toString()*/);
+			
+			if(user==null){
+				throw new IllegalAccessError("User is not present. Please register or login with social accounts.");
 			}
-
-			if(execute.size()>0){
-				user = execute.get(0);
-			} else {
-				user = this.insertUser(user);
-			}
-
-			if(lastLoggedIn!= null){
-				user.setLastLoggedInAt(lastLoggedIn);
-				user.setAccessToken(authToken);
-				pm.makePersistent(user);
-			}
-			user.setLoginType(loginType);
-			user.setGoogleId(googleId);
-			user.setFacebookId(facebookId);
-			return user;
-		}
-
-
-
-
-		/*if("google".equalsIgnoreCase(user.getLoginType())) {
-			apiId = user.getGoogleId();
-			q.setFilter("googleId == googleIdParam");
-			q.declareParameters("String googleIdParam");
-		} else */
-		if("facebook".equalsIgnoreCase(loginType)) {
-			apiId = user.getFacebookId();
-			q.setFilter("facebookId == facebookIdParam");
-			q.declareParameters("String facebookIdParam");
-		} else {
-			/*apiId = user.getEmail();
-			q.setFilter("email == emailIdParam");
-			q.declareParameters("String emailIdParam");*/
-
-			//TODO : In google contacts, you may get entity which might have only phone
-			//This presents opportunity to present user to login with phone.
-			/*String phone = user.getPhone();
-			q.setFilter("phone == phoneParam");
-			q.declareParameters("String phoneParam");*/
-
-		}
-
-
-
-		if(apiId==null){
-			user = this.insertUser(user);
-		} else {
-			execute = (List<User>)q.execute(apiId);
-			if(execute.size()>0){
-				user = execute.get(0);
-				if(StringUtils.isEmpty(user.getEmail())){
-					pm.makePersistent(user);
+			
+			if(user.getLoginType().equals("email")){
+				
+				if(!(this.getEncryptedPassword(passwordFromClient).equals(user.getPassword()))){
+					throw new IllegalAccessError("Incorrect email or password");
 				}
-			} else {
-				user = this.insertUser(user);
 			}
-		}
-
-		user.setLoginType(loginType);
-		user.setGoogleId(googleId);
-		user.setFacebookId(facebookId);
-
-		if(lastLoggedIn!= null){
+			
 			
 			if(user.getLastLoggedInAt()==null && !StringUtils.isEmpty(user.getEmail())){
 
+				//TODO : Move this to separate class/method for sending email stuff.
 				log.info("User email " + user.getEmail());
 
 				HashMap<String, String> hmEmailIds = new HashMap<String, String>();
@@ -455,16 +455,27 @@ public class UserEndpoint {
 					hmEmailIds.put(user.getFacebookEmail(), user.getFullName());
 					new MailUtil().sendToAll("Welcome to Xpense Share!!!", msgContent.toString(), hmEmailIds);
 				}
-
 			}
 			
-			user.setLastLoggedInAt(lastLoggedIn);
-			user.setAccessToken(authToken);
+			Date loginDate = new Date();
+			user.setLastLoggedInAt(loginDate);
+			user.setAccessToken(UUID.randomUUID().toString());
 			pm.makePersistent(user);
+			
+		} catch (Exception e){
+			new MailUtil().sendToAdmin(" Exception occured while loggin in." + e.getMessage() , "Exception occured while loggin in. "+"  User : " + user + " \n "+ e.getMessage() + e.getMessage() + "\n\n" + e.getStackTrace());
+			throw e;
 		}
-
+		
+		//TODO : Need to remove password from sending to client. For people like Krunal who think there data is secure when they use internet.
+		//Not that this gives any info to hacker. Since all he is getting is encrypted password.
+		//This also updates the password in datastore. Need to find way to disconnect the object with datastore and remove password from it. 
+		//user.setPassword(null);
+		
 		return user;
 	}
+
+	
 
 
 	/**

@@ -122,6 +122,7 @@ define(function(require) {
 			}*/
 		},
 		showExpenseHistory : function(response, extraParams){
+			console.log("response", response);
 			if(!response.items || response.items.length==0){
 				this.$('.js-no-expense-error').show();
 				this.$('.js-expenses-container').hide();
