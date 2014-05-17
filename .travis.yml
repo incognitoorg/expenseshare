@@ -15,5 +15,6 @@ before_script:
   - grunt -version
  
 script : 
+ - ant datanucleusenhance
  - ant compile
  - grunt qa
