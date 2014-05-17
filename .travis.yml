@@ -17,4 +17,3 @@ before_script:
 script : 
  - ant compile
  - grunt qa
- 
