@@ -48,6 +48,7 @@ public class UserEndpoint {
 		List<User> execute = null;
 		
 		System.out.println("Sender name : " + PropertiesUtil.getProperty("SENDER_NAME"));
+		System.out.println("Travis successfull + I need a party ");
 		
 
 		try {
