@@ -6,6 +6,8 @@ define(function(require){
 	
 	var GoogleAPI = require('googleapioauth');
 	var FBAPI = require('fbapioauth');
+	var registerSuccessTemplate = Handlebars.compile(require('text!../../templates/register-success.html'));
+	var passwordResetSuccessTemplate = Handlebars.compile(require('text!../../templates/password-reset-success.html'));
 	
 	var APIMapper = {
 			facebook : FBAPI,
@@ -105,7 +107,7 @@ define(function(require){
 			
 			if(userInfo.nameControl) {
 				var userFullName = this.$("#" + userInfo.nameControl).val();
-				userControl["fullName"] = userFullName;
+				userFullName && (userControl["fullName"] = userFullName);
 			}
 
 			if (useremail !== "" && validateEmail(useremail)) {
@@ -138,42 +140,80 @@ define(function(require){
 		},
 		eventDoEmailSignup: function (event) {
 			if (this.$("#app-access-control")[0].checkValidity()) {
+				/*getting the form controls and obtaining values to send data*/
+				var userInfoElements = {
+						"userControl": "signup-username",
+						"passControl": "",
+						"nameControl": "signup-name"
+				};
+				var userInfo = this.getUserAccessInfo(userInfoElements);
+				showMask('Registering you with us...');
+				var ajaxOptions = {
+						url : '_ah/api/userendpoint/v1/user/register',
+						callback : function(response){
+							//var message = "You have been successfully registered with us. A mail has been sent to the account specified by you for verification, wherein you can activate your account by clicking the link provided in the mail.",
+							var registerTemplateData = {
+									emailDomain : userInfo.email.substr(userInfo.email.indexOf('@')+1)
+							};
+							
+							_.extend(registerTemplateData, userInfo);
+							var message = registerSuccessTemplate(registerTemplateData);
+							
+							state = "success";
+							self.$('#app-access-control').hide();
+							hideMask();
+							showHideToasters(this, message, state);
+						}, 
+						errorCallback : this.somethingBadHappend,
+						context : this,
+						dataType: 'json',
+						contentType: 'application/json',
+						type : 'POST',
+						data : userInfo
+				}
+				Sandbox.doPost(ajaxOptions);
 				event.preventDefault();
 			}
-			/*getting the form controls and obtaining values to send data*/
-			var userInfoElements = {
-					"userControl": "signup-username",
-					"passControl": "",
-					"nameControl": "signup-name"
-			};
-			var userInfo = this.getUserAccessInfo(userInfoElements);
-			var ajaxOptions = {
-				url : '_ah/api/userendpoint/v1/user/register',
-				callback : function(response){
-					var message = "You have been successfully registered with us. A mail has been sent to the account specified by you for verification, wherein you can activate your account by clicking the link provided in the mail.",
-						state = "success";
-					showHideToasters(this, message, state);
-				}, 
-				errorCallback : this.somethingBadHappend,
-				context : this,
-				dataType: 'json',
-				contentType: 'application/json',
-				type : 'POST',
-				data : userInfo
-			}
-			Sandbox.doPost(ajaxOptions);
-			console.log("userInfo", userInfo);
+			
 		},
 		eventDoForgotPassword: function (event) {
 			if (this.$("#app-access-control")[0].checkValidity()) {
+				
+				/*getting the form controls and obtaining values to send data*/
+				var userInfoElements = {
+						"userControl": "forgot-pass-username"
+				};
+				var userInfo = this.getUserAccessInfo(userInfoElements);
+				showMask('Verifying user and setting password...');
+				console.log("userInfo", userInfo);
+				
+				var ajaxOptions = {
+						url : '_ah/api/userendpoint/v1/user/register',
+						callback : function(response){
+							var registerTemplateData = {
+									emailDomain : userInfo.email.substr(userInfo.email.indexOf('@')+1)
+							};
+							
+							_.extend(registerTemplateData, userInfo);
+							var message = passwordResetSuccessTemplate(registerTemplateData);
+							
+							state = "success";
+							self.$('#app-access-control').hide();
+							hideMask();
+							showHideToasters(this, message, state);
+						}, 
+						errorCallback : this.somethingBadHappend,
+						context : this,
+						dataType: 'json',
+						contentType: 'application/json',
+						type : 'POST',
+						data : userInfo
+				}
+				Sandbox.doPost(ajaxOptions);
+				
 				event.preventDefault();
 			}
-			/*getting the form controls and obtaining values to send data*/
-			var userInfoElements = {
-					"userControl": "forgot-pass-username"
-			};
-			var userInfo = this.getUserAccessInfo(userInfoElements);
-			console.log("userInfo", userInfo);
+			
 		},
 		eventShowForm: function (event) {
 			var currentTarget = event.currentTarget.className;
@@ -187,14 +227,14 @@ define(function(require){
 			this.$("#" + formContainers[currentTarget]).find(".required-inputs").prop("required", true);
 		},
 		doActualLogin : function(data){
-			showMask('Getting your information...');
-			document.getElementById('logincontainer').setAttribute('style', 'display:none;');
+			showMask('Logging you in...');
 
 			this.normalizeUserData(data);
 			
 			var ajaxOptions = {
 				url : '_ah/api/userendpoint/v1/user/doLogin',
 				callback : function(response){
+					document.getElementById('logincontainer').setAttribute('style', 'display:none;');
 					_.extend(response, data);
 					if(data.callback){
 						data.callback.call(this, response);
@@ -202,7 +242,11 @@ define(function(require){
 						this.loginSucceded.call(this, response);
 					}
 				}, 
-				errorCallback : this.somethingBadHappend,
+				errorCallback : function(response){
+					if(response && response.errMessage){
+						alert(response.errMessage);
+					}
+				},
 				context : this,
 				dataType: 'json',
 				contentType: 'application/json',
@@ -239,7 +283,7 @@ define(function(require){
 		normalizeUserData : function(data){
 			console.log('Normalize user data' + JSON.stringify(data));
 			/*if(data.loginType==='facebook'){*/
-				data.fullName = data.fullName || (data.firstName + ' ' + data.lastName);
+				//data.fullName = data.fullName || (data.firstName + ' ' + data.lastName);
 			/*} else if(data.loginType==='google'){*/
 				/*data.fullName = data.fullName || (data.firstName + ' ' + data.lastName);*/
 			/*}*/

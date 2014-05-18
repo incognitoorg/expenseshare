@@ -178,9 +178,17 @@
 	cursor: pointer;
 	font: bold 15px Arial, Helvetica;
 	color: #8f5a0a;
+	padding-left: 16px!important;
+	padding-right: 16px!important;
 }
 
-#.action-submit:hover,.action-submit:focus {
+#retrieve-password{
+	padding-left: 16px!important;
+	padding-right: 16px!important;
+
+}
+
+.action-submit:hover,.action-submit:focus {
 	background-color: #fddb6f;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb94b),
 		to(#fddb6f));

@@ -56,6 +56,10 @@ public class UserUtil {
 				
 			} else {
 				//User is not in the system. Making the entry for first time.
+				
+				if(user.getLoginType().equals("email")){
+					return null;
+				}
 				 
 				user = new UserEndpoint().insertUser(user);
 			}
@@ -129,6 +133,10 @@ public class UserUtil {
 			if(execute.size()>0){
 				user = execute.get(0);
 			} else {
+				if(user.getLoginType().equals("email")){
+					return null;
+				}
+				
 				user = new UserEndpoint().insertUser(user);
 			}
 		}
