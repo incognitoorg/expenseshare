@@ -69,6 +69,27 @@ module.exports = function(grunt) {
 					}]
 				}
 			},
+			dev : {
+				files: {
+					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
+					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+				},
+				options: {
+					replacements: [//DANGER : Dont change the position of this pattern replacement. Add your new replacements at the end. This is used in CI.
+	               {
+	            	   pattern: /<version>.*<\/version>/,
+	            	   replacement: "<version>" + 'travis-branch-here' + "</version>"
+	               },
+					{
+						pattern: /<application>.*<\/application>/,
+						replacement: "<application>fem-dev</application>"
+					}, 
+					{
+						pattern: /MODE=.*/,
+						replacement: "MODE=dev"
+					}]
+				}
+			},
 			
 			toDeploy: {
 				files: {
@@ -276,6 +297,20 @@ module.exports = function(grunt) {
 		grunt.task.run(['string-replace:qa'])
 		grunt.task.run(['all']);
 	});
+	
+	grunt.registerTask('travis', function(branch){
+		console.log('Branch : ' + branch);
+		if(branch==="develop"){
+			grunt.task.run('qa');
+		} else if(branch==='master'){
+			grunt.task.run('prod');
+		} else {
+			var buildName = branch.substr(branch.lastIndexOf('/')+1);
+			grunt.config.set('string-replace.dev.options.replacements.0.replacement', "<version>" + buildName + "</version>")
+			grunt.task.run(['string-replace:dev']);
+			grunt.task.run(['all']);
+		}
+	})
 	
 	grunt.registerTask('all', ['string-replace:toDeploy', 'requirejs', 'appengineUpdateWrapper', 'string-replace:toLocal'])
 	grunt.registerTask('onlyupload', ['string-replace:toDeploy', /*'requirejs',*/ 'appengineUpdateWrapper', 'string-replace:toLocal'])

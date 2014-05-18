@@ -21,4 +21,4 @@ before_script:
 script : 
  - ant datanucleusenhance
  - ant compile
- - grunt qa
+ - grunt travis:$TRAVIS_BRANCH
