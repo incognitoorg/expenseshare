@@ -5,11 +5,13 @@ module.exports = function(grunt) {
 
 
 	function getCommandExtension(){
+		var ext = null;
 		if (process.platform === "win32") {
 		    ext = ".cmd";
 		} else {
 		    ext = ".sh";
 		}
+		return ext;
 	}
 	
 	// Project configuration.
