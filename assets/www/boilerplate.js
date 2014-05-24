@@ -26,7 +26,8 @@ var require = {
 			uiwidget : 'libraries/jquery-ui/js/ui/minified/jquery.ui.widget.min',
 			uimenu : 'libraries/jquery-ui/js/ui/minified/jquery.ui.menu.min',
 			uiposition : 'libraries/jquery-ui/js/ui/minified/jquery.ui.position.min',
-			animate : 'plugins/jquery/animate-enhanced/jquery.animate-enhanced.min'
+			animate : 'plugins/jquery/animate-enhanced/jquery.animate-enhanced.min',
+			foundation: 'libraries/foundation/5.0.2/js/foundation/foundation'
 		},
 		shim : {
 			'backbone' : {
@@ -47,6 +48,9 @@ var require = {
 			},
 			'uimenu' : {
 				deps : [ 'uiwidget'],
+			},
+			'foundation' : {
+				deps : [ 'jquery' ]
 			}
 		},
 		waitSeconds : 60,
