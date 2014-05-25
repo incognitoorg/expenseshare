@@ -61,6 +61,15 @@ define(function(require) {
 			return orderB - orderA;
 		});
 		
+		
+		formatted.push({
+			label : 'Add "' + query.term.trim()  +'" as non social friend.',
+			value : {
+				fullName : query.term.trim(),
+				loginType : 'non-social'
+			}
+		})
+		
 		return formatted;
 	}
 	
@@ -158,7 +167,9 @@ define(function(require) {
 			'click .back-to-without-group' : 'showNonGroupForm',
 			'focus input' : 'makeInputVisible',
 			'click .facebook-button' : 'doFacebookLogin',
-			'click .google-button' : 'doGoogleLogin'
+			'click .google-button' : 'doGoogleLogin',
+			'click .add-friend' : 'doAddFriend'
+			
 		},
 		registerValidator : function(){
 			FormValidator.initialize({'element':this.$(".js-add-expense-form"),'errorWidth':'86%'});
@@ -181,6 +192,7 @@ define(function(require) {
 				this.objSelectGroup = SelectGroup.getInstance();
 			}
 			
+			this.$('.new-friend').removeClass('show-modal');
 			this.$('.js-new-expense-form').hide();
 			this.$('.js-success-message').hide();
 			
@@ -205,15 +217,26 @@ define(function(require) {
 					response(getAutosuggestOptions(self.friendArr, request));
 				}, 
 				select: function(event, ui) {
+					
 					var friendInfo = ui.item.value;
+					
+					if(friendInfo.loginType==='non-social'){
+						self.$('.new-friend').find('.full-name').val(friendInfo.fullName);
+						self.$('.new-friend').addClass('show-modal');
+						this.value = '';
+						event.preventDefault();
+						return;
+					}
+					
 					this.value='';
 					if(self.selectedFriends.indexOf(friendInfo)==-1){
 						self.selectedFriends.push(friendInfo);
 						updateFriendInfo(friendInfo);
 					}
 					self.renderFriendsSelected();
-					event.preventDefault();
+					
 				},
+				autoFocus: true,
 				minLength:1,
 				focus : function(event, ui){
 					event.preventDefault();
@@ -221,12 +244,30 @@ define(function(require) {
 			}).data("ui-autocomplete")._renderItem = function (ul, item) {
 				//ul.addClass(item.loginType);
     			return $("<li></li>")
-				.addClass(item.value.loginType)
+				.addClass(item.value.loginType || "")
     			.append("<a href='#'>" + item.label + "</a>")
     			.data("ui-autocomplete-item", item)
     			.appendTo(ul);
 			};
 			
+		},
+		doAddFriend :  function(event){
+			var friendName = this.$('.full-name').val().trim();
+			var email = this.$('.email').val().trim();
+			var loginType = null; 
+			if(email){
+				loginType = "email";
+			} else {
+				loginType = "offline";
+			}
+			var friendInfo = {
+					fullName : friendName,
+					email :  email,
+					loginType :loginType,
+					userId :'dummy-' + dummyIdCounter++
+			}
+			this.selectedFriends.push(friendInfo);
+			this.renderFriendsSelected();
 		},
 		populateFacebookFriends : function(){
 			var self = this;
@@ -355,6 +396,7 @@ define(function(require) {
 			Sandbox.subscribe('GROUP:SELECTED:NEW-EXPENSE', this.showNewExpenseForm, this);
 			                   
 		},
+		//TODO : This function can be deprecated. Latest data is available at back end.
 		dataRefresh : function(response){
 			this.group = response;
 		},
