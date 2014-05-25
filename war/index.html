@@ -1111,7 +1111,7 @@ a {
 				};
 			} else if (mode === 'dev') {
 				return {
-					API_URL : "https://fem-dev.appspot.com/",
+					API_URL : "https://" + location.href.substr(location.href.indexOf("//")+2),
 					FB_APP_ID : '605170889512500',
 					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
@@ -1127,7 +1127,7 @@ a {
 				};
 			} else if (mode === "qa") {
 				return {
-					API_URL : "https://fem-qa.appspot.com/",
+					API_URL : "https://" + location.href.substr(location.href.indexOf("//")+2),
 					FB_APP_ID : '610955545604534',
 					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
