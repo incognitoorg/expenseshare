@@ -1096,6 +1096,8 @@ a {
 				mode = "production";
 			} else if (location.href.indexOf("fem-qa.appspot.com") != -1) {
 				mode = "qa";
+			} else if (location.href.indexOf("fem-dev.appspot.com") != -1) {
+				mode = "dev";
 			} else {
 				mode = "local";
 			}
