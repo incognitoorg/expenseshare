@@ -234,7 +234,7 @@ define(function(require) {
 						updateFriendInfo(friendInfo);
 					}
 					self.renderFriendsSelected();
-					
+					event.preventDefault();
 				},
 				autoFocus: true,
 				minLength:1,
