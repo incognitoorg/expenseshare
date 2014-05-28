@@ -168,7 +168,8 @@ define(function(require) {
 			'focus input' : 'makeInputVisible',
 			'click .facebook-button' : 'doFacebookLogin',
 			'click .google-button' : 'doGoogleLogin',
-			'click .add-friend' : 'doAddFriend'
+			'click .add-friend' : 'doAddFriend',
+			'click .cancel-add-friend' : 'cancelAddFriend'
 			
 		},
 		registerValidator : function(){
@@ -223,7 +224,6 @@ define(function(require) {
 					if(friendInfo.loginType==='non-social'){
 						self.$('.new-friend').find('.full-name').val(friendInfo.fullName);
 						self.$('.new-friend').addClass('show-modal');
-						this.value = '';
 						event.preventDefault();
 						return;
 					}
@@ -251,6 +251,9 @@ define(function(require) {
 			};
 			
 		},
+		cancelAddFriend : function(event){
+			
+		},
 		doAddFriend :  function(event){
 			var friendName = this.$('.full-name').val().trim();
 			var email = this.$('.email').val().trim();
@@ -268,6 +271,8 @@ define(function(require) {
 			}
 			this.selectedFriends.push(friendInfo);
 			this.renderFriendsSelected();
+			
+			this.$('.js-friends-autocomplete').val('');
 		},
 		populateFacebookFriends : function(){
 			var self = this;
