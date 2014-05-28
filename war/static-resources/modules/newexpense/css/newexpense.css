@@ -189,7 +189,7 @@ hr.red-line{
 	padding-bottom : 5px; */
 	
 	line-height: 25px;
-	padding-left: 10px;
+	/* padding-left: 10px; */
 }
 .ui-menu-item>a{
 	color : black;
@@ -227,6 +227,7 @@ hr.red-line{
 	width : 100%;
 	padding-top : 5px;
 	padding-bottom : 5px;
+	padding-left : 10px;
 	display: inline-block;
 }
 .ui-state-focus{
