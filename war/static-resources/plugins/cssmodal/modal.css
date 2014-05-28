@@ -64,10 +64,10 @@ html {
   top: 50px;
   left: 50%;
   z-index: 20;
-  margin-left: -325px;
-  width: 650px;
+  margin-left: -200px;
+  width: 400px;
   overflow-x: hidden;
-  border-radius: 2px;
+  border-radius: 10px;
   background: #fff;
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
@@ -140,7 +140,9 @@ html {
     left: 20px;
     right: 20px;
     margin-left: 0;
-  }
+  
+    top: 14px;
+}
   .semantic-content .modal-close {
     left: auto;
     /* right: 33px; */

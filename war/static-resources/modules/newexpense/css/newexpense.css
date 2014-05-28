@@ -273,3 +273,20 @@ hr.red-line{
 	margin-bottom : 10px;	
 }
 
+.modal-inner{
+	border-radius: 10px;
+	padding-left: 0;
+	padding-right: 0px;
+	/* padding-top: 10px; */
+	background: rgb(248, 240, 226);
+}
+
+.modal-inner>div{
+	margin-bottom:10px;
+}
+
+.add-friend-instruction{
+	font-weight: bold;
+	background: gray;
+	line-height: 34px;
+}

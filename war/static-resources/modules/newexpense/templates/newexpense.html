@@ -50,21 +50,33 @@
 	
 	<section class="small-12 columns new-friend semantic-content" id="modal-text" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true" style="z-index:32768;">
 		<div class="modal-inner row" >
-			<div class="small-12 columns">Enter details of the friend and click Add.</div>
-			<div class="small-12 columns">Friend Name : <input class="full-name" placeholder="Friend name"></div>
-			<div class="small-12 columns">Email : <input class="email" placeholder="email (Optional)"> </div>
+			<div class="small-12 columns add-friend-instruction">Add friend.</div>
 			<div class="small-12 columns">
 				<div class="row">
-					<div class="small-12 medium-6 columns">
-						<span  data-dismiss="modal" class="modal-close button add-friend">Add</span>
+					<div class="small-12 medium-4 columns">Friend Name : </div>
+					<div class="small-12 medium-8  columns"><input style="width:100%;" class="full-name" placeholder="Friend name"></div>
+				</div>
+			</div>
+			<div class="small-12 columns">
+				<div class="row">
+					<div class="small-12 medium-4 columns">Email : </div> 
+					<div class="small-12 medium-8 columns"><input style="width:100%;" class="email" placeholder="email (Optional)"> </div></div>
+				</div>
+			<div class="small-12 columns">
+				<div class="row">
+					<div class="small-12 medium-4 medium-push-4 columns">
+						<span data-dismiss="modal" class="modal-close button radius tiny add-friend">Add</span>
 					</div>
-					<div class="small-12 medium-6 columns">
-						<span  data-dismiss="modal" class="modal-close button alert cancel-add-friend">Cancel</span>
+					<div class="small-12 medium-4  columns">
+						<span data-dismiss="modal" class="tiny radius modal-close button alert cancel-add-friend" style="
+    background: rgb(255, 69, 69);
+">Cancel</span>
 					</div>
 				</div>
 				
 				
-			</div>
+			</div>	
+			
 		</div>
 	</section>
 
