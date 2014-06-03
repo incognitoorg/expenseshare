@@ -1,34 +1,35 @@
+.circle {
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 20px;
+}
+
 .expense,.detail-expense{
 	line-height: 1.2em;
 	cursor: pointer;
-	/* background: whitesmoke; */
 	margin: 7px!important;
-	-webkit-box-shadow: 0 10px 6px -6px #777;
-	   -moz-box-shadow: 0 10px 6px -6px #777;
-	        
-	/* box-shadow: 0 10px 6px -6px #777; */
-	         
-/* 	-webkit-box-shadow: inset 0 0.08em 0 rgba(255,255,255,0.4), inset 0 0 0.1em rgba(255,255,255,0.9);
-	-moz-box-shadow: inset 0 0.08em 0 rgba(255,255,255,0.4), inset 0 0 0.1em rgba(255,255,255,0.9);
-	box-shadow: inset 0 0.08em 0 rgba(255,255,255,0.4), inset 0 0  */
-	border-radius : 3px;
-	/* padding-top: 10px; */
-	/* padding-bottom: 10px; */
+	border-radius : 10px;
 }
+
+.expense {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	position: relative;
+}
+
+.expense.borrowed {
+	border: 3px solid rgb(255, 0, 0);	
+}
+
+.expense.lent {
+	border: 3px solid rgb(90, 184, 37);
+}
+
 .expense:hover{
 /* 	background-color: gray; */
 }
 div.expense:nth-child(2n){
 	/* background-color: #CCC; */
-}
-
-.expense{
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-.expense:last-child{
-	border-bottom : 0px solid gray;
 }
 
 .sentense-fillers{
@@ -65,9 +66,25 @@ div.expense:nth-child(2n){
 	/* overflow-y: scroll; 	 */
 }
 
+.detail-expense-container {
+	padding: 0px !important;
+	margin-top: -10px;
+	border-top: 0px;
+	border-radius: 10px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}
+
+.detail-expense-container.lent {
+	border: 3px solid rgb(90, 184, 37);
+}
+
+.detail-expense-container.borrowed {
+	border: 3px solid rgb(255, 0, 0);
+}
+
 .js-expense-detail-container{
-	box-shadow : inset 0 5px 7px -5px rgba(0,0,0,0.25),inset 0 -3px 7px -5px rgba(0,0,0,0.25);
-	padding-bottom: 15px;
+	min-height: 80px;
 }
 
 .payers-container{
@@ -78,11 +95,39 @@ div.expense:nth-child(2n){
 	border-left: 1px dotted #F4985A;
 }
 
-.js-expense-li.borrowed>div.expense{
-	background: rgb(194, 62, 62);
+.expense-share {
+	position: absolute;
+	top: 14px;
 }
-.js-expense-li.lent>div.expense{
-	background: rgb(169, 199, 46);
+
+.js-expense-li .expense-share>.transaction-type.borrowed{
+	color: rgb(255, 0, 0);
+}
+
+.js-expense-li .expense-share>.transaction-type.lent{
+	color: rgb(90, 184, 37);
+}
+
+.transaction-amount {
+	width: 60px;
+	height: 60px;
+	line-height: 55px;
+	text-align: center;
+	display: block;
+	border: 3px solid #fff;
+	position: absolute;
+	left: 100px;
+	top: -20px;
+}
+
+.js-expense-li .expense-share>.transaction-amount.borrowed{
+	background: rgb(255, 0, 0);
+	color: white;
+}
+
+.js-expense-li .expense-share>.transaction-amount.lent{
+	background: rgb(90, 184, 37);
+	color: white;
 }
 
 .header-4 {
@@ -98,4 +143,8 @@ div.expense:nth-child(2n){
 
 .delete-expense{
 	float:right;
+	position: absolute;
+	right: -20px;
+	top: 12px;
+}
 }
