@@ -1096,6 +1096,8 @@ a {
 				mode = "production";
 			} else if (location.href.indexOf("fem-qa.appspot.com") != -1) {
 				mode = "qa";
+			} else if (location.href.indexOf("fem-dev.appspot.com") != -1) {
+				mode = "dev";
 			} else {
 				mode = "local";
 			}
@@ -1108,8 +1110,14 @@ a {
 					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/userinfo.profile https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
 				};
 			} else if (mode === 'dev') {
+				var url = location.href;
+				protocolLessURL = location.href.substr( location.href.indexOf("//")+2);
+				var appURL = protocolLessURL.substr(protocolLessURL.indexOf("fem"))
+				var version = protocolLessURL.substr(0, protocolLessURL.indexOf("fem")-1);
+				version = version && version + "-dot-"
+				var API_URL = "https://" + version + appURL;
 				return {
-					API_URL : "https://fem-dev.appspot.com/",
+					API_URL : API_URL,
 					FB_APP_ID : '605170889512500',
 					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',
@@ -1124,8 +1132,14 @@ a {
 					GOOGLE_API_SCOPE : 'https://www.googleapis.com/auth/userinfo.profile https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email'
 				};
 			} else if (mode === "qa") {
+				var url = location.href;
+				protocolLessURL = location.href.substr( location.href.indexOf("//")+2);
+				var appURL = protocolLessURL.substr(protocolLessURL.indexOf("fem"))
+				var version = protocolLessURL.substr(0, protocolLessURL.indexOf("fem")-1);
+				version = version && version + "-dot-"
+				var API_URL = "https://" + version + appURL;
 				return {
-					API_URL : "https://fem-qa.appspot.com/",
+					API_URL : API_URL,
 					FB_APP_ID : '610955545604534',
 					GOOGLE_CLIENT_ID : '675356629669.apps.googleusercontent.com',
 					GOOGLE_API_KEY : 'AIzaSyCxvFWYp8uk3RxCSEaVEo_FLYeqQVUelpg',

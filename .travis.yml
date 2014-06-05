@@ -1,0 +1,20 @@
+env:
+  global:
+    - GAE_SDK: /home/travis/build/incognitoorg/expenseshare/vendors/appengine-java-sdk-1.8.6
+    
+#language: java
+
+before_install:
+  - wget https://dl.dropboxusercontent.com/u/75492484/GAE-SDKs/appengine-java-sdk-1.8.6.zip  -nv
+  - wget https://www.dropbox.com/s/q69hrvjxv32b828/.appcfg_oauth2_tokens_java  -nv
+  - unzip -qd vendors appengine-java-sdk-1.8.6
+  
+before_script:
+  - npm install -g grunt-cli --silent
+  - npm install>/dev/null --silent
+  - grunt -version
+ 
+script : 
+ - ant datanucleusenhance
+ - ant compile
+ - grunt travis:$TRAVIS_BRANCH
