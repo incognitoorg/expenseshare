@@ -34,6 +34,7 @@
 		3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0
 		rgba(0, 0, 0, .2);
 	height : 100%;
+	border-radius : 15px;
 }
 
 .login-container:before {
@@ -48,6 +49,7 @@
 	-moz-box-shadow: 0 0 0 1px #fff;
 	-webkit-box-shadow: 0 0 0 1px #fff;
 	box-shadow: 0 0 0 1px #fff;
+	border-radius : 10px;
 }
 
 /*--------------------*/
@@ -238,7 +240,7 @@
 }
 
 .login-container input[type="text"],.login-container input[type="password"], .login-container input[type="email"] {
-	height: 45px !important;
+	height: 38px !important;
 }
 
 #facebookfieldset, #googlefieldset{

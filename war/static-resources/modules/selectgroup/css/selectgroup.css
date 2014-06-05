@@ -3,6 +3,8 @@
 	/*line-height : 2em;*/
 	cursor: pointer;
 	border-bottom : 1px solid gray;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .js-group-entry:hover{
