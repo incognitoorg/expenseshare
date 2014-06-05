@@ -111,17 +111,9 @@ public class UserUtil {
 			apiId = user.getFacebookId();
 			q.setFilter("facebookId == facebookIdParam");
 			q.declareParameters("String facebookIdParam");
-		} else {
-			/*apiId = user.getEmail();
-			q.setFilter("email == emailIdParam");
-			q.declareParameters("String emailIdParam");*/
-
-			//TODO : In google contacts, you may get entity which might have only phone
-			//This presents opportunity to present user to login with phone.
-			/*String phone = user.getPhone();
-			q.setFilter("phone == phoneParam");
-			q.declareParameters("String phoneParam");*/
-
+		} else if("offline".equalsIgnoreCase(loginType)){
+			user = new UserEndpoint().insertUser(user);
+			return user;
 		}
 
 
