@@ -189,7 +189,7 @@ hr.red-line{
 	padding-bottom : 5px; */
 	
 	line-height: 25px;
-	padding-left: 10px;
+	/* padding-left: 10px; */
 }
 .ui-menu-item>a{
 	color : black;
@@ -227,6 +227,7 @@ hr.red-line{
 	width : 100%;
 	padding-top : 5px;
 	padding-bottom : 5px;
+	padding-left : 10px;
 	display: inline-block;
 }
 .ui-state-focus{
@@ -272,3 +273,20 @@ hr.red-line{
 	margin-bottom : 10px;	
 }
 
+.modal-inner{
+	border-radius: 10px;
+	padding-left: 0;
+	padding-right: 0px;
+	/* padding-top: 10px; */
+	background: rgb(248, 240, 226);
+}
+
+.modal-inner>div{
+	margin-bottom:10px;
+}
+
+.add-friend-instruction{
+	font-weight: bold;
+	background: gray;
+	line-height: 34px;
+}
