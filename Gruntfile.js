@@ -305,7 +305,7 @@ module.exports = function(grunt) {
 		} else if(branch==='master'){
 			grunt.task.run('prod');
 		} else {
-			var buildName = branch.substr(branch.lastIndexOf('/')+1);
+			var buildName = branch.substr(branch.lastIndexOf('/')+1).toLowerCase();
 			grunt.config.set('string-replace.dev.options.replacements.0.replacement', "<version>" + buildName + "</version>")
 			grunt.task.run(['string-replace:dev']);
 			grunt.task.run(['all']);
