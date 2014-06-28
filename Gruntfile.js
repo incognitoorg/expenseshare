@@ -39,7 +39,8 @@ module.exports = function(grunt) {
 			prod : {
 				files: {
 					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
-					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+					'src/configuration/mode.properties': 'src/configuration/mode.properties',
+					'war/WEB-INF/classes/configuration/mode.properties': 'war/WEB-INF/classes/configuration/mode.properties'
 				},
 				options: {
 					replacements: [{
@@ -56,7 +57,8 @@ module.exports = function(grunt) {
 			qa : {
 				files: {
 					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
-					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+					'src/configuration/mode.properties': 'src/configuration/mode.properties',
+					'war/WEB-INF/classes/configuration/mode.properties': 'war/WEB-INF/classes/configuration/mode.properties'
 				},
 				options: {
 					replacements: [{
@@ -72,7 +74,8 @@ module.exports = function(grunt) {
 			dev : {
 				files: {
 					'war/WEB-INF/appengine-web.xml': 'war/WEB-INF/appengine-web.xml',
-					'src/configuration/mode.properties': 'src/configuration/mode.properties'
+					'src/configuration/mode.properties': 'src/configuration/mode.properties',
+					'war/WEB-INF/classes/configuration/mode.properties': 'war/WEB-INF/classes/configuration/mode.properties'
 				},
 				options: {
 					replacements: [//DANGER : Dont change the position of this pattern replacement. Add your new replacements at the end. This is used in CI.
@@ -305,7 +308,7 @@ module.exports = function(grunt) {
 		} else if(branch==='master'){
 			grunt.task.run('prod');
 		} else {
-			var buildName = branch.substr(branch.lastIndexOf('/')+1);
+			var buildName = branch.substr(branch.lastIndexOf('/')+1).toLowerCase();
 			grunt.config.set('string-replace.dev.options.replacements.0.replacement', "<version>" + buildName + "</version>")
 			grunt.task.run(['string-replace:dev']);
 			grunt.task.run(['all']);

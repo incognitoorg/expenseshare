@@ -109,6 +109,7 @@ define(function(require){
 						email : resp.email,
 						firstName : resp.given_name,
 						lastName : resp.family_name,
+						fullName : resp.given_name + " " +resp.family_name,
 						imgUrl : resp.picture.substr(0, resp.picture.indexOf("?")) + "?sz=45" 
 						
 					});
