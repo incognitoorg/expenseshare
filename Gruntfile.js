@@ -3,6 +3,17 @@ module.exports = function(grunt) {
 	var requirejsconfig = grunt.file.readJSON('./r-js-optimizer/tools/build.js');
 	var moment = require('moment');
 
+
+	function getCommandExtension(){
+		var ext = null;
+		if (process.platform === "win32") {
+		    ext = ".cmd";
+		} else {
+		    ext = ".sh";
+		}
+		return ext;
+	}
+	
 	// Project configuration.
 	grunt.initConfig({
 		/*pkg: grunt.file.readJSON('package.json'),*/
@@ -10,8 +21,8 @@ module.exports = function(grunt) {
 			options: {
 				/*sdk:'C:/Users/VAronde/Downloads/sdk/gae-sdk/appengine-java-sdk-1.8.6/bin',*/
 				sdk: process.env.GAE_SDK + '/bin',
-				manageScript : 'appcfg.sh',
-				runScript : 'dev_appserver.cmd',
+				manageScript : 'appcfg' + getCommandExtension(),
+				runScript : 'dev_appserver' + getCommandExtension(),
 				runFlags: {
 					port: 8888
 				},
