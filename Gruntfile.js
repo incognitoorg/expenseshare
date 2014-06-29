@@ -115,7 +115,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
-					'war/fem.appcache': 'war/builtfem.appcache'
+					'war/builtfem.appcache': 'war/builtfem.appcache'
 				},
 				options: {
 					replacements: [{
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
-					'war/builtfem.appcache': 'war/fem.appcache'
+					'war/builtfem.appcache': 'war/builtfem.appcache'
 				},
 				options: {
 					replacements: [{
@@ -294,12 +294,12 @@ module.exports = function(grunt) {
 	//TODO : Have replaced following includes with this. Remove commented code once you are fine with this
 	var loader = require('grunt-loadnpmtasks')(grunt);
 
-	/*grunt.loadNpmTasks('grunt-string-replace');
+	grunt.loadNpmTasks('grunt-string-replace');
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-version');
 	grunt.loadNpmTasks('grunt-git');
-	grunt.loadNpmTasks('grunt-contrib-watch');*/
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	// Default task(s).
 	grunt.registerTask('default',function(){
