@@ -850,6 +850,30 @@ img.user{
 	border-bottom-left-radius: 0px!important;
 }
 
+.app-name-first{
+	font-size:40px;
+}
+.app-name-last{
+	font-size:20px;
+	margin-left:-2px;
+}
+
+.home-link{
+	padding-top:10px!important;
+	font-size:20px;
+	font-family:Aerial;
+}
+.home-link::after{
+	clear: both;
+	display: inline-block;
+}
+
+.home-link>span{
+	float:left;
+}
+
+
+
 </style>
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
@@ -874,12 +898,12 @@ img.user{
 			<ul class=title-area>
 				<li class=name>
 					<h1>
-						<a href="/">XpenseShare</a>
+						<a class="home-link" href="/" style="line-height: 22px;padding-left: 100px;"><span class="app-name-first">X</span><span class="app-name-last">penseShare</span></a>
 					</h1>
 				</li>
 			</ul>
 			<section class=top-bar-section>
-				<ul class=right style="background: transparent;">
+				<ul class="right"  style="background: transparent;">
 					<li class="has-dropdown not-click" style="background: transparent;">
 					<a id=js-login-anchor style="border-radius:22px;"><span
 							id=js-login-link style=""></span><span id=js-user-link
@@ -1182,8 +1206,6 @@ img.user{
 		var userInfo = localStorage.getItem('loggedInUser');
 		if (userInfo && JSON.parse(userInfo)) {
 			this.userInfo = JSON.parse(userInfo);
-			document.getElementById('logincontainer').setAttribute('style',
-					'display:none;');
 			document.getElementById("js-user-link").setAttribute('style',
 					'display:"";');
 			document.getElementById("js-user-link").innerHTML = "<span class='user-name'>"+ userInfo.fullName +"</span>";
