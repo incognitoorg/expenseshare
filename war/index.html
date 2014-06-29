@@ -118,7 +118,7 @@ header {
 	margin-top: 45px;
 }
 
-.top-bar.custom {
+.top-bar {
 	overflow: hidden;
 	height: 45px;
 	line-height: 45px;
@@ -404,20 +404,20 @@ header {
 	top: 0;
 	z-index: 1;
 	width: 100%;
-	background: #6d0019;
-	background: -moz-linear-gradient(top, #6d0019 22%, #8f0222 48%, #8f0222 54%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(22%,#6d0019), color-stop(48%,#8f0222), color-stop(54%,#8f0222));
-	background: -webkit-linear-gradient(top, #6d0019 22%,#8f0222 48%,#8f0222 54%);
-	background: -o-linear-gradient(top, #6d0019 22%,#8f0222 48%,#8f0222 54%);
-	background: -ms-linear-gradient(top, #6d0019 22%,#8f0222 48%,#8f0222 54%);
-	background: linear-gradient(to bottom, #6d0019 22%,#8f0222 48%,#8f0222 54%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d0019', endColorstr='#8f0222',GradientType=0 );
+	background: #F4985A;
+	background: -moz-linear-gradient(top, #F4985A 40%, #BB682F 66%, #BB682F 54%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,#997862), color-stop(66%,#BB682F), color-stop(54%,#BB682F));
+	background: -webkit-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -o-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -ms-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: linear-gradient(to bottom, #997862 40%,#BB682F 66%,#BB682F 54%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#997862', endColorstr='#BB682F',GradientType=0 );
 	border-bottom: 2px solid rgb(213, 94, 94);
 }
 
 @media only screen and (min-width:40.063em) {
 	.top-bar {
-		background: #F4985A;
+		background: #997862;
 		*zoom: 1;
 		overflow: visible;
 	}
@@ -841,6 +841,10 @@ a {
 	float: left;
 	margin-left: 10px;
 }
+img.user{
+	border-radius : 50px;
+}
+
 </style>
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
@@ -870,8 +874,9 @@ a {
 				</li>
 			</ul>
 			<section class=top-bar-section>
-				<ul class=right>
-					<li class="has-dropdown not-click"><a id=js-login-anchor><span
+				<ul class=right style="background: transparent;">
+					<li class="has-dropdown not-click" style="background: transparent;">
+					<a id=js-login-anchor style="border-radius:30px;"><span
 							id=js-login-link style=""></span><span id=js-user-link
 							style="dispaly: none;"></span></a>
 						<ul id=login-dropdown-menu class=dropdown style="display: none;">
@@ -1162,7 +1167,7 @@ a {
 					'display:none;');
 			document.getElementById("js-user-link").setAttribute('style',
 					'display:"";');
-			document.getElementById("js-user-link").innerHTML = userInfo.fullName;
+			document.getElementById("js-user-link").innerHTML = "<span class='user-name'>"+ userInfo.fullName +"</span>";
 			document.getElementById("login-dropdown-menu").setAttribute(
 					'style', 'display:"";');
 			document.getElementById("js-login-link").setAttribute('style',
