@@ -134,8 +134,8 @@ module.exports = function(grunt) {
 						replacement: "require.min.js"
 					},
 					{
-						pattern: "version 1.0",
-						replacement: "version 1.0.1"
+						pattern: /version.*/,
+						replacement: "version " + moment().format('DD-MM-YYYY_HH.mm')
 					}]
 				}
 			},
@@ -163,8 +163,8 @@ module.exports = function(grunt) {
 						replacement: "require.js"
 					},
 					{
-						pattern: "version 1.0.1.1.1.1.1.1.1",
-						replacement: "version 1.0"
+						pattern: /version.*/,
+						replacement: "version " + moment().format('DD-MM-YYYY_HH.mm')
 					}
 					]
 				}
@@ -289,14 +289,17 @@ module.exports = function(grunt) {
 			}
 		}*/
 	});
+	
 
-	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks('grunt-string-replace');
+	//TODO : Have replaced following includes with this. Remove commented code once you are fine with this
+	var loader = require('grunt-loadnpmtasks')(grunt);
+
+	/*grunt.loadNpmTasks('grunt-string-replace');
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-version');
 	grunt.loadNpmTasks('grunt-git');
-	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-watch');*/
 	
 	// Default task(s).
 	grunt.registerTask('default',function(){
