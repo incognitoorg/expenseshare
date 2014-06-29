@@ -122,10 +122,10 @@ define(function(require){
 			return userControl;
 		},
 		eventDoEmailLogin: function (event) {
-			if (this.$("#app-access-control")[0].checkValidity()) {
-				/*preventing form submit event*/
-				event.preventDefault();
+			if (!this.$("#app-access-control")[0].checkValidity()) {
+				return;
 			}
+			event.preventDefault();
 			/*getting the form controls and obtaining values to send data*/
 			var userInfoElements = {
 					"userControl": "username",
