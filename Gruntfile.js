@@ -115,7 +115,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
-					'war/fem.appcache': 'war/builtfem.appcache'
+					'war/builtfem.appcache': 'war/builtfem.appcache'
 				},
 				options: {
 					replacements: [{
@@ -134,8 +134,10 @@ module.exports = function(grunt) {
 						replacement: "require.min.js"
 					},
 					{
-						pattern: "version 1.0",
-						replacement: "version 1.0.1"
+						pattern: "#version 1.0",
+						replacement: "#version " + moment().format('DD-MM-YYYY_HH.mm')
+					
+						
 					}]
 				}
 			},
@@ -144,7 +146,7 @@ module.exports = function(grunt) {
 					'war/static-resources/core/envvariables.js': 'war/static-resources/core/envvariables.js',
 					'war/boilerplate.js': 'war/boilerplate.js',
 					'war/index.html': 'war/index.html',
-					'war/builtfem.appcache': 'war/fem.appcache'
+					'war/builtfem.appcache': 'war/builtfem.appcache'
 				},
 				options: {
 					replacements: [{
@@ -163,8 +165,8 @@ module.exports = function(grunt) {
 						replacement: "require.js"
 					},
 					{
-						pattern: "version 1.0.1.1.1.1.1.1.1",
-						replacement: "version 1.0"
+						pattern: /#version.*/,
+						replacement: "#version 1.0"
 					}
 					]
 				}
@@ -289,8 +291,11 @@ module.exports = function(grunt) {
 			}
 		}*/
 	});
+	
 
-	// Load the plugin that provides the "uglify" task.
+	//TODO : Have replaced following includes with this. Remove commented code once you are fine with this
+	var loader = require('grunt-loadnpmtasks')(grunt);
+
 	grunt.loadNpmTasks('grunt-string-replace');
 	grunt.loadNpmTasks('grunt-appengine');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
