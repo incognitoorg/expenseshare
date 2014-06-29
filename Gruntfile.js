@@ -134,8 +134,8 @@ module.exports = function(grunt) {
 						replacement: "require.min.js"
 					},
 					{
-						pattern: /version.*/,
-						replacement: "version " + moment().format('DD-MM-YYYY_HH.mm')
+						pattern: /#version.*/,
+						replacement: "#version 1.0"
 					}]
 				}
 			},
@@ -163,7 +163,7 @@ module.exports = function(grunt) {
 						replacement: "require.js"
 					},
 					{
-						pattern: /version.*/,
+						pattern: "#version 1.0",
 						replacement: "version " + moment().format('DD-MM-YYYY_HH.mm')
 					}
 					]
