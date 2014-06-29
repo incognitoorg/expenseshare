@@ -135,7 +135,7 @@ module.exports = function(grunt) {
 					},
 					{
 						pattern: "#version 1.0",
-						replacement: "version " + moment().format('DD-MM-YYYY_HH.mm')
+						replacement: "#version " + moment().format('DD-MM-YYYY_HH.mm')
 					
 						
 					}]
