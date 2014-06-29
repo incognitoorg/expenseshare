@@ -125,6 +125,7 @@ header {
 	position: relative;
 	background: #F4985A;
 	margin-bottom: 0;
+	
 }
 
 .top-bar ul {
@@ -403,11 +404,20 @@ header {
 	top: 0;
 	z-index: 1;
 	width: 100%;
+	background: #F4985A;
+	background: -moz-linear-gradient(top, #F4985A 40%, #BB682F 66%, #BB682F 54%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,#997862), color-stop(66%,#BB682F), color-stop(54%,#BB682F));
+	background: -webkit-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -o-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -ms-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: linear-gradient(to bottom, #997862 40%,#BB682F 66%,#BB682F 54%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#997862', endColorstr='#BB682F',GradientType=0 );
+	border-bottom: 2px solid rgb(213, 94, 94);
 }
 
 @media only screen and (min-width:40.063em) {
 	.top-bar {
-		background: #F4985A;
+		background: #997862;
 		*zoom: 1;
 		overflow: visible;
 	}
@@ -831,6 +841,39 @@ a {
 	float: left;
 	margin-left: 10px;
 }
+img.user{
+	border-radius : 50px;
+}
+
+#js-login-anchor:hover{
+	border-bottom-right-radius: 0px!important;
+	border-bottom-left-radius: 0px!important;
+}
+
+.app-name-first{
+	font-size:40px;
+}
+.app-name-last{
+	font-size:20px;
+	margin-left:-2px;
+}
+
+.home-link{
+	padding-top:10px!important;
+	font-size:20px;
+	font-family:Aerial;
+}
+.home-link::after{
+	clear: both;
+	display: inline-block;
+}
+
+.home-link>span{
+	float:left;
+}
+
+
+
 </style>
 <link rel=stylesheet
 	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
@@ -851,17 +894,18 @@ a {
 </head>
 <body style="font-family: allerregular">
 	<div class=hide-for-small style="height: 45px;position: fixed;width: 100%;z-index: 100;">
-		<nav class="top-bar " data-topbar="" id=top-nav-bar>
+		<nav class="top-bar custom" data-topbar="" id=top-nav-bar>
 			<ul class=title-area>
 				<li class=name>
 					<h1>
-						<a href="/">XpenseShare</a>
+						<a class="home-link" href="/" style="line-height: 22px;padding-left: 100px;"><span class="app-name-first">X</span><span class="app-name-last">penseShare</span></a>
 					</h1>
 				</li>
 			</ul>
 			<section class=top-bar-section>
-				<ul class=right>
-					<li class="has-dropdown not-click"><a id=js-login-anchor><span
+				<ul class="right"  style="background: transparent;">
+					<li class="has-dropdown not-click" style="background: transparent;">
+					<a id=js-login-anchor style="border-radius:22px;"><span
 							id=js-login-link style=""></span><span id=js-user-link
 							style="dispaly: none;"></span></a>
 						<ul id=login-dropdown-menu class=dropdown style="display: none;">
@@ -1162,11 +1206,9 @@ a {
 		var userInfo = localStorage.getItem('loggedInUser');
 		if (userInfo && JSON.parse(userInfo)) {
 			this.userInfo = JSON.parse(userInfo);
-			document.getElementById('logincontainer').setAttribute('style',
-					'display:none;');
 			document.getElementById("js-user-link").setAttribute('style',
 					'display:"";');
-			document.getElementById("js-user-link").innerHTML = userInfo.fullName;
+			document.getElementById("js-user-link").innerHTML = "<span class='user-name'>"+ userInfo.fullName +"</span>";
 			document.getElementById("login-dropdown-menu").setAttribute(
 					'style', 'display:"";');
 			document.getElementById("js-login-link").setAttribute('style',

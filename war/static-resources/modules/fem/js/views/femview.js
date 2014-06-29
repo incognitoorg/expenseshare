@@ -142,8 +142,8 @@ define(function(require){
 			
 			
 			var imageURL = userdata.data.imgUrl;
-			document.getElementById("js-user-link").innerHTML = userdata.data.fullName;
-			$('#js-user-link').append($('<img>').attr('src', imageURL));
+			document.getElementById("js-user-link").innerHTML = "<span class='user-name'>"+ userdata.data.fullName +"</span>";
+			$('#js-user-link').append($('<img class="user">').attr('src', imageURL));
 			
 			document.getElementById("js-user-link").setAttribute('style', 'display:"";');
 			document.getElementById("login-dropdown-menu").setAttribute('style', 'display:"";');
