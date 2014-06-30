@@ -119,8 +119,8 @@ module.exports = function(grunt) {
 				},
 				options: {
 					replacements: [{
-						pattern: "static-resources/",
-						replacement: "built-static-resources/"
+						pattern: "/static-resources/",
+						replacement: "/built-static-resources/"
 					}, {
 						pattern: "mode='local'",
 						replacement: "mode='dev'"
@@ -150,8 +150,8 @@ module.exports = function(grunt) {
 				},
 				options: {
 					replacements: [{
-						pattern: "built-static-resources/",
-						replacement: "static-resources/"
+						pattern: "/built-static-resources/",
+						replacement: "/static-resources/"
 					}, {
 						pattern: "mode='dev'",
 						replacement: "mode='local'"
