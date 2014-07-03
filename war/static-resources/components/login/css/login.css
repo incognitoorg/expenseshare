@@ -4,14 +4,14 @@
 }
 
 .login-container {
-	background-color: #fff;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
-		to(#eee));
-	background-image: -webkit-linear-gradient(top, #fff, #eee);
-	background-image: -moz-linear-gradient(top, #fff, #eee);
+	/* background-color: #fff; */
+	/* background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
+		to(#eee)); */
+	/* background-image: -webkit-linear-gradient(top, #fff, #eee); */
+	/* background-image: -moz-linear-gradient(top, #fff, #eee);
 	background-image: -ms-linear-gradient(top, #fff, #eee);
 	background-image: -o-linear-gradient(top, #fff, #eee);
-	background-image: linear-gradient(top, #fff, #eee);
+	background-image: linear-gradient(top, #fff, #eee); */
 	height: 280px;
 	/* width: 400px;
     margin: -150px 0 0 -230px; */
@@ -21,10 +21,10 @@
 	/*  top: 50%;
     left: 50%; */
 	z-index: 0;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	-webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px
+	/* -moz-border-radius: 3px; */
+	/* -webkit-border-radius: 3px; */
+	/* border-radius: 3px; */
+	/* -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px
 		rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0
 		#fff, 0 7px 0 rgba(0, 0, 0, .2);
 	-moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 rgba(0, 0, 0, .1),
@@ -32,7 +32,7 @@
 		0 rgba(255, 255, 255, 1), 7px 7px 0 rgba(0, 0, 0, .1);
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0
 		3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0
-		rgba(0, 0, 0, .2);
+		rgba(0, 0, 0, .2); */
 	height : 100%;
 }
 
@@ -40,14 +40,14 @@
 	content: '';
 	position: absolute;
 	z-index: -1;
-	border: 1px dashed #ccc;
-	top: 5px;
+	/* border: 1px dashed #ccc; */
+	/* top: 5px; */
 	bottom: 5px;
 	left: 5px;
 	right: 5px;
-	-moz-box-shadow: 0 0 0 1px #fff;
+	/* -moz-box-shadow: 0 0 0 1px #fff;
 	-webkit-box-shadow: 0 0 0 1px #fff;
-	box-shadow: 0 0 0 1px #fff;
+	box-shadow: 0 0 0 1px #fff; */
 }
 
 /*--------------------*/
@@ -73,7 +73,7 @@
 }
 
 .login-container #app-set-password h1:after,.login-container h1:before {
-	background-color: #777;
+	/* background-color: #777; */
 	content: "";
 	height: 1px;
 	position: absolute;
@@ -82,24 +82,24 @@
 }
 
 .login-container h1:after {
-	background-image: -webkit-gradient(linear, left top, right top, from(#777),
+	/* background-image: -webkit-gradient(linear, left top, right top, from(#777),
 		to(#fff));
 	background-image: -webkit-linear-gradient(left, #777, #fff);
 	background-image: -moz-linear-gradient(left, #777, #fff);
 	background-image: -ms-linear-gradient(left, #777, #fff);
 	background-image: -o-linear-gradient(left, #777, #fff);
-	background-image: linear-gradient(left, #777, #fff);
+	background-image: linear-gradient(left, #777, #fff); */
 	right: 0;
 }
 
 .login-container h1:before {
-	background-image: -webkit-gradient(linear, right top, left top, from(#777),
+	/* background-image: -webkit-gradient(linear, right top, left top, from(#777),
 		to(#fff));
 	background-image: -webkit-linear-gradient(right, #777, #fff);
 	background-image: -moz-linear-gradient(right, #777, #fff);
 	background-image: -ms-linear-gradient(right, #777, #fff);
 	background-image: -o-linear-gradient(right, #777, #fff);
-	background-image: linear-gradient(right, #777, #fff);
+	background-image: linear-gradient(right, #777, #fff); */
 	left: 0;
 }
 
@@ -115,16 +115,15 @@
 	background: #f1f1f1
 		url(http://www.red-team-design.com/wp-content/uploads/2011/09/login-sprite.png)
 		no-repeat;
-	padding: 10px 10px 10px 30px !important;
-	margin: 0 0 10px 0;
+	padding: 5px !important;
 	/*   width: 353px; 353 + 2 + 45 = 400 */
 	border: 1px solid #ccc;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	-moz-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
+	/* -moz-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
 	-webkit-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
-	box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
+	box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff; */
 }
 
 #username {
@@ -149,15 +148,17 @@
 	margin: 25px 0 0 0;
 }
 
+#actions.login-actions{
+	margin-bottom: 44px;
+}
+
 .action-submit {
-	background-color: #ffb94b;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#fddb6f),
-		to(#ffb94b));
-	background-image: -webkit-linear-gradient(top, #fddb6f, #ffb94b);
+	background-color: #FFE94B!important;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fddb6f),to(#ffb94b));
+	background-image: -webkit-linear-gradient(top, #fddb6f, #ffb94b)!important;
 	background-image: -moz-linear-gradient(top, #fddb6f, #ffb94b);
 	background-image: -ms-linear-gradient(top, #fddb6f, #ffb94b);
 	background-image: -o-linear-gradient(top, #fddb6f, #ffb94b);
-	background-image: linear-gradient(top, #fddb6f, #ffb94b);
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -172,9 +173,10 @@
 	border-style: solid;
 	border-color: #d69e31 #e3a037 #d5982d #e3a037;
 	float: left;
-	height: 35px;
+	height: 30px!important;
 	padding: 0;
-	width: 120px;
+	width: 90px;
+	text-align:center;
 	cursor: pointer;
 	font: bold 15px Arial, Helvetica;
 	color: #8f5a0a;
@@ -211,7 +213,7 @@
 }
 
 .login-actions a {
-	color: #3151A2;
+	color: silver;
 	float: right;
 	line-height: 35px;
 	margin-left: 10px;
@@ -232,19 +234,27 @@
 
 .login-container label.user-info {
 	cursor:default;
-	height: 45px !important;
+	height: 34px !important;
 	font-size: 1.2rem;
 	color: #555555;
 }
 
 .login-container input[type="text"],.login-container input[type="password"], .login-container input[type="email"] {
-	height: 45px !important;
+	height: 34px !important;
 }
 
 #facebookfieldset, #googlefieldset{
 	margin-top : 15px!important;
+	font-size: 11px;
+	border-radius: 10px;
 }
 
+.email-signin, .zocial.google, .zocial.facebook{
+	box-shadow: 2px 2px rgb(73, 73, 73);
+	border-radius: 6px;
+	height: 30px;
+	
+}
 
 /**-------Login form CSS ends-----------------*/
 
@@ -294,6 +304,11 @@ a.zocial {
 	-webkit-border-radius: .3em;
 	border-radius: .3em;
 	width : 100%;
+	/* padding-left: 99px; */
+}
+.zocial.google,.zocial.facebook{
+	text-align:left;
+	
 }
 
 .zocial:before {
@@ -316,6 +331,9 @@ a.zocial {
 	-moz-font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
+	height:100%;
+	text-align:right;
+	padding-left:70px;
 }
 
 .zocial:active {
@@ -368,7 +386,7 @@ a.zocial {
 
 /* Button icon and color */
 /* Icon characters are stored in unicode private area */
-.zocial.google:before {content: "G";}
+.zocial.google:before {content: "g";}
 .zocial.facebook:before {content: "f";}
 /* Button background and text color */
 .zocial.facebook {background-color: #4863ae;}
