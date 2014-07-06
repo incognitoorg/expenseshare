@@ -17,6 +17,19 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 public class ExpenseEntity {
 
 	
+	@Override
+	public String toString() {
+		return "ExpenseEntity [expenseEntityId=" + expenseEntityId
+				+ ", createdBy=" + createdBy + ", editedBy=" + editedBy
+				+ ", createdAt=" + createdAt + ", editedAt=" + editedAt
+				+ ", name=" + name + ", date=" + date + ", type=" + type
+				+ ", listPayersInfo=" + listPayersInfo
+				+ ", listIncludeMemberInfo=" + listIncludeMemberInfo
+				+ ", alIOU=" + alIOU + ", objGroup=" + objGroup + ", groupId="
+				+ groupId + ", objFriendship=" + objFriendship
+				+ ", friendshipId=" + friendshipId + "]";
+	}
+	
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
