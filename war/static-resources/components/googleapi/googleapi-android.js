@@ -102,6 +102,8 @@ define(function(require){
 				if(options.callback){
 					console.log('Google response' +  JSON.stringify(resp));
 					resp.authToken = authToken;
+					var imgURLIndex = resp.picture.indexOf("?")==-1?resp.picture.length:resp.picture.indexOf("?");
+					
 					options.callback.call(options.context||this, {
 						loginType : 'google', 
 						googleId : resp.id, 
@@ -110,8 +112,7 @@ define(function(require){
 						firstName : resp.given_name,
 						lastName : resp.family_name,
 						fullName : resp.given_name + " " +resp.family_name,
-						imgUrl : resp.picture.substr(0, resp.picture.indexOf("?")) + "?sz=45" 
-						
+						imgUrl : resp.picture.substr(0, imgURLIndex) + "?sz=45" 
 					});
 				}
 			}, 

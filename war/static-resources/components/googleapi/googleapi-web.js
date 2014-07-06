@@ -52,6 +52,7 @@ define(function(require){
 				
 				gapi.client.load('oauth2', 'v2', function() {
 					gapi.client.oauth2.userinfo.get().execute(function(emailResp) {
+						var imgURLIndex = resp.image.url.indexOf("?")==-1?resp.image.url.length:resp.picture.indexOf("?");
 						console.log(resp.email);
 						if(options.callback){
 							resp.authToken = authToken;
@@ -63,7 +64,7 @@ define(function(require){
 								email : resp.email,
 								firstName : resp.name.givenName,
 								lastName : resp.name.familyName,
-								imgUrl : resp.image.url.substr(0, resp.image.url.indexOf("?")) + "?sz=45" 
+								imgUrl : resp.image.url.substr(0, imgURLIndex) + "?sz=45" 
 							});
 							hideMask();
 						}
