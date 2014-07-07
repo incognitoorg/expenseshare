@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
@@ -31,6 +32,7 @@ import com.google.appengine.datanucleus.query.JDOCursorHelper;
 @Api(name = "expenseentityendpoint")
 public class ExpenseEntityEndpoint {
 
+	private static final Logger log = Logger.getLogger(ExpenseEntityEndpoint.class.getName());
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.
@@ -92,6 +94,9 @@ public class ExpenseEntityEndpoint {
 	 * @throws Exception 
 	 */
 	public ExpenseEntity getExpenseEntity(@Named("id") String id) throws Exception {
+		
+		log.info(id);
+		
 		PersistenceManager mgr = getPersistenceManager();
 		ExpenseEntity expenseentity = null;
 		try {
@@ -480,6 +485,9 @@ public class ExpenseEntityEndpoint {
 	 * @throws Exception 
 	 */
 	public ExpenseEntity insertExpenseEntity(ExpenseEntity expenseentity) throws Exception {
+		
+		log.info(expenseentity.toString());
+		
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 /*			if (containsExpenseEntity(expenseentity)) {
@@ -557,6 +565,9 @@ public class ExpenseEntityEndpoint {
 	 * @throws Exception 
 	 */
 	public ExpenseEntity updateExpenseEntity(ExpenseEntity expenseentity) throws Exception {
+		
+		log.info(expenseentity.toString());
+		
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			ArrayList<IOU> iouToUpdate = null;
@@ -636,6 +647,9 @@ public class ExpenseEntityEndpoint {
 			path="expenseentity/deleteandupdateiou"
 			)
 	public ExpenseEntity deleteupdateiou(ExpenseEntity expenseentity) throws Exception {
+		
+		log.info(expenseentity.toString());
+		
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			if (!containsExpenseEntity(expenseentity)) {
@@ -700,6 +714,9 @@ public class ExpenseEntityEndpoint {
 	 * @throws Exception 
 	 */
 	public ExpenseEntity removeExpenseEntity(@Named("id") String id) throws Exception {
+		
+		log.info(id);
+		
 		PersistenceManager mgr = getPersistenceManager();
 		ExpenseEntity expenseentity = null;
 		try {
