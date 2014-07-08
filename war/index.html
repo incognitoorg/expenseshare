@@ -1130,6 +1130,10 @@ img.user{
 	<div class="hide-for-medium is-medium"></div>
 	<div class="hide-for-large is-desktop"></div>
 	<script>
+		function loadUser(userObj){
+			localStorage.loggedInUser=JSON.stringify(userObj);
+		}
+		
 		if (localStorage.loggedInUser) {
 			document.getElementById('landing-page').style.display = "none";
 			document.getElementById('mask').style.display = "";
