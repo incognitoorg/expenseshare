@@ -25,6 +25,16 @@
 <meta name=viewport
 	content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no' />
 <meta http-equiv=content-type content="text/html; charset=UTF-8">
+<script>
+	//TODO : This is a noop service request just to boot up the server earlier.
+	var firstIndex = location.href.indexOf('//')+2;
+	var protocolLessURL = location.href.substr(firstIndex);
+	var domain = protocolLessURL.substr(0, protocolLessURL.indexOf("/"));
+	var sc = document.createElement('script');
+	var noOpURL = "https://" + domain + '/_ah/api/userendpoint/v1/user/noop'; 
+	sc.setAttribute('src', noOpURL);
+	document.getElementsByTagName('head')[0].appendChild(sc);
+</script>
 <style>
 html,body {
 	min-height: 100%;
