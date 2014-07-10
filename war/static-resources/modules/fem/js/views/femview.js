@@ -24,7 +24,7 @@ define(function(require){
 	var componentMapper = {
 		'js-create-group'		:	{module :this.femCreateGroup, 'name' : 'Create Group'},
 		'js-edit-group'			:	{module :this.femEditGroup, 'name' : 'Edit Group'},
-		'js-new-expense'		:	{module :this.femCreateExpense, 'name' : 'Add Expense'},
+		'js-new-expense'		:	{module :this.femCreateExpense, 'name' : 'New Xpense'},
 		'js-expense-history'	:	{module :this.femEditExpense, 'name' : 'Expense History'},
 		'js-dashboard'			:	{module :this.femDashboard, 'name' : 'Dashboard'},
 		'js-profile'			:	{module :this.femProfile, 'name' : 'Profile'}
@@ -46,6 +46,7 @@ define(function(require){
 			Sandbox.subscribe('FEM:MENU:CLICK',this.showFEMComponent,this);
 			Sandbox.subscribe('FEM:DESTROY:COMPONENT',this.destroyFEMComponent,this);
 			Sandbox.subscribe('FEM:NAVIGATE',this.navigate,this);
+			Sandbox.subscribe('FEM:CURRENT_ACTION_CHANGED',this.showCurrentAction,this);
 		},
 		template : Handlebars.compile(require('text!../../templates/femtemplate.html')),
 		render : function(){
@@ -83,6 +84,9 @@ define(function(require){
 		},
 		navigate : function(url){
 			this.router.navigate(url);
+		},
+		showCurrentAction : function(label){
+			this.$('.js-currently-showing').html(label);
 		},
 		start : function(userdata){
 			var redirectURL = location.href.substr(location.href.indexOf('#'));
