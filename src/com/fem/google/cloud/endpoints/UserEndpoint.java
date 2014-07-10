@@ -585,7 +585,7 @@ public class UserEndpoint {
 			)
 	public HashMap<String, String> noOp() {
 		HashMap<String, String> noOpMap = new HashMap<String, String>();
-		noOpMap.put("status", "ok")
+		noOpMap.put("status", "ok");
 		return noOpMap;
 	}
 
