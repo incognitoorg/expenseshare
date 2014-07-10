@@ -406,8 +406,8 @@ define(function(require) {
 			this.group = response;
 		},
 		showNewExpenseForm : function(group, expense){
-			//TODO : Global variable from femview.js. If you are reading this. Go kill Vishwanath.
-			AppRouterInstance.navigate('#newexpenseform');
+				
+			var currentAction = "New Xpense";
 			
 			if(group.groupId){
 				var data = {
@@ -418,10 +418,20 @@ define(function(require) {
 						loaderContainer : this.$('.groups-container')
 				};
 				this.groupDataObtained = Sandbox.doGet(data);
+				currentAction += " in " + group.groupName + " group";
+				//TODO : Global variable from femview.js. If you are reading this. Go kill Vishwanath.
+				AppRouterInstance.navigate('#newexpenseform/group');
+
 			} else {
+				currentAction += " with "
+				for(var index in group.members){
+					currentAction += ((group.members[index].firstName || group.members[index].fullName) + ", "); 
+				}
 				this.groupDataObtained = $.Deferred();
 				this.groupDataObtained.resolve();
+				AppRouterInstance.navigate('#newexpenseform/withoutgroup');
 			}
+			Sandbox.publish('FEM:CURRENT_ACTION_CHANGED', currentAction);
 			this.group = group;
 			
 		    var self = this;
