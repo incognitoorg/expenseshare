@@ -42,6 +42,28 @@ html,body {
 	overflow-y: hidden;
 }
 
+input[type='text'],input[type='tel']  {
+	/* You can set width to whatever you like */
+   /* width: 200px;
+	font-family: "Roboto", "Droid Sans", sans-serif;
+	font-size: 16px;*/
+	padding: 8px 8px 6px 8px!important;
+	position: relative!important;
+	display: block!important;
+	outline: none!important;
+	border: none!important;
+	background: bottom left linear-gradient(#a9a9a9, #a9a9a9) no-repeat, bottom center linear-gradient(#a9a9a9, #a9a9a9) repeat-x, bottom right linear-gradient(#a9a9a9, #a9a9a9) no-repeat!important;
+	background-size: 1px 6px, 1px 1px, 1px 6px!important;
+}
+input[type='text']:hover, input[type='text']:focus, input[type='tel']:hover, input[type='tel']:focus {
+	background: bottom left linear-gradient(#0099cc, #0099cc) no-repeat, bottom center linear-gradient(#0099cc, #0099cc) repeat-x, bottom right linear-gradient(#0099cc, #0099cc) no-repeat!important;
+	background-size: 1px 6px, 1px 1px, 1px 6px!important;	
+	border:0px!important;
+	-webkit-box-shadow:none!important;
+	box-shadow:none!important;
+} 
+
+
 #landing-page{
 	overflow-y:scroll;
 	height:100%;
