@@ -96,15 +96,13 @@ div.expense:nth-child(2n){
 }
 
 .expense-share {
-	position: absolute;
-	top: 14px;
 }
 
-.js-expense-li .expense-share>.transaction-type.borrowed{
+.js-expense-li .transaction-type.borrowed{
 	color: rgb(255, 0, 0);
 }
 
-.js-expense-li .expense-share>.transaction-type.lent{
+.js-expense-li .transaction-type.lent{
 	color: rgb(90, 184, 37);
 }
 
@@ -115,17 +113,14 @@ div.expense:nth-child(2n){
 	text-align: center;
 	display: block;
 	border: 3px solid #fff;
-	position: absolute;
-	left: 100px;
-	top: -20px;
 }
 
-.js-expense-li .expense-share>.transaction-amount.borrowed{
+.js-expense-li .transaction-amount.borrowed{
 	background: rgb(255, 0, 0);
 	color: white;
 }
 
-.js-expense-li .expense-share>.transaction-amount.lent{
+.js-expense-li .transaction-amount.lent{
 	background: rgb(90, 184, 37);
 	color: white;
 }
@@ -144,7 +139,7 @@ div.expense:nth-child(2n){
 .delete-expense{
 	float:right;
 	position: absolute;
-	right: -20px;
+	right: 0px;
 	top: 12px;
 }
 }
