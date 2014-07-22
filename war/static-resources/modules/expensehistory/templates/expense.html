@@ -43,9 +43,11 @@
 								<div class="small-12 large-6 columns">
 									<span class=expense-name>{{name}}</span>
 								</div>
+								{{#if group.groupName}}
 								<div class="small-8 large-4 columns" style="float:left;">
 									<span class="expense-group" style="height:20px;">Group: {{group.groupName}}</span>
 								</div>
+								{{/if}}
 							</div>
 							<div class="row" style="padding-top: 10px;">
 								<div class="large-12 small-12 columns">{{whoPaid}} paid {{totalAmountPaid}}</div>
