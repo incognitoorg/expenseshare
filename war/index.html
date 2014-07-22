@@ -25,12 +25,45 @@
 <meta name=viewport
 	content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no' />
 <meta http-equiv=content-type content="text/html; charset=UTF-8">
+<script>
+	//TODO : This is a noop service request just to boot up the server earlier.
+	var firstIndex = location.href.indexOf('//')+2;
+	var protocolLessURL = location.href.substr(firstIndex);
+	var domain = protocolLessURL.substr(0, protocolLessURL.indexOf("/"));
+	var sc = document.createElement('script');
+	var noOpURL = "https://" + domain + '/_ah/api/userendpoint/v1/user/noop'; 
+	sc.setAttribute('src', noOpURL);
+	document.getElementsByTagName('head')[0].appendChild(sc);
+</script>
 <style>
 html,body{
 	min-height: 100%;
 	height: 100%; 
 	overflow-y: hidden;
 }
+
+input[type='text'],input[type='tel']  {
+	/* You can set width to whatever you like */
+   /* width: 200px;
+	font-family: "Roboto", "Droid Sans", sans-serif;
+	font-size: 16px;*/
+	padding: 8px 8px 6px 8px!important;
+	position: relative!important;
+	display: block!important;
+	outline: none!important;
+	border: none!important;
+	background: bottom left linear-gradient(#a9a9a9, #a9a9a9) no-repeat, bottom center linear-gradient(#a9a9a9, #a9a9a9) repeat-x, bottom right linear-gradient(#a9a9a9, #a9a9a9) no-repeat!important;
+	background-size: 1px 6px, 1px 1px, 1px 6px!important;
+	-webkit-box-shadow:none!important;
+	box-shadow:none!important;
+}
+input[type='text']:hover, input[type='text']:focus, input[type='tel']:hover, input[type='tel']:focus {
+	background: bottom left linear-gradient(#0099cc, #0099cc) no-repeat, bottom center linear-gradient(#0099cc, #0099cc) repeat-x, bottom right linear-gradient(#0099cc, #0099cc) no-repeat!important;
+	background-size: 1px 6px, 1px 1px, 1px 6px!important;	
+	border:0px!important;
+	-webkit-box-shadow:none!important;
+	box-shadow:none!important;
+} 
 
 #landing-page{
 	overflow-y:scroll;
@@ -58,7 +91,7 @@ html,body{
 	font-size: 20px;
 	line-height: 432px;
 	background:
-		url("static-resources/components/login/css/images/loader.gif")
+		url("/static-resources/components/login/css/images/loader.gif")
 		no-repeat;
 	height: 432px;
 	background-position: 50% 43%;
@@ -68,7 +101,7 @@ html,body{
 
 .ui-autocomplete-loading {
 	background:
-		url("static-resources/components/login/css/images/loader.gif")
+		url("/static-resources/components/login/css/images/loader.gif")
 		no-repeat right center !important;
 }
 
@@ -125,6 +158,7 @@ header {
 	position: relative;
 	background: #F4985A;
 	margin-bottom: 0;
+	
 }
 
 .top-bar ul {
@@ -403,11 +437,23 @@ header {
 	top: 0;
 	z-index: 1;
 	width: 100%;
+	border-bottom: 2px solid rgb(213, 94, 94);
+}
+
+#top-nav-bar,.sign-up-link-container{
+	background: #F4985A;
+	background: -moz-linear-gradient(top, #F4985A 40%, #BB682F 66%, #BB682F 54%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,#997862), color-stop(66%,#BB682F), color-stop(54%,#BB682F));
+	background: -webkit-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -o-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -ms-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: linear-gradient(to bottom, #997862 40%,#BB682F 66%,#BB682F 54%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#997862', endColorstr='#BB682F',GradientType=0 );
 }
 
 @media only screen and (min-width:40.063em) {
 	.top-bar {
-		background: #F4985A;
+		background: #997862;
 		*zoom: 1;
 		overflow: visible;
 	}
@@ -547,15 +593,15 @@ a:not
 }
 
 #appcontainer,#landing-page,.brown-bar {
-	background: #4A4A4D;
-	background: -moz-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
+	background: #A2A2A2;
+	background: -moz-radial-gradient(center, ellipse cover, #A2A2A2 0%, #3D3D3D 100%);
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%,
 		color-stop(0%, #000000), color-stop(100%, #3D3D3D));
-	background: -webkit-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
-	background: -o-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
-	background: -ms-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
-	background: radial-gradient(ellipse at center, #4A4A4D 0%, #3D3D3D 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A4A4D',
+	background: -webkit-radial-gradient(center, ellipse cover, #A2A2A2 0%, #3D3D3D 100%);
+	background: -o-radial-gradient(center, ellipse cover, #A2A2A2 0%, #3D3D3D 100%);
+	background: -ms-radial-gradient(center, ellipse cover, #A2A2A2 0%, #3D3D3D 100%);
+	background: radial-gradient(ellipse at center, #A2A2A2 0%, #3D3D3D 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A2A2A2',
 		endColorstr='#3D3D3D', GradientType=1);
 }
 
@@ -588,9 +634,8 @@ header .row {
 }
 
 .login-container {
-	background-color: #ffffff;
 	color: #757575;
-	border: 1px solid #ffffff;
+	/* border: 1px solid #ffffff; */
 	border-radius: 3px;
 }
 
@@ -831,37 +876,71 @@ a {
 	float: left;
 	margin-left: 10px;
 }
+img.user{
+	border-radius : 50px;
+}
+
+#js-login-anchor:hover{
+	border-bottom-right-radius: 0px!important;
+	border-bottom-left-radius: 0px!important;
+}
+
+.app-name-first{
+	font-size:40px;
+}
+.app-name-last{
+	font-size:20px;
+	margin-left:-2px;
+}
+
+.home-link{
+	padding-top:10px!important;
+	font-size:20px;
+	font-family:Aerial;
+}
+.home-link::after{
+	clear: both;
+	display: inline-block;
+}
+
+.home-link>span{
+	float:left;
+}
+
+
+
 </style>
 <link rel=stylesheet
-	href="static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
+	href="/static-resources/libraries/foundation/5.0.2/css/foundation.min.css">
 <link rel=stylesheet
-	href="static-resources/libraries/foundation/4.0/css/foundation-icons.css">
-<link rel=stylesheet href="static-resources/plugins/cssmodal/modal.css">
+	href="/static-resources/libraries/foundation/4.0/css/foundation-icons.css">
+<link rel=stylesheet href="/static-resources/plugins/cssmodal/modal.css">
 <link rel=stylesheet
-	href='static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css'
+	href='/static-resources/modules/fem/css/fonts/daniel/daniel_regular_macroman/stylesheet.css'
 	type='text/css'>
 <link rel=stylesheet
-	href="static-resources/components/login/css/login.css">
+	href="/static-resources/components/login/css/login.css">
 <link rel=stylesheet
-	href='static-resources/modules/fem/css/fonts/universalfruitcake/stylesheet.css'
+	href='/static-resources/modules/fem/css/fonts/universalfruitcake/stylesheet.css'
 	type='text/css'>
 <link rel=stylesheet
-	href='static-resources/modules/fem/css/fonts/aller/fonts.css'
+	href='/static-resources/modules/fem/css/fonts/aller/fonts.css'
 	type='text/css'>
 </head>
 <body style="font-family: allerregular">
 	<div class=hide-for-small style="height: 45px;position: fixed;width: 100%;z-index: 100;">
-		<nav class="top-bar " data-topbar="" id=top-nav-bar>
+		<nav class="top-bar custom" data-topbar="" id=top-nav-bar>
 			<ul class=title-area>
 				<li class=name>
 					<h1>
-						<a href="/">XpenseShare</a>
+						<a class="home-link" href="/" style="line-height: 22px;padding-left: 100px;"><span class="app-name-first">X</span><span class="app-name-last">penseShare</span></a>
 					</h1>
 				</li>
 			</ul>
 			<section class=top-bar-section>
-				<ul class=right>
-					<li class="has-dropdown not-click"><a id=js-login-anchor><span
+				<ul class="right"  style="background: transparent;">
+					<li class="has-dropdown not-click" style="background: transparent;">
+					<a id=js-login-anchor style="border-radius:22px;"><span
 							id=js-login-link style=""></span><span id=js-user-link
 							style="dispaly: none;"></span></a>
 						<ul id=login-dropdown-menu class=dropdown style="display: none;">
@@ -937,8 +1016,7 @@ a {
 						<div class="large-10 small-12 columns">
 							<button class="sign-up-link sign-up-link-container"
 								id=js-sign-up-link-phone>Sign in for free</button>
-							<span style="font-size: 20px; display: block; margin-top: 10px;">No
-								signup required.</span>
+							<span style="font-size: 20px; display: block; margin-top: 10px;"></span>
 						</div>
 					</div>
 					<div class=row>
@@ -964,8 +1042,7 @@ a {
 						<div class="large-10 small-12 columns ">
 							<button class="sign-up-link sign-up-link-container"
 								id=js-sign-up-link>Sign in for free</button>
-							<span style="font-size: 20px; display: block; margin-top: 10px;">No
-								signup required.</span>
+							<span style="font-size: 20px; display: block; margin-top: 10px;"></span>
 						</div>
 					</div>
 					<!-- <div class=row>
@@ -1086,6 +1163,10 @@ a {
 	<div class="hide-for-medium is-medium"></div>
 	<div class="hide-for-large is-desktop"></div>
 	<script>
+		function loadUser(userObj){
+			localStorage.loggedInUser=JSON.stringify(userObj);
+		}
+		
 		if (localStorage.loggedInUser) {
 			document.getElementById('landing-page').style.display = "none";
 			document.getElementById('mask').style.display = "";
@@ -1162,11 +1243,9 @@ a {
 		var userInfo = localStorage.getItem('loggedInUser');
 		if (userInfo && JSON.parse(userInfo)) {
 			this.userInfo = JSON.parse(userInfo);
-			document.getElementById('logincontainer').setAttribute('style',
-					'display:none;');
 			document.getElementById("js-user-link").setAttribute('style',
 					'display:"";');
-			document.getElementById("js-user-link").innerHTML = userInfo.fullName;
+			document.getElementById("js-user-link").innerHTML = "<span class='user-name'>"+ userInfo.fullName +"</span>";
 			document.getElementById("login-dropdown-menu").setAttribute(
 					'style', 'display:"";');
 			document.getElementById("js-login-link").setAttribute('style',
@@ -1183,7 +1262,7 @@ a {
 		}
 	</script>
 	<script src=boilerplate.js></script>
-	<script src="static-resources/libraries/require/require.js"></script>
+	<script src="/static-resources/libraries/require/require.js"></script>
 	<script>
 		
 	</script>

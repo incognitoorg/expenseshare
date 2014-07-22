@@ -25,6 +25,16 @@
 <meta name=viewport
 	content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no' />
 <meta http-equiv=content-type content="text/html; charset=UTF-8">
+<script>
+	//TODO : This is a noop service request just to boot up the server earlier.
+	var firstIndex = location.href.indexOf('//')+2;
+	var protocolLessURL = location.href.substr(firstIndex);
+	var domain = protocolLessURL.substr(0, protocolLessURL.indexOf("/"));
+	var sc = document.createElement('script');
+	var noOpURL = "https://" + domain + '/_ah/api/userendpoint/v1/user/noop'; 
+	sc.setAttribute('src', noOpURL);
+	document.getElementsByTagName('head')[0].appendChild(sc);
+</script>
 <style>
 html,body {
 	min-height: 100%;
@@ -32,9 +42,33 @@ html,body {
 	overflow-y: hidden;
 }
 
-div.full {
-	min-height: 100%;
-	max-height: 100%;
+input[type='text'],input[type='tel']  {
+	/* You can set width to whatever you like */
+   /* width: 200px;
+	font-family: "Roboto", "Droid Sans", sans-serif;
+	font-size: 16px;*/
+	padding: 8px 8px 6px 8px!important;
+	position: relative!important;
+	display: block!important;
+	outline: none!important;
+	border: none!important;
+	background: bottom left linear-gradient(#a9a9a9, #a9a9a9) no-repeat, bottom center linear-gradient(#a9a9a9, #a9a9a9) repeat-x, bottom right linear-gradient(#a9a9a9, #a9a9a9) no-repeat!important;
+	background-size: 1px 6px, 1px 1px, 1px 6px!important;
+	-webkit-box-shadow:none!important;
+	box-shadow:none!important;
+}
+input[type='text']:hover, input[type='text']:focus, input[type='tel']:hover, input[type='tel']:focus {
+	background: bottom left linear-gradient(#0099cc, #0099cc) no-repeat, bottom center linear-gradient(#0099cc, #0099cc) repeat-x, bottom right linear-gradient(#0099cc, #0099cc) no-repeat!important;
+	background-size: 1px 6px, 1px 1px, 1px 6px!important;	
+	border:0px!important;
+	-webkit-box-shadow:none!important;
+	box-shadow:none!important;
+} 
+
+
+#landing-page{
+	overflow-y:scroll;
+	height:100%;
 }
 
 ::selection {
@@ -403,11 +437,20 @@ header {
 	top: 0;
 	z-index: 1;
 	width: 100%;
+	background: #F4985A;
+	background: -moz-linear-gradient(top, #F4985A 40%, #BB682F 66%, #BB682F 54%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,#997862), color-stop(66%,#BB682F), color-stop(54%,#BB682F));
+	background: -webkit-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -o-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: -ms-linear-gradient(top, #997862 40%,#BB682F 66%,#BB682F 54%);
+	background: linear-gradient(to bottom, #997862 40%,#BB682F 66%,#BB682F 54%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#997862', endColorstr='#BB682F',GradientType=0 );
+	border-bottom: 2px solid rgb(213, 94, 94);
 }
 
 @media only screen and (min-width:40.063em) {
 	.top-bar {
-		background: #F4985A;
+		background: #997862;
 		*zoom: 1;
 		overflow: visible;
 	}
@@ -546,16 +589,16 @@ a:not
 	}
 }
 
-#appcontainer,#landing-page {
-	background: #757575;
-	background: -moz-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
+#appcontainer,#landing-page,.brown-bar {
+	background: #4A4A4D;
+	background: -moz-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%,
 		color-stop(0%, #000000), color-stop(100%, #3D3D3D));
-	background: -webkit-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
-	background: -o-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
-	background: -ms-radial-gradient(center, ellipse cover, #757575 0%, #3D3D3D 100%);
-	background: radial-gradient(ellipse at center, #757575 0%, #3D3D3D 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#757575',
+	background: -webkit-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
+	background: -o-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
+	background: -ms-radial-gradient(center, ellipse cover, #4A4A4D 0%, #3D3D3D 100%);
+	background: radial-gradient(ellipse at center, #4A4A4D 0%, #3D3D3D 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A4A4D',
 		endColorstr='#3D3D3D', GradientType=1);
 }
 
@@ -608,6 +651,7 @@ header .row {
 	min-height: 270px;
 	padding-top: 6%;
 	border-bottom: 2px solid #82AFD7;
+	padding-bottom: 50px;
 }
 
 .product-tagline-container {
@@ -666,6 +710,14 @@ header .row {
 	margin-bottom: 30px;
 	margin-top: 30px;
 }
+#landing-page-wrapper{
+	height:100%;
+}
+@media only screen and (min-width:40.063em) {
+	#landing-page-wrapper{
+		padding-top:45px;
+	}
+}
 
 @media only screen and (min-width:40.063em) {
 	.devices-image {
@@ -685,6 +737,42 @@ header .row {
 
 .small-screen-message .product-message {
 	font-size: 20px;
+}
+
+.groups {
+	background: url("iconmonstr-user-14-icon.svg");
+}
+.social {
+	background: url("iconmonstr-facebook-4-icon-256.png");
+}
+.collaboration {
+	background: url("collaboration-512.png");
+}
+
+.feature-icon {
+	height: 50px;
+	width: 50px;
+	background-size: 100% 100%;
+	margin:auto;
+}
+
+.features-bar p{
+	line-height: 22px;
+}
+
+.features-bar {
+	background: #deefff;
+	background: -moz-radial-gradient(center, ellipse cover, #deefff 0%, #CCCCCC 0%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%,
+		color-stop(0%, #deefff), color-stop(0%, #CCCCCC));
+	background: -webkit-radial-gradient(center, ellipse cover, #deefff 0%, #CCCCCC 0%);
+	background: -o-radial-gradient(center, ellipse cover, #deefff 0%, #CCCCCC 0%);
+	background: -ms-radial-gradient(center, ellipse cover, #deefff 0%, #CCCCCC 0%);
+	background: radial-gradient(ellipse at center, #deefff 0%, #CCCCCC 0%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#deefff',
+		endColorstr='#CCCCCC', GradientType=1);
+	color: black;
+	padding: 38px;
 }
 
 #loginform {
@@ -711,6 +799,19 @@ header .row {
 	padding-right: 20px;
 }
 
+.fade-effect{
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #4A4A4D);
+    background-image:    -moz-linear-gradient(rgba(255, 255, 255, 0), #4A4A4D);
+    background-image:     -ms-linear-gradient(rgba(255, 255, 255, 0), #4A4A4D);
+    background-image:      -o-linear-gradient(rgba(255, 255, 255, 0), #4A4A4D);
+    background-image:         linear-gradient(rgba(255, 255, 255, 0), #4A4A4D);
+    bottom: 0;
+    left: 0;
+    height: 50px; /* Whatever suits you */
+    position: fixed;
+    right: 0;
+}
+
 .first-timer-message {
 	font-family: universal_fruitcakeregular;
 	font-size: 16px;
@@ -722,6 +823,38 @@ header .row {
 .sign-up-link-container{
 	font-size : 16px;
 }
+
+img.user{
+	border-radius : 50px;
+}
+
+#js-login-anchor:hover{
+	border-bottom-right-radius: 0px!important;
+	border-bottom-left-radius: 0px!important;
+}
+
+.app-name-first{
+	font-size:40px;
+}
+.app-name-last{
+	font-size:20px;
+	margin-left:-2px;
+}
+
+.home-link{
+	padding-top:10px!important;
+	font-size:20px;
+	font-family:Aerial;
+}
+.home-link::after{
+	clear: both;
+	display: inline-block;
+}
+
+.home-link>span{
+	float:left;
+}
+
 
 </style>
 
@@ -735,23 +868,30 @@ header .row {
 	type='text/css'>
 <link rel=stylesheet
 	href="static-resources/components/login/css/login.css">
+<link rel=stylesheet
+	href='static-resources/modules/fem/css/fonts/universalfruitcake/stylesheet.css'
+	type='text/css'>
+<link rel=stylesheet
+	href='static-resources/modules/fem/css/fonts/aller/fonts.css'
+	type='text/css'>
 </head>
 
 <script type="text/javascript" src=cordova.js></script>
 <script type="text/javascript" src=plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js></script>
 <body style="font-family: allerregular">
-	<div class=hide-for-small style="height: 45px">
-		<nav class="top-bar " data-topbar="" id=top-nav-bar>
+	<div class=hide-for-small style="height: 45px;position: fixed;width: 100%;z-index: 100;">
+		<nav class="top-bar custom" data-topbar="" id=top-nav-bar>
 			<ul class=title-area>
 				<li class=name>
 					<h1>
-						<a href="/">XpenseShare</a>
+						<a class="home-link" href="/" style="line-height: 22px;padding-left: 100px;"><span class="app-name-first">X</span><span class="app-name-last">penseShare</span></a>
 					</h1>
 				</li>
 			</ul>
 			<section class=top-bar-section>
-				<ul class=right>
-					<li class="has-dropdown not-click"><a id=js-login-anchor><span
+				<ul class="right"  style="background: transparent;">
+					<li class="has-dropdown not-click" style="background: transparent;">
+					<a id=js-login-anchor style="border-radius:22px;"><span
 							id=js-login-link style=""></span><span id=js-user-link
 							style="dispaly: none;"></span></a>
 						<ul id=login-dropdown-menu class=dropdown style="display: none;">
@@ -764,132 +904,190 @@ header .row {
 			</section>
 		</nav>
 	</div>
-	<div class="large-12 small-12 columns landing-page-container full hide"
-		id=landing-page style="display: none;">
-		<div class=row>
-			<div
-				class="small-12 large-12 columns message-container hide-for-small">
-				<div class=row>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
-					<div class="small-12 large-10 columns">
-						<span class=product-message>Streamline your expense
-							tracking & settlement</span>
-					</div>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
+	
+	
+	<div class="landing-page-wrapper" id="landing-page-wrapper"  >
+	
+	<div id=landing-page style="">
+	
+	<div
+		class="large-12 small-12 columns landing-page-container brown-bar full"
+		>
+		<div
+			class="small-12 large-12 columns message-container hide-for-small">
+			<div class=row>
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
+				<div class="small-12 large-10 columns">
+					<span class=product-message>Streamline your expense tracking
+						& settlement</span>
 				</div>
-				<div class=row>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
-					<div class="small-6 large-3 columns">&nbsp;</div>
-					<div class="small-6 large-7 columns">
-						<span class=product-message>and forget keeping mental
-							notes.</span>
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
+			</div>
+			<div class=row>
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
+				<div class="small-6 large-3 columns">&nbsp;</div>
+				<div class="small-6 large-7 columns">
+					<span class=product-message>and forget keeping mental notes.</span>
+				</div>
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
+			</div>
+		</div>
+		<div class="hide-for-medium-up small-screen-message">
+			<div class=row>
+				<div class="small-12 columns text-center product-message">Streamline
+					your expense</div>
+			</div>
+			<div class=row>
+				<div class="small-12 columns text-center product-message">tracking
+					& settlement and</div>
+			</div>
+			<div class=row>
+				<div class="small-12 columns text-center product-message">forget
+					keeping mental notes.</div>
+			</div>
+		</div>
+		<div class="small-12 large-12 columns image-tagline-container">
+			<div class=row>
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
+				<div
+					class="small-12 large-6 columns devices-image-container text-center">
+					<span class=devices-image></span>
+				</div>
+				<div
+					class="small-12 large-5 columns product-tagline-container  text-center hide-for-medium-up">
+					<div class="row product-tagline">
+						<span class="large-6 small-8 small-centered product-message">Use
+							It...</span>
 					</div>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
+					<div class="row product-tagline">
+						<span class="large-6 small-8 small-centered product-message">Settle
+							with ease</span>
+					</div>
+					<div class=row>
+						<div class="large-10 small-12 columns">
+							<button class="sign-up-link sign-up-link-container"
+								id=js-sign-up-link-phone>Sign in for free</button>
+							<span style="font-size: 20px; display: block; margin-top: 10px;">No
+								signup required.</span>
+						</div>
+					</div>
+					<div class=row>
+						<div class="large-10 small-12 columns">
+							<a href="https://play.google.com/store/apps/details?id=com.incognito.xpenseshare" target="_blank">
+							  <img alt="Get it on Google Play"
+							       src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+							</a>
+						</div>
+					</div>
+				</div>
+				<div
+					class="small-12 large-5 columns product-tagline-container hide-for-small">
+					<div class="row product-tagline">
+						<span class="large-6 small-8 small-centered product-message">Use
+							It...</span>
+					</div>
+					<div class="row product-tagline">
+						<span class="large-6 small-8 small-centered product-message">Settle
+							with ease</span>
+					</div>
+					<div class=row>
+						<div class="large-10 small-12 columns ">
+							<button class="sign-up-link sign-up-link-container"
+								id=js-sign-up-link>Sign in for free</button>
+							<span style="font-size: 20px; display: block; margin-top: 10px;">No
+								signup required.</span>
+						</div>
+					</div>
+					<!-- <div class=row>
+						<div class="large-10 small-12 columns">
+							<a href="https://play.google.com/store/apps/details?id=com.incognito.xpenseshare" target="_blank">
+							  <img alt="Get it on Google Play"
+							       src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+							</a>
+						</div>
+					</div> -->
+				</div>
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
+			</div>
+		</div>
+		<div class=hide-for-small style="margin-top: 200px"></div>
+		<div class="small-12 large-12 columns product-features-container">
+			<div class=row>
+				<div class="small-12 large-6 columns">
+					<span>- Use your social connections to login and add
+						friends.</span>
+				</div>
+				<div class="small-12 large-6 columns">
+					<span>- Create groups to manage shared expenses.</span>
 				</div>
 			</div>
-			<div class="hide-for-medium-up small-screen-message">
-				<div class=row>
-					<div class="small-12 columns text-center product-message">Streamline
-						your expense</div>
+			<div class=row>
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
+				<div class="small-12 large-6 columns">
+					<span>- Share expenses among multiple benificiaries or
+						receivers.</span>
 				</div>
-				<div class=row>
-					<div class="small-12 columns text-center product-message">tracking
-						& settlement and</div>
+				<div class="small-12 large-4 columns">
+					<span>- Varied options to split expenses.</span>
 				</div>
-				<div class=row>
-					<div class="small-12 columns text-center product-message">forget
-						keeping mental notes.</div>
-				</div>
-			</div>
-			<div class="small-12 large-12 columns image-tagline-container">
-				<div class=row>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
-					<div
-						class="small-12 large-6 columns devices-image-container text-center">
-						<span class=devices-image></span>
-					</div>
-					<div
-						class="small-12 large-5 columns product-tagline-container  text-center hide-for-medium-up">
-						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Use
-								It...</span>
-						</div>
-						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Settle
-								with ease</span>
-						</div>
-						<div class=row>
-							<div class="large-10 small-12 ">
-								<button class="sign-up-link sign-up-link-container"
-									id=js-sign-up-link-phone>Sign in for free</button>
-								<span style="font-size: 20px; display: block; margin-top: 10px;">No
-									signup required.</span>
-							</div>
-						</div>
-					</div>
-					<div
-						class="small-12 large-5 columns product-tagline-container hide-for-small">
-						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Use
-								It...</span>
-						</div>
-						<div class="row product-tagline">
-							<span class="large-6 small-8 small-centered product-message">Settle
-								with ease</span>
-						</div>
-						<div class=row>
-							<div class="large-10 small-12 ">
-								<button class="sign-up-link sign-up-link-container"
-									id=js-sign-up-link>Sign in for free</button>
-								<span style="font-size: 20px; display: block; margin-top: 10px;">No
-									signup required.</span>
-							</div>
-						</div>
-					</div>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
-				</div>
-			</div>
-			<div class=hide-for-small style="margin-top: 200px"></div>
-			<div class="small-12 large-12 columns product-features-container">
-				<div class=row>
-					<div class="small-12 large-6 columns">
-						<span>- Use your social connections to login and add
-							friends.</span>
-					</div>
-					<div class="small-12 large-6 columns">
-						<span>- Create groups to manage shared expenses.</span>
-					</div>
-				</div>
-				<div class=row>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
-					<div class="small-12 large-6 columns">
-						<span>- Share expenses among multiple benificiaries or
-							receivers.</span>
-					</div>
-					<div class="small-12 large-4 columns">
-						<span>- Varied options to split expenses.</span>
-					</div>
-					<div class="hide-for-small large-1 columns">&nbsp;</div>
-				</div>
-				<!-- <div class=row>
-					<div class="hide-for-small large-2 columns">&nbsp;</div>
-					<div class="small-12 large-8 columns">
-						<span>- Filter expenses on benificiary, expense type and
-							group.</span>
-					</div>
-					<div class="hide-for-small large-2 columns">&nbsp;</div>
-				</div>
-				<div class=row>
-					<div class="hide-for-small large-2 columns">&nbsp;</div>
-					<div class="small-12 large-8 columns">
-						<span>- Available in Android</span>
-					</div>
-					<div class="hide-for-small large-2 columns">&nbsp;</div>
-				</div> -->
+				<div class="hide-for-small large-1 columns">&nbsp;</div>
 			</div>
 		</div>
 	</div>
+	<div class="large-12 columns features-bar">
+		<div class="row text-center">
+			<div class="columns small-12 large-4">
+				<div class="groups feature-icon"></div>
+				<h3>Groups</h3>
+				<p>Create groups with friends, Collegues or family members.
+					Manage multiple groups to monitor your shared expenses effectively.</p>
+			</div>
+			<div class="columns small-12 large-4">
+				<div class="collaboration feature-icon"></div>
+				<h3>Collaboration</h3>
+				<p>Add expenses, let others review and edit if necessary. Super
+					simple interaction for effectively dividing expenses between
+					friends as you see fit.</p>
+			</div>
+			<div class="columns small-12 large-4">
+				<div class="social feature-icon"></div>
+				<h3>Social</h3>
+				<p>Use your social login and add friends. Save yourself trouble
+					of remembering a new password or getting your friend email.</p>
+			</div>
+		</div>
+	</div>
+	<div
+		class="large-12 columns zurb-footer-bottom hide-for-small xpenseshare-footer brown-bar">
+		<div class=>
+			<div class="medium-4 medium-4 push-8 columns">
+				<ul class=home-social>
+					<li><a href="https://twitter.com/xpenseshare" target=_blank
+						class=twitter></a></li>
+					<li><a href="https://www.facebook.com/xpenseshare"
+						target=_blank class=facebook></a></li>
+					<li><a href="mailto:admin@xpenseshare.com" target=_blank
+						class=mail></a></li>
+				</ul>
+			</div>
+			<div class="medium-8 medium-8 pull-4 columns">
+				<a href="http://www.zurb.com" class="zurb-logo regular"></a>
+				<ul class=zurb-links>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">Sitemap</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="fade-effect"></div>
+	</div>
+	
+	
+	
 	<script>
+		
 		var initializationComplete = false;
 		if (!localStorage.loggedInUser) {
 			document.getElementById('landing-page').style.display = "";
@@ -903,51 +1101,23 @@ header .row {
 		}
 		document.getElementById('js-sign-up-link').onclick = showLogin;
 		document.getElementById('js-sign-up-link-phone').onclick = showLogin;
+		
 	</script>
 	<div class=mask id=mask style="height: 100%; display: none;">
 		<span>Initializing App...</span>
 	</div>
-	<link rel=stylesheet
-	href='static-resources/modules/fem/css/fonts/universalfruitcake/stylesheet.css'
-	type='text/css'>
+	
 	<div id=appcontainer style="display: none;">
 		<div class=bootloader>
 			<div class=js-fem-container style="display: none;"></div>
-			<div class=js-login-container style="display: none;">
-				<div class=row id=logincontainer>
-					<form class="small-12 large-12 columns" id=loginform>
-						<div class=app-name>XpenseShare</div>
-						<hr style="margin: 20px;">
-						<div class=row>
-							<div class="small-12 large-6 columns large-centered">
-								<div id=facebookfieldset>
-									<a class="zocial facebook button"
-										style="line-height: 50px; font-size: 24px;margin-bottom: 0px;"><span style="font-size: 18px">Sign in with
-										Facebook</span></a>
-								</div>
-							</div>
-						</div>
-						<div class=row>
-							<div class="small-12 large-6 columns large-centered">
-								<div id=googlefieldset>
-									<a class="zocial google button"
-										style="line-height: 50px; font-size: 24px;"><span style="font-size: 18px;">Sign in with
-										Google</span></a>
-								</div>
-							</div>
-						</div>
-					</form>
-					<div class="large-3 columns">&nbsp;</div>
-				</div>
-			</div>
+			<div class=js-login-container style="display: none;"></div>
 		</div>
+	</div>
 	</div>
 	<div class="hide-for-small is-mobile"></div>
 	<div class="hide-for-medium is-medium"></div>
 	<div class="hide-for-large is-desktop"></div>
 	<script>
-		
-		
 		if (localStorage.loggedInUser) {
 			document.getElementById('landing-page').style.display = "none";
 			document.getElementById('mask').style.display = "";
@@ -992,7 +1162,6 @@ header .row {
 				};
 			}
 		}("production");
-		console.log("EnvVariablesGlobal.GOOGLE_API_SCOPE : " + EnvVariablesGlobal.GOOGLE_API_SCOPE);
 		function showMask(textToShow) {
 			var mask = document.getElementById('mask')
 			mask.style['z-index'] = 32767;
@@ -1011,21 +1180,28 @@ header .row {
 		var userInfo = localStorage.getItem('loggedInUser');
 		if (userInfo && JSON.parse(userInfo)) {
 			this.userInfo = JSON.parse(userInfo);
-			document.getElementById('logincontainer').setAttribute('style',
-					'display:none;');
 			document.getElementById("js-user-link").setAttribute('style',
 					'display:"";');
-			document.getElementById("js-user-link").innerHTML = userInfo.fullName;
+			document.getElementById("js-user-link").innerHTML = "<span class='user-name'>"+ userInfo.fullName +"</span>";
 			document.getElementById("login-dropdown-menu").setAttribute(
 					'style', 'display:"";');
 			document.getElementById("js-login-link").setAttribute('style',
 					'display:none;');
 		}
+		
+		/**
+		 * Determine whether the file loaded from PhoneGap or not
+		 */
+		function isPhoneGap() {
+		    return (cordova || PhoneGap || phonegap) 
+		    && /^file:\/{3}[^\/]/i.test(window.location.href) 
+		    && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+		}
 	</script>
 	<script src=boilerplate.js></script>
 	<script src="static-resources/libraries/require/require.js"></script>
 	<section class=semantic-content id=modal-text tabindex=-1 role=dialog
-		aria-labelledby=modal-label aria-hidden=true>
+		aria-labelledby=modal-label aria-hidden=true style="z-index:32768;">
 		<div class=modal-inner style="height: 200px;">
 			Oops, some error occured at server. Be assured that we have already
 			noted the eror down and looking into it. You can <a

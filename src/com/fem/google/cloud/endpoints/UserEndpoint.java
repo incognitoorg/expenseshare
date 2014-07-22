@@ -576,6 +576,18 @@ public class UserEndpoint {
 		 */
 		return execute;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@ApiMethod(
+			httpMethod = "GET", 
+			name = "user.noop",
+			path="user/noop"
+			)
+	public HashMap<String, String> noOp() {
+		HashMap<String, String> noOpMap = new HashMap<String, String>();
+		noOpMap.put("status", "ok");
+		return noOpMap;
+	}
 
 }
 
