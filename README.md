@@ -1,4 +1,4 @@
 Expense Share 
 ===
 
-Share you expenses along you people
+[![Build Status](https://travis-ci.org/incognitoorg/expenseshare.svg?branch=develop)](https://travis-ci.org/incognitoorg/expenseshare)
