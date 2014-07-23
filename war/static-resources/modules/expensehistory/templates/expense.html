@@ -1,4 +1,4 @@
-<li class="js-expense-li li-{{expenseEntityId}} {{transactionType}}">
+<!-- <li class="js-expense-li li-{{expenseEntityId}} {{transactionType}}">
 	<div class="row expense">
 		<div class="small-12 columns js-expense"
 			data-expense-id={{expenseEntityId}}>
@@ -23,12 +23,53 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="small-1 column delete-expense"
+		<div class="small-1 column delete-expense"
 			data-expense-id={{expenseEntityId}} title="Delete expense..">X
-		</div> -->
+		</div>
 	</div>
 	<div class="row detail-expense">
 		<div class="small-12 columns js-expense-detail-container"
 			style="display: none;"></div>
 	</div>
+</li> -->
+<li class="js-expense-li li-{{expenseEntityId}}">
+	<div class="row">
+		<div class="small-12 large-12 columns">
+			<div class="row expense {{transactionType}}">
+				<div class="small-12 large-12 columns js-expense" data-expense-id={{expenseEntityId}}>
+					<div class="row">
+						<div class="small-8 large-8 columns">
+							<div class="row">
+								<div class="small-12 large-6 columns">
+									<span class=expense-name>{{name}}</span>
+								</div>
+								{{#if group.groupName}}
+								<div class="small-8 large-4 columns" style="float:left;">
+									<span class="expense-group" style="height:20px;">Group: {{group.groupName}}</span>
+								</div>
+								{{/if}}
+							</div>
+							<div class="row" style="padding-top: 10px;">
+								<div class="large-12 small-12 columns">{{whoPaid}} paid {{totalAmountPaid}}</div>
+							</div>
+						</div>
+						<div class="small-4 large-4 columns">
+									<span class="expense-share">you </span><span class="{{transactionType}} transaction-type">{{#ifequals transactionType "borrowed"}}owe{{else}} are owed{{/ifequals}}</span> 
+									<span class="{{transactionType}} transaction-amount circle"> {{userTransaction}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="small-1 column delete-expense" data-expense-id={{expenseEntityId}} title="Delete expense..">X</div>
+			</div>
+		</div>
+		<div class="small-10 large-10 large-offset-1 small-offset-1 columns detail-expense-container {{transactionType}}" style="display: none;">
+			<div class="row detail-expense">
+				<div class="small-12 columns js-expense-detail-container"></div>
+			</div>
+		</div>
+		<div class="large-1 small-1 columns"></div>
+	</div>
+	
+	
 </li>
+

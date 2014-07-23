@@ -1,5 +1,6 @@
 define(function(require) {
 	var Sandbox = require('sandbox');
+	var Underscore = require('underscore');
 	var user = require('components/login/login');
 	var expenseTemplate = Handlebars.compile(require('text!./../../templates/expense.html'));
 	var expenseDeatailTemplate = Handlebars.compile(require('text!./../../templates/detailexpenseview.html'));
@@ -12,7 +13,6 @@ define(function(require) {
 	var css = require('css!./../../css/expensehistory.css');
 	
 	function normalizeExpense(expense, allMembers, groupMap){
-		
 		var totalAmountPaid = 0;
 		var userTransaction = 0;
 		expense.userPaid  = 0;
@@ -50,10 +50,17 @@ define(function(require) {
 			expense.transactionType = "borrowed";
 		}
 		
+		_.each(expense.iou, function (element, index) {
+			element.fromUser = allMembers[element.fromUserId];
+			element.toUser = allMembers[element.toUserId];
+		});
+		
+		expense.userTransaction = Math.abs(expense.userTransaction);
+		expense.createdBy ? expense.whoCreated = allMembers[expense.createdBy] : (expense.editedBy ? expense.whoEdited = allMembers[expense.editedBy] : {});
 		expense.day = new Date(expense.date).toDateString();
-		//expense.date = new Date(expense.date);
 		expense.group = expense.groupId && groupMap[expense.groupId];
 		expense.totalAmountPaid = totalAmountPaid;
+		console.log("expense", expense);
 		return expense;
 	}
 
@@ -75,7 +82,6 @@ define(function(require) {
 				.compile(require('text!./../../templates/expensehistory.html')),
 		render : function(data) {
 			$(this.el).html(this.template(data));
-			/*this.$('.js-expenses-container').height($('body').height()-(45+45));*/
 		},
 		events : {
 			'click .js-expense' : 'showExpenseDetail',
@@ -113,13 +119,6 @@ define(function(require) {
 			for(var index in allMembers){
 				groupSelect.append($('<option>').val(allMembers[index].userId).text(allMembers[index].fullName));
 			}
-			//TODO : If you really dont have anything else to do. Generate the types dynamically rather than hardcoded.
-			/*var typeSelect = this.$('.js-type-filter-select');
-			typeSelect.html('').append($('<option>').val('select').text('Select'));
-			var allMembers = this.allMembers;
-			for(var index in allMembers){
-				typeSelect.append($('<option>').val(allMembers[index].userId).text(allMembers[index].fullName));
-			}*/
 		},
 		showExpenseHistory : function(response, extraParams){
 			console.log("response", response);
@@ -189,20 +188,6 @@ define(function(require) {
 				var toPush = true;
 				//TODO : Travel backward in time kill past yourself for this coding redundancy. Can be designed better with filter functions
 				var expense = expenses[i];
-				
-				/*if(typeFilter!=="select"){
-					if(expense.type!==typeFilter){
-						toPush = false;
-						continue;
-					} 
-				}
-				if(groupFilter!=="select"){
-					if(expense.groupId!==groupFilter){
-						toPush = false;
-						continue;
-					} 
-				}*/
-/*				if(userFilter!=="select"){*/
 				if(true){
 					toPush = (function(){
 						var listIncludeMemberInfo = expense.listIncludeMemberInfo;
@@ -241,7 +226,7 @@ define(function(require) {
 				//TODO : Review this interaction. User might not like their divs swinging like that 
 				self.$('.js-expenses-container').animate({scrollTop:event.currentTarget.offsetTop}, '500', 'swing', function() {});
 			});*/
-			$detailContainer.toggle();//.animate({height : $detailContainer.height()});
+			$detailContainer.parents(".detail-expense-container").toggle();//.animate({height : $detailContainer.height()});
 			
 		},
 		deleteExpense : function(event){

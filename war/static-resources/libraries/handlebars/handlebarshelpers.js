@@ -18,6 +18,15 @@ define(function(require) {
 		Handlebars.registerHelper("formatPrice", function(totalPrice) {
 			return ''+totalPrice.toFixed(2);
 		});
+		
+		Handlebars.registerHelper('ifequals', function(optionA, optionB, opts) {
+		    if(optionA === optionB) {
+		    	return opts.fn(this);
+		    }
+		    else {
+		    	return opts.inverse(this);
+		    }
+		});
 
 		
 		return Handlebars;
