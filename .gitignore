@@ -1,5 +1,7 @@
 *.class
 *.jar
+/war/WEB-INF/classes/
+/war/WEB-INF/appengine-generated/
 *.discovery
 /endpoint-libs
 /bin
@@ -10,3 +12,5 @@
 .settings/org.eclipse.jdt.core.prefs
 war/WEB-INF/classes
 xpenseshare.apk
+/npm-debug.log
+/.project.web

@@ -25,6 +25,12 @@ define( function(require){
 					"require_from_group" : [1, '.js-pay-input']
 				});
 			});
+			
+			options.element.find(".js-between-two-input").each(function () {
+				$(this).rules("add", {
+					"required" : true
+				});
+			});
 		}
 	};
 });

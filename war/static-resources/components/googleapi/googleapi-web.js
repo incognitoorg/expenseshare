@@ -63,6 +63,7 @@ define(function(require){
 								email : resp.email,
 								firstName : resp.name.givenName,
 								lastName : resp.name.familyName,
+								fullName : resp.name.givenName + " " +  resp.name.familyName,
 								imgUrl : resp.image.url.substr(0, resp.image.url.indexOf("?")) + "?sz=45" 
 							});
 							hideMask();
