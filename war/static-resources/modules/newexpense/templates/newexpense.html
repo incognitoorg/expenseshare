@@ -153,74 +153,102 @@
 					</select>
 				</div>
 			</div>
-
-			<hr class="red-line">
-			<div class="row divider-row">
-				<div class="small-12 columns">Who Paid</div>
-			</div>
-			<div class="row user-paid-row">
-				<div class="small-2 large-2 columns" style="float: left;">I
+			
+			<div class="between-two-options" style="display:none;">
+				<hr class="red-line">
+				<div class="row" style="margin-bottom:15px;">
+				
+					<div class="small-12 large-2 columns  hide-for-small">&nbsp;</div>
+					<div class="small-12 large-6 columns" style="float: left;">
+						<select class="select-between-two">
+							<option class="" value="split">Split the Xpense</option>
+							<option class="other-owe" value="other-owe"></option>
+							<option class="user-owe" value="user-owe"></option>
+						</select>
+					</div>
+				</div>
+				<div class="row between-two-ip-container" style="display:none;">
+					<div class="small-2 large-2 columns l-label" style="float: left;">I
 					paid</div>
-				<div class="small-6 large-6 columns" style="float: left;">
-					<input class="js-pay-input js-current-user-pay-input" type=tel
-						style="height: 45px;" placeholder="Amount paid by you"
-						name="expenseInput-user">
-				</div>
-			</div>
-			<div class="row other-payers-row">
-
-				<div
-					class="large-10  large-push-2 small-push-2 small-12 columns js-more-payers"
-					style="text-decoration: underline; cursor: pointer;">
-					<span class="down-icon"></span>Other payers
-				</div>
-				<!-- <div class=row>
-				<div class="small-12 columns">
-					<h4>Amount Paid</h4>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-6 small-12 columns" >
-					<input class="js-pay-input js-current-user-pay-input" type=tel style="height:45px;" placeholder="Amount paid by you" name="expenseInput-user">
-				</div>
-				<div class="large-6  small-12 columns js-more-payers" style="text-decoration: underline;cursor: pointer;">Other payers</div>
-			</div> -->
-				<div class="small-12 columns">
-					<div class="row js-all-payers">
-						<div class="js-payers carousel small-12 columns"></div>
+					<div class="small-6 large-6 columns" style="float: left;">
+						<input class="js-between-two-input" type=tel
+							style="height: 45px;" 
+							name="expenseInput-between-two">
 					</div>
 				</div>
 			</div>
-			<hr class="red-line">
-			<div class="row divider-row">
-				<div class="small-12 columns">How to divide</div>
-			</div>
-			<div class="row"
-				style="padding-bottom: 15px; background: whitesmoke;">
-
-				<div class="small-2 large-2 columns" style="float: left;">
-					Divide</div>
-				<div class="small-6 large-6 columns" style="float: left;">
-					<select class="js-division-type"
-						style="height: 44px; width: 144px; margin: 0; padding: 0;width:100%;">
+			
+			<div class="split-form">
+			
+				<hr class="red-line">
+				<div class="row divider-row">
+					<div class="small-12 columns">Who Paid</div>
+				</div>
+				<div class="row user-paid-row">
+					<div class="small-2 large-2 columns" style="float: left;">I
+						paid</div>
+					<div class="small-6 large-6 columns" style="float: left;">
+						<input class="js-pay-input js-current-user-pay-input" type=tel
+							style="height: 45px;" placeholder="Amount paid by you"
+							name="expenseInput-user">
+					</div>
+				</div>
+				<div class="row other-payers-row">
+	
+					<div
+						class="large-10  large-push-2 small-push-2 small-12 columns js-more-payers"
+						style="text-decoration: underline; cursor: pointer;">
+						<span class="down-icon"></span>Other payers
+					</div>
+					<!-- <div class=row>
+					<div class="small-12 columns">
+						<h4>Amount Paid</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-6 small-12 columns" >
+						<input class="js-pay-input js-current-user-pay-input" type=tel style="height:45px;" placeholder="Amount paid by you" name="expenseInput-user">
+					</div>
+					<div class="large-6  small-12 columns js-more-payers" style="text-decoration: underline;cursor: pointer;">Other payers</div>
+				</div> -->
+					<div class="small-12 columns">
+						<div class="row js-all-payers">
+							<div class="js-payers carousel small-12 columns"></div>
+						</div>
+					</div>
+				</div>
+				<hr class="red-line">
+				<div class="row divider-row">
+					<div class="small-12 columns">How to divide</div>
+				</div>
+				<div class="row"
+					style="padding-bottom: 15px; background: whitesmoke;">
+	
+					<div class="small-2 large-2 columns" style="float: left;">
+						Divide</div>
+					<div class="small-6 large-6 columns" style="float: left;">
+						<select class="js-division-type"
+							style="height: 44px; width: 144px; margin: 0; padding: 0;width:100%;">
+							<option value="all">Equally</option>
+							<option value="selected">Unequally</option>
+						</select>
+					</div>
+	
+				</div>
+				<!-- <div class=row style="padding-bottom: 15px;">
+				<div class="small-12 columns">
+					<span style="height: 44px;font-size: 16px;padding:0px;width:100px;" >Divide</span>
+					<select class="js-division-type" style="height: 44px;width: 144px;margin: 0;padding: 0;">
 						<option value="all">Equally</option>
 						<option value="selected">Unequally</option>
 					</select>
+					<div class="small-12 large-6 columns"></div>
 				</div>
-
-			</div>
-			<!-- <div class=row style="padding-bottom: 15px;">
-			<div class="small-12 columns">
-				<span style="height: 44px;font-size: 16px;padding:0px;width:100px;" >Divide</span>
-				<select class="js-division-type" style="height: 44px;width: 144px;margin: 0;padding: 0;">
-					<option value="all">Equally</option>
-					<option value="selected">Unequally</option>
-				</select>
-				<div class="small-12 large-6 columns"></div>
-			</div>
-		</div> -->
-			<div class="row js-all-included-members">
-				<div class="js-included-members carousel small-12 columns"></div>
+			</div> -->
+			
+				<div class="row js-all-included-members">
+					<div class="js-included-members carousel small-12 columns"></div>
+				</div>
 			</div>
 			<hr class="red-line">
 			<div class="row" style="padding-bottom:20px;">
@@ -229,6 +257,7 @@
 						style="cursor: pointer;">Save</span>
 				</div>
 			</div>
+			
 		</form>
 	</div>
 </div>
