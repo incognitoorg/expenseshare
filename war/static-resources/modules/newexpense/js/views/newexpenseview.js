@@ -469,6 +469,7 @@ define(function(require) {
 			this.$('.between-two-ip-container').hide();
 			this.$('.between-two-options').hide();
 			this.$('.split-form').show();
+			this.$('.js-between-two-input').val('');
 			
 			this.$('.js-all-payers').show();
 			this.$('.js-included-members').show();
@@ -511,7 +512,10 @@ define(function(require) {
 			this.$('.other-owe').text(otherUser.fullName + " owes You");
 			this.otherUser = otherUser;
 			this.user = currentUser;
-			this.$('.user-owe').text("You owe "+ otherUser.fullName)
+			this.$('.user-owe').text("You owe "+ otherUser.fullName);
+			
+			this.$('.select-between-two').val('other-owe');
+			this.$('.select-between-two').trigger('click');
 		},
 		showFormForTwo : function(){
 			var selectedOption = this.$('.select-between-two').val();
