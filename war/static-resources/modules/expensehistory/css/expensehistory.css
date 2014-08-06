@@ -4,11 +4,11 @@
 	margin-right: 20px;
 }
 
-.expense,.detail-expense{
+.expense,.detail-expense {
 	line-height: 1.2em;
 	cursor: pointer;
-	margin: 7px!important;
-	border-radius : 10px;
+	margin: 7px !important;
+	border-radius: 10px;
 }
 
 .expense {
@@ -18,43 +18,48 @@
 }
 
 .expense.borrowed {
-	border: 3px solid rgb(255, 0, 0);	
+	border: 3px solid rgb(255, 0, 0);
 }
 
 .expense.lent {
 	border: 3px solid rgb(90, 184, 37);
 }
 
-.expense:hover{
-/* 	background-color: gray; */
-}
-div.expense:nth-child(2n){
-	/* background-color: #CCC; */
+.expense:hover {
+	/* 	background-color: gray; */
+	
 }
 
-.sentense-fillers{
-	padding-left:5px;
-	padding-right:5px;
+div.expense:nth-child(2n) {
+	/* background-color: #CCC; */
+	
+}
+
+.sentense-fillers {
+	padding-left: 5px;
+	padding-right: 5px;
 	font-size: 0.9em;
 }
-.on.sentense-fillers{
-	padding-left:0;
-	font-style:italic;
+
+.on.sentense-fillers {
+	padding-left: 0;
+	font-style: italic;
 }
-.amount,.expense-name{
+
+.amount,.expense-name {
 	font-size: 24px;
 }
 
-.group.sentense-fillers{
-	font-size : 1em;
+.group.sentense-fillers {
+	font-size: 1em;
 }
 
-.amount-row{
+.amount-row {
 	/* height: 35px; */
 	overflow: hidden;
 }
 
-.js-expenses-container{
+.js-expenses-container {
 	position: relative;
 	/* width: 230px;
 	height: 480px; */
@@ -83,12 +88,13 @@ div.expense:nth-child(2n){
 	border: 3px solid rgb(255, 0, 0);
 }
 
-.js-expense-detail-container{
+.js-expense-detail-container {
 	min-height: 80px;
 }
 
-.payers-container{
+.payers-container {
 	/* border-bottom: 1px dotted #F4985A; */
+	
 }
 
 .participants-container {
@@ -96,13 +102,14 @@ div.expense:nth-child(2n){
 }
 
 .expense-share {
+	
 }
 
-.js-expense-li .transaction-type.borrowed{
+.js-expense-li .transaction-type.borrowed {
 	color: rgb(255, 0, 0);
 }
 
-.js-expense-li .transaction-type.lent{
+.js-expense-li .transaction-type.lent {
 	color: rgb(90, 184, 37);
 }
 
@@ -115,12 +122,12 @@ div.expense:nth-child(2n){
 	border: 3px solid #fff;
 }
 
-.js-expense-li .transaction-amount.borrowed{
+.js-expense-li .transaction-amount.borrowed {
 	background: rgb(255, 0, 0);
 	color: white;
 }
 
-.js-expense-li .transaction-amount.lent{
+.js-expense-li .transaction-amount.lent {
 	background: rgb(90, 184, 37);
 	color: white;
 }
@@ -128,18 +135,21 @@ div.expense:nth-child(2n){
 .header-4 {
 	font-size: 20px;
 	font-weight: bold;
-	margin-top : 5px;
-	margin-bottom : 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
-.payers-container, .participants-container{
-	margin-bottom : 10px;
+.payers-container,.participants-container {
+	margin-bottom: 10px;
 }
 
-.delete-expense{
-	float:right;
+.delete-expense {
+	float: right;
 	position: absolute;
 	right: 0px;
 	top: 12px;
 }
-}
+
+.transition{
+	padding:0px!important;
+} 

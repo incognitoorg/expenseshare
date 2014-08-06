@@ -6,9 +6,6 @@ define(function(require) {
 	var expenseDeatailTemplate = Handlebars.compile(require('text!./../../templates/detailexpenseview.html'));
 	var NewExpenseFactory = require('modules/newexpense/newexpense');
 	var ExpenseUtility = require('modules/expenseutiliy/expenseutility');
-	
-//	var strolljs = require('plugins/jquery/stroll/js/stroll.min');
-//	var strollcss = require('css!plugins/jquery/stroll/css/stroll-stripped.css');
 
 	var css = require('css!./../../css/expensehistory.css');
 	
@@ -61,6 +58,36 @@ define(function(require) {
 		expense.group = expense.groupId && groupMap[expense.groupId];
 		expense.totalAmountPaid = totalAmountPaid;
 		console.log("expense", expense);
+		
+		var iou = expense.iou ;
+		
+		var currentUser = user.getInfo()
+		
+		var transitionData = {};
+		var transitions = [];
+		var type = null;
+		for (var i = 0; i < iou.length; i++) {
+			var transition = {};
+			if(iou[i].fromUserId==currentUser.userId){
+				type = 'debit';
+				transition['userId'] = iou[i].toUserId;
+				transition['amount'] = iou[i].amount;
+				transitions.push(transition)
+			} else if(iou[i].toUserId==currentUser.userId){
+				type = 'credit';
+				transition['userId'] = iou[i].fromUserId;
+				transition['amount'] = iou[i].amount;
+				transitions.push(transition)
+			}
+			
+		}
+		
+		transitionData['type'] = type;
+		transitionData['transitions'] = transitions;
+		expense.transitionData = transitionData;
+		
+		console.log('expense.transitionData', expense.transitionData);
+		
 		return expense;
 	}
 
@@ -172,9 +199,70 @@ define(function(require) {
 				this.expenseHitoryMap[expense.expenseEntityId] = expense;
 				//TODO : Convert this into view
 				var html = expenseTemplate(normalizeExpense(expense, this.allMembers, this.groupMap));
-				expensesContainer.append(html);
+				var htmlNode = $(html)
+				expensesContainer.append(htmlNode);
+				
+				
 				
 			}
+		},
+		renderExpenseTransition : function(transitionData, htmlNode){
+			
+			
+			function getPoints(points){
+				var pointsStr = '';
+				pointsStr+="L ";
+				for (var i = 0; i < points.length; i++) {
+					pointsStr+=points[i].join(' ') +  ', ';
+				}
+				return pointsStr;
+			}
+			
+			var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			var parent = $(htmlNode).find('.transition ');
+			var width = parent.width();
+			var height = transitionData.transitions.length*80;
+			
+			svg.setAttribute('width', width);
+			svg.setAttribute('height', height);
+			
+			var userName = user.getInfo().fullName;
+			
+			var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
+			svgText.setAttribute('x', 0);
+			svgText.setAttribute('y', height/2	);
+			svgText.innerHTML = (userName);
+			svg.appendChild(svgText);
+			
+			//var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "path");
+			//polyline.setAttribute('points', "20,100 40,60 70,80 100,20");
+			polyline.setAttribute('stroke', 'black');
+			polyline.setAttribute('fill', 'none');
+			var innerlineWidth = width -80;
+			var points = [[40, height/2], [innerlineWidth/2, height/2]];
+			
+			
+			
+			for (var i = 0; i < transitionData.transitions.length; i++) {
+				var userId =  transitionData.transitions[i].userId;
+				var allMembers = this.allMembers;
+				var userName = allMembers[userId].fullName;
+
+				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
+				svgText.setAttribute('x', width-60);
+				svgText.setAttribute('y', i*80 + 40);
+				svgText.innerHTML = (userName);
+				svg.appendChild(svgText);
+				points.push([innerlineWidth/2, i*80 + 40]);
+				points.push([innerlineWidth, i*80 + 40]);
+			}
+			
+			//polyline.setAttribute('points', getPoints(points));
+			polyline.setAttribute('d', getPoints(points));
+			svg.appendChild(polyline);
+			
+			parent.append(svg);
 		},
 		showFilteredExpenses : function(options){
 			var typeFilter = options.type || $('.js-type-filter-select').val();
@@ -227,6 +315,8 @@ define(function(require) {
 				self.$('.js-expenses-container').animate({scrollTop:event.currentTarget.offsetTop}, '500', 'swing', function() {});
 			});*/
 			$detailContainer.parents(".detail-expense-container").toggle();//.animate({height : $detailContainer.height()});
+			
+			this.renderExpenseTransition(expense.transitionData, $detailContainer);
 			
 		},
 		deleteExpense : function(event){
