@@ -500,7 +500,7 @@ public class ExpenseEntityEndpoint {
 			//This is an expense without group
 			if(StringUtils.isEmpty(objGroup.getGroupId())){
 				Friendship objFriendship = this.getFriendship(mgr, objGroup.getMembers(), expenseentity);
-				iouToUpdate = objFriendship.getIOUList();
+				iouToUpdate = objFriendship.getIouList();
 				expenseentity.setFriendshipId(objFriendship.getId());
 				expenseentity.setFriendship(objFriendship);
 			} else {
