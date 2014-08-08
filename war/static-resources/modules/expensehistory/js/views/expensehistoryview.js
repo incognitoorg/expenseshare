@@ -220,6 +220,8 @@ define(function(require) {
 			
 			var lineColor = 'black';
 			var amountColor = transitionData.type=='credit'?'green' : 'red';
+			var othersMarker = transitionData.type=='credit'?'url(#markerCircle)' : 'url(#markerRightArrow)';
+			var userMarker = transitionData.type=='credit'?'url(#markerLeftArrow)': 'url(#markerCircle)' ;
 			
 			var svg =  $(htmlNode).find('svg')[0]; //document.createElementNS("http://www.w3.org/2000/svg", "svg");
 			var parent = $(htmlNode).find('.transition ');
@@ -245,7 +247,7 @@ define(function(require) {
 			var innerlineWidth = width -80;
 			var points = [[40, height/2], [innerlineWidth/2, height/2]];
 			polyline.setAttribute('points', getPoints(points));
-			$(polyline).css('marker-start', 'url(#markerCircle)');
+			$(polyline).css('marker-start', userMarker);
 			svg.appendChild(polyline);
 			
 			
@@ -288,7 +290,8 @@ define(function(require) {
 				points.push([innerlineWidth/2, i*80 + 40]);
 				points.push([innerlineWidth, i*80 + 40]);
 				polyline.setAttribute('points', getPoints(points));
-				$(polyline).css('marker-end', 'url(#markerArrow)');
+				
+				$(polyline).css('marker-end', othersMarker);
 				svg.appendChild(polyline);
 				
 				
