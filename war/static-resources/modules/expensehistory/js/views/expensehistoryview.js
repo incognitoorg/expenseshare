@@ -218,7 +218,10 @@ define(function(require) {
 				return pointsStr;
 			}
 			
-			var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			var lineColor = 'black';
+			var amountColor = transitionData.type=='credit'?'green' : 'red';
+			
+			var svg =  $(htmlNode).find('svg')[0]; //document.createElementNS("http://www.w3.org/2000/svg", "svg");
 			var parent = $(htmlNode).find('.transition ');
 			var width = parent.width();
 			var height = transitionData.transitions.length*80;
@@ -226,7 +229,7 @@ define(function(require) {
 			svg.setAttribute('width', width);
 			svg.setAttribute('height', height);
 			
-			var userName = user.getInfo().firstName;
+			var userName = user.getInfo().firstName || user.getInfo().fullName.split(' ')[0];
 			
 			var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
 			svgText.setAttribute('x', 0);
@@ -237,11 +240,12 @@ define(function(require) {
 			//Horizontal line from user to middle
 			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
 			//polyline.setAttribute('points', "20,100 40,60 70,80 100,20");
-			polyline.setAttribute('stroke', 'black');
+			polyline.setAttribute('stroke', lineColor);
 			polyline.setAttribute('fill', 'none');
 			var innerlineWidth = width -80;
 			var points = [[40, height/2], [innerlineWidth/2, height/2]];
 			polyline.setAttribute('points', getPoints(points));
+			$(polyline).css('marker-start', 'url(#markerCircle)');
 			svg.appendChild(polyline);
 			
 			
@@ -249,7 +253,7 @@ define(function(require) {
 			//Vertical line
 			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
 			//polyline.setAttribute('points', "20,100 40,60 70,80 100,20");
-			polyline.setAttribute('stroke', 'black');
+			polyline.setAttribute('stroke', lineColor);
 			polyline.setAttribute('fill', 'none');
 			var innerlineWidth = width -80;
 			var points = [[innerlineWidth/2, 40], [innerlineWidth/2, height-40]];
@@ -261,7 +265,7 @@ define(function(require) {
 			for (var i = 0; i < transitionData.transitions.length; i++) {
 				var userId =  transitionData.transitions[i].userId;
 				var allMembers = this.allMembers;
-				var userName = allMembers[userId].firstName;
+				var userName = allMembers[userId].firstName || allMembers[userId].fullName.split(' ')[0];
 
 				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");
 				svgText.setAttribute('x', width-60);
@@ -273,17 +277,21 @@ define(function(require) {
 				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");
 				svgText.setAttribute('x', (innerlineWidth-40 +width/2)/2);
 				svgText.setAttribute('y', i*80 + 30);
+				svgText.setAttribute('fill', amountColor);
 				svgText.innerHTML = (transitionData.transitions[i].amount);
 				svg.appendChild(svgText);
 				
 				var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-				polyline.setAttribute('stroke', 'black');
+				polyline.setAttribute('stroke', lineColor);
 				polyline.setAttribute('fill', 'none');
 				points = [];
 				points.push([innerlineWidth/2, i*80 + 40]);
 				points.push([innerlineWidth, i*80 + 40]);
 				polyline.setAttribute('points', getPoints(points));
+				$(polyline).css('marker-end', 'url(#markerArrow)');
 				svg.appendChild(polyline);
+				
+				
 			}
 			
 			polyline.setAttribute('points', getPoints(points));
