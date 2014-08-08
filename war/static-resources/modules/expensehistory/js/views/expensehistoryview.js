@@ -226,7 +226,7 @@ define(function(require) {
 			svg.setAttribute('width', width);
 			svg.setAttribute('height', height);
 			
-			var userName = user.getInfo().fullName;
+			var userName = user.getInfo().firstName;
 			
 			var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
 			svgText.setAttribute('x', 0);
@@ -261,12 +261,19 @@ define(function(require) {
 			for (var i = 0; i < transitionData.transitions.length; i++) {
 				var userId =  transitionData.transitions[i].userId;
 				var allMembers = this.allMembers;
-				var userName = allMembers[userId].fullName;
+				var userName = allMembers[userId].firstName;
 
-				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
+				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");
 				svgText.setAttribute('x', width-60);
-				svgText.setAttribute('y', i*80 + 40);
+				svgText.setAttribute('y', i*80 + 40+5);
 				svgText.innerHTML = (userName);
+				svg.appendChild(svgText);
+				
+				
+				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+				svgText.setAttribute('x', (innerlineWidth-40 +width/2)/2);
+				svgText.setAttribute('y', i*80 + 30);
+				svgText.innerHTML = (transitionData.transitions[i].amount);
 				svg.appendChild(svgText);
 				
 				var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
