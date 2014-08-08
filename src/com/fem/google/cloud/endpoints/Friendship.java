@@ -52,10 +52,6 @@ public class Friendship {
 		this.id = id;
 	}
 
-	public ArrayList<IOU> getIOUList() {
-		return iouList;
-	}
-
 	public ArrayList<IOU> getIouList() {
 		return iouList;
 	}

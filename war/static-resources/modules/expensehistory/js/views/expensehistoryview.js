@@ -6,11 +6,16 @@ define(function(require) {
 	var expenseDeatailTemplate = Handlebars.compile(require('text!./../../templates/detailexpenseview.html'));
 	var NewExpenseFactory = require('modules/newexpense/newexpense');
 	var ExpenseUtility = require('modules/expenseutiliy/expenseutility');
-	
-//	var strolljs = require('plugins/jquery/stroll/js/stroll.min');
-//	var strollcss = require('css!plugins/jquery/stroll/css/stroll-stripped.css');
 
 	var css = require('css!./../../css/expensehistory.css');
+	
+	Handlebars.registerHelper("transition", function(transition) {
+		if(!(transition.typeLabel=='owes')){
+			return "You owe " +  transition.amount + " to " + transition.user.fullName + ".";
+		} else {
+			return transition.user.fullName+ " " + 'owe' + transition.amount + " to you.";
+		}
+	});
 	
 	function normalizeExpense(expense, allMembers, groupMap){
 		var totalAmountPaid = 0;
@@ -61,6 +66,41 @@ define(function(require) {
 		expense.group = expense.groupId && groupMap[expense.groupId];
 		expense.totalAmountPaid = totalAmountPaid;
 		console.log("expense", expense);
+		
+		var iou = expense.iou ;
+		
+		var currentUser = user.getInfo()
+		
+		var transitionData = {};
+		var transitions = [];
+		var type = null;
+		for (var i = 0; i < iou.length; i++) {
+			var transition = {};
+			if(iou[i].fromUserId==currentUser.userId){
+				type = 'debit';
+				transition['userId'] = iou[i].toUserId;
+				transition['amount'] = iou[i].amount;
+				transition['user'] =  allMembers[iou[i].toUserId];
+				transition['typeLabel'] = 'you owe';
+				
+				transitions.push(transition)
+			} else if(iou[i].toUserId==currentUser.userId){
+				type = 'credit';
+				transition['userId'] = iou[i].fromUserId;
+				transition['amount'] = iou[i].amount;
+				transition['user'] =  allMembers[iou[i].fromUserId];
+				transition['typeLabel'] = 'owes';
+				transitions.push(transition)
+			}
+			
+		}
+		
+		transitionData['type'] = type;
+		transitionData['transitions'] = transitions;
+		expense.transitionData = transitionData;
+		
+		console.log('expense.transitionData', expense.transitionData);
+		
 		return expense;
 	}
 
@@ -172,9 +212,109 @@ define(function(require) {
 				this.expenseHitoryMap[expense.expenseEntityId] = expense;
 				//TODO : Convert this into view
 				var html = expenseTemplate(normalizeExpense(expense, this.allMembers, this.groupMap));
-				expensesContainer.append(html);
+				var htmlNode = $(html)
+				expensesContainer.append(htmlNode);
+				
+				
 				
 			}
+		},
+		renderExpenseTransition : function(transitionData, htmlNode){
+			
+			
+			function getPoints(points){
+				var pointsStr = '';
+				for (var i = 0; i < points.length; i++) {
+					pointsStr+=points[i].join(',');
+					pointsStr+=' ';
+				}
+				return pointsStr;
+			}
+			
+			var lineColor = 'black';
+			var amountColor = transitionData.type=='credit'?'green' : 'red';
+			var othersMarker = transitionData.type=='credit'?'url(#markerCircle)' : 'url(#markerRightArrow)';
+			var userMarker = transitionData.type=='credit'?'url(#markerLeftArrow)': 'url(#markerCircle)' ;
+			
+			var svg =  $(htmlNode).find('svg')[0]; //document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			var parent = $(htmlNode).find('.transition');
+			var width = parent.width();
+			var height = transitionData.transitions.length*80;
+			
+			svg.setAttribute('width', width);
+			svg.setAttribute('height', height);
+			
+			var userName = "You";//user.getInfo().firstName || user.getInfo().fullName.split(' ')[0];
+			
+			var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
+			svgText.setAttribute('x', 0);
+			svgText.setAttribute('y', (height/2)+5);
+			svgText.innerHTML = (userName);
+			svg.appendChild(svgText);
+			
+			//Horizontal line from user to middle
+			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+			//polyline.setAttribute('points', "20,100 40,60 70,80 100,20");
+			polyline.setAttribute('stroke', lineColor);
+			polyline.setAttribute('fill', 'none');
+			var innerlineWidth = width -80;
+			var amountPosition = transitionData.transitions.length==1?innerlineWidth/2:(innerlineWidth-40 +width/2)/2;
+
+			var points = [[40, height/2], [innerlineWidth/2, height/2]];
+			polyline.setAttribute('points', getPoints(points));
+			$(polyline).css('marker-start', userMarker);
+			svg.appendChild(polyline);
+			
+			
+			
+			//Vertical line
+			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+			polyline.setAttribute('stroke', lineColor);
+			polyline.setAttribute('fill', 'none');
+			var innerlineWidth = width -80;
+			var points = [[innerlineWidth/2, 40], [innerlineWidth/2, height-40]];
+			polyline.setAttribute('points', getPoints(points));
+			svg.appendChild(polyline);
+			
+			
+			
+			for (var i = 0; i < transitionData.transitions.length; i++) {
+				var userId =  transitionData.transitions[i].userId;
+				var allMembers = this.allMembers;
+				var userName = allMembers[userId].firstName || allMembers[userId].fullName.split(' ')[0];
+
+				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+				svgText.setAttribute('x', width-60);
+				svgText.setAttribute('y', i*80 + 40+5);
+				svgText.innerHTML = (userName);
+				svg.appendChild(svgText);
+				
+				
+				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+				svgText.setAttribute('x', amountPosition);
+				svgText.setAttribute('y', i*80 + 30);
+				svgText.setAttribute('fill', amountColor);
+				svgText.innerHTML = (transitionData.transitions[i].amount);
+				svg.appendChild(svgText);
+				
+				var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+				polyline.setAttribute('stroke', lineColor);
+				polyline.setAttribute('fill', 'none');
+				points = [];
+				points.push([innerlineWidth/2, i*80 + 40]);
+				points.push([innerlineWidth, i*80 + 40]);
+				polyline.setAttribute('points', getPoints(points));
+				
+				$(polyline).css('marker-end', othersMarker);
+				svg.appendChild(polyline);
+				
+				
+			}
+			
+			polyline.setAttribute('points', getPoints(points));
+			svg.appendChild(polyline);
+			
+			parent.append(svg);
 		},
 		showFilteredExpenses : function(options){
 			var typeFilter = options.type || $('.js-type-filter-select').val();
@@ -227,6 +367,8 @@ define(function(require) {
 				self.$('.js-expenses-container').animate({scrollTop:event.currentTarget.offsetTop}, '500', 'swing', function() {});
 			});*/
 			$detailContainer.parents(".detail-expense-container").toggle();//.animate({height : $detailContainer.height()});
+			
+			this.renderExpenseTransition(expense.transitionData, $detailContainer);
 			
 		},
 		deleteExpense : function(event){
