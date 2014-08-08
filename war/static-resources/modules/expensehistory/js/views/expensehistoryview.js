@@ -237,18 +237,18 @@ define(function(require) {
 			var userMarker = transitionData.type=='credit'?'url(#markerLeftArrow)': 'url(#markerCircle)' ;
 			
 			var svg =  $(htmlNode).find('svg')[0]; //document.createElementNS("http://www.w3.org/2000/svg", "svg");
-			var parent = $(htmlNode).find('.transition ');
+			var parent = $(htmlNode).find('.transition');
 			var width = parent.width();
 			var height = transitionData.transitions.length*80;
 			
 			svg.setAttribute('width', width);
 			svg.setAttribute('height', height);
 			
-			var userName = user.getInfo().firstName || user.getInfo().fullName.split(' ')[0];
+			var userName = "You";//user.getInfo().firstName || user.getInfo().fullName.split(' ')[0];
 			
 			var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
 			svgText.setAttribute('x', 0);
-			svgText.setAttribute('y', (height/2)+20	);
+			svgText.setAttribute('y', (height/2)+5);
 			svgText.innerHTML = (userName);
 			svg.appendChild(svgText);
 			

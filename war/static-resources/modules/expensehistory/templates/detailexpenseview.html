@@ -22,7 +22,16 @@
 			{{/each}}
 		</div>
 	</div>
-	<div class="small-12 large-6 columns participants-container">
+	<div class="small-12 large-6 columns payers-container">
+		<div class="row collapse">
+			{{#each listIncludeMemberInfo}}
+			<div class="small-12 columns js-participants">
+				 <span>{{userInfo.fullName}}'s share was {{amount}}</span>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+	<div class="small-12 large-6 columns participants-container hide-for-small">
 		<div class="row collapse">
 			{{#each transitionData.transitions}}
 			<div class="small-12 columns js-participants">
@@ -33,7 +42,7 @@
 		</div>
 	</div>
 	
-	<div class="transition small-12 columns">
+	<div class="transition small-12 large-6 columns">
 		<svg class="svg">
 		<defs>
 		    <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
