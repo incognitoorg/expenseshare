@@ -245,6 +245,8 @@ define(function(require) {
 			polyline.setAttribute('stroke', lineColor);
 			polyline.setAttribute('fill', 'none');
 			var innerlineWidth = width -80;
+			var amountPosition = transitionData.transitions.length==1?innerlineWidth/2:(innerlineWidth-40 +width/2)/2;
+
 			var points = [[40, height/2], [innerlineWidth/2, height/2]];
 			polyline.setAttribute('points', getPoints(points));
 			$(polyline).css('marker-start', userMarker);
@@ -254,7 +256,6 @@ define(function(require) {
 			
 			//Vertical line
 			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-			//polyline.setAttribute('points', "20,100 40,60 70,80 100,20");
 			polyline.setAttribute('stroke', lineColor);
 			polyline.setAttribute('fill', 'none');
 			var innerlineWidth = width -80;
@@ -277,7 +278,7 @@ define(function(require) {
 				
 				
 				var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-				svgText.setAttribute('x', (innerlineWidth-40 +width/2)/2);
+				svgText.setAttribute('x', amountPosition);
 				svgText.setAttribute('y', i*80 + 30);
 				svgText.setAttribute('fill', amountColor);
 				svgText.innerHTML = (transitionData.transitions[i].amount);
