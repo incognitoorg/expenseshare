@@ -24,9 +24,10 @@
 	</div>
 	<div class="small-12 large-6 columns participants-container">
 		<div class="row collapse">
-			{{#each iou}}
+			{{#each transitionData.transitions}}
 			<div class="small-12 columns js-participants">
-				<span style="float:right;">{{fromUser.fullName}} owes {{amount}}</span>
+				<!-- <span style="float:right;">{{user.fullName}} {{typeLabel}} {{amount}}</span> -->
+				{{#transition this}}{{/transition}}
 			</div>
 			{{/each}}
 		</div>

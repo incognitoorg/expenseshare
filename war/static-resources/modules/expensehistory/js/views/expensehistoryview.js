@@ -9,6 +9,14 @@ define(function(require) {
 
 	var css = require('css!./../../css/expensehistory.css');
 	
+	Handlebars.registerHelper("transition", function(transition) {
+		if(!(transition.typeLabel=='owes')){
+			return "You owe " +  transition.amount + " to " + transition.user.fullName + ".";
+		} else {
+			return transition.user.fullName+ " " + 'owe' + transition.amount + " to you.";
+		}
+	});
+	
 	function normalizeExpense(expense, allMembers, groupMap){
 		var totalAmountPaid = 0;
 		var userTransaction = 0;
@@ -72,11 +80,16 @@ define(function(require) {
 				type = 'debit';
 				transition['userId'] = iou[i].toUserId;
 				transition['amount'] = iou[i].amount;
+				transition['user'] =  allMembers[iou[i].toUserId];
+				transition['typeLabel'] = 'you owe';
+				
 				transitions.push(transition)
 			} else if(iou[i].toUserId==currentUser.userId){
 				type = 'credit';
 				transition['userId'] = iou[i].fromUserId;
 				transition['amount'] = iou[i].amount;
+				transition['user'] =  allMembers[iou[i].fromUserId];
+				transition['typeLabel'] = 'owes';
 				transitions.push(transition)
 			}
 			
