@@ -24,12 +24,32 @@
 	</div>
 	<div class="small-12 large-6 columns participants-container">
 		<div class="row collapse">
-			{{#each iou}}
+			{{#each transitionData.transitions}}
 			<div class="small-12 columns js-participants">
-				<span style="float:right;">{{fromUser.fullName}} owes {{amount}}</span>
+				<!-- <span style="float:right;">{{user.fullName}} {{typeLabel}} {{amount}}</span> -->
+				{{#transition this}}{{/transition}}
 			</div>
 			{{/each}}
 		</div>
+	</div>
+	
+	<div class="transition small-12 columns">
+		<svg class="svg">
+		<defs>
+		    <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
+		        <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+		    </marker>
+		    <marker id="markerRightArrow" markerWidth="13" markerHeight="13" refx="6" refy="6"
+		           orient="auto">
+		        <path d="M2,2 L6,6 L2,11 L10,6 L2,2" style="fill: #000000;" />
+		    </marker>
+		    <marker id="markerLeftArrow" markerWidth="26" markerHeight="13" refx="6" refy="6"
+		           orient="auto">
+		        <path d="M10,2 L6,6 L10,11 L0,6 L10,2" style="fill: #000000;" />
+		    </marker>
+		</defs>
+		</svg>
+		    
 	</div>
 	<div class="small-12 columns" style="padding-top: 5px;">	
 		<span type=button class="js-edit-expense button radius tiny" value="Edit Expense"  data-expense-id={{expenseEntityId}} >Edit expense</span>
