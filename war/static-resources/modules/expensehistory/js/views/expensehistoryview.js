@@ -211,9 +211,9 @@ define(function(require) {
 			
 			function getPoints(points){
 				var pointsStr = '';
-				pointsStr+="L ";
 				for (var i = 0; i < points.length; i++) {
-					pointsStr+=points[i].join(' ') +  ', ';
+					pointsStr+=points[i].join(',');
+					pointsStr+=' ';
 				}
 				return pointsStr;
 			}
@@ -230,17 +230,31 @@ define(function(require) {
 			
 			var svgText = document.createElementNS("http://www.w3.org/2000/svg", "text");//document.createElement("text")
 			svgText.setAttribute('x', 0);
-			svgText.setAttribute('y', height/2	);
+			svgText.setAttribute('y', (height/2)+20	);
 			svgText.innerHTML = (userName);
 			svg.appendChild(svgText);
 			
-			//var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "path");
+			//Horizontal line from user to middle
+			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
 			//polyline.setAttribute('points', "20,100 40,60 70,80 100,20");
 			polyline.setAttribute('stroke', 'black');
 			polyline.setAttribute('fill', 'none');
 			var innerlineWidth = width -80;
 			var points = [[40, height/2], [innerlineWidth/2, height/2]];
+			polyline.setAttribute('points', getPoints(points));
+			svg.appendChild(polyline);
+			
+			
+			
+			//Vertical line
+			var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+			//polyline.setAttribute('points', "20,100 40,60 70,80 100,20");
+			polyline.setAttribute('stroke', 'black');
+			polyline.setAttribute('fill', 'none');
+			var innerlineWidth = width -80;
+			var points = [[innerlineWidth/2, 40], [innerlineWidth/2, height-40]];
+			polyline.setAttribute('points', getPoints(points));
+			svg.appendChild(polyline);
 			
 			
 			
@@ -254,12 +268,18 @@ define(function(require) {
 				svgText.setAttribute('y', i*80 + 40);
 				svgText.innerHTML = (userName);
 				svg.appendChild(svgText);
+				
+				var polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+				polyline.setAttribute('stroke', 'black');
+				polyline.setAttribute('fill', 'none');
+				points = [];
 				points.push([innerlineWidth/2, i*80 + 40]);
 				points.push([innerlineWidth, i*80 + 40]);
+				polyline.setAttribute('points', getPoints(points));
+				svg.appendChild(polyline);
 			}
 			
-			//polyline.setAttribute('points', getPoints(points));
-			polyline.setAttribute('d', getPoints(points));
+			polyline.setAttribute('points', getPoints(points));
 			svg.appendChild(polyline);
 			
 			parent.append(svg);
