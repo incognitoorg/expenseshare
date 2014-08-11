@@ -1,23 +1,23 @@
 <div class="row">
 	<div class="small-12 large-12 columns expense-details">
 		<div class="row">
-			<div class="small-12 large-12 columns" style="padding-bottom: 10px;">
+			<div class="small-12 large-6 columns" style="padding-bottom: 10px;">
 				<span class="expense-category">Category: {{type}}</span>
 			</div>
-			<div class="small-12 large-12 columns" style="padding-bottom: 10px;">
+			<div class="small-12 large-6 columns" style="padding-bottom: 10px;">
 				{{#if whoCreated}}
-					<span class="expense-date expense-create-date">Created by {{whoCreated.fullName}} on {{day}}</span>
+					<span class="expense-date expense-create-date">Created by {{whoCreated.firstName}} on {{day}}</span>
 				{{else}}
-					<span class="expense-date expense-edit-date">Edited by {{whoEdited.fullName}} on {{day}}</span>
+					<span class="expense-date expense-edit-date">Edited by {{whoEdited.firstName}} on {{day}}</span>
 				{{/if}}
 			</div>
 		</div>
 	</div>
-	<div class="small-12 large-6 columns payers-container">
+	<!-- <div class="small-12 large-6 columns payers-container">
 		<div class="row collapse">
 			{{#each listPayersInfo}}
 			<div class="small-12 columns js-participants">
-				 <span>{{userInfo.fullName}} paid {{amount}}</span>
+				 <span>{{userInfo.firstName}} paid {{amount}}</span>
 			</div>
 			{{/each}}
 		</div>
@@ -26,21 +26,38 @@
 		<div class="row collapse">
 			{{#each listIncludeMemberInfo}}
 			<div class="small-12 columns js-participants">
-				 <span>{{userInfo.fullName}}'s share was {{amount}}</span>
+				 <span>{{userInfo.firstName}}'s share was {{amount}}</span>
 			</div>
 			{{/each}}
 		</div>
+	</div> -->
+	
+	<div class="small-12 large-6 columns">
+		<table style="width:100%;">
+			<tr>
+			<th class="small-4 columns">Name</th>
+			<th class="small-4 columns">Paid</th>
+			<th class="small-4 columns">Share</th>
+			</tr>
+			{{#each tableArray}}
+			<tr>
+			<td class="small-4 columns">{{user.firstName}}</td>
+			<td class="small-4 columns">{{paid}}</td>
+			<td class="small-4 columns">{{share}}</td>
+			</tr>
+			{{/each}}
+		</table>
 	</div>
-	<div class="small-12 large-6 columns hide-for-small transition-textual">
+	
+	<!-- <div class="small-12 large-6 columns hide-for-small transition-textual">
 		<div class="row collapse">
 			{{#each transitionData.transitions}}
 			<div class="small-12 columns js-participants">
-				<!-- <span style="float:right;">{{user.fullName}} {{typeLabel}} {{amount}}</span> -->
 				{{#transition this}}{{/transition}}
 			</div>
 			{{/each}}
 		</div>
-	</div>
+	</div> -->
 	
 	<div class="transition small-12 large-6 columns">
 		<svg class="svg">

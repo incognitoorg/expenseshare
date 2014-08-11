@@ -20,6 +20,8 @@ define(function(require) {
 	function normalizeExpense(expense, allMembers, groupMap){
 		var totalAmountPaid = 0;
 		var userTransaction = 0;
+		var tableMap = {};
+		
 		expense.userPaid  = 0;
 		expense.userExpenseAmount = 0;
 		
@@ -29,6 +31,8 @@ define(function(require) {
 			if(memberInfo.userId == user.getInfo().userId){
 				expense.userExpenseAmount = parseInt(memberInfo.amount);
 			}
+			tableMap[memberInfo.userId] = tableMap[memberInfo.userId] || {};
+			tableMap[memberInfo.userId].share = memberInfo.amount;
 		}
 		
 		for ( var i = 0; i < expense.listPayersInfo.length; i++) {
@@ -38,12 +42,21 @@ define(function(require) {
 			if(memberInfo.userId== user.getInfo().userId){
 				expense.userPaid=parseInt(memberInfo.amount);
 			}
+			tableMap[memberInfo.userId] = tableMap[memberInfo.userId] || {};
+			tableMap[memberInfo.userId].paid = memberInfo.amount;
 		}
+		
+		var tableArray = [];
+		for(var index in tableMap){
+			tableArray.push({user : allMembers[index], paid : tableMap[index].paid, share : tableMap[index].share});
+		}
+		expense.tableArray = tableArray;
+		
 		
 		if(expense.listPayersInfo.length>1){
 			expense.whoPaid = expense.listPayersInfo.length + " People";
 		} else {
-			expense.whoPaid = expense.listPayersInfo[0].userInfo.fullName;
+			expense.whoPaid = expense.listPayersInfo[0].userInfo.firstName;
 		}
 		
 		
@@ -100,6 +113,9 @@ define(function(require) {
 		expense.transitionData = transitionData;
 		
 		console.log('expense.transitionData', expense.transitionData);
+		
+		
+		
 		
 		return expense;
 	}
@@ -180,6 +196,7 @@ define(function(require) {
 			for(var groupIndex in groups){
 				var groupInfo = groups[groupIndex];
 				for(var memberIndex in groupInfo.members ){
+					groupInfo.members[memberIndex].firstName = groupInfo.members[memberIndex].fullName.split(' ')[0];
 					allMembers[groupInfo.members[memberIndex].userId] = groupInfo.members[memberIndex];
 				}
 				groupMap[groupInfo.groupId] = groupInfo;
