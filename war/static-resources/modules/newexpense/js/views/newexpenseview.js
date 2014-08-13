@@ -556,6 +556,20 @@ define(function(require) {
 			this.$('.js-expense-date').val(date);
 			this.$('.js-expense-type').val(expense.type);
 			
+			if(listPayersInfo.length==1 && listIncludeMemberInfo==1 && expense.iou.length==1){
+				var currentUser = user.getInfo();
+				var type = null;
+				if(listPayersInfo[0].userId===currentUser.userId){
+					type = "other-owe";
+				} else {
+					type = "user-owe"
+				}
+				this.$('.select-between-two').val(type)
+			} else {
+				
+			}
+			
+			
 		},
 		createPayersSection : function(groupMembers){
 			var payersContainer = this.$('.js-payers').html('');
