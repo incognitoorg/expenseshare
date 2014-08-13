@@ -171,7 +171,8 @@ define(function(require) {
 			'click .google-button' : 'doGoogleLogin',
 			'click .add-friend' : 'doAddFriend',
 			'click .cancel-add-friend' : 'cancelAddFriend',
-			'click .select-between-two' : 'showFormForTwo'
+			'click .select-between-two' : 'showFormForTwo',
+			'change .select-between-two' : 'populatePayAndContribInputs'
 			
 		},
 		registerValidator : function(){
@@ -556,7 +557,7 @@ define(function(require) {
 			this.$('.js-expense-date').val(date);
 			this.$('.js-expense-type').val(expense.type);
 			
-			if(listPayersInfo.length==1 && listIncludeMemberInfo==1 && expense.iou.length==1){
+			if(listPayersInfo.length==1 && listIncludeMemberInfo.length==1 && expense.iou.length==1){
 				var currentUser = user.getInfo();
 				var type = null;
 				if(listPayersInfo[0].userId===currentUser.userId){
@@ -565,11 +566,12 @@ define(function(require) {
 					type = "user-owe"
 				}
 				this.$('.select-between-two').val(type)
-			} else {
+				this.$('.js-between-two-input').val(listPayersInfo[0].amount)
 				
+			} else {
+				this.$('.between-two-options').hide()
+				this.$('.split-form').show();
 			}
-			
-			
 		},
 		createPayersSection : function(groupMembers){
 			var payersContainer = this.$('.js-payers').html('');
