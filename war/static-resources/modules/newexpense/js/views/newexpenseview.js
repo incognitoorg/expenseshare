@@ -520,13 +520,13 @@ define(function(require) {
 		},
 		showFormForTwo : function(){
 			var selectedOption = this.$('.select-between-two').val();
+			this.populateBetweenTwoInput();
 			if("split"==selectedOption){
 				this.$('.between-two-ip-container').hide();
 				this.$('.split-form').show();
 			} else {
 				this.$('.between-two-ip-container').show();
 				this.$('.split-form').hide();
-				this.populateBetweenTwoInput();
 			}
 		},
 		populateBetweenTwoInput : function(){
@@ -571,7 +571,11 @@ define(function(require) {
 			} else {
 				this.$('.between-two-options').hide()
 				this.$('.split-form').show();
+				
+				
 			}
+			
+			
 		},
 		createPayersSection : function(groupMembers){
 			var payersContainer = this.$('.js-payers').html('');
@@ -1069,18 +1073,27 @@ define(function(require) {
 		},
 		populatePayAndContribInputs : function(){
 			
-			var $payInputs = this.$('.js-pay-input').not('.js-current-user-pay-input').val(0);
+			var $payInputs = this.$('.js-pay-input').not('.js-current-user-pay-input');
 			var $contributionInputs = this.$('.js-contribution-input').val(0);
 			var value = this.$('.js-between-two-input').val();
 			
 			var selectedOption = this.$('.select-between-two').val();
 			if("other-owe"==selectedOption){
+				$payInputs.val(0);
+				$contributionInputs.val(0);
 				$($payInputs[0]).val(value);
 				$($contributionInputs[1]).val(value);
-			} else {
+			} else if("user-owe"==selectedOption){
+				$payInputs.val(0);
+				$contributionInputs.val(0);
 				$($payInputs[1]).val(value)
 				$($contributionInputs[0]).val(value);
+			} else {
+				this.$('.between-two-ip-container').hide();
+				this.$('.split-form').show();
+				this.divideExpense();
 			}
+			
 		}
 		
 		
