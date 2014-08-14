@@ -171,7 +171,8 @@ define(function(require) {
 			'click .google-button' : 'doGoogleLogin',
 			'click .add-friend' : 'doAddFriend',
 			'click .cancel-add-friend' : 'cancelAddFriend',
-			'click .select-between-two' : 'showFormForTwo'
+			'click .select-between-two' : 'showFormForTwo',
+			'change .select-between-two' : 'populatePayAndContribInputs'
 			
 		},
 		registerValidator : function(){
@@ -519,13 +520,13 @@ define(function(require) {
 		},
 		showFormForTwo : function(){
 			var selectedOption = this.$('.select-between-two').val();
+			this.populateBetweenTwoInput();
 			if("split"==selectedOption){
 				this.$('.between-two-ip-container').hide();
 				this.$('.split-form').show();
 			} else {
 				this.$('.between-two-ip-container').show();
 				this.$('.split-form').hide();
-				this.populateBetweenTwoInput();
 			}
 		},
 		populateBetweenTwoInput : function(){
@@ -555,6 +556,25 @@ define(function(require) {
 			var date = year +"-" + month +"-" + day; 
 			this.$('.js-expense-date').val(date);
 			this.$('.js-expense-type').val(expense.type);
+			
+			if(listPayersInfo.length==1 && listIncludeMemberInfo.length==1 && expense.iou.length==1){
+				var currentUser = user.getInfo();
+				var type = null;
+				if(listPayersInfo[0].userId===currentUser.userId){
+					type = "other-owe";
+				} else {
+					type = "user-owe"
+				}
+				this.$('.select-between-two').val(type)
+				this.$('.js-between-two-input').val(listPayersInfo[0].amount)
+				
+			} else {
+				this.$('.between-two-options').hide()
+				this.$('.split-form').show();
+				
+				
+			}
+			
 			
 		},
 		createPayersSection : function(groupMembers){
@@ -1053,18 +1073,27 @@ define(function(require) {
 		},
 		populatePayAndContribInputs : function(){
 			
-			var $payInputs = this.$('.js-pay-input').not('.js-current-user-pay-input').val(0);
+			var $payInputs = this.$('.js-pay-input').not('.js-current-user-pay-input');
 			var $contributionInputs = this.$('.js-contribution-input').val(0);
 			var value = this.$('.js-between-two-input').val();
 			
 			var selectedOption = this.$('.select-between-two').val();
 			if("other-owe"==selectedOption){
+				$payInputs.val(0);
+				$contributionInputs.val(0);
 				$($payInputs[0]).val(value);
 				$($contributionInputs[1]).val(value);
-			} else {
+			} else if("user-owe"==selectedOption){
+				$payInputs.val(0);
+				$contributionInputs.val(0);
 				$($payInputs[1]).val(value)
 				$($contributionInputs[0]).val(value);
+			} else {
+				this.$('.between-two-ip-container').hide();
+				this.$('.split-form').show();
+				this.divideExpense();
 			}
+			
 		}
 		
 		
