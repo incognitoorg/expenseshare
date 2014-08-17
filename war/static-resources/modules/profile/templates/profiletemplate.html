@@ -1,17 +1,24 @@
-<div class=>
-	<div class="small-12">
-		<div class="button js-logout">Logout</div>
+<div class="row profile">
+	<div class="small-12 columns">
+		<img  src="{{imgUrl}}"  onError="this.onerror=null;this.src='/static-resources/images/icons/no-image.jpg';" ><span class="js-selected-friend-remove-name" style="padding-left:10px;">{{fullName}}</span>
 	</div>
-	
-	<div class="small-12">
-
+	<div class="small-12 columns">
+		<span>Email : </span><span>{{email}}</span>
+	</div>
+	<div class="small-12 columns hide">
+		<div class="button js-logout">Change Password</div>
+	</div>
+	<div class="small-12 columns hide">
+		<span>Social Accounts</span>
+	</div>
+	<div class="small-12 columns hide-for-medium-up">
+		<div class="button js-logout tiny radius" style="width:100%;">Logout</div>
+	</div>
+	<div class="small-12 columns">
 			<!-- A link to launch the Classic Widget -->
 		<a href="javascript:void(0)" data-uv-lightbox="classic_widget"
 			data-uv-mode="full" data-uv-primary-color="#cc6d00"
 			data-uv-link-color="#007dbf" data-uv-default-mode="support"
 			data-uv-forum-id="233535">Feedback &amp; Support</a>
 	</div>
-	
-	
-	
 </div>
