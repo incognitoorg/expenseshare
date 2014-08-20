@@ -86,29 +86,38 @@ public class MailUtil {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(entry.getKey(), entry.getValue()!=null ? entry.getValue() : "User"));
 				log.info("User email added - " + entry.getKey());
 				
-				int index = sbMsgContent.indexOf("??username??");
 				
-				String emailContent = new String(sbMsgContent);
-				StringBuilder sbEmailContent = new StringBuilder(emailContent);
+				try {
+					int index = sbMsgContent.indexOf("??username??");
+					
+					String emailContent = new String(sbMsgContent);
+					StringBuilder sbEmailContent = new StringBuilder(emailContent);
+					
+					sbEmailContent.replace(index, index + 12, entry.getValue()!=null ? entry.getValue() : "User");
+					
+					
+					
+					System.out.println(sbEmailContent);
+					
+					msg.setSubject(subject);
+					msg.setText(sbEmailContent.toString(), "utf-8", "html");
+					Transport.send(msg);
+					
+					
+					//TODO : Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.
+					MimeMessage msgAdmin = new MimeMessage(session);
+					msgAdmin.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
+					msgAdmin.addRecipient(Message.RecipientType.BCC, new InternetAddress("admins"));
+					msgAdmin.setSubject(subject);
+					msgAdmin.setText(sbEmailContent.toString(), "utf-8", "html");
+					Transport.send(msgAdmin);
+				} catch (Exception e){
+					new MailUtil().sendToAdmin("Exception occured while sending email in for. " + entry.getValue() + " " + entry.getKey(), e.getStackTrace().toString());
+				}
 				
-				sbEmailContent.replace(index, index + 12, entry.getValue()!=null ? entry.getValue() : "User");
 				
-				
-				
-				System.out.println(sbEmailContent);
 
-				msg.setSubject(subject);
-				msg.setText(sbEmailContent.toString(), "utf-8", "html");
-				Transport.send(msg);
 				
-				
-				//TODO : Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.
-				MimeMessage msgAdmin = new MimeMessage(session);
-				msgAdmin.setFrom(new InternetAddress(SENDER_EMAIL_ADDRESS, SENDER_NAME));
-				msgAdmin.addRecipient(Message.RecipientType.BCC, new InternetAddress("admins"));
-				msgAdmin.setSubject(subject);
-				msgAdmin.setText(sbEmailContent.toString(), "utf-8", "html");
-				Transport.send(msgAdmin);
 				log.info("Sent email to admin ");
 				log.info("Sending email to admin every time it is sent to user. This should be removed going ahead as app becomes big.");
 				
@@ -119,12 +128,15 @@ public class MailUtil {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			log.log(Level.SEVERE, e.getStackTrace().toString());
+			new MailUtil().sendToAdmin("Exception occured while sending email", e.getStackTrace().toString());
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			log.log(Level.SEVERE, e.getStackTrace().toString());
+			new MailUtil().sendToAdmin("Exception occured while sending email", e.getStackTrace().toString());
 		} catch (Exception e){
 			e.printStackTrace();
 			log.log(Level.SEVERE, e.getStackTrace().toString());
+			new MailUtil().sendToAdmin("Exception occured while sending email", e.getStackTrace().toString());
 		}
 	}
 	
