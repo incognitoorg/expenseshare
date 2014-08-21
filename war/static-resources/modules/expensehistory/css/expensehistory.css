@@ -148,6 +148,17 @@ div.expense:nth-child(2n) {
 	position: absolute;
 	right: 0px;
 	top: 12px;
+	font-size: 24px;
+	background: rgb(215, 215, 215);
+	width: 20px;
+	height: 19px;
+	color: rgb(85, 85, 85);
+	border-radius: 10px;
+	text-align: center;
+	line-height: 20px;
+	padding: 0!important;
+	margin-right: 4px;
+	margin-top: -6px;
 }
 
 .transition{
