@@ -157,6 +157,14 @@ define(function(require) {
 			'keyup input.js-contribution-input' : 'adjustExpenses',
 			'keyup input.js-current-user-pay-input' : 'divideExpenseCurrentUser',
 			'keyup input.js-between-two-input' : 'populatePayAndContribInputs',
+			'blur input.js-pay-input' : 'divideExpense',
+			'blur input.js-contribution-input' : 'adjustExpenses',
+			'blur input.js-current-user-pay-input' : 'divideExpenseCurrentUser',
+			'blur input.js-between-two-input' : 'populatePayAndContribInputs',
+			'input input.js-pay-input' : 'divideExpense',
+			'input input.js-contribution-input' : 'adjustExpenses',
+			'input input.js-current-user-pay-input' : 'divideExpenseCurrentUser',
+			'input input.js-between-two-input' : 'populatePayAndContribInputs',
 			'click .js-more-payers' : 'eventShowMorePayers',
 			'click .js-lock-button' : 'eventLockExpense',
 			'click .js-select-expense' : 'toggleExpense',
@@ -171,7 +179,8 @@ define(function(require) {
 			'click .google-button' : 'doGoogleLogin',
 			'click .add-friend' : 'doAddFriend',
 			'click .cancel-add-friend' : 'cancelAddFriend',
-			'click .select-between-two' : 'showFormForTwo'
+/*			'change .select-between-two' : 'showFormForTwo',*/
+			'change .select-between-two' : 'populatePayAndContribInputs'
 			
 		},
 		registerValidator : function(){
@@ -492,19 +501,23 @@ define(function(require) {
 			this.$('.js-all-payers').hide();
 			this.$('.js-included-members').hide();
 			
-			this.registerValidator();
+			
+			
 			
 			if(group.members.length===2){
 				this.populateBetweenTwoOptions(group.members);
 				this.$('.between-two-options').show();
+				this.$('.between-two-ip-container').show();
+				this.$('.split-form').hide();
 			}
-			
+
 			if(expense){
 				this.populateExpenseData(expense);
 				this.oldObjExpenseModel = new ExpenseModel(expense);
 				this.eventShowMorePayers();
 			}
 			
+			this.registerValidator();
 		},
 		populateBetweenTwoOptions : function(members){
 			var currentUser = user.getInfo();
@@ -517,17 +530,30 @@ define(function(require) {
 			this.$('.select-between-two').val('other-owe');
 			this.$('.select-between-two').trigger('click');
 		},
-		showFormForTwo : function(){
+		/*showFormForTwo : function(){
+			var $payInputs = this.$('.js-pay-input').not('.js-current-user-pay-input');
+			var $contributionInputs = this.$('.js-contribution-input').val(0);
+			var value = this.$('.js-between-two-input').val();
+			
 			var selectedOption = this.$('.select-between-two').val();
-			if("split"==selectedOption){
-				this.$('.between-two-ip-container').hide();
-				this.$('.split-form').show();
-			} else {
+			if("split"!==selectedOption){
+				$payInputs.val(0);
+				$contributionInputs.val(0);
 				this.$('.between-two-ip-container').show();
 				this.$('.split-form').hide();
-				this.populateBetweenTwoInput();
+				if("other-owe"==selectedOption){
+					$($payInputs[0]).val(value);
+					$($contributionInputs[1]).val(value);
+				} else if("user-owe"==selectedOption){
+					$($payInputs[1]).val(value)
+					$($contributionInputs[0]).val(value);
+				} 
+			} else {
+				this.$('.between-two-ip-container').hide();
+				this.$('.split-form').show();
+				this.divideExpense();
 			}
-		},
+		},*/
 		populateBetweenTwoInput : function(){
 			var selectedOption = this.$('.select-between-two').val();
 			var placeholderText = selectedOption=="other-owe"?"Amount paid by You"  : "Amount paid by " + this.otherUser.fullName;
@@ -555,6 +581,25 @@ define(function(require) {
 			var date = year +"-" + month +"-" + day; 
 			this.$('.js-expense-date').val(date);
 			this.$('.js-expense-type').val(expense.type);
+			
+			if(listPayersInfo.length==1 && listIncludeMemberInfo.length==1 && expense.iou.length==1){
+				var currentUser = user.getInfo();
+				var type = null;
+				if(listPayersInfo[0].userId===currentUser.userId){
+					type = "other-owe";
+				} else {
+					type = "user-owe"
+				}
+				this.$('.select-between-two').val(type)
+				this.$('.js-between-two-input').val(listPayersInfo[0].amount)
+				
+			} else {
+				this.$('.between-two-options').hide()
+				this.$('.split-form').show();
+				
+				
+			}
+			
 			
 		},
 		createPayersSection : function(groupMembers){
@@ -1053,18 +1098,29 @@ define(function(require) {
 		},
 		populatePayAndContribInputs : function(){
 			
-			var $payInputs = this.$('.js-pay-input').not('.js-current-user-pay-input').val(0);
+			var $payInputs = this.$('.js-pay-input').not('.js-current-user-pay-input');
 			var $contributionInputs = this.$('.js-contribution-input').val(0);
 			var value = this.$('.js-between-two-input').val();
 			
 			var selectedOption = this.$('.select-between-two').val();
-			if("other-owe"==selectedOption){
-				$($payInputs[0]).val(value);
-				$($contributionInputs[1]).val(value);
+			if("split"!==selectedOption){
+				$payInputs.val(0);
+				$contributionInputs.val(0);
+				this.$('.between-two-ip-container').show();
+				this.$('.split-form').hide();
+				if("other-owe"==selectedOption){
+					$($payInputs[0]).val(value);
+					$($contributionInputs[1]).val(value);
+				} else if("user-owe"==selectedOption){
+					$($payInputs[1]).val(value)
+					$($contributionInputs[0]).val(value);
+				} 
 			} else {
-				$($payInputs[1]).val(value)
-				$($contributionInputs[0]).val(value);
+				this.$('.between-two-ip-container').hide();
+				this.$('.split-form').show();
+				this.divideExpense();
 			}
+			
 		}
 		
 		
