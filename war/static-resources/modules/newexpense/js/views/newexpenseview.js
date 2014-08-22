@@ -252,13 +252,15 @@ define(function(require) {
 				focus : function(event, ui){
 					event.preventDefault();
 				}
+			}).focus(function() {
+    				$(this).autocomplete("search", $(this).val());
 			}).data("ui-autocomplete")._renderItem = function (ul, item) {
 				//ul.addClass(item.loginType);
     			return $("<li></li>")
 				.addClass(item.value.loginType || "")
-    			.append("<a href='#'>" + item.label + "</a>")
-    			.data("ui-autocomplete-item", item)
-    			.appendTo(ul);
+    				.append("<a href='#'>" + item.label + "</a>")
+    				.data("ui-autocomplete-item", item)
+    				.appendTo(ul);
 			};
 			
 		},
