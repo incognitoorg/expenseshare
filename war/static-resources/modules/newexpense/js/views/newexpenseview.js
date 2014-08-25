@@ -248,7 +248,7 @@ define(function(require) {
 					event.preventDefault();
 				},
 				autoFocus: true,
-				minLength:1,
+				minLength:0,
 				focus : function(event, ui){
 					event.preventDefault();
 				}
