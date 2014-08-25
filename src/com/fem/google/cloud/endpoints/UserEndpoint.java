@@ -443,10 +443,10 @@ public class UserEndpoint {
 				
 				msgContent = new StringBuilder(TemplateUtil.getTemplate("USER_CREATED_MAIL_TEMPLATE"));
 				
-				int index = msgContent.indexOf("??userfirstname??");
-				msgContent.replace(index, index + 17, user.getFirstName() == null ? "" : user.getFirstName());
-				index = msgContent.indexOf("??userlastname??");
-				msgContent.replace(index, index + 16, user.getLastName() == null ? "" : user.getLastName());
+				//int index = msgContent.indexOf("??userfirstname??");
+				//msgContent.replace(index, index + 17, user.getFirstName() == null ? "" : user.getFirstName());
+				//index = msgContent.indexOf("??userlastname??");
+				//msgContent.replace(index, index + 16, user.getLastName() == null ? "" : user.getLastName());
 				
 				if(user.getEmail() != null) {
 					hmEmailIds.put(user.getEmail(), user.getFullName());
