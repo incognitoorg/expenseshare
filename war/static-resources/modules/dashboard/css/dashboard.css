@@ -4,14 +4,30 @@
 .owes-to-me{
 	
 } 
+.benificiary-name {
+	vertical-align: middle;	
+}
+
 .dashboard-payment-button{
 	float : right;
+	display: inline;
 	padding-right: 10px;
+	padding-top: 5px;
 }
+
+.benificiary-amount.credit {
+	color: rgb(90, 184, 37);
+}
+
+.benificiary-amount.debit {
+	color: rgb(255, 0, 0);
+}
+
 .dashboard-row{
-	height : 30px;
-	color:black;
-	line-height: 30px;
+	cursor: pointer;
+	min-height : 60px;
+	line-height: 60px;
+	margin-bottom: 5px;
 }
 .dashboard-row:nth-of-type(odd){
 	background: whitesmoke;
@@ -21,12 +37,6 @@
 }
 .dashboard-user-name{
 	text-decoration: underline;
-	cursor: pointer;
+	padding-left: 5px;
 	color : black;
-}
-
-.dashboard-container input{
-	width: 80px;
-	height: 24px!important;
-	line-height: 24px;
 }

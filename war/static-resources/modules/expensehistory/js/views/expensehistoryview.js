@@ -92,7 +92,7 @@ define(function(require) {
 			if(iou[i].fromUserId==currentUser.userId){
 				type = 'debit';
 				transition['userId'] = iou[i].toUserId;
-				transition['amount'] = iou[i].amount;
+				transition['amount'] = Math.abs(Math.round(iou[i].amount * 100) / 100);
 				transition['user'] =  allMembers[iou[i].toUserId];
 				transition['typeLabel'] = 'you owe';
 				
@@ -100,7 +100,7 @@ define(function(require) {
 			} else if(iou[i].toUserId==currentUser.userId){
 				type = 'credit';
 				transition['userId'] = iou[i].fromUserId;
-				transition['amount'] = iou[i].amount;
+				transition['amount'] = Math.abs(Math.round(iou[i].amount * 100) / 100);
 				transition['user'] =  allMembers[iou[i].fromUserId];
 				transition['typeLabel'] = 'owes';
 				transitions.push(transition)

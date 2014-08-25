@@ -1,6 +1,5 @@
 define(function(require) {
 	var Sandbox = require('sandbox');
-
 	var login = require('components/login/login');
 	var css = require('css!./../../css/dashboard.css');
 	var RowTemplate = Handlebars.compile(require('text!./../../templates/dashboardrow.html'))
@@ -9,14 +8,17 @@ define(function(require) {
 	var DashboardView = Sandbox.View.extend({
 		initialize : function(options) {
 			this.options = _.extend({
-			//defaults here
+				
 			}, options);
+			this.totalCredit = 0;
+			this.totalDebit = 0;
 			this.render();
 			this.getDashboardData();
 		},
 		template : Handlebars
 				.compile(require('text!./../../templates/dashboardtemplate.html')),
 		render : function(data) {
+			/*TODO: Need to get collective debit and credit data for the user*/
 			$(this.el).html(this.template(data));
 		},
 		events : {
@@ -39,12 +41,7 @@ define(function(require) {
 			
 			if(groups){
 				
-				var userId = user.userId;
-				
-				var allMembers = {};
-				
-				
-				var oweInformation = {};
+				var userId = user.userId, allMembers = {}, oweInformation = {};
 				
 				for ( var i = 0; i < groups.length; i++) {
 					var group = groups[i];
@@ -107,33 +104,31 @@ define(function(require) {
 				
 				oweInformation =  sort(oweInformation);
 				
-				var debt = {};
-				var credit = {};
+				var debt = {}, credit = {}, transactions = {}, transactionType, benificiary, memberInfo, rowTemplateData = {};
 				
 				for(var index in oweInformation){
 					if(oweInformation[index].amount<0){
-						debt[index] = oweInformation[index];
+						transactions[index] = oweInformation[index];
+						this.totalDebit += oweInformation[index].amount;
+						transactions[index]["type"] = "debit";
 					} else {
-						credit[index] = oweInformation[index];
+						transactions[index] = oweInformation[index];
+						this.totalCredit += oweInformation[index].amount;
+						transactions[index]["type"] = "credit";
 					}
 				}
 				
-				
-				filterZeros(debt);
-				filterZeros(credit);
+				filterZeros(transactions);
 		
-				this.$('.js-owers').html('');
-				for(owerIndex in credit){
-					var ower = credit[owerIndex];
-					var memberInfo = allMembers[owerIndex];
-					this.$('.js-owers').append(RowTemplate({fullName : memberInfo.fullName, amount : Math.abs(parseInt(ower.amount)), userId : memberInfo.userId}));
-				}
-				
-				this.$('.js-payers').html('');
-				for(payerIndex in debt){
-					var payer = debt[payerIndex];
-					var memberInfo = allMembers[payerIndex];
-					this.$('.js-payers').append(RowTemplate({fullName : memberInfo.fullName, amount : parseInt(payer.amount), userId : memberInfo.userId}));
+				this.$('.js-transactions').html('');
+				for(owerIndex in transactions){
+					benificiary = transactions[owerIndex], memberInfo = allMembers[owerIndex];
+					rowTemplateData = {
+							"benificiary": benificiary,
+							"memberInfo": memberInfo
+					};
+					benificiary.amount = Math.abs(Math.round(benificiary.amount * 100) / 100);
+					this.$('.js-transactions').append(RowTemplate(rowTemplateData));
 				}
 				
 				var $selectForUsers = $('<select class="user-selector">');
@@ -150,13 +145,6 @@ define(function(require) {
 				$selectForUsers.hide();
 				self.allMembers = allMembers;
 			}
-			if(this.$('.js-owers').html().trim()===''){
-				this.$('.js-owers').html('Nobody owes you.');
-			}
-			if(this.$('.js-payers').html().trim()===''){
-				this.$('.js-payers').html('Hurray, you owe no one.');
-			}
-			
 		},
 		reInitialize : function(){
 			this.getDashboardData();

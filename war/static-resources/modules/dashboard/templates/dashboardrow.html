@@ -1,6 +1,16 @@
 <div class="dashboard-row row">
-	<div class="small-12 columns">
-	<a href="#expensehistory/user/{{userId}}"><span class="dashboard-user-name">{{fullName}}</span></a>
-	<span class="dashboard-payment-button"><input type=button value={{amount}}></span>
+	<div class="small-12 large-12 columns">
+		<img class="user" src="{{memberInfo.imgUrl}}"  onError="this.onerror=null;this.src='/static-resources/images/icons/no-image.jpg';" >
+		<a class="benificiary-name" href="#expensehistory/user/{{memberInfo.userId}}">
+			<span class="dashboard-user-name">{{memberInfo.fullName}}</span>
+		</a>
+		<div class="dashboard-payment-button">
+			<span class="benificiary-amount {{benificiary.type}}">
+			{{#ifequals benificiary.type "credit"}}
+			<span>owes you </span>
+			{{else}}
+			<span>you owe </span>
+			{{/ifequals}} 
+			{{benificiary.amount}}</span></div>
 	</div>
 </div>
