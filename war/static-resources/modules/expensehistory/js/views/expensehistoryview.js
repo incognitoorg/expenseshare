@@ -223,17 +223,43 @@ define(function(require) {
 		renderExpenses : function(expenses){
 			expenses = expenses || this.expenses;
 			var expensesContainer = this.$('.js-expenses-container').html('');
-			
+			var dateExpenseMap = {};
 			for ( var i = 0; i < expenses.length; i++) {
 				var expense = expenses[i];
 				this.expenseHitoryMap[expense.expenseEntityId] = expense;
+				var normalizedExpense = normalizeExpense(expense, this.allMembers, this.groupMap);
+				var expenseDate = new Date(normalizedExpense.date);
+				var month = expenseDate.getMonth() + '-' + (expenseDate.getYear()+1900);
+				dateExpenseMap[month] = dateExpenseMap[month] || {
+					period : month,
+					expenses : []
+				};
+				dateExpenseMap[month].expenses.push(normalizedExpense);
 				//TODO : Convert this into view
-				var html = expenseTemplate(normalizeExpense(expense, this.allMembers, this.groupMap));
-				var htmlNode = $(html)
-				expensesContainer.append(htmlNode);
+				//var html = expenseTemplate(normalizeExpense(expense, this.allMembers, this.groupMap));
+				//var htmlNode = $(html)
+				//expensesContainer.append(htmlNode);
 				
 				
 				
+			}
+			
+			for(var index in dateExpenseMap){				
+				//TODO : Convert this into view
+				//var html = expenseTemplate(normalizeExpense(expense, this.allMembers, this.groupMap));
+				//var htmlNode = $(html)
+				//expensesContainer.append(htmlNode);
+				var dateHTMLNode = $('<div class="row">');
+				var column = dateHTMLNode.append($('<div class="small-12 columns">').html(index));
+				expensesContainer.append(dateHTMLNode);
+				var expenses = dateExpenseMap[index].expenses;
+				for ( var i = 0; i < expenses.length; i++) {
+					var expense = expenses[i];
+					//TODO : Convert this into view
+					var html = expenseTemplate(normalizeExpense(expense, this.allMembers, this.groupMap));
+					var htmlNode = $(html)
+					expensesContainer.append(htmlNode);
+				}
 			}
 		},
 		renderExpenseTransition : function(transitionData, htmlNode){
