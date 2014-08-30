@@ -60,6 +60,7 @@ define(function(require){
 			'click .js-back-to-menu' : 'eventShowMenu',
 			'click .js-show-menu' : 'showMenu',
 			'click .js-hide-menu' : 'hideMenu',
+			'click .top-bar-icons>span' : 'eventShowView'
 		},
 		eventShowView : function(event){
 			var self = this;
@@ -77,6 +78,7 @@ define(function(require){
 			};
 			argumentsProvided.length>0?dataToPublish['argumentsProvided']=argumentsProvided : ''; 
 			Sandbox.publish('FEM:MENU:CLICK',dataToPublish);
+			event.stopPropagation();
 		},
 		makeResponsive : function(){
 			this.$('.js-left-side-menu p').height(parseInt(this.$('.js-left-side-menu').height()/this.menulength)-1);
