@@ -121,30 +121,39 @@ body {
 .js-menu:last-child{
 	border-bottom: none;
 }
+.top-bar-icons>span{
+	width: 22px;
+	display: inline-block;
+	margin-left: 15px;
+}
+.top-bar-icons{
+	position: absolute;right:0;
+	top:0;
+	padding-top: 10px;  padding-right: 10px;
+}
 
-
-.js-menu:nth-child(1)>span{
+.js-menu:nth-child(1)>span, .top-bar-icons>.dashboard{
 	 background: url("images/dashboard1-24-24-white.png") no-repeat;
 	 background-size: 100%;
 }
-.js-menu:nth-child(2)>span{
+.js-menu:nth-child(2)>span, .top-bar-icons>.add-expense{
 	background: url("images/add-24-24-white.png") no-repeat; 
 	background-size: 100%;
 }
-.js-menu:nth-child(3)>span{
+.js-menu:nth-child(3)>span, .top-bar-icons>.create-group{
 	background: url("images/groups01-24-24-white.png") no-repeat; 
 	background-size: 100%;
 }
-.js-menu:nth-child(4)>span{
+.js-menu:nth-child(4)>span, .top-bar-icons>.expense-history{
 	background: url("images/List-icon-24-24-white.png") no-repeat; 
 	background-size: 100%;
 }
-.js-menu:nth-child(5)>span{
+.js-menu:nth-child(5)>span, .top-bar-icons>.groups{
 	background: url("images/edit-24-24-white.png") no-repeat;
 	background-size: 100%;
 	
 }
-.js-menu:nth-child(6)>span{
+.js-menu:nth-child(6)>span, .top-bar-icons>.profile{
 	background: url("images/profile-24-24-white.png") no-repeat;
 	background-size: 100%;
 }

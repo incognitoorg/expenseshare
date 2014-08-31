@@ -213,14 +213,14 @@ hr.red-line{
 	/* background: rgb(232, 232, 247); */
 	background :url("images/facebook.png") no-repeat;
 	background-position: 98% 50%;
-	background-color: #4863ae;
+	background-color: #EAF0FF;
 }
 
 
 .ui-menu-item.google{
 	background :url("images/google.png") no-repeat;
 	background-position: 98% 50%;
-	background-color: #df4a32;
+	background-color: #EAEEF6;
 }
 
 .ui-menu-item .ui-corner-all{
