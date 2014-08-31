@@ -25,7 +25,7 @@ define(function(require){
 		'js-create-group'		:	{module :this.femCreateGroup, 'name' : 'Create Group'},
 		'js-edit-group'			:	{module :this.femEditGroup, 'name' : 'Edit Group'},
 		'js-new-expense'		:	{module :this.femCreateExpense, 'name' : 'Add Expense'},
-		'js-expense-history'	:	{module :this.femEditExpense, 'name' : 'Expense History'},
+		'js-expense-history'	:	{module :this.femEditExpense, 'name' : 'Expenses'},
 		'js-dashboard'			:	{module :this.femDashboard, 'name' : 'Dashboard'},
 		'js-profile'			:	{module :this.femProfile, 'name' : 'Profile'}
 	};
@@ -78,7 +78,9 @@ define(function(require){
 			};
 			argumentsProvided.length>0?dataToPublish['argumentsProvided']=argumentsProvided : ''; 
 			Sandbox.publish('FEM:MENU:CLICK',dataToPublish);
-			event.stopPropagation();
+			this.$('.top-bar-icons').find('span').show();
+			this.$('span[data-menu="' + clickedMenu + '"]').hide();
+			event.stopPropagation && event.stopPropagation();
 		},
 		makeResponsive : function(){
 			this.$('.js-left-side-menu p').height(parseInt(this.$('.js-left-side-menu').height()/this.menulength)-1);

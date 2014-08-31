@@ -61,14 +61,15 @@ define(function(require) {
 			return orderB - orderA;
 		});
 		
-		
-		formatted.push({
-			label : 'Add "' + query.term.trim()  +'" as non social friend.',
-			value : {
-				fullName : query.term.trim(),
-				loginType : 'non-social'
-			}
-		})
+		if(query.term.trim()!=""){
+			formatted.push({
+				label : 'Add "' + query.term.trim()  +'" as non social friend.',
+				value : {
+					fullName : query.term.trim(),
+					loginType : 'non-social'
+				}
+			});
+		}
 		
 		return formatted;
 	}
