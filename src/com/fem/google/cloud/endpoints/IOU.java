@@ -9,6 +9,12 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class IOU{
+	@Override
+	public String toString() {
+		return "IOU [iouId=" + iouId + ", groupId=" + groupId + ", fromUserId="
+				+ fromUserId + ", toUserId=" + toUserId + ", amount=" + amount
+				+ "]";
+	}
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")

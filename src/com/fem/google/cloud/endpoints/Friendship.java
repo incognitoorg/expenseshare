@@ -12,6 +12,12 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Friendship {
 	
+	@Override
+	public String toString() {
+		return "Friendship [id=" + id + ", alGroupIds=" + alGroupIds
+				+ ", iouList=" + iouList + "]";
+	}
+
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private String id;

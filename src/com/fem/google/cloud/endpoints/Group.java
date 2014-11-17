@@ -17,6 +17,16 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 public class Group {
 
 	
+	@Override
+	public String toString() {
+		return "Group [groupId=" + groupId + ", createdBy=" + createdBy
+				+ ", editedBy=" + editedBy + ", createdAt=" + createdAt
+				+ ", editedAt=" + editedAt + ", isActive=" + isActive
+				+ ", groupName=" + groupName + ", groupType=" + groupType
+				+ ", ownerId=" + ownerId + ", members=" + members
+				+ ", membersIdList=" + membersIdList + ", iouList=" + iouList
+				+ "]";
+	}
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private String groupId;

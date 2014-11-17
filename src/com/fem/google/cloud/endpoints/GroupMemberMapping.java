@@ -10,6 +10,11 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class GroupMemberMapping {
 
+	@Override
+	public String toString() {
+		return "GroupMemberMapping [mappingId=" + mappingId + ", userId="
+				+ userId + ", groupId=" + groupId + "]";
+	}
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")

@@ -9,6 +9,11 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class FriendshipIndex {
+	@Override
+	public String toString() {
+		return "FriendshipIndex [id=" + id + ", friendshipId=" + friendshipId
+				+ "]";
+	}
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
