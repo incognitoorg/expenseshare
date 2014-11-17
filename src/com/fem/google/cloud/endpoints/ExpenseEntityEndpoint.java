@@ -530,6 +530,9 @@ public class ExpenseEntityEndpoint {
 			//This call makes changes to expenseentity. Adds IOU to it.
 			this.updateIOU(mgr, expenseentity, iouToUpdate, "add");
 			
+			log.info("Updated IOU below : ");
+			log.info(iouToUpdate.toString());
+			
 			expenseentity.setGroup(null);
 			//This is an expense in group
 			//TODO: I dont know why this is needed. But without this the IOU updation is not persistent
@@ -602,6 +605,9 @@ public class ExpenseEntityEndpoint {
 			
 			this.updateIOU(mgr, oldExpenseentity, iouToDelete, "delete");
 			this.updateIOU(mgr, expenseentity, iouToUpdate, "edit");
+			
+			log.info("Updated IOU below : ");
+			log.info(iouToUpdate.toString());
 			
 			//Removing related expenseinfo
 			for (Iterator iterator = oldExpenseentity.getListIncludeMemberInfo().iterator(); iterator.hasNext();) {
