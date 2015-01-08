@@ -29,8 +29,44 @@ public class UserUtil {
 
 		
 		Query q = pm.newQuery(User.class);
+		
+		/*
+		 * Following block works for cases
+		 * 1. Facebook login by user
+		 * 2. Friend added using facebook.
+		 * */
+		if("facebook".equalsIgnoreCase(loginType)) {
+			apiId = user.getFacebookId();
+			q.setFilter("facebookId == facebookIdParam");
+			q.declareParameters("String facebookIdParam");
+			
+			execute = (List<User>)q.execute(apiId);
+			if(execute.size()>0){
+				user = execute.get(0);
+			} else {
+				user = new UserEndpoint().insertUser(user);
+			}
+			return user;
+			
+		} 
+		
+		
+		/*
+		 * Following block works for cases
+		 * 1. Friend added from textbox with or without email
+		 * */
+		else if("offline".equalsIgnoreCase(loginType)){
+			user = new UserEndpoint().insertUser(user);
+			return user;
+		}
 
-		//Client is coming with the email. Either login or friend with email availability (Non facebook)
+
+		/*
+		 * Following block works for cases
+		 * 1. Google login
+		 * 2. Email and password login.
+		 * 3. Friend added using google contacts.
+		 * */
 		if(!StringUtils.isEmpty(email)){
 			User userFromDataStore = null;
 			q.setFilter("email == emailParam");
@@ -55,21 +91,18 @@ public class UserUtil {
 				}
 				
 			} else {
-				//User is not in the system. Making the entry for first time.
 				
+				//User is not in the system. And is trying email login. Must return error.
 				if(user.getLoginType().equals("email")){
 					return null;
 				}
-				 
+				
+				//User is not in the system. Making the entry for first time.
 				user = new UserEndpoint().insertUser(user);
 			}
 
 			/*//User is logging into application. So update lastLoggedIn timestamp.
-			if(lastLoggedIn!= null){
-				user.setLastLoggedInAt(lastLoggedIn);
-				user.setAccessToken(authToken);
-				pm.makePersistent(user);
-			}*/
+			*/
 			
 			if(userFromDataStore!=null){
 				if(userFromDataStore.getFacebookEmail()==null && user.getFacebookEmail()!=null) {
@@ -98,41 +131,6 @@ public class UserUtil {
 			user.setFacebookId(facebookId);
 			return user;
 		}
-
-
-
-
-		/*if("google".equalsIgnoreCase(user.getLoginType())) {
-			apiId = user.getGoogleId();
-			q.setFilter("googleId == googleIdParam");
-			q.declareParameters("String googleIdParam");
-		} else */
-		if("facebook".equalsIgnoreCase(loginType)) {
-			apiId = user.getFacebookId();
-			q.setFilter("facebookId == facebookIdParam");
-			q.declareParameters("String facebookIdParam");
-		} else if("offline".equalsIgnoreCase(loginType)){
-			user = new UserEndpoint().insertUser(user);
-			return user;
-		}
-
-
-
-		if(apiId==null){
-			throw new IllegalArgumentException("Neither email provided nor apiId aka facebook id was provided. Front end is having some problems. Go check.\n\nUser info : " + user);
-		} else {
-			execute = (List<User>)q.execute(apiId);
-			if(execute.size()>0){
-				user = execute.get(0);
-			} else {
-				if(user.getLoginType().equals("email")){
-					return null;
-				}
-				
-				user = new UserEndpoint().insertUser(user);
-			}
-		}
-
-		return user;
+		return null;
 	}
 }
