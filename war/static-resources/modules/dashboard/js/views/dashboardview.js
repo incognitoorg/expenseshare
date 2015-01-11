@@ -123,18 +123,25 @@ define(function(require) {
 				filterZeros(credit);
 		
 				this.$('.js-owers').html('');
+				var totalCredit = 0;
 				for(owerIndex in credit){
 					var ower = credit[owerIndex];
 					var memberInfo = allMembers[owerIndex];
 					this.$('.js-owers').append(RowTemplate({fullName : memberInfo.fullName, amount : Math.abs(parseInt(ower.amount)), userId : memberInfo.userId}));
+					totalCredit += ower.amount;
 				}
+				this.$('.total-credit').html(totalCredit);
 				
 				this.$('.js-payers').html('');
+				var totalDebit = 0;
 				for(payerIndex in debt){
 					var payer = debt[payerIndex];
 					var memberInfo = allMembers[payerIndex];
 					this.$('.js-payers').append(RowTemplate({fullName : memberInfo.fullName, amount : parseInt(payer.amount), userId : memberInfo.userId}));
+					totalDebit += payer.amount;
 				}
+				this.$('.total-debit').html(totalDebit);
+				
 				
 				var $selectForUsers = $('<select class="user-selector">');
 				this.$('.js-user-selector-container').html('').append($selectForUsers);
@@ -151,10 +158,12 @@ define(function(require) {
 				self.allMembers = allMembers;
 			}
 			if(this.$('.js-owers').html().trim()===''){
-				this.$('.js-owers').html('Nobody owes you.');
+				
+				this.$('.js-owers').append($('<div>').css({marginTop : '10px'}).html('Nobody owes you.'));
 			}
 			if(this.$('.js-payers').html().trim()===''){
-				this.$('.js-payers').html('Hurray, you owe no one.');
+				
+				this.$('.js-payers').append($('<div>').css({marginTop : '10px'}).html('Hurray, you owe no one.'));
 			}
 			
 		},
