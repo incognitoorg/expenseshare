@@ -158,10 +158,12 @@ define(function(require) {
 				self.allMembers = allMembers;
 			}
 			if(this.$('.js-owers').html().trim()===''){
-				this.$('.js-owers').html('Nobody owes you.');
+				
+				this.$('.js-owers').append($('<div>').css({marginTop : '10px'}).html('Nobody owes you.'));
 			}
 			if(this.$('.js-payers').html().trim()===''){
-				this.$('.js-payers').html('Hurray, you owe no one.');
+				
+				this.$('.js-payers').append($('<div>').css({marginTop : '10px'}).html('Hurray, you owe no one.'));
 			}
 			
 		},
