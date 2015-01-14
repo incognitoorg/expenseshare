@@ -159,11 +159,11 @@ define(function(require) {
 			}
 			if(this.$('.js-owers').html().trim()===''){
 				
-				this.$('.js-owers').append($('<div>').css({marginTop : '10px'}).html('Nobody owes you.'));
+				this.$('.js-owers').append($('<div>').css({marginTop : '20px'}).html('Nobody owes you.').addClass('text-center'));
 			}
 			if(this.$('.js-payers').html().trim()===''){
 				
-				this.$('.js-payers').append($('<div>').css({marginTop : '10px'}).html('Hurray, you owe no one.'));
+				this.$('.js-payers').append($('<div>').css({marginTop : '20px'}).html('Hurray, you owe no one.').addClass('text-center'));
 			}
 			
 		},
