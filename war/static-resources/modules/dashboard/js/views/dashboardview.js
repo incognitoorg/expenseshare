@@ -130,7 +130,7 @@ define(function(require) {
 					this.$('.js-owers').append(RowTemplate({fullName : memberInfo.fullName, amount : Math.abs(parseInt(ower.amount)), userId : memberInfo.userId}));
 					totalCredit += ower.amount;
 				}
-				this.$('.total-credit').html(totalCredit);
+				this.$('.total-credit').html(parseInt(totalCredit));
 				
 				this.$('.js-payers').html('');
 				var totalDebit = 0;
@@ -140,7 +140,7 @@ define(function(require) {
 					this.$('.js-payers').append(RowTemplate({fullName : memberInfo.fullName, amount : parseInt(payer.amount), userId : memberInfo.userId}));
 					totalDebit += payer.amount;
 				}
-				this.$('.total-debit').html(totalDebit);
+				this.$('.total-debit').html(parseInt(totalDebit));
 				
 				
 				var $selectForUsers = $('<select class="user-selector">');
