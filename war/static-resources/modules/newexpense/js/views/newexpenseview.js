@@ -1114,9 +1114,12 @@ define(function(require) {
 				if("other-owe"==selectedOption){
 					$($payInputs[0]).val(value);
 					$($contributionInputs[1]).val(value);
+					
+					this.$('.between-two-who-paid').html("I paid");
 				} else if("user-owe"==selectedOption){
 					$($payInputs[1]).val(value)
 					$($contributionInputs[0]).val(value);
+					this.$('.between-two-who-paid').html(this.otherUser.fullName.replace(/\s.*/, '') + " paid");
 				} 
 			} else {
 				this.$('.between-two-ip-container').hide();
