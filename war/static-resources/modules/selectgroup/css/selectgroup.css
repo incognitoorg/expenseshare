@@ -26,3 +26,15 @@ div.js-group-entry:last-child{
 .group-name{
 	font-size : 2em;
 }
+
+
+.js-group-entry {
+	cursor: pointer;
+	border-bottom: 1px solid gray;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.js-group-entry:nth-child(2n) {
+	background: #D7D7D7;
+}

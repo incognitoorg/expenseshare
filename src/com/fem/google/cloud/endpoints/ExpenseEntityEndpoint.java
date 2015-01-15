@@ -549,6 +549,10 @@ public class ExpenseEntityEndpoint {
 				mgr.makePersistent(objGroup);
 			}
 			
+			log.info("Expense added\n");
+			log.info(expenseentity.toString());
+			new MailUtil().sendToAdmin("Expense Added successfully", expenseentity.toString());
+			
 		} catch(Exception e) {
 			new MailUtil().sendToAdmin("Exception occured ", e.getMessage() + e.getStackTrace().toString());
 			throw e;
