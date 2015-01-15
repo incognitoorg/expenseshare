@@ -13,6 +13,13 @@ define(function(require) {
 	var ExpenseUtility = require('modules/expenseutiliy/expenseutility');
 	require('libraries/jquery-ui/jquery.ui.autocomplete-amd');
 	require('css!libraries/jquery-ui/css/themes/base/jquery.ui.autocomplete.css');
+	
+	function simpleNumber(n){
+		if(parseInt(n) == n){
+			return parseInt(n);
+		}
+		return n;
+	}
 
 
 	var expenseInputCounter = 0;
@@ -779,11 +786,11 @@ define(function(require) {
 			
 			var remaniningAmount = expenseToDivide;
 			contributionInputs.each(function(index, el){
-				$(el).val(dividedShare);
+				$(el).val(simpleNumber(dividedShare));
 				remaniningAmount-=dividedShare;
 			});
 			
-			contributionInputs.last().val((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2));
+			contributionInputs.last().val(simpleNumber((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2)));
 			
 			
 			console.timeEnd('divideExpense');
@@ -815,7 +822,7 @@ define(function(require) {
 			
 			
 			var dividedShare = (expenseToDivide/contributionInputs.length).toFixed(2);
-			contributionInputs.val(dividedShare!=="NaN"?dividedShare : '');
+			contributionInputs.val(dividedShare!=="NaN"?simpleNumber(dividedShare) : '');
 			
 			//Commenting realtime validation as it hampers performance.
 			/*var valid= true;//;
@@ -831,7 +838,7 @@ define(function(require) {
 				remaniningAmount-=dividedShare;
 			});
 			
-			contributionInputs.last().val((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2));
+			contributionInputs.last().val(simpleNumber((parseFloat(dividedShare)+parseFloat(remaniningAmount)).toFixed(2)));
 			
 			this.$(event.currentTarget).
 			parents('.js-expense-div').
@@ -1113,12 +1120,12 @@ define(function(require) {
 				this.$('.split-form').hide();
 				if("other-owe"==selectedOption){
 					$($payInputs[0]).val(value);
-					$($contributionInputs[1]).val(value);
+					$($contributionInputs[1]).val(simpleNumber(value));
 					
 					this.$('.between-two-who-paid').html("I paid");
 				} else if("user-owe"==selectedOption){
 					$($payInputs[1]).val(value)
-					$($contributionInputs[0]).val(value);
+					$($contributionInputs[0]).val(simpleNumber(value));
 					this.$('.between-two-who-paid').html(this.otherUser.fullName.replace(/\s.*/, '') + " paid");
 				} 
 			} else {
