@@ -60,7 +60,9 @@
         "errorlogger": "libraries/errorlogger/errorlogger",
         "persistence": "libraries/lawnchair/lawnchair",
         "fbapioauth": "components/fbapi/fbapi-web",
+        "fbapisdk" : "empty:",
         "googleapioauth": "components/googleapi/googleapi-web",
+		"googleapisdk" : "empty:",
         "autocomplete-amd" : "libraries/jquery-ui/jquery.ui.autocomplete-amd",
         "autocomplete": "libraries/jquery-ui/js/ui/minified/jquery.ui.autocomplete.min",
         "uicore": "libraries/jquery-ui/js/ui/minified/jquery.ui.core.min",
@@ -153,7 +155,9 @@
                 "handlebars",
                 "underscore",
                 "jquery",
-                "bootloaders/fembootloader/fembootloader"
+                "bootloaders/fembootloader/fembootloader",
+                "fbapisdk",
+                "googleapisdk"
             ]
         },
         {
