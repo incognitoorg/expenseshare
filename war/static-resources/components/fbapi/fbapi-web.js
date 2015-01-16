@@ -1,6 +1,9 @@
 define(function(require) {
 
-	var FBAPI = require('http://connect.facebook.net/en_US/all.js');
+	//var FBAPI = require('http://connect.facebook.net/en_US/all.js');
+	var FBAPI = require('fbapisdk');
+	
+	console.log('FBAPI', FBAPI)
 
 	var EnvVariables = EnvVariablesGlobal || require('envvariables');
 
@@ -76,7 +79,8 @@ define(function(require) {
 		},
 		getAuthToken : function(){
 			return FBAuthToken;
-		}
+		},
+		status : FBAPI &&  FBAPI.status
 	};
 
 });

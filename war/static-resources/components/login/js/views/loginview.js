@@ -9,6 +9,10 @@ define(function(require){
 	var registerSuccessTemplate = Handlebars.compile(require('text!../../templates/register-success.html'));
 	var passwordResetSuccessTemplate = Handlebars.compile(require('text!../../templates/password-reset-success.html'));
 	
+	console.log('FBAPI.status', FBAPI.status);
+	console.log('GoogleAPI.status', GoogleAPI.status);
+	
+	
 	var APIMapper = {
 			facebook : FBAPI,
 			google : GoogleAPI
@@ -54,7 +58,10 @@ define(function(require){
 		},
 		template: Handlebars.compile(require("text!./../../templates/loginform.html")),
 		render : function(){
-			$(this.el).html(this.template());
+			$(this.el).html(this.template({
+				fbavailable : FBAPI.status!='error',
+				googleavailable : GoogleAPI.status!='error'
+			}));
 		},
 		events : {
 			'click .facebook' : 'eventDoFacebookLogin',
@@ -68,6 +75,9 @@ define(function(require){
 			
 		},
 		eventDoFacebookLogin : function(options){
+			if(FBAPI.status=='error'){
+				return;
+			}
 			var self = this;
 			FBAPI.checkAndDoLogin({callback : function(data){
 				self.addToUser({facebook:data.data});
@@ -82,6 +92,9 @@ define(function(require){
 			}, context : this});
 		},
 		eventDoGoogleLogin : function(options){
+			if(GoogleAPI.status=='error'){
+				return;
+			}
 		    var self = this;
 			GoogleAPI.checkAndDoLogin({callback : function(data){
 			    self.addToUser({google:data.data});

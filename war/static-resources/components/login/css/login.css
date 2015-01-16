@@ -415,3 +415,24 @@ button:-moz-focus-inner {
 .top-bar .columns{
 	background: rgb(209, 204, 204);
 }
+
+#app-signin .errorAPI{
+	display:inline-block;
+	margin-left:10px;
+}
+#app-signin .errorAPI.true{
+	display:none!important;
+}
+
+.api-fieldset{
+	opacity:0.5;
+}
+.api-fieldset a{
+	cursor: default;
+}
+.api-fieldset.true{
+	opacity:1;
+}
+.api-fieldset.true a{
+	cursor:pointer;
+}
