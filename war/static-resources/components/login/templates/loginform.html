@@ -12,13 +12,13 @@
 				        <input type="submit" name="emailSignin" class="email-signin action-submit" id="email-signin" value="LOG IN">
 				        <a class="show-forgot-password">Forgot password?</a>
 				    </fieldset>
-				     <fieldset id="googlefieldset">
-				        <a  class="zocial google">Sign in with Google</a>
+				     <fieldset id="googlefieldset" class="api-fieldset {{googleavailable}}">
+				        <a  class="zocial google"><span class="labelAPI {{googleavailable}}">Sign in with Google</span><span class="errorAPI {{googleavailable}}">(Unable to connect to Google)</span></a>
 				    </fieldset>
-				     <fieldset id="facebookfieldset">
-					<a  class="zocial facebook">Sign in with Facebook</a>
+				     <fieldset id="facebookfieldset" class="api-fieldset {{fbavailable}}" >
+					<a  class="zocial facebook"><span class="labelAPI {{fbavailable}}">Sign in with Facebook</span><span class="errorAPI {{fbavailable}}">(Unable to connect to Facebook)</span></a>
 					 </fieldset>
-				     <fieldset id="" class="show-signup" style="text-align:center;padding-top:30px;">
+				     <fieldset id="" class="show-signup" style="text-align:center;padding-top:30px;" >
 				        <a class="center" class="show-signup" style="color:silver;">Register</a>
 				    </fieldset>
 				   

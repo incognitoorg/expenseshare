@@ -1,8 +1,11 @@
 define(function(require){
 
-	var googleClient = require('https://apis.google.com/js/client.js'), 
+	//var googleClient = require('https://apis.google.com/js/client.js'), 
+	var googleClient = require('googleapisdk'), 
 
 	EnvVariables = EnvVariablesGlobal || require('envvariables');
+	
+	console.log('googleClient', googleClient);
 
 	
 	
@@ -150,7 +153,8 @@ define(function(require){
 		getContacts : getContacts,
 		getAuthToken :  function(){
 			return authToken;
-		}
+		},
+		status : googleClient && googleClient.status
 	};
 
 });
