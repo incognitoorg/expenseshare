@@ -19,7 +19,7 @@ var require = {
 			errorlogger : 'libraries/errorlogger/errorlogger',
 			persistence : 'libraries/lawnchair/lawnchair',
 			fbapioauth : 'components/fbapi/fbapi-web',
-			fbapisdk : ['http://connect.facebook.net/en_US/all', 'components/fbapi/fbapi-sdk-fallback'],
+			fbapisdk : ['http://connect.facebook.net/en_US/all.fail', 'components/fbapi/fbapi-sdk-fallback'],
 			googleapioauth : 'components/googleapi/googleapi-web',
 			googleapisdk : ['https://apis.google.com/js/client.', 'components/googleapi/googleapi-sdk-fallback'],
 			formvalidationwrapper : 'plugins/jquery/formvalidation/formvalidation',
