@@ -23,7 +23,7 @@ define(function(require) {
 
 
 	function getUserInfo(options){
-		FB.api('/me?fields=email,username,first_name,last_name', function(response) {
+		FB.api('/me?fields=email,first_name,last_name', function(response) {
             response.authToken = FBAuthToken;
 			if(options.callback){
 				options.callback.call(options.context || this, {
